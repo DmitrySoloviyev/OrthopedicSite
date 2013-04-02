@@ -1,0 +1,761 @@
+/*
+ * Copyright (C) 2012 Dmitry Soloviyev
+ *
+ * This file is part of Orthopedic website.
+ *
+ * Orthopedic website is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * Orthopedic website is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Orthopedic website.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+ * Этот файл — часть Orthopedic website.
+ *
+ * Это свободная программа: вы можете перераспространять ее и/или изменять
+ * ее на условиях Стандартной общественной лицензии GNU в том виде, в каком
+ * она была опубликована Фондом свободного программного обеспечения; либо
+ * версии 3 лицензии, либо (по вашему выбору) любой более поздней версии.
+ *
+ * Эта программа распространяется в надежде, что она будет полезной,
+ * но БЕЗО ВСЯКИХ ГАРАНТИЙ; даже без неявной гарантии ТОВАРНОГО ВИДА
+ * или ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Подробнее см. в Стандартной
+ * общественной лицензии GNU.
+ *
+ * Вы должны были получить копию Стандартной общественной лицензии GNU
+ * вместе с этой программой. Если это не так, см. <http://www.gnu.org/licenses/>.
+ */
+
+/*сброс всех настроек*/
+/* @import url(reset.css); */
+
+@media only screen and (max-width: 480px) {
+/* Здесь стили более разумных, но все еще мобильных устройств. Android, iPhone  и так далее. */
+}
+ 
+@media only screen and (max-width: 768px) {
+/* Планшеты в режиме portrait. */
+
+}
+ 
+@media only screen and (max-width: 992px) {
+/* Планшеты в режиме landscape, нетбуки, ноутбуки, десктоп. */
+}
+
+@media only screen and (max-width: 1382px) {
+/* Десктоп с большими разрешениями, телевизоры. */
+}
+
+/***********************************основные элементы*/
+@font-face{
+  font-family:pfbeausansproregular;
+  src: url(../fonts/pfbeausanspro-regular.ttf);
+}
+*{
+  outline: none;
+}
+html{
+  height:100%;
+  width:100%;
+}
+body{
+/*   background:url(../images/billie_holiday.png) repeat; */
+  background:url(../images/ibg.jpg) repeat;
+  height:100%;
+/*   width:100%; */
+/*   margin:20px auto; */
+  margin-top:0px;
+  font: normal 100% pfbeausansproregular, Verdana, Cambria, Georgia, Arial, sans-serif;
+}
+.fix{
+  width:90%;
+  margin:0px auto;
+  min-height:100%;
+  position:relative;
+}
+header{
+  width:100%;
+  margin:0 auto 0.5em auto;
+}
+header h1{
+  font-size:2em;/* 24px/16px*/
+  font-style:oblique;
+  font-weight:600;
+  text-align:center;
+  color:#4094b6;
+  background-color:transparent;
+}
+#center{
+  height: 100%;
+  padding:20px 10px 85px 10px;
+}
+footer{
+  text-align:center;
+/*   box-shadow:0 0 20px rgba(0,0,0,0.5); */
+/*   background-color:rgba(38,38,38,0.6); */
+/*   background:url(../images/ibg_100.jpg) repeat; */
+  width:100%;
+  height:65px;/*65/*/
+  position:absolute;
+  bottom:0;
+  
+}
+fieldset{
+  border-radius:6px;
+  margin:10px;
+  padding:10px 15px 10px 15px;
+}/**************************************************************************конец основные************************************************/
+
+
+/***********************************************конфигурация плагина Validate***********************************************/
+label.error, label.arrow_box{
+  color:#84000d;
+  position: absolute;
+  background: #f5f5f5;
+  border: 2px solid #f56262;
+  padding:2px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+  z-index:2;
+}
+
+.error:after, .error:before {
+	right: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.error:after {
+	border-color: rgba(245, 245, 245, 0);
+	border-right-color: #f5f5f5;
+	border-width: 5px;
+	top: 50%;
+	margin-top: -5px;
+}
+.error:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-right-color: #f56262;
+	border-width: 8px;
+	top: 50%;
+	margin-top: -8px;
+}/**********************************************end Validate********************************************/
+
+/***********************************************подсветка слов поиска*****************************************************/
+.highlight {
+  background: #fff09e;
+  border-top: 1px dashed #c16b3d;
+  border-bottom: 1px dashed #c16b3d; 
+}/***********************************************подсветка слов поиска*****************************************************/
+
+
+/*********************************************меню сайта*********************************************/
+#navigation ul{
+  text-align:center;
+  overflow:hidden;
+  padding:10px;
+}
+
+#navigation ul li{
+  display:inline;
+  background-color:#65909A;
+  padding:10px 10px;
+  border-left:1px solid #bababa;
+  border-right:1px solid #bababa;
+  margin: 0 1px 0 -6px;
+}
+
+#navigation ul li a{
+  text-decoration:none;
+  margin:10px;
+  color:white;
+  display:inline-block;
+}
+
+#navigation ul li:hover{
+  background:-webkit-linear-gradient(bottom,#E8563C,#E82C0C);
+  background:-moz-linear-gradient(bottom,#E8563C,#E82C0C);
+  background:-o-linear-gradient(bottom,#E8563C,#E82C0C);
+  background:-ms-linear-gradient(bottom,#E8563C,#E82C0C);
+  background:linear-gradient(bottom,#E8563C,#E82C0C);
+  box-shadow:0px 1px 10px rgba(0,0,0,0.6);
+  -moz-box-shadow:0px 1px 10px rgba(0,0,0,0.6);
+  -webkit-box-shadow:0px 1px 10px rgba(0,0,0,0.6);
+}
+
+#navigation ul li.selected{
+  font-weight:800;
+  background:-webkit-linear-gradient(top,#E8563C,#E82C0C);
+  background:-moz-linear-gradient(top,#E8563C,#E82C0C);
+  background:-o-linear-gradient(top,#E8563C,#E82C0C);
+  background:-ms-linear-gradient(top,#E8563C,#E82C0C);
+  background:-webkit-linear-gradient(top,#E8563C,#E82C0C);
+  box-shadow:0px 1px 10px rgba(0,0,0,0.6);
+  -moz-box-shadow:0px 1px 10px rgba(0,0,0,0.6);
+  -webkit-box-shadow:0px 1px 10px rgba(0,0,0,0.6);
+}/*********************************************************************конец меню сайта*******************************/
+
+#hidden{
+  display:none;
+}
+/**********************************************************************формы********************/
+/*form tr td{
+  padding:4px;
+}*/
+
+form input{
+  margin:5px;
+}
+/****************************************************всплывающая подсказка************/
+#hint{
+  padding:10px;
+  background:#fc0;
+  border: 2px solid #B25538;
+  float:right;
+  position:absolute;
+  top:14.5em;
+  right:2.2em;
+  width:220px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+  font-style:italic;
+}
+#hint a{
+  color: black;
+  margin:3px
+}
+/*********************************************************таблица в разделе "просмотр базы"************/
+table.dboutput{
+  border:2px solid black;
+  font-size:14px;
+  text-align:center;
+  width:100%;
+  margin:auto;
+  background:url(../images/billie_holiday.png) repeat;
+}
+
+table.dboutput th{
+  background:#232323;
+  color:#bcbcbc;
+}
+
+table.dboutput tr{
+  height:40px;
+  padding:2px;
+  border:1px solid black;
+}
+
+table.dboutput tr:hover{
+  background-color:#c9c9c9;
+}
+
+table.dboutput tr td{
+  padding:3px;
+  height:30px;
+  border:1px solid black;
+}
+
+input:focus, textarea:focus, summary:focus{
+  outline: none;
+  border-radius:6px;
+  border-color:#E82C0C;
+/*   border-color:#4094b6; */
+}
+
+.employeelist{
+  border:4px double #4094b6;
+  width:400px;
+  text-align:center;
+}
+
+.tr_selected{
+  background:#fe9223;
+}/*********************************************************конец таблица в разделе "просмотр базы"************/
+
+/*****************************************************************"кнопки"******/
+.button {
+   border: 1px solid #0a3c59;
+   background: #3e779d;
+   background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+   background: -webkit-linear-gradient(top, #65a9d7, #3e779d);
+   background: -moz-linear-gradient(top, #65a9d7, #3e779d);
+   background: -ms-linear-gradient(top, #65a9d7, #3e779d);
+   background: -o-linear-gradient(top, #65a9d7, #3e779d);
+   background-image: -ms-linear-gradient(top, #65a9d7 0%, #3e779d 100%);
+   padding: 5.5px 11px;
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #7ea4bd 0 1px 0;
+   color: #06426c;
+   font-size: 14px;
+   font-family: helvetica, serif;
+   text-decoration: none;
+   vertical-align: middle;
+}
+.button:hover {
+   border: 1px solid #0a3c59;
+   text-shadow: #1e4158 0 1px 0;
+   background: #3e779d;
+   background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+   background: -webkit-linear-gradient(top, #65a9d7, #3e779d);
+   background: -moz-linear-gradient(top, #65a9d7, #3e779d);
+   background: -ms-linear-gradient(top, #65a9d7, #3e779d);
+   background: -o-linear-gradient(top, #65a9d7, #3e779d);
+   background-image: -ms-linear-gradient(top, #65a9d7 0%, #3e779d 100%);
+   color: #fff;
+   cursor: pointer;
+}
+.button:active {
+   text-shadow: #1e4158 0 1px 0;
+   border: 1px solid #0a3c59;
+   background: #65a9d7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#3e779d));
+   background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+   background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+   background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+   background: -o-linear-gradient(top, #3e779d, #65a9d7);
+   background-image: -ms-linear-gradient(top, #3e779d 0%, #65a9d7 100%);
+   color: #fff;
+}
+
+/***********************************************************кнопка удаления****************************/
+#button_delete {
+   border: 1px solid #0a3c59;
+   background: #9c3e3e;
+   background: -webkit-gradient(linear, left top, left bottom, from(#d66565), to(#9c3e3e));
+   background: -webkit-linear-gradient(top, #d66565, #9c3e3e);
+   background: -moz-linear-gradient(top, #d66565, #9c3e3e);
+   background: -ms-linear-gradient(top, #d66565, #9c3e3e);
+   background: -o-linear-gradient(top, #d66565, #9c3e3e);
+   background-image: -ms-linear-gradient(top, #d66565 0%, #9c3e3e 100%);
+   padding: 5.5px 11px;
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #bd7f7f 0 1px 0;
+   color: #6b0606;
+   font-size: 14px;
+   font-family: helvetica, serif;
+   text-decoration: none;
+   vertical-align: middle;
+}
+#button_delete:hover {
+   border: 1px solid #0a3c59;
+   text-shadow: #1e4158 0 1px 0;
+   background: #9c3e3e;
+   background: -webkit-gradient(linear, left top, left bottom, from(#d66565), to(#9c3e3e));
+   background: -webkit-linear-gradient(top, #d66565, #9c3e3e);
+   background: -moz-linear-gradient(top, #d66565, #9c3e3e);
+   background: -ms-linear-gradient(top, #d66565, #9c3e3e);
+   background: -o-linear-gradient(top, #d66565, #9c3e3e);
+   background-image: -ms-linear-gradient(top, #d66565 0%, #9c3e3e 100%);
+   color: #fff;
+   cursor: pointer;
+}
+#button_delete:active {
+   text-shadow: #1e4158 0 1px 0;
+   border: 1px solid #0a3c59;
+   background: #d66565;
+   background: -webkit-gradient(linear, left top, left bottom, from(#9c3e3e), to(#9c3e3e));
+   background: -webkit-linear-gradient(top, #9c3e3e, #d66565);
+   background: -moz-linear-gradient(top, #9c3e3e, #d66565);
+   background: -ms-linear-gradient(top, #9c3e3e, #d66565);
+   background: -o-linear-gradient(top, #9c3e3e, #d66565);
+   background-image: -ms-linear-gradient(top, #9c3e3e 0%, #d66565 100%);
+   color: #fff;
+}/********************************************************************************конец раздела "кнопки"***************/
+
+
+/**********************************************************************************Регистрационное меню*********************/
+.form-container {
+/*    border: 1px solid #b6d1db; */
+   background-color: #bdbec0;
+/*    background: -webkit-gradient(linear, left top, left bottom, from(#e6e6e6), to(#97a0a3)); */
+/*    background: -webkit-linear-gradient(top, #e6e6e6, #97a0a3); */
+/*    background: -moz-linear-gradient(top, #e6e6e6, #97a0a3); */
+/*    background: -ms-linear-gradient(top, #e6e6e6, #97a0a3); */
+/*    background: -o-linear-gradient(top, #e6e6e6, #97a0a3); */
+/*    background-image: -ms-linear-gradient(top, #e6e6e6 0%, #97a0a3 100%); */
+/*    -webkit-border-radius: 6px; */
+/*    -moz-border-radius: 6px; */
+/*    border-radius: 6px; */
+   -webkit-box-shadow: rgba(000,000,000,0.9) 0 1px 2px, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(000,000,000,0.9) 0 1px 2px, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(000,000,000,0.9) 0 1px 2px, inset rgba(255,255,255,0.4) 0 1px 0;
+/*    font-family: 'Helvetica Neue',Helvetica,sans-serif; */
+/*    text-decoration: none; */
+   vertical-align: middle;
+   padding:0px;
+   width:225px;
+   box-shadow:1px 2px 10px rgb(0,0,0);
+}
+.form-field {
+/*    border: 1px solid #95aeb8; */
+/*    background: #e0e0e0; */
+/*    -webkit-border-radius: 4px; */
+/*    -moz-border-radius: 4px; */
+/*    border-radius: 4px; */
+/*    color: #5b7985; */
+/*    -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 1px 1px; */
+/*    -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 1px 1px; */
+/*    box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 1px 1px; */
+   padding:4px;
+   margin-bottom:1px;
+   width:200px;
+}
+.form-field:focus {
+/*    background: #ebebeb; */
+/*    color: #3c6373; */
+}
+.form-container h2 {
+   text-shadow: #e5eafc 0 1px 0;
+   font-size:16px;
+   margin: 0 0 1px 0;
+   font-weight:bold;
+   text-align:center;
+}
+.form-title {
+   margin-bottom:1px;
+/*    color: #4095b6; */
+   text-shadow: #e5eafc 0 1px 0;
+/*    display:inline; */
+}
+.submit-container {
+   margin:8px 0;
+   text-align:right;
+   padding:2px;
+}
+.submit-button {
+   border: 1px solid #447314;
+   background: #6aa436;
+   background: -webkit-gradient(linear, left top, left bottom, from(#8dc059), to(#6aa436));
+   background: -webkit-linear-gradient(top, #8dc059, #6aa436);
+   background: -moz-linear-gradient(top, #8dc059, #6aa436);
+   background: -ms-linear-gradient(top, #8dc059, #6aa436);
+   background: -o-linear-gradient(top, #8dc059, #6aa436);
+   background-image: -ms-linear-gradient(top, #8dc059 0%, #6aa436 100%);
+   -webkit-border-radius: 4px;
+   -moz-border-radius: 4px;
+   border-radius: 4px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #addc7e 0 1px 0;
+   color: #31540c;
+   padding: 8.5px 18px;
+   font-size: 14px;
+   text-decoration: none;
+   vertical-align: middle;
+   width:210px;
+}
+.submit-button:hover {
+   border: 1px solid #447314;
+   text-shadow: #31540c 0 1px 0;
+   background: #6aa436;
+   background: -webkit-gradient(linear, left top, left bottom, from(#8dc059), to(#6aa436));
+   background: -webkit-linear-gradient(top, #8dc059, #6aa436);
+   background: -moz-linear-gradient(top, #8dc059, #6aa436);
+   background: -ms-linear-gradient(top, #8dc059, #6aa436);
+   background: -o-linear-gradient(top, #8dc059, #6aa436);
+   background-image: -ms-linear-gradient(top, #8dc059 0%, #6aa436 100%);
+   color: #fff;
+   cursor: pointer;
+}
+.submit-button:active {
+   text-shadow: #31540c 0 1px 0;
+   border: 1px solid #447314;
+   background: #8dc059;
+   background: -webkit-gradient(linear, left top, left bottom, from(#6aa436), to(#6aa436));
+   background: -webkit-linear-gradient(top, #6aa436, #8dc059);
+   background: -moz-linear-gradient(top, #6aa436, #8dc059);
+   background: -ms-linear-gradient(top, #6aa436, #8dc059);
+   background: -o-linear-gradient(top, #6aa436, #8dc059);
+   background-image: -ms-linear-gradient(top, #6aa436 0%, #8dc059 100%);
+   color: #fff;
+}  
+#registration{
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  right:0px;
+}
+#registration form {
+  padding: 10px 10px 10px 10px;
+  display: none;	
+  background-color: #BCC0C1;
+}
+#registration .close {
+  background-color: rgb(110,138,195);	
+}
+#new_employee{
+  margin: 0;
+  cursor: pointer;
+  background:#ff9433;
+  color: rgb(58,80,123);
+  padding: 5px 2px 2px 0px;
+  text-align:center;
+  box-shadow:1px 2px 10px rgba(0,0,0,0.7);
+}
+
+#new_employee:hover {
+  color: rgb(0,0,0);
+  background-color: rgb(110,138,195);	
+}/*******************************************************************************конец раздела "регистрационное меню"**************/
+
+option{
+  color:black;
+}
+
+#gpl{
+  position:absolute;
+  right:5%;
+  bottom:10%;
+  max-width:100%;
+}
+
+/********************************************************************************картинки в ссылках меню******/
+/*****************удаление***********/
+a.delrow{
+  background:url(../images/delete_16px.png) no-repeat;
+  padding:16px;
+  background-position:center;
+}
+a.delrow:hover{
+  background:url(../images/delete.png) no-repeat;
+  background-position:center;
+  padding:16px;
+}
+/**************редактирование*******/
+a.editrow{
+  background:url(../images/edit_24px.png) no-repeat;
+  padding:16px;
+  background-position:center;
+}
+a.editrow:hover{
+  background:url(../images/edit.png) no-repeat;
+  background-position:center;
+}
+
+/*********************************************************Кнопка наверх*****************************************************/
+#back-top {
+  position: fixed;
+  bottom: 10px;
+  margin-left: 10px;
+}
+#back-top a {
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #bbb;
+  /* замедление */
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  transition: 1s;
+}
+#back-top a:hover {
+    color: #000;
+}
+/* изображение со стрелкой (тег img) */
+#back-top img {
+  /* замедление */
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  transition: 1s;
+  opacity:0.4;
+}
+#back-top a:hover img {
+  -webkit-transition: 2s;
+  -moz-transition: 2s;
+  transition: 2s;
+  opacity:1;
+}
+
+/*********************аккордеон*****************/
+.accordion {
+  width:100%;
+  border-radius:6px;
+  border-bottom: solid 1px #c4c4c4;
+}
+.accordion h3 {
+	padding: 7px 15px;
+	margin: 0;
+	border: solid 1px #c4c4c4;
+	border-bottom:none;
+	border-radius:8px;
+/* 	background-color:#c5c3c3; */
+}
+.accordion h3:hover {
+	background-color: #d9d8d8;
+	cursor: pointer;
+}
+.accordion h3.active {
+	background-position: right 5px;
+	background-color: #d9d8d8;
+}
+.accordion p {
+	background: #f7f7f7;
+	margin: 0;
+	padding: 10px 15px 20px;
+	border-left: solid 1px #c4c4c4;
+	border-right: solid 1px #c4c4c4;
+	display: none;
+	border-radius:6px;
+}
+
+/**********************************всплывающее окно информации о модели****************/
+#model_info{
+  background: url(../images/bg_info_left.gif) repeat-y,#f9f9f9 url(../images/bg_info_right.gif) repeat-y 100% 0;
+  position:absolute;
+  left:50%;
+  top:19em;
+  min-width:48%;/*480px;*/
+  float:right;
+/*   padding:5px; */
+  padding:1.5em;/*5/480*/
+  box-shadow:0px 3px 1px rgba(0,0,0,0.4);
+}
+
+#model_info #picture{
+  position:absolute;
+/*   float:left; */
+  padding:5px;
+  max-width:275px;
+  max-height:100%;
+  margin:2px 0 2px 5px;
+/*   border:1px solid black; */
+  transform: rotate(10deg) scale(1) skew(1deg) translate(10px);
+  -webkit-transform: rotate(10deg) scale(1) skew(1deg) translate(10px);
+  -moz-transform: rotate(10deg) scale(1) skew(1deg) translate(10px);
+  -o-transform: rotate(10deg) scale(1) skew(1deg) translate(10px);
+  -ms-transform: rotate(10deg) scale(1) skew(1deg) translate(10px);
+  top:-1em;
+  left:-6em;
+  background: url(../images/bg_info_left.gif) repeat-y,#f9f9f9 url(../images/bg_info_right.gif) repeat-y 100% 0;
+}
+
+#description{
+  padding-left:190px;
+  line-height:1.5;
+/*   height:120px; */
+  margin-top:25px;
+}
+
+#model_info form{
+  float:right;
+}
+
+#readmore{
+  float:right;
+  margin-top:5px;
+  display:block;
+  padding:5px;
+  background:#797979;
+  color:#fff;
+  text-transform:none;
+  font-size:12px;
+  font-family:Sans-serif;
+  text-decoration:none;
+}
+
+#readmore:hover{
+  background:#969696;
+}
+
+#nav{
+  float:right;
+}
+
+#nav a{
+  opacity:0.4;
+  margin-top:10px;
+}
+#nav a:hover{
+  opacity:1;
+}
+
+#upload_file{
+  width:50px;
+}
+
+#metainfo{
+  margin:5px 5px 5px 190px;
+  border-top:1px solid #c7c7c7;
+}
+
+#author{
+  font-size:12px;
+  font-family:Sans-serif;
+  text-decoration:none;
+  font-style:italic;
+}
+
+#date{
+  clear:both;
+  font-size:12px;
+  font-family:Sans-serif;
+  text-decoration:none;
+  font-style:italic;
+}
+
+#next{
+/*   background:url(../images/next.png) no-repeat; */
+  width:16px;
+  height:22px;
+  margin:5px 0 0 5px;
+  opacity:0.4;
+}
+#previous{
+/*   background:url(../images/previous.png) no-repeat; */
+  width:16px;
+  height:22px;
+  margin:5px 0 0 5px;
+  opacity:0.4;
+}
+#new_picture{
+/*   background:url(../images/image.png) no-repeat !important; */
+  width:16px;
+  height:22px;
+  margin:5px 0 0 5px;
+  opacity:0.4;
+}
+
+#next:hover, #previous:hover, #new_picture:hover{
+  cursor:pointer;
+  opacity:1;
+}
+
+#description_model{
+  font:italic bold 16px sans-serif;
+  border-bottom:4px double rgb(100, 100, 100);
+  height:30px;
+  text-align:center;
+  padding-left:190px;
+  margin-top:30px;
+  vertical-align:middle;
+}
+
+#close_model_info{
+  position:absolute;
+  top: -18px;
+	right: -18px;
+	width: 36px;
+	height: 36px;
+	cursor: pointer;
+	z-index: 8040;
+	background-image: url('../images/fancybox_sprite.png');
+}
