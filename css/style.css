@@ -752,10 +752,14 @@ a.editrow:hover{
 #close_model_info{
   position:absolute;
   top: -18px;
-	right: -18px;
-	width: 36px;
-	height: 36px;
-	cursor: pointer;
-	z-index: 8040;
-	background-image: url('../images/fancybox_sprite.png');
+  right: -18px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  z-index: 8040;
+  background-image: url('../images/fancybox_sprite.png');
+  opacity:0.4;
+}
+#close_model_info:hover{
+  opacity:1;
 }
