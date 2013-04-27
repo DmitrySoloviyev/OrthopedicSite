@@ -1,0 +1,26 @@
+Ошибка загрузки файла.  2013:Apr:05 21:48:33 in /var/www/htdocs/OrthopedicSite/mobile/m.lib.php on line 638
+Не удалось подключиться к базе данных . No database selected 2013:Apr:05 23:58:46 in /var/www/htdocs/mobile/m.lib.php on line 1074
+Не удалось подключиться к базе данных . No database selected 2013:Apr:05 23:58:47 in /var/www/htdocs/mobile/m.lib.php on line 1074
+Не удалось подключиться к базе данных . No database selected 2013:Apr:05 23:58:49 in /var/www/htdocs/mobile/m.lib.php on line 1074
+Не удалось подключиться к базе данных . No database selected 2013:Apr:05 23:58:54 in /var/www/htdocs/mobile/m.lib.php on line 1074
+Не удалось подключиться к базе данных . No database selected 2013:Apr:05 23:58:54 in /var/www/htdocs/mobile/m.lib.php on line 1074
+Не удалось подключиться к базе данных . No database selected 2013:Apr:05 23:58:54 in /var/www/htdocs/mobile/m.lib.php on line 1074
+Не удалось подключиться к базе данных . No database selected 2013:Apr:05 23:58:54 in /var/www/htdocs/mobile/m.lib.php on line 1074
+Запрос на вывод таблицы провален! You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 32 2013:Apr:06 00:29:40 in /var/www/htdocs/mobile/m.view.php on line 102
+Запрос на вывод таблицы провален! You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 32 2013:Apr:06 00:40:44 in /var/www/htdocs/mobile/m.view.php on line 102
+Запрос на вывод таблицы провален! You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 32 2013:Apr:06 00:42:53 in /var/www/htdocs/mobile/m.view.php on line 102
+Запрос на вывод таблицы провален! You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 32 2013:Apr:06 00:45:17 in /var/www/htdocs/mobile/m.view.php on line 102
+Запрос на вывод таблицы провален! You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 32 2013:Apr:06 00:45:18 in /var/www/htdocs/mobile/m.view.php on line 102
+Запрос на вывод таблицы провален! You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 32 2013:Apr:06 00:45:20 in /var/www/htdocs/mobile/m.view.php on line 102
+Запрос на вывод таблицы провален! You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 32 2013:Apr:06 00:46:12 in /var/www/htdocs/mobile/m.view.php on line 102
+Запрос на вывод таблицы провален! You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 32 2013:Apr:06 00:46:19 in /var/www/htdocs/mobile/m.view.php on line 102
+Запрос на вывод таблицы провален! You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 32 2013:Apr:06 00:46:23 in /var/www/htdocs/mobile/m.view.php on line 102
+Запрос на вывод таблицы провален! You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 32 2013:Apr:06 01:01:59 in /var/www/htdocs/mobile/m.view.php on line 102
+Запрос на вывод таблицы провален! You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 32 2013:Apr:06 01:02:44 in /var/www/htdocs/mobile/m.view.php on line 102
+Добавлен новый сотрудник семкова кристина геннадьевна!  2013:Apr:06 01:47:17 in /var/www/htdocs/mobile/m.lib.php on line 1003
+Уволен сотрудниксемкова кристина геннадьевна!  2013:Apr:14 00:27:47 in /var/www/htdocs/mobile/m.lib.php on line 1056
+Восстановлен уволенный сотрудник: семкова кристина геннадьевна!  2013:Apr:14 01:42:43 in /var/www/htdocs/mobile/m.lib.php on line 1017
+Произведена оптимизация БД SHOES.  2013:Apr:14 01:50:16 in /var/www/htdocs/mobile/m.lib.php on line 1107
+Произведена оптимизация БД SHOES.  2013:Apr:14 01:51:15 in /var/www/htdocs/mobile/m.lib.php on line 1107
+Ошибка загрузки файла.  2013:Apr:14 01:52:24 in /var/www/htdocs/mobile/m.lib.php on line 638
+Ошибка загрузки файла.  2013:Apr:14 01:52:47 in /var/www/htdocs/mobile/m.lib.php on line 638
