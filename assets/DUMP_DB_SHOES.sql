@@ -167,7 +167,7 @@ CREATE TABLE `Models` (
   `ModelID` int unsigned NOT NULL AUTO_INCREMENT,
   `ModelName` varchar(6) NOT NULL,
   `ModelDescription` varchar(255) NOT NULL DEFAULT 'нет описания',
-  `ModelPicture` varchar(32) NOT NULL DEFAULT '#',
+  `ModelPicture` varchar(64) NOT NULL DEFAULT 'assets/OrthopedicGallery/ortho.jpg',
   `DateModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`ModelID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

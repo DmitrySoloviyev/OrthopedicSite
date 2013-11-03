@@ -160,7 +160,7 @@ $('#ModelForm').draggable({
 	  }
 });
 
-$('#close_ModelForm').click(function(e){
+$('.closeWindow').click(function(e){
     $('#ModelForm').animate({opacity: 0.0}, 400);
     return false;
 });
@@ -201,7 +201,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 				</div>
 			</td>
 	    	<td id="ModelForm" rowspan="10">
-	    		<a href="#" id="close_ModelForm"></a>
+	    		<a href="#" class="closeWindow"></a>
 	    		<fieldset>
 	    		<legend style="margin-left:30px;">Модель</legend>
 	    			<table>
@@ -375,8 +375,8 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			<td>
 				<div class="row">
 				<?php 
-					echo $form->dropDownList($employeesModel, 'EmployeeIDUpdate', $employeesModel->getEmployeeList()); 
-					echo $form->error($employeesModel,'EmployeeIDUpdate');?>
+					echo $form->dropDownList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList()); 
+					echo $form->error($employeesModel,'EmployeeID');?>
 				</div>
 			</td>
 	    </tr>

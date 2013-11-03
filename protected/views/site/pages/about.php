@@ -1,38 +1,4 @@
 <?php
-/*
- * Copyright (C) 2012 Dmitry Soloviyev
- *
- * This file is part of Orthopedic website.
- *
- * Orthopedic website is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * Orthopedic website is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Orthopedic website.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * Этот файл — часть Orthopedic website.
- *
- * Это свободная программа: вы можете перераспространять ее и/или изменять
- * ее на условиях Стандартной общественной лицензии GNU в том виде, в каком
- * она была опубликована Фондом свободного программного обеспечения; либо
- * версии 3 лицензии, либо (по вашему выбору) любой более поздней версии.
- *
- * Эта программа распространяется в надежде, что она будет полезной,
- * но БЕЗО ВСЯКИХ ГАРАНТИЙ; даже без неявной гарантии ТОВАРНОГО ВИДА
- * или ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Подробнее см. в Стандартной
- * общественной лицензии GNU.
- *
- * Вы должны были получить копию Стандартной общественной лицензии GNU
- * вместе с этой программой. Если это не так, см. <http://www.gnu.org/licenses/>.
- **/
 /* @var $this SiteController */
 $this->pageTitle=Yii::app()->name . ' - О сайте';
 Yii::app()->clientScript->registerScript('about',"
@@ -85,35 +51,16 @@ Yii::app()->clientScript->registerScript('about',"
   <h3>Рекомендации</h3>
   <p>1. Иногда, в зависимости от нагруженности базы информацией, рекомендуется производить ее оптимизацию, в целях уменьшения
   дефрагментации таблиц, получив в итоге лучшее быстродействие (особенно при поиске).<br />
-  2. Настоятельно рекомендуется пользоваться сайтом при помощи браузера <a href="https://www.google.com/intl/ru/chrome/" >Google Chrome</a> или хотя бы
-  <a href="https://download.mozilla.org/?product=firefox-19.0.2&os=win&lang=ru">Mozilla Firefox</a>.
-  Крайне НЕ рекомендуется использовать MS Internet Explorer.</p>
-<!--
+  2. Настоятельно рекомендуется пользоваться сайтом при помощи браузера <a href="https://www.google.com/intl/ru/chrome/" >Google Chrome</a>.
+  </p>
+
   <h3>О настройке сервера</h3>
   <p>
     <code>
-      <u>httpd.conf:</u><br />
-      ServerName localhost<br />
-      AllowOverride ALL<br />
-      LoadModule php5_module "C:\путь_к_папке_php\php5apache2_2.dll"<br />
-      AddType application/x-httpd-php .php<br /><br />
-      <u>php.ini (скопированный в C:\Windows):</u><br />
-      short_open_tag = On<br />
-      file_uploads = On<br />
-      date.timezone = Europe/Moscow<br />
-      upload_tmp_dir = /tmp/ (для Linux OS)<br />
-      upload_tmp_dir = C:\WINDOWS\Temp\ (для Windows OS)<br />
-      On windows:
-	extension_dir = "-путь-\PHP\ext"<br />
-	extension=php_mysql.dll
-      <br /><br />
-      <u>mysql:</u><br />
-      [client]<br />
-      port=3306<br />
       [mysql]<br />
       default-character-set=utf8<br />
       [mysqld]<br />
       character-set-server=utf8
     </code>
-  </p>-->
+  </p>
 </div><br />

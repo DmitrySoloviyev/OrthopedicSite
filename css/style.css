@@ -56,23 +56,22 @@
 /***********************************основные элементы*/
 @font-face{
   font-family:pfbeausansproregular;
-  /*src: url(../fonts/pfbeausanspro-regular.ttf);*/
+  src: url(../fonts/pfbeausanspro-regular.ttf);
 }
+
 *{
   outline: none;
 }
+
 html{
   height:100%;
   width:100%;
 }
 body{
-/*   background:url(../images/billie_holiday.png) repeat; */
   background:url(../images/ibg.jpg) repeat;
   height:100%;
-/*   width:100%; */
-/*   margin:20px auto; */
   margin-top:0px;
-  font: normal 100% pfbeausansproregular, Verdana, Cambria, Georgia, Arial, sans-serif;
+  font: normal 100% 'Ubuntu', pfbeausansproregular, Verdana, Cambria, Georgia, Arial, sans-serif;
 }
 .fix{
   width:90%;
@@ -94,16 +93,13 @@ header h1{
 }
 #center{
   height: 100%;
-  padding:20px 10px 85px 10px;
+  padding:10px;
 }
 
 footer{
   text-align:center;
-/*   box-shadow:0 0 20px rgba(0,0,0,0.5); */
-/*   background-color:rgba(38,38,38,0.6); */
-/*   background:url(../images/ibg_100.jpg) repeat; */
   width:100%;
-  height:65px;/*65/*/
+  height:65px;
   position:absolute;
   bottom:0;
 }
@@ -122,7 +118,35 @@ fieldset{
   padding:10px 15px 10px 15px;
 }/**************************************************************************конец основные************************************************/
 
-
+/*******************Цитаты*******************/
+blockquote {
+    background-color: rgba(247,247,247, 0.7);
+    border-left: 1px solid #bbb;
+    font-style: italic;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+}
+ 
+blockquote:before {
+    color: #bbb;
+    content: "\201C"; /* Непечатаемый символ слева */
+    font-size: 3em;
+    line-height: 0.1em;
+    margin-right: 0.2em;
+    vertical-align: -.4em;
+}
+ 
+blockquote:after {
+    color: #bbb;
+    content: "\201D"; /* Непечатаемый символ справа */
+    font-size: 3em;
+    line-height: 0.1em;
+    vertical-align: -.45em;
+}
+ 
+blockquote > p:first-child {
+    display: inline;
+}
 /***********************************************конфигурация плагина Validate***********************************************/
 /*
 label.error, label.arrow_box{
@@ -169,6 +193,10 @@ label.error, label.arrow_box{
 
 
 /*********************************************меню сайта*********************************************/
+#navigation{
+  margin-top: -30px;
+}
+
 #navigation ul{
   text-align:center;
   overflow:hidden;
@@ -553,10 +581,10 @@ a.editrow:hover{
   vertical-align:middle;
 }
 
-#close_ModelForm{
+.closeWindow{
   position:absolute;
-  top: -10px;
-  right: -10px;
+  top: -3px;
+  right: -3px;
   width: 36px;
   height: 36px;
   cursor: pointer;
@@ -564,7 +592,7 @@ a.editrow:hover{
   opacity:0.4;
 }
 
-#close_ModelForm:hover{
+.closeWindow:hover{
   opacity:1;
 }
 
@@ -606,11 +634,67 @@ button:hover, button:focus, .button:hover, .button:focus {
 
 #tabs{
   font-size: 16px;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.8);
+  margin: 0 auto;
 }
 
 .delimiter{
   width: 12px;
   border-right: 2px groove #e2e2e2;
   margin: 4px;
+}
+
+.effect8
+{
+    position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.effect8:before, .effect8:after
+{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:10px;
+    bottom:10px;
+    left:0;
+    right:0;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+.effect8:after
+{
+    right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+       -moz-transform:skew(8deg) rotate(3deg);
+        -ms-transform:skew(8deg) rotate(3deg);
+         -o-transform:skew(8deg) rotate(3deg);
+            transform:skew(8deg) rotate(3deg);
+}
+
+div.loading {
+    background-color: #eee;
+    background-image: url('../images/fancybox_loading.gif');
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 1;
+}
+ 
+div.loading * {
+    opacity: .8;
+}
+
+.searchResult{
+  position: absolute;
+  top: 30%;
+  background-color: #e5e5e5;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+  padding: 10px;
+  z-index: 2;
+  border-radius:6px;
 }

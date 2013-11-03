@@ -5,7 +5,6 @@ Yii::app()->clientScript->registerScript('search',"
 var Models = null;
 var currentModel = 0;
 
-
 $('#Models_ModelName').change(function(e){
     var modelName = $(this).val();
     if(modelName != ''){
@@ -113,7 +112,7 @@ $('#ModelForm').draggable({
 	  }
 });
 
-$('#close_ModelForm').click(function(e){
+$('.closeWindow').click(function(e){
     $('#ModelForm').animate({opacity: 0.0}, 400);
     return false;
 });
@@ -139,6 +138,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 		'id'=>'orders-new-form',
 		'enableClientValidation'=>false,
 		'clientOptions'=>array('validateOnSubmit'=>false),
+		'method'=>'GET'
 	)); ?>
 	<fieldset>
 	<legend style="margin-left:60px;">Поиск</legend>
@@ -154,7 +154,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 				</div>
 			</td>
 	    	<td id="ModelForm" rowspan="10">
-	    		<a href="#" id="close_ModelForm"></a>
+	    		<a href="#" class="closeWindow"></a>
 	    		<fieldset>
 	    		<legend style="margin-left:30px;">Модель</legend>
 	    			<table>
@@ -201,7 +201,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 						'maxlength'=>'6'
 					),
 				)); 
-				echo "<br /><input type='checkbox' id='showAllModels'/><label for='showAllModels'>Показать все модели</label>";
+				echo "<br /><input type='checkbox' id='showAllModels'/><label for='showAllModels' style='font-weight: normal; font-style: italic; font-size: 0.9em; display: inline;'>Показать все модели</label>";
 				echo $form->error($modelsModel,'ModelName');
 				$this->widget('ext.fancybox.EFancyBox',array(    
 					 	'target'=>'#pic',
@@ -331,6 +331,8 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 	<?php $this->endWidget(); ?>
 </div><!-- form -->
 
+<div class="loading"></div>
+
 <div id="hint">
   <i>Поля, оставленные пустыми,<br /> участвовать в поиске не будут.<br />
     Для задания диапазона используйте тире "-". Отделяйте каждое значение и диапазон пробелом.
@@ -339,37 +341,62 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 
 
 <?php
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
+if( isset($_GET['Orders']) ){
+	Yii::app()->clientScript->registerScript('search',"
+	$(function(){
+	   var docHeight = $(document).height();
+	   $('body').append('<div id=\'overlay\'></div>');
+	   $('#overlay')
+	      .height(docHeight)
+	      .css({
+	         'opacity' : 0.4,
+	         'position': 'absolute',
+	         'top': 0,
+	         'left': 0,
+	         'background-color': 'black',
+	         'width': '100%',
+	         'z-index': 1
+	      });	
+	});
+	$('#closeSearchResult').click(function(){
+		$('.searchResult').hide();
+		$('#overlay').remove();
+		return false;
+	});
+", CClientScript::POS_READY);
 ?>
-<p><h2 align='center'>Результаты поиска:</h2></p>
-<table cols='14' border='2' class='dboutput'>
-	    <tr>
-	      <th>№ заказа</th>
-	      <th>Модель</th>
-	      <th>Размер</th>
-	      <th>Длина УРК</th>
-	      <th>Материал</th>
-	      <th>Высота</th>
-	      <th>Объем верха</th>
-	      <th>Объем лодыжки</th>
-	      <th>Объем КВ</th>
-	      <th>Заказчик</th>
-	      <th>Модельер</th>
-	      <th>Дата заказа</th>
-	      <th width="110px">Комментарий</th>
-	      <th>Правка</th>
-	      <th>Удалить</th>
-	    </tr>
-<?php
-$this->widget('zii.widgets.CListView', array(
-	'dataProvider' => $dataProvider,
-	'itemView' => '_view',
-	'emptyText' => 'Нет записей',
-	'ajaxUpdate'=>true,
-//	'sortableAttributes'=>array('OrderID', 'modelName'),
-	'summaryText'=>'Показано {start} - {end} из {count} заказов',
-//	'sorterHeader'=>'Сортировать по: ',
-));
-?>
-</table>
+<div class="searchResult">
+	<a href="#" id="closeSearchResult" class="closeWindow"></a>
+	<p><h2 align='center'>Результаты поиска:</h2></p>
+	<table cols='14' border='2' class='dboutput'>
+		<tr>
+			<th>№ заказа</th>
+			<th>Модель</th>
+			<th>Размер</th>
+			<th>Длина УРК</th>
+			<th>Материал</th>
+			<th>Высота</th>
+			<th>Объем верха</th>
+		    <th>Объем лодыжки</th>
+			<th>Объем КВ</th>
+			<th>Заказчик</th>
+		    <th>Модельер</th>
+			<th>Дата заказа</th>
+		 	<th width="110px">Комментарий</th>
+			<th>Правка</th>
+		  	<th>Удалить</th>
+		</tr>
+		<?php
+		$this->widget('zii.widgets.CListView', array(
+			'dataProvider' => $dataProvider,
+			'itemView' => '_view',
+			'emptyText' => 'Нет записей',
+			'ajaxUpdate'=>true,
+			'sortableAttributes'=>array('OrderID', 'ModelName', 'Date'),
+			'summaryText'=>'Показано {start} - {end} из {count} заказов',
+			'sorterHeader'=>'Сортировать по: ',
+		));
+		?>
+	</table>
+</div>
 <?php } ?>

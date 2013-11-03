@@ -22,7 +22,23 @@ Yii::app()->clientScript->registerScript('t',"
     </div>
 <?php endif; ?>
 
-<div id="tabs">
+<div id="tabs" class="effect8" style="width:681px;">
+
+	<blockquote>
+		<p class="mytext">
+			<?php
+				$quotes = file(Yii::app()->request->baseUrl.'assets/quotes.txt');
+				if($quotes){
+					$cnt = count($quotes);
+
+					echo $quotes[rand(0, --$cnt)];
+				}else{
+					echo "Дешевая пара обуви — плохая экономия. Не экономьте на главном: обувь — основа вашего гардероба. <br />&copy; Джорджио Армани.";
+				}
+			?>
+		</p>
+	</blockquote>
+
   <ul>
   	<li><a href="#tabs_1">Новый модельер</a></li>
     <li><a href="#tabs_2">Зарегестрированные модельеры</a></li>
@@ -83,12 +99,15 @@ Yii::app()->clientScript->registerScript('t',"
 <h4>Журнал изменений:</h4>
 <table>
 	<!-- <tr><td style="vertical-align:text-top"><i>Version</i></td><td>Text</td></tr> -->
-	<!-- <tr class="infoMessage"><td style="vertical-align:text-top"><i><b>Сообщение:</b></i></td><td>
-		<b>Состоялся <u>релиз</u> приложения для Android по работе с базой данных - <a href="<?php echo Yii::app()->request->baseUrl; ?>
-		/assets/OrthopedicDB.apk">OrthopedicDB</a> (текущая версия 1.0).<b></td></tr> -->
-	<!-- <tr><td style="vertical-align:text-top"><i>0.2.1</i></td><td>Добавлен графический раздел статистики и
-		быстрый поиск на страницу просмотра всех заказов. Включено кэширование. Добавлена сортировка заказов в результатах поиска и при
-		просмотре всех заказов. Upstream changes.</td></tr> -->
+	<!-- <tr><td style="vertical-align:text-top"><i>0.2.2</i></td><td>Добавлен графический раздел статистики и возможность сохранять заказы в Excel
+		за выбранный промежуток времени. Включено кэширование. Небольшой редизайн.</td></tr> -->
+	<tr><td style="vertical-align:text-top"><i>0.2.1</i></td><td>Добавлены рандомные цитаты и быстрый поиск на страницу просмотра всех 
+		заказов. Восстановлена подсветка слов поиска в поисковых результатах. Добавлена динамическая сортировка заказов в результатах поиска 
+		и при просмотре всех заказов. Введено изображение по умолчанию для моделей, поиск заказов по комментарию, а также 
+		множество других исправлений, изменений и улучшений, делающие данную сборку весьма стабильной.</td></tr>
+	<tr class="infoMessage"><td style="vertical-align:text-top"><i><b>Сообщение:</b></i></td><td> <b>Состоялся <u>релиз</u> приложения для Android 
+		по работе с базой данных - <a href="<?php echo Yii::app()->request->baseUrl; ?>/assets/OrthopedicDB.apk">OrthopedicDB</a> 
+		(текущая версия 1.0).<b></td></tr>
 	<tr><td style="vertical-align:text-top"><i>0.2</i></td><td>Вновь проведена серьезная переработка сайта - сайт переписан под Yii,
 		что делает его модульным и легко расширяемым. Изменено хранение информации о модели в БД:
 		вынесено хранение изображения модели из БД (размер изображения больше не важен, изображения хранятся в папке

@@ -162,6 +162,8 @@ class Orders extends CActiveRecord
 			'CustomerP' => 'Отчество заказчика',
 			'EmployeeID' => 'Модельер',
 			'Comment' => 'Комментарий',
+			'Date' => 'Дата',
+			'ModelName' => 'Модель',
 
 			'OrderIDUpdate' => 'Номер заказа',
 			'ModelIDUpdate' => 'Модель',

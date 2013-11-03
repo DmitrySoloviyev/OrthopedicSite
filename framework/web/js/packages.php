@@ -79,4 +79,8 @@ return array(
 	'punycode'=>array(
 		'js'=>array(YII_DEBUG ? 'punycode.js' : 'punycode.min.js'),
 	),
+	'highlight'=>array(
+		'js'=>array('jquery.highlight.js'),
+		'depends'=>array('jquery'),
+	),
 );

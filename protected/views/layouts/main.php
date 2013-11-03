@@ -13,8 +13,10 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
 	<![endif]-->
 
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic&subset=latin,cyrillic-ext,greek-ext,cyrillic,latin-ext,greek' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
 	<!-- <meta name="viewport" content="initial-scale=1.0, width=device-width" /> -->
 	<link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>images/shoes.png" type="image/png">
@@ -49,7 +51,7 @@
 </head>
 
 <body id="top">
-<code><font size="2" style="position:relative; left:130px; top:0px;text-shadow:1px 1px 1px rgba(255,255,255,1.0)">Version 0.2</font></code>
+<code><font size="2" style="position:relative; left:130px; top:0px;text-shadow:1px 1px 1px rgba(255,255,255,1.0)">Version 0.2.1-stable</font></code>
 <a href="https://github.com/DmitrySoloviyev/OrthopedicSite">
     <img style="position: absolute; top: 0; left: 0; border: 0; float:left" src=<?php echo Yii::app()->request->baseUrl; ?>"/images/forkme_left_green.png" alt="Fork me on GitHub" />
 </a>
@@ -82,13 +84,13 @@
 	<div class="clear"></div>
 
 	<div id="footer"><hr/>
-		Copyright &copy; <?php echo date('Y'); ?> by <?php echo CHtml::mailto('Dmitry Soloviyev', 'sd_dima@mail.ru')?>.<br/>
+		Copyright &copy; <?php echo date('Y'); ?> by <?php echo CHtml::mailto('Dmitry Soloviyev', 'dmitry.soloviyev@gmail.com')?>.<br/>
 		г. Москва. All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
 
 </div><!-- page -->
 
-<p id="back-top"><a href="#top"><img src="../../images/arrow_up.png"></img></a></p>
+<p id="back-top"><a href="#top"><img src="../../images/arrow_up_72.png"></img></a></p>
 </body>
 </html>

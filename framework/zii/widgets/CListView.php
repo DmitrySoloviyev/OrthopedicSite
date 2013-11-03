@@ -305,13 +305,13 @@ class CListView extends CBaseListView
 	{
 		if($this->dataProvider->getItemCount()<=0 || !$this->enableSorting || empty($this->sortableAttributes))
 			return;
-		echo CHtml::openTag('div',array('class'=>$this->sorterCssClass))."\n";
+		echo CHtml::openTag('p', array('style'=>'margin:2px'))."\n";
 		echo $this->sorterHeader===null ? Yii::t('zii','Sort by: ') : $this->sorterHeader;
 		echo "<ul>\n";
 		$sort=$this->dataProvider->getSort();
 		foreach($this->sortableAttributes as $name=>$label)
 		{
-			echo "<li>";
+			echo "<li class='sorting' style='display:inline; padding:4px'>";
 			if(is_integer($name))
 				echo $sort->link($label);
 			else
@@ -320,6 +320,6 @@ class CListView extends CBaseListView
 		}
 		echo "</ul>";
 		echo $this->sorterFooter;
-		echo CHtml::closeTag('div');
+		echo CHtml::closeTag('p');
 	}
 }

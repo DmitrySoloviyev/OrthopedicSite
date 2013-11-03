@@ -27,7 +27,7 @@ $this->pageTitle=Yii::app()->name . ' - Администрирование';
 
 			<div class="row">
 				<?php 
-					echo $form->dropDownList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList(), array('empty' => 'Ф.И.О Модельера'));
+					echo $form->dropDownList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList(), array('empty' => 'Ф.И.О Модельера', 'style'=>'width:204px'));
 					echo $form->error($employeesModel,'EmployeeID');?>
 			</div>
 		   	<div class="row submit">
@@ -91,3 +91,13 @@ $this->pageTitle=Yii::app()->name . ' - Администрирование';
 		</fieldset>
 		<?php $this->endWidget(); ?>
 	</div><!-- form -->
+<!--
+	<div class="form">
+		<fieldset>
+			<legend style="margin-left:60px;">Отчет за период</legend>
+			<input type="date" /> - <input type="date" />
+			<div class="row submit">
+				<?php //echo CHtml::submitButton('Сохранить в Excel', array('class'=>'button', 'name'=>'recoveryDbBtn')); ?>
+			</div>
+		</fieldset>
+	</div> -->

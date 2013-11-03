@@ -21,6 +21,7 @@ class Employees extends CActiveRecord
 	public $EmployeeP;
 	public $FIO;
 	public $EmployeeIDUpdate;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -34,14 +35,12 @@ class Employees extends CActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('EmployeeSN, EmployeeFN, EmployeeP, EmployeeID', 'required', 'on'=>'insert'),
 			array('EmployeeSN, EmployeeFN, EmployeeP', 'required', 'on'=>'add'),
 			array('EmployeeSN, EmployeeFN, EmployeeP', 'length', 'max'=>30),
 			array('STATUS', 'length', 'max'=>16, 'allowEmpty'=>true),
-			array('EmployeeIDUpdate', 'required', 'on'=>'update'),
+			array('EmployeeID', 'required', 'on'=>'update'),
 			array('EmployeeID', 'required', 'on'=>'delete'),
 			array('EmployeeID, EmployeeSN, EmployeeFN, EmployeeP, STATUS', 'safe', 'on'=>'search'),
 		);
@@ -77,6 +76,15 @@ class Employees extends CActiveRecord
 		$query = Employees::model()->findAllBySql("SELECT EmployeeID, CONCAT_WS(' ', EmployeeSN, EmployeeFN, EmployeeP) AS FIO FROM Employees WHERE STATUS = 'Работает'");
 		$list =  CHtml::listData($query, 'EmployeeID', 'FIO');
 		return $list;
+	}
+
+	public static function getEmployeeShortcutList($emploee_id){
+		$employee = Yii::app()->db->createCommand()
+		    ->select("CONCAT(EmployeeSN, ' ', LEFT(EmployeeFN, 1), '.', LEFT(EmployeeP, 1), '.') AS Employee")
+		    ->from('Employees')
+		    ->where('EmployeeID=:id', array(':id'=>$emploee_id))
+		    ->queryRow();
+		return $employee['Employee'];
 	}
 
 	/**

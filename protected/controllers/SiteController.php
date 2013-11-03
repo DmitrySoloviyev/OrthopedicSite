@@ -1,5 +1,4 @@
 <?php
-
 class SiteController extends Controller
 {
 	/**
@@ -47,13 +46,18 @@ class SiteController extends Controller
 			{
 				$review = Employees::model()->findBySQL("SELECT EmployeeID, STATUS FROM Employees WHERE EmployeeFN='".$employeesModel->EmployeeFN."' AND EmployeeSN='".$employeesModel->EmployeeSN."' AND EmployeeP='".$employeesModel->EmployeeP."'");
 
-				if($review != null)
+				if($review != NULL)
 				{
-					$review->STATUS = 'Работает';
+				/*	$review->STATUS = 'Работает';
 					$review->EmployeeFN = $employeesModel->EmployeeFN;
 					$review->EmployeeSN = $employeesModel->EmployeeSN;
-					$review->EmployeeP  = $employeesModel->EmployeeP;
-					if($review->save())
+					$review->EmployeeP  = $employeesModel->EmployeeP;*/
+
+					$connection=Yii::app()->db;
+					$command = $connection->createCommand( "UPDATE Employees SET STATUS='Работает' WHERE EmployeeID='".$review->EmployeeID."'" );
+					$rowCount = $command->execute();
+
+					if($rowCount == 1)
 					{
 						Yii::app()->clientScript->registerScript(
 			        	        'myHideEffect',
@@ -291,71 +295,72 @@ class SiteController extends Controller
 		$employeesModel->unsetAttributes();
 		$modelsModel->unsetAttributes();
 
-		if( isset($_POST['Orders']) ){
-			$model->attributes=$_POST['Orders'];
-			$modelsModel->attributes=$_POST['Models'];
-			$materialsModel->attributes=$_POST['Materials'];
-			$employeesModel->attributes=$_POST['Employees'];
-			$customersModel->attributes=$_POST['Customers'];
+		if( isset($_GET['Orders']) ){
+			$model->attributes=$_GET['Orders'];
+			$modelsModel->attributes=$_GET['Models'];
+			$materialsModel->attributes=$_GET['Materials'];
+			$employeesModel->attributes=$_GET['Employees'];
+			$customersModel->attributes=$_GET['Customers'];
 
 			// генерируем условия поиска
-			//$where = " modelName='good'";
 			$where = "";
+			// сохраням javascript код, который затем выведем
+			$js = "";
 
 			if(!empty($model->OrderID))
 			{
 			  $ids  = trim(strip_tags($model->OrderID));
 			  $this->getWhere($ids, 'OrderID', 'OrderID', '', $where);
-	//		  jquery_highlight_create($orderID, 1);
+			  $js .= $this->jquery_highlight_create($ids, 1);
 			}
 
 			if(!empty($modelsModel->ModelName))
 			{
 			  $models  = trim(strip_tags($modelsModel->ModelName));
 			  $this->getWhere($models, 'ModelName', 'ModelName', '', $where);
-	//		  jquery_highlight_create($orderID, 1);
+			  $js .= $this->jquery_highlight_create($models, 2);
 			}
 
 			if(!empty($model->Size))
 			{
 			  $sizes  = trim(strip_tags($model->Size));
 			  $this->getWhere($sizes, 'SizeLEFT', 'SizeRIGHT', 's', $where);
-	//		  jquery_highlight_create($orderID, 1);
+			  $js .= $this->jquery_highlight_create($sizes, 3);
 			}
 
 			if(!empty($model->Urk))
 			{
 			  $urks  = trim(strip_tags($model->Urk));
 			  $this->getWhere($urks, 'UrkLEFT', 'UrkRIGHT', 'u', $where);
-	//		  jquery_highlight_create($orderID, 1);
+			  $js .= $this->jquery_highlight_create($urks, 4);
 			}
 
 			if(!empty($model->Height))
 			{
 			  $heights  = trim(strip_tags($model->Height));
 			  $this->getWhere($heights, 'HeightLEFT', 'HeightRIGHT', 'h', $where);
-	//		  jquery_highlight_create($orderID, 1);
+			  $js .= $this->jquery_highlight_create($heights, 6);
 			}
 
 			if(!empty($model->TopVolume))
 			{
 			  $topvolumes  = trim(strip_tags($model->TopVolume));
 			  $this->getWhere($topvolumes, 'TopVolumeLEFT', 'TopVolumeRIGHT', 't', $where);
-	//		  jquery_highlight_create($orderID, 1);
+			  $js .= $this->jquery_highlight_create($topvolumes, 7);
 			}
 
 			if(!empty($model->AnkleVolume))
 			{
 			  $anklevolume  = trim(strip_tags($model->AnkleVolume));
 			  $this->getWhere($anklevolume, 'AnkleVolumeLEFT', 'AnkleVolumeRIGHT', 'a', $where);
-	//		  jquery_highlight_create($orderID, 1);
+			  $js .= $this->jquery_highlight_create($anklevolume, 8);
 			}
 
 			if(!empty($model->KvVolume))
 			{
 			  $kvvolume  = trim(strip_tags($model->KvVolume));
 			  $this->getWhere($kvvolume, 'KvVolumeLEFT', 'KvVolumeRIGHT', 'k', $where);
-	//		  jquery_highlight_create($orderID, 1);
+			  $js .= $this->jquery_highlight_create($kvvolume, 9);
 			}
 
 			if(!empty($materialsModel->MaterialID))
@@ -370,6 +375,25 @@ class SiteController extends Controller
 					{
 						$where .= " OR MaterialID='".$meterialId."' "; 
 					}
+					$material = '';
+					switch ($meterialId) {
+						case 'mk':
+							$material = 'КП';
+							break;
+						case 'mt':
+							$material = 'Траспира';
+							break;
+						case 'mn':
+							$material = 'Мех Натуральный';
+							break;
+						case 'ma':
+							$material = 'Мех Искусственный';
+							break;
+						case 'mw':
+							$material = 'Мех Полушерстяной';
+							break;
+					}
+					$js .= " $('td:nth-child(5)').highlight('".$material."'); ";
 				}
 			}
 
@@ -385,6 +409,7 @@ class SiteController extends Controller
 					{
 						$where .= " OR EmployeeID='".$employeeId."' "; 
 					}
+					$js .= " $('td:nth-child(11)').highlight('".Employees::getEmployeeShortcutList($employeeId)."'); ";
 				}
 			}
 
@@ -398,6 +423,7 @@ class SiteController extends Controller
 				{
 					$where .= " OR CustomerSN='".trim(strip_tags($customersModel->CustomerSN))."' "; 
 				}
+				$js .= " $('td:nth-child(10)').highlight('".$customersModel->CustomerSN."'); ";
 			}	
 
 			if(!empty($customersModel->CustomerFN))
@@ -410,6 +436,7 @@ class SiteController extends Controller
 				{
 					$where .= " OR CustomerFN='".trim(strip_tags($customersModel->CustomerFN))."' "; 
 				}
+				$js .= " $('td:nth-child(10)').highlight('".$customersModel->CustomerFN."'); ";
 			}
 
 			if(!empty($customersModel->CustomerP))
@@ -422,10 +449,14 @@ class SiteController extends Controller
 				{
 					$where .= " OR CustomerP='".trim(strip_tags($customersModel->CustomerP))."' "; 
 				}
-			}	
+				$js .= " $('td:nth-child(10)').highlight('".$customersModel->CustomerP."'); ";
+			}
 
+			if( isset($_GET['Orders']['Comment']) && !empty($_GET['Orders']['Comment']) )
+				$js .= " $('td:nth-child(13)').highlight('".$_GET['Orders']['Comment']."'); ";
 
-//			Yii::app()->request->cookies['WHERE'] = new CHttpCookie('WHERE', $where);
+			Yii::app()->clientScript->registerPackage('highlight');
+			Yii::app()->clientScript->registerScript('highlightQuery',$js, CClientScript::POS_READY);
 
 			$criteria = new CDbCriteria;
 			$criteria->condition = $where;
@@ -433,7 +464,33 @@ class SiteController extends Controller
 			$dataProvider = new CActiveDataProvider(Orders::model()->with('model', 'customer'), array(
 					'criteria' => $criteria,
 				//	'enablePagination'=>false,
-					'pagination'=>array('pageSize'=>'100'),
+					'pagination'=>array(
+						'pageSize'=>'1000'
+					),
+					'sort'=>array(
+	                    //атрибуты по которым происходит сортировка
+	                    'attributes'=>array(
+	                        'OrderID'=>array(
+	                            'asc'=>'OrderID ASC',
+	                            'desc'=>'OrderID DESC',
+	                            //по умолчанию, сортируем поле OrderID по убыванию (desc)
+	                            'default'=>'desc',
+	                        ),
+	                        'ModelName'=>array(
+	                            'asc'=>'ModelName ASC',
+	                            'desc'=>'ModelName DESC',
+	                            'default'=>'desc',
+	                        ),
+	                        'Date'=>array(
+	                            'asc'=>'Date',
+	                            'desc'=>'Date DESC',
+	                            'default'=>'desc',
+	                        ),
+	                    ),
+	                    'defaultOrder'=>array(
+	                        'Date'=>CSort::SORT_DESC,
+	                    )
+	           		),
 			));
 			$this->render('search', array('dataProvider' => $dataProvider,
 									'model'=>$model, 
@@ -442,7 +499,6 @@ class SiteController extends Controller
 									'employeesModel'=>$employeesModel,
 									'modelsModel'=>$modelsModel,
 				));
-			echo $where;
 			exit();
 		}
 
@@ -458,9 +514,46 @@ class SiteController extends Controller
 	 * ДЕЙСТВИЕ ВСЕ ЗАКАЗЫ
 	 */
 	public function actionView(){
-		$dependency = new CDbCacheDependency('SELECT MAX(update_time) FROM Orders');
+		$criteria = new CDbCriteria;
 
-		$dataProvider = new CActiveDataProvider(Orders::model()->cache(1000, $dependency)->with(
+		// Быстрый поиск прямо на странице всех заказов
+		if( isset($_GET['quickSearch']) && !empty($_GET['quickSearchValue']) ){
+			$quickSearchQuery =  mysql_real_escape_string(trim( $_GET['quickSearchValue'] ));
+			$queryForVolumes = $quickSearchQuery*10;
+			$quickSearchQuery = iconv(mb_detect_encoding($quickSearchQuery, mb_detect_order(), true), "utf-8", $quickSearchQuery);
+			$criteria->together = true;
+			$searchDate = '#';
+
+			if( strtotime($quickSearchQuery) )
+				$searchDate = date($quickSearchQuery);
+
+			$query  = "`OrderID` ='".$quickSearchQuery."' ";
+		    $query .= " OR ModelName ='".$quickSearchQuery."' ";
+		    $query .= " OR MaterialValue = '".$quickSearchQuery."' ";
+		    $query .= " OR SizeLEFT='s".$quickSearchQuery."' ";
+		    $query .= " OR SizeRIGHT='s".$quickSearchQuery."' ";
+		    $query .= " OR UrkLEFT='u".$quickSearchQuery."' ";
+		    $query .= " OR UrkRIGHT='u".$quickSearchQuery."' ";
+		    $query .= " OR HeightLEFT='h".$quickSearchQuery."' ";
+		    $query .= " OR HeightRIGHT='h".$quickSearchQuery."' ";
+		    $query .= " OR TopVolumeLEFT='t".$queryForVolumes."' ";
+		    $query .= " OR TopVolumeRIGHT='t".$queryForVolumes."' ";
+		    $query .= " OR AnkleVolumeLEFT='a".$queryForVolumes."' ";
+		    $query .= " OR AnkleVolumeRIGHT='a".$queryForVolumes."' ";
+		    $query .= " OR KvVolumeLEFT='k".$queryForVolumes."' ";
+		    $query .= " OR KvVolumeRIGHT='k".$queryForVolumes."' ";
+		    $query .= " OR EmployeeSN='".$quickSearchQuery."' ";
+		    $query .= " OR EmployeeFN='".$quickSearchQuery."' ";
+		    $query .= " OR EmployeeP='".$quickSearchQuery."' ";
+		    $query .= " OR CustomerSN='".$quickSearchQuery."' ";
+		    $query .= " OR CustomerFN='".$quickSearchQuery."' ";
+		    $query .= " OR CustomerP='".$quickSearchQuery."' ";
+		    $query .= " OR Date LIKE '%".$searchDate."%' ";
+		    $query .= " OR Comment ='".$quickSearchQuery."' ";
+		    $criteria->condition = $query; 
+		}
+
+		$dataProvider = new CActiveDataProvider(Orders::model()->with(
 			'material', 
 			'model', 
 			'sizeLEFT', 
@@ -479,9 +572,9 @@ class SiteController extends Controller
 			'heightRIGHT'
 			), 
 		array(
-		//	'criteria' => $criteria,
+			'criteria' => $criteria,
 			'pagination' => array(
-				'pageSize' => 10,
+				'pageSize' => 20,
 			),
 			'sort'=>array(
                     //атрибуты по которым происходит сортировка
@@ -492,16 +585,16 @@ class SiteController extends Controller
                             //по умолчанию, сортируем поле OrderID по убыванию (desc)
                             'default'=>'desc',
                         ),
-                        'modelName'=>array(
-                            'asc'=>'modelName ASC',
-                            'desc'=>'modelName DESC',
+                        'ModelName'=>array(
+                            'asc'=>'ModelName ASC',
+                            'desc'=>'ModelName DESC',
                             'default'=>'desc',
                         ),
                         'Date'=>array(
                             'asc'=>'Date',
                             'desc'=>'Date DESC',
-                            'default'=>'asc',
-                        )
+                            'default'=>'desc',
+                        ),
                     ),
                     'defaultOrder'=>array(
                         'Date'=>CSort::SORT_DESC,
@@ -535,7 +628,7 @@ class SiteController extends Controller
 			'heightLEFT',
 			'heightRIGHT'
 		    )->findByPk($id);
-    	$model->scenario = 'update';    
+    //	$model->scenario = 'update';    
         $customersModel = Customers::model()->findByPk($model->CustomerID);
         $materialsModel = Materials::model()->findByPk($model->MaterialID);
         $employeesModel = Employees::model()->findByPk($model->EmployeeID);
@@ -576,7 +669,7 @@ class SiteController extends Controller
             $model->KvVolumeRIGHT = "k".$model->KvVolumeRIGHTUpdate*10;
 
             $model->MaterialID = $materialsModel->MaterialID;
-			$model->EmployeeID = $employeesModel->EmployeeIDUpdate;
+			$model->EmployeeID = $employeesModel->EmployeeID;
 
 			$customersModel->CustomerSN = $customersModel->CustomerSNUpdate;
 			$customersModel->CustomerFN = $customersModel->CustomerFNUpdate;
@@ -593,8 +686,7 @@ class SiteController extends Controller
 					$customersModel->save();
 				}
 
-				//записываем модель
-				// если чек-бокс отмечен, значит это новая модель, тут просто сохраняем
+				//записываем модель, если чек-бокс отмечен, значит это новая модель, тут просто сохраняем
 				// иначе мы должны вписать айдишник существующей модели и проапдейтить ее (возможно пользователь обновил ее данные)
 				if($modelsModel->basedID == 'null')
 				{
@@ -702,11 +794,12 @@ class SiteController extends Controller
 
 		if(isset($_POST['Employees']))
 		{
-			$employeesModel->attributes = $_POST['Employees'];
-			$employeesModel = Employees::model()->findByPk($employeesModel->EmployeeID);
-			$employeesModel->STATUS = 'Уволен';
-			
-			if($employeesModel->save())
+			$id = (int) trim($_POST['Employees']['EmployeeID']);
+
+			$connection=Yii::app()->db;
+			$command = $connection->createCommand( "UPDATE Employees SET STATUS='Уволен' WHERE EmployeeID='".$id."'" );
+			$rowCount = $command->execute();
+			if($rowCount == 1)
 			{
 				Yii::app()->clientScript->registerScript(
 		        	        'myHideEffect',
@@ -715,7 +808,23 @@ class SiteController extends Controller
 		            );
 		    	Yii::app()->user->setFlash('success',"Модельер успешно удален!");
 			}
-			$employeesModel->unsetAttributes();
+			/*
+			$deletingEmployee = Employees::model()->findBySQL("SELECT STATUS FROM Employees WHERE EmployeeID='".$id."'");
+			$deletingEmployee = Employees::model()->findByPk( $id );
+			print_r($deletingEmployee );
+			$deletingEmployee->STATUS = 'Уволен';
+
+			Employees::model()->updateByPk( $id, array('STATUS='=>'Уволен') );
+
+			if($deletingEmployee->save())
+			{
+				Yii::app()->clientScript->registerScript(
+		        	        'myHideEffect',
+		                    '$(".flash-success").animate({opacity: 1.0}, 2000).fadeOut("medium");',
+		            	    CClientScript::POS_READY
+		            );
+		    	Yii::app()->user->setFlash('success',"Модельер успешно удален!");
+			}*/
 		}
 
 
@@ -787,6 +896,14 @@ class SiteController extends Controller
 		$this->render('admin',array(
             'employeesModel'=>$employeesModel,
         ));
+	}
+
+	/**
+	 * ДЕЙСТВИЕ СТАТИСТИКА
+	 */
+	public function actionStatistics()
+	{
+		$this->render('statistics');
 	}
 
 	/**
@@ -890,25 +1007,32 @@ class SiteController extends Controller
     	echo Models::model()->getModelById($_POST['id']);
     }
 
-/*
+    /*
+	 * ПОДСВЕТКА СЛОВ ПОИСКА
+     */
     function jquery_highlight_create($from_post, $num_child)
     {
 		$array_field = explode(" ", $from_post);
+		$params = "";
 	    foreach($array_field as $num)
 	    {
 	    	if(strpbrk($num, "-"))
 	    	{
 				$num_interval = explode("-", $num);
 				for($i = $num_interval[0]; $i <= $num_interval[1]; ++$i)
-				echo "$('td:nth-child($num_child)').highlight('".$i."');";
+					$params .= " $('td:nth-child($num_child)').highlight('".$i."'); ";
 	    	}
 	    	else
 	    	{
-				echo "$('td:nth-child($num_child)').highlight('".$num."');";
+				$params .= " $('td:nth-child($num_child)').highlight('".$num."'); ";
 	      	}
 	    }
-	}*/
+	    return $params;
+	}
 
+	/*
+	 * СОЗДАНИЕ УСЛОВИЯ ПОИСКА WHERE
+     */
 	public function getWhere($inputData, $left, $right, $prefix, &$where)
 	{
 		if(empty($where))
@@ -1041,4 +1165,5 @@ class SiteController extends Controller
 	{
 		echo Models::model()->GetAllModels();
 	}
+	
 }

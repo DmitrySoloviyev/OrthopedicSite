@@ -30,6 +30,7 @@ class Materials extends CActiveRecord
 		return array(
 			array('MaterialID, MaterialValue', 'required', 'on'=>'insert'),
 			array('MaterialValue', 'length', 'max'=>33),
+			array('MaterialID', 'required', 'on'=>'update'),
 			array('MaterialID, MaterialValue', 'safe', 'on'=>'search'),
 		);
 	}

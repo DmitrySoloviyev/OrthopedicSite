@@ -54,11 +54,17 @@ return array(
 		*/
 		// uncomment the following to use a MySQL database
 		'db'=>array(
+			'class' => 'CDbConnection',
 			'connectionString' => 'mysql:host=localhost;dbname=SHOES',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => '1111',
 			'charset' => 'utf8',
+			'attributes' => array(
+			    PDO::MYSQL_ATTR_LOCAL_INFILE =>true,
+			    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+			    "CharacterSet" => "UTF8",
+			),
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
