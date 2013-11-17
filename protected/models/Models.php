@@ -71,7 +71,7 @@ class Models extends CActiveRecord
 		return array(
 			'ModelID' => 'Model',
 			'ModelName' => 'Модель',
-			'ModelDescription' => 'Model Description',
+			'ModelDescription' => 'Описание модели',
 			'ModelPicture' => 'Model Picture',
 			'DateModified' => 'Date Modified',
 			'isNewModel'=>'Новая модель',
@@ -150,7 +150,7 @@ class Models extends CActiveRecord
 		$result = array();
 		foreach ($searchModels as $modelItem)
 		{
-			$result[] = array('ModelID'=>$modelItem->ModelID, 
+			$result[] = array('ModelID'=>$modelItem->ModelID,
 					'ModelName'=>$modelItem->ModelName,
 					'ModelDescription'=>$modelItem->ModelDescription,
 					'ModelPicture'=>$modelItem->ModelPicture,
@@ -172,7 +172,7 @@ class Models extends CActiveRecord
 		$result = array();
 		foreach ($searchModels as $modelItem)
 		{
-			$result[] = array('ModelID'=>$modelItem->ModelID, 
+			$result[] = array('ModelID'=>$modelItem->ModelID,
 					'ModelName'=>$modelItem->ModelName,
 					'ModelDescription'=>$modelItem->ModelDescription,
 					'ModelPicture'=>$modelItem->ModelPicture,
@@ -186,13 +186,13 @@ class Models extends CActiveRecord
     {
     	$criteria = new CDbCriteria;
 		$criteria->select='ModelID, ModelName, ModelDescription, ModelPicture, DateModified';
-		
+
 		$searchModels = $this->findAll($criteria);
 
 		$result = array();
 		foreach ($searchModels as $modelItem)
 		{
-			$result[] = array('ModelID'=>$modelItem->ModelID, 
+			$result[] = array('ModelID'=>$modelItem->ModelID,
 					'ModelName'=>$modelItem->ModelName,
 					'ModelDescription'=>$modelItem->ModelDescription,
 					'ModelPicture'=>$modelItem->ModelPicture,

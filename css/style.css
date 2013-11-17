@@ -1,38 +1,3 @@
-/*
- * Copyright (C) 2012 Dmitry Soloviyev
- *
- * This file is part of Orthopedic website.
- *
- * Orthopedic website is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * Orthopedic website is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Orthopedic website.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * Этот файл — часть Orthopedic website.
- *
- * Это свободная программа: вы можете перераспространять ее и/или изменять
- * ее на условиях Стандартной общественной лицензии GNU в том виде, в каком
- * она была опубликована Фондом свободного программного обеспечения; либо
- * версии 3 лицензии, либо (по вашему выбору) любой более поздней версии.
- *
- * Эта программа распространяется в надежде, что она будет полезной,
- * но БЕЗО ВСЯКИХ ГАРАНТИЙ; даже без неявной гарантии ТОВАРНОГО ВИДА
- * или ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Подробнее см. в Стандартной
- * общественной лицензии GNU.
- *
- * Вы должны были получить копию Стандартной общественной лицензии GNU
- * вместе с этой программой. Если это не так, см. <http://www.gnu.org/licenses/>.
- */
-
 /*сброс всех настроек*/
 /* @import url(reset.css); */
 
@@ -68,7 +33,10 @@ html{
   width:100%;
 }
 body{
-  background:url(../images/ibg.jpg) repeat;
+  /*background:url(../images/ibg.jpg) repeat;*/
+  background:url(../images/bg_mat.png) repeat;
+  /*новый стиль:*/
+  /*background-color: #c9c9c9;*/
   height:100%;
   margin-top:0px;
   font: normal 100% 'Ubuntu', pfbeausansproregular, Verdana, Cambria, Georgia, Arial, sans-serif;
@@ -94,6 +62,10 @@ header h1{
 #center{
   height: 100%;
   padding:10px;
+  background: #e8e8e8;
+  border-radius: 6px;
+  margin-top: 15px;
+  box-shadow: 0px 1px 1px #000;
 }
 
 footer{
@@ -116,7 +88,7 @@ fieldset{
   border-radius:6px;
   margin:10px;
   padding:10px 15px 10px 15px;
-}/**************************************************************************конец основные************************************************/
+}/*****************************конец основные***************/
 
 /*******************Цитаты*******************/
 blockquote {
@@ -147,54 +119,25 @@ blockquote:after {
 blockquote > p:first-child {
     display: inline;
 }
-/***********************************************конфигурация плагина Validate***********************************************/
-/*
-label.error, label.arrow_box{
-  color:#84000d;
-  position: absolute;
-  background: #f5f5f5;
-  border: 2px solid #f56262;
-  padding:2px;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-  z-index:2;
-}
 
-.error:after, .error:before {
-	right: 100%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-
-.error:after {
-	border-color: rgba(245, 245, 245, 0);
-	border-right-color: #f5f5f5;
-	border-width: 5px;
-	top: 50%;
-	margin-top: -5px;
-}
-.error:before {
-	border-color: rgba(194, 225, 245, 0);
-	border-right-color: #f56262;
-	border-width: 8px;
-	top: 50%;
-	margin-top: -8px;
-}*//**********************************************end Validate********************************************/
-
-/***********************************************подсветка слов поиска*****************************************************/
+/****************подсветка слов поиска**********************/
 .highlight {
   background: #fff09e;
   border-top: 1px dashed #c16b3d;
   border-bottom: 1px dashed #c16b3d;
-}/***********************************************подсветка слов поиска*****************************************************/
+}/***************подсветка слов поиска**********************/
 
 
 /*********************************************меню сайта*********************************************/
 #navigation{
-  margin-top: -30px;
+  margin: 30px auto;
+  z-index: 1;
+  text-shadow: none;
+  font-style: normal;
+  background: #666;
+  border-radius: 6px;
+  width: 100%;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 #navigation ul{
@@ -206,12 +149,13 @@ label.error, label.arrow_box{
 
 #navigation ul li{
   display:inline;
-  background-color:#65909A;
+/*  background-color:#65909A;*/
   padding:6px 6px;
-  border-left:1px solid #bababa;
-  border-right:1px solid #bababa;
+/*  border-left:1px solid #bababa;
+  border-right:1px solid #bababa;*/
   margin: 0 1px 0 -6px;
   font-size: 14px;
+  border-radius: 6px;
 }
 
 #navigation ul li a{
@@ -222,10 +166,7 @@ label.error, label.arrow_box{
 }
 
 #navigation ul li:hover{
-  background:-webkit-linear-gradient(bottom,#E8563C,#E82C0C);
-  background:-moz-linear-gradient(bottom,#E8563C,#E82C0C);
-  background:-o-linear-gradient(bottom,#E8563C,#E82C0C);
-  background:-ms-linear-gradient(bottom,#E8563C,#E82C0C);
+  background: #ce4e21;
   background:linear-gradient(bottom,#E8563C,#E82C0C);
   box-shadow:0px 1px 10px rgba(0,0,0,0.6);
   -moz-box-shadow:0px 1px 10px rgba(0,0,0,0.6);
@@ -234,23 +175,12 @@ label.error, label.arrow_box{
 
 #navigation ul li.active{
   font-weight:800;
-  background:-webkit-linear-gradient(top,#E8563C,#E82C0C);
-  background:-moz-linear-gradient(top,#E8563C,#E82C0C);
-  background:-o-linear-gradient(top,#E8563C,#E82C0C);
-  background:-ms-linear-gradient(top,#E8563C,#E82C0C);
-  background:-webkit-linear-gradient(top,#E8563C,#E82C0C);
-  box-shadow:0px 1px 10px rgba(0,0,0,0.6);
-  -moz-box-shadow:0px 1px 10px rgba(0,0,0,0.6);
-  -webkit-box-shadow:0px 1px 10px rgba(0,0,0,0.6);
+  background: #db4928;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 1);
+  -moz-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 1);
+  -webkit-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 1);
 }/*********************************************************************конец меню сайта*******************************/
 
-#hidden{
-  display:none;
-}
-/**********************************************************************формы********************/
-form input{
-  margin:5px;
-}
 /****************************************************всплывающая подсказка************/
 #hint{
   padding:10px;
@@ -317,7 +247,6 @@ input:focus, textarea:focus, summary:focus{
 }/*********************************************************конец таблица в разделе "просмотр базы"************/
 
 /*****************************************************************"кнопки"******/
-
 /***********************************************************кнопка удаления****************************/
 
 #button_delete {
@@ -372,13 +301,6 @@ input:focus, textarea:focus, summary:focus{
 /********************************************************************************конец раздела "кнопки"***************/
 option{
   color:black;
-}
-
-#gpl{
-  position:absolute;
-  right:5%;
-  bottom:10%;
-  max-width:100%;
 }
 
 /********************************************************************************картинки в ссылках меню******/
@@ -442,15 +364,13 @@ a.editrow:hover{
 .accordion {
   width:100%;
   border-radius:6px;
-  border-bottom: solid 1px #c4c4c4;
+  line-height:1.7;
 }
 .accordion h3 {
 	padding: 7px 15px;
 	margin: 0;
-	border: solid 1px #c4c4c4;
 	border-bottom:none;
 	border-radius:8px;
-/* 	background-color:#c5c3c3; */
 }
 .accordion h3:hover {
 	background-color: #d9d8d8;
@@ -461,11 +381,8 @@ a.editrow:hover{
 	background-color: #d9d8d8;
 }
 .accordion p {
-	background: #f7f7f7;
 	margin: 0;
-	padding: 10px 15px 20px;
-	border-left: solid 1px #c4c4c4;
-	border-right: solid 1px #c4c4c4;
+	padding: 10px 20px;
 	display: none;
 	border-radius:6px;
 }
@@ -483,8 +400,6 @@ a.editrow:hover{
   box-shadow:0px 3px 1px rgba(0,0,0,0.4);
 }
 
-
-
 #description{
   padding-left:190px;
   line-height:1.5;
@@ -496,50 +411,9 @@ a.editrow:hover{
   float:right;
 }
 
-#readmore{
-  float:right;
-  margin-top:5px;
-  display:block;
-  padding:5px;
-  background:#797979;
-  color:#fff;
-  text-transform:none;
-  font-size:12px;
-  font-family:Sans-serif;
-  text-decoration:none;
-}
-
-#readmore:hover{
-  background:#969696;
-}
-
-#nav{
-  float:right;
-}
-
-#nav a{
-  opacity:0.4;
-  margin-top:10px;
-}
-#nav a:hover{
-  opacity:1;
-}
-
-#upload_file{
-  width:50px;
-}
-
 #metainfo{
   margin:5px 5px 5px 190px;
   border-top:1px solid #c7c7c7;
-}
-
-#date{
-  clear:both;
-  font-size:12px;
-  font-family:Sans-serif;
-  text-decoration:none;
-  font-style:italic;
 }
 
 #next{
@@ -558,33 +432,16 @@ a.editrow:hover{
   opacity:0.4;
 }
 
-#new_picture{
-/*   background:url(../images/image.png) no-repeat !important; */
-  width:16px;
-  height:22px;
-  margin:5px 0 0 5px;
-  opacity:0.4;
-}
 
-#next:hover, #previous:hover, #new_picture:hover{
+#next:hover, #previous:hover{
   cursor:pointer;
   opacity:1;
 }
 
-#description_model{
-  font:italic bold 16px sans-serif;
-  border-bottom:4px double rgb(100, 100, 100);
-  height:30px;
-  text-align:center;
-  padding-left:190px;
-  margin-top:30px;
-  vertical-align:middle;
-}
-
 .closeWindow{
   position:absolute;
-  top: -3px;
-  right: -3px;
+  top: 9px;
+  right: 10px;
   width: 36px;
   height: 36px;
   cursor: pointer;
@@ -644,39 +501,6 @@ button:hover, button:focus, .button:hover, .button:focus {
   margin: 4px;
 }
 
-.effect8
-{
-    position:relative;
-    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-}
-.effect8:before, .effect8:after
-{
-    content:"";
-    position:absolute;
-    z-index:-1;
-    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
-    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
-    box-shadow:0 0 20px rgba(0,0,0,0.8);
-    top:10px;
-    bottom:10px;
-    left:0;
-    right:0;
-    -moz-border-radius:100px / 10px;
-    border-radius:100px / 10px;
-}
-.effect8:after
-{
-    right:10px;
-    left:auto;
-    -webkit-transform:skew(8deg) rotate(3deg);
-       -moz-transform:skew(8deg) rotate(3deg);
-        -ms-transform:skew(8deg) rotate(3deg);
-         -o-transform:skew(8deg) rotate(3deg);
-            transform:skew(8deg) rotate(3deg);
-}
-
 div.loading {
     background-color: #eee;
     background-image: url('../images/fancybox_loading.gif');
@@ -697,4 +521,14 @@ div.loading * {
   padding: 10px;
   z-index: 2;
   border-radius:6px;
+}
+
+#handler{
+  cursor:move; 
+  text-align:center;
+  background-color: #C9C9C9;
+  padding: 5px;
+  margin-bottom: auto;
+  border-radius: 6px;
+  text-shadow:1px 1px 1px rgba(255,255,255,1.0)
 }

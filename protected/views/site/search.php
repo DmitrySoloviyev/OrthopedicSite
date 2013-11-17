@@ -5,32 +5,6 @@ Yii::app()->clientScript->registerScript('search',"
 var Models = null;
 var currentModel = 0;
 
-$('#Models_ModelName').change(function(e){
-    var modelName = $(this).val();
-    if(modelName != ''){
-    	getAllModelsInfo();
-    }
-});
-
-$('#Models_ModelName').change(function(e){
-    var modelName = $(this).val();
-	getModelInfo();
-});
-
-function getModelInfo(){
-	var modelName = $('#Models_ModelName').val();
-	//пытаемся загрузить указанную модель, если ее не существует, отмечаем флажок и грузим форму создания новой модели
-	$.post('".$this->createUrl('/site/GetModelInfo')."', {modelName:modelName}, function(data){
-		var info = $.parseJSON(data);
-			Models = info;
-			$('#Models_ModelPicture').attr('src', '../../'+info[0].ModelPicture);
-			$('#pic').attr('href', '../../'+info[0].ModelPicture);
-			$('#Models_ModelDescription').val(info[0].ModelDescription);
-			$('#modelNameTitle').text('Модель № ' + info[0].ModelName);
-			$('#Models_DateModified').text('Дата изменения: ' + info[0].DateModified);
-    });
-}
-
 //обрабатываем нажатие на флажок
 $('#showAllModels').click(function() {
 	if( $(this).is(':checked') ){
@@ -356,18 +330,30 @@ if( isset($_GET['Orders']) ){
 	         'background-color': 'black',
 	         'width': '100%',
 	         'z-index': 1
-	      });	
+	      });
 	});
 	$('#closeSearchResult').click(function(){
-		$('.searchResult').hide();
+		$('.searchResult').fadeOut(500);
 		$('#overlay').remove();
 		return false;
 	});
-", CClientScript::POS_READY);
+
+	$('.searchResult').draggable({
+	    delay:150,
+	    handle: '#handler',
+	    axis: 'y',
+	    start:function(){
+		    $(this).css('opacity', 0.5).css('cursor','move')
+		  },
+	    stop:function(){
+		    $(this).css('opacity', '').css('cursor','')
+		  }
+	});
+	", CClientScript::POS_READY);
 ?>
 <div class="searchResult">
 	<a href="#" id="closeSearchResult" class="closeWindow"></a>
-	<p><h2 align='center'>Результаты поиска:</h2></p>
+	<h3 id="handler">Результаты поиска:</h3>
 	<table cols='14' border='2' class='dboutput'>
 		<tr>
 			<th>№ заказа</th>

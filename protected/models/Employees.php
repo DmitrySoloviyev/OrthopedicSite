@@ -72,10 +72,17 @@ class Employees extends CActiveRecord
 		);
 	}
 
-	public function getEmployeeList(){
-		$query = Employees::model()->findAllBySql("SELECT EmployeeID, CONCAT_WS(' ', EmployeeSN, EmployeeFN, EmployeeP) AS FIO FROM Employees WHERE STATUS = 'Работает'");
-		$list =  CHtml::listData($query, 'EmployeeID', 'FIO');
-		return $list;
+	public function getEmployeeList($id = null){
+		if($id === null){
+			$query = Employees::model()->findAllBySql("SELECT EmployeeID, CONCAT_WS(' ', EmployeeSN, EmployeeFN, EmployeeP) AS FIO FROM Employees WHERE STATUS = 'Работает'");
+			$list =  CHtml::listData($query, 'EmployeeID', 'FIO');
+			return $list;
+		}else{
+			$query = Employees::model()->findAllBySql("SELECT EmployeeID, CONCAT_WS(' ', EmployeeSN, EmployeeFN, EmployeeP) AS FIO 
+														FROM Employees WHERE STATUS='Работает' OR EmployeeID='".$id."' ");
+			$list =  CHtml::listData($query, 'EmployeeID', 'FIO');
+			return $list;
+		}
 	}
 
 	public static function getEmployeeShortcutList($emploee_id){

@@ -83,4 +83,25 @@ return array(
 		'js'=>array('jquery.highlight.js'),
 		'depends'=>array('jquery'),
 	),
+	'jqplot'=>array(
+		'js'=>array('jqplot/js/jquery.jqplot.min.js'),
+		'css' => array('jqplot/css/jquery.jqplot.min.css'),
+		'depends'=>array('jquery'),
+	),
+	'jqplot.highlighter'=>array(
+		'js'=>array('jqplot/js/jqplot.highlighter.js'),
+		'depends'=>array('jquery'),
+	),
+	'jqplot.canvasTextRenderer'=>array(
+		'js'=>array('jqplot/js/jqplot.canvasTextRenderer.min.js'),
+		'depends'=>array('jquery'),
+	),
+	'jqplot.canvasAxisLabelRenderer'=>array(
+		'js'=>array('jqplot/js/jqplot.canvasAxisLabelRenderer.min.js'),
+		'depends'=>array('jquery'),
+	),
+	'jqplot.dateAxisRenderer'=>array(
+		'js'=>array('jqplot/js/jqplot.dateAxisRenderer.min.js'),
+		'depends'=>array('jquery'),
+	),
 );

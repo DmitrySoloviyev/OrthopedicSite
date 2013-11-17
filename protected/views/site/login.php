@@ -38,7 +38,7 @@ $this->pageTitle=Yii::app()->name . ' - Войти';
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Войти'); ?>
+		<?php echo CHtml::submitButton('Войти', array('class'=>'button')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -56,9 +56,9 @@ class Orders extends CActiveRecord
 	public $Size;
 	public $Urk;
 	public $Height;
-	public $TopVolume; 
-	public $AnkleVolume; 
-	public $KvVolume; 
+	public $TopVolume;
+	public $AnkleVolume;
+	public $KvVolume;
 	public $Comment;
 
 	/*
@@ -101,10 +101,10 @@ class Orders extends CActiveRecord
 			array('Urk', 'match', 'pattern'=>'/(^([1-3]\\d\\d)|400$)|(^([1-3]\\d\\d)|400 ([1-3]\\d\\d)|400$)/', 'on'=>'insert'),
 			array('TopVolume, AnkleVolume', 'match', 'pattern'=>'/(^(([1-4][0-9])|50)(\\.[05])?$)|(^(([1-4][0-9])|50)(\\.[05])? (([1-4][0-9])|50)(\\.[05])?$)/', 'on'=>'insert'),
 			array('KvVolume', 'match', 'pattern'=>'/(^(([2-6][0-9])|15|16|17|18|19|70)(\\.[05])?$)|(^(([2-6][0-9])|15|16|17|18|19|70)(\\.[05])? (([2-6][0-9])|15|16|17|18|19|70)(\\.[05])?$)/', 'on'=>'insert'),
-			array('Comment', 'length', 'max'=>99),
+			array('Comment', 'length', 'max'=>255),
 			array('Date', 'default', 'value'=>new CDbExpression('NOW()')),
-			array('OrderIDUpdate, SizeLEFTUpdate, SizeRIGHTUpdate, UrkLEFTUpdate, UrkRIGHTUpdate, 
-					HeightLEFTUpdate, HeightRIGHTUpdate, TopVolumeLEFTUpdate, TopVolumeRIGHTUpdate, AnkleVolumeLEFTUpdate, AnkleVolumeRIGHTUpdate, 
+			array('OrderIDUpdate, SizeLEFTUpdate, SizeRIGHTUpdate, UrkLEFTUpdate, UrkRIGHTUpdate,
+					HeightLEFTUpdate, HeightRIGHTUpdate, TopVolumeLEFTUpdate, TopVolumeRIGHTUpdate, AnkleVolumeLEFTUpdate, AnkleVolumeRIGHTUpdate,
 					KvVolumeLEFTUpdate, KvVolumeRIGHTUpdate', 'required', 'on'=>'update'
 				),
 			array('SizeLEFTUpdate, SizeRIGHTUpdate', 'match', 'pattern'=>'/^(([2-4][0-9])|15|16|17|18|19)$/'),

@@ -199,7 +199,7 @@ CREATE TABLE `Orders` (
   `CustomerID` int unsigned NOT NULL,
   `EmployeeID` tinyint(3) unsigned NOT NULL,
   `Date` datetime NOT NULL,
-  `Comment` varchar(99) NOT NULL DEFAULT 'нет',
+  `Comment` varchar(255) NOT NULL DEFAULT 'нет',
   PRIMARY KEY (`OrderID`),
   KEY `ModelID` (`ModelID`),
   KEY `SizeLEFT` (`SizeLEFT`),

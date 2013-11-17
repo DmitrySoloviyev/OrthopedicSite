@@ -60,11 +60,6 @@ return array(
 			'username' => 'root',
 			'password' => '1111',
 			'charset' => 'utf8',
-			'attributes' => array(
-			    PDO::MYSQL_ATTR_LOCAL_INFILE =>true,
-			    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-			    "CharacterSet" => "UTF8",
-			),
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

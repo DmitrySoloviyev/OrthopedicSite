@@ -9,20 +9,18 @@ body
 
 #page
 {
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin: 0px auto;
 }
 
 #header
 {
 	margin: 0;
 	padding: 0;
-	font-size:1.4em;
+	font-size:1.5em;
 	font-style:oblique;
-	font-weight:650;
 	text-align:center;
-	color:#4094b6;
-	text-shadow:1px 1px 1px rgb(255,255,255);
+	border-radius: 6px;
+	position: relative;
 }
 
 #content
@@ -45,8 +43,16 @@ body
 
 #logo
 {
-	padding: 10px 20px;
+	padding: 40px 10px 10px 10px;
 	font-size: 200%;
+	margin: 5px;
+	margin-bottom:-30px;
+	background-color: #2E2E2E;
+	color: transparent;
+  	text-shadow: 0px 2px 3px rgba(255,255,255,0.7);
+  	-webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
 }
 
 div.flash-error, div.flash-notice, div.flash-success

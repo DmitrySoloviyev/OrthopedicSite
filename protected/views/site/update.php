@@ -220,7 +220,11 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 	    				</tr>
 	    				<tr>
 	    					<td>Описание: </td>
-	    					<td><?php echo $form->TextArea($modelsModel,'ModelDescription', array('rows'=>'6', 'cols'=>'30','autocomplete'=>'Off'));?></td>
+	    					<td>
+	    						<?php 
+	    							echo $form->TextArea($modelsModel,'ModelDescription', array('rows'=>'6', 'cols'=>'30','autocomplete'=>'Off'));
+	    							echo $form->error($modelsModel,'ModelDescription'); ?>
+	    					</td>
 	    				</tr>
 	    				<tr>
 	    					<td colspan="2" id='Models_DateModified'>Дата изменения: <?php echo $modelsModel->DateModified;?></td>
@@ -375,14 +379,14 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			<td>
 				<div class="row">
 				<?php 
-					echo $form->dropDownList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList()); 
+					echo $form->dropDownList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList($employeesModel->EmployeeID)); 
 					echo $form->error($employeesModel,'EmployeeID');?>
 				</div>
 			</td>
 	    </tr>
 	    <tr>
 			<td>Комментарий:</td>
-			<td><?php echo $form->TextArea($model,'Comment', array('rows'=>'4')); ?></td>
+			<td><?php echo $form->TextArea($model,'Comment', array('rows'=>'5', 'cols'=>'28')); echo $form->error($model,'Comment');?></td>
 	    </tr>
 	    <tr>
 			<td colspan="3">

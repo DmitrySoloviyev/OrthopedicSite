@@ -52,6 +52,13 @@ div.form fieldset
 	margin: 0 0 10px 0;
     -moz-border-radius:7px;
 }
+
+input:not([type='submit']):not([type='file']):not([type='checkbox'])
+{
+  background: white;
+  width: 200px;
+}
+
 /*
 div.form label
 {
@@ -167,7 +174,6 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	box-shadow:30px 30px 10px rgba(0,0,0,0.2);
 	border-radius:4px;
 	position: absolute;
-	background:url(../images/blur.png);
 	width: 380px;
 }
 
@@ -193,4 +199,37 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 
 #pic :hover{
   cursor:pointer;
+}
+
+#quickSearchForm{
+	position: absolute;
+	z-index: 1000;
+	right: 0;
+	top: 4px;
+	padding-left: 32px;
+	background: transparent url(/images/search.png) 10px 50% no-repeat;
+	background-color: #ededed;
+	border: solid 1px #C4C4C4;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	-ms-border-radius: 20px;
+	-o-border-radius: 20px;
+	border-radius: 20px;
+	-webkit-box-shadow: inset 0 1px 4px #b5b5b5;
+	-moz-box-shadow: inset 0 1px 4px #b5b5b5;
+	box-shadow: inset 0 1px 4px #b5b5b5;
+}
+
+#quickSearchVal{
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+	border: none;
+	margin-bottom: 1px;
+	line-height: 1em;
+	height: 20px;
+	background-color: transparent;
+	color: #4e443c;
 }
