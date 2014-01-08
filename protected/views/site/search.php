@@ -51,7 +51,7 @@ $('#next').click(function(e){
     $('#ModelForm').show('drop', {direction: 'right'}, 300);
     e.preventDefault;
 });
-  
+
 //кнопка НАЗАД
 $('#previous').click(function(e){
 
@@ -126,8 +126,8 @@ $('#search_header').hide();
 			<td style="width:160px" class="left_td">№ заказа:</td>
 			<td style="width:330px">
 				<div class="row">
-					<?php 
-						echo $form->TextField($model,'OrderID', array('autocomplete'=>'Off')); 
+					<?php
+						echo $form->TextField($model,'OrderID', array('autocomplete'=>'Off'));
 						echo $form->error($model,'OrderID'); ?>
 				</div>
 			</td>
@@ -178,10 +178,10 @@ $('#search_header').hide();
 						'autocomplete'=>'Off',
 						'maxlength'=>'6'
 					),
-				)); 
+				));
 				echo "<br /><input type='checkbox' id='showAllModels'/><label for='showAllModels' style='font-weight: normal; font-style: italic; font-size: 0.9em; display: inline;'>Показать все модели</label>";
 				echo $form->error($modelsModel,'ModelName');
-				$this->widget('ext.fancybox.EFancyBox',array(    
+				$this->widget('ext.fancybox.EFancyBox',array(
 					 	'target'=>'#pic',
 				        'config'=>array(
 				            'enableEscapeButton'=>true,
@@ -195,8 +195,8 @@ $('#search_header').hide();
 			<td class="left_td">Размер:</td>
 			<td>
 				<div class="row">
-				<?php 
-					echo $form->TextField($model,'Size', array('autocomplete'=>'Off')); 
+				<?php
+					echo $form->TextField($model,'Size', array('autocomplete'=>'Off'));
 					echo $form->error($model,'Size');?>
 				</div>
 			</td>
@@ -205,8 +205,8 @@ $('#search_header').hide();
 			<td class="left_td">УРК:</td>
 			<td>
 				<div class="row">
-				<?php 
-					echo $form->TextField($model,'Urk', array('autocomplete'=>'Off')); 
+				<?php
+					echo $form->TextField($model,'Urk', array('autocomplete'=>'Off'));
 					echo $form->error($model,'Urk');?>
 				</div>
 			</td>
@@ -215,8 +215,8 @@ $('#search_header').hide();
 			<td class="left_td">Материал:</td>
 			<td>
 				<div class="row">
-				<?php 
-					echo $form->checkBoxList($materialsModel, 'MaterialID', $materialsModel->getMaterialsList()); 
+				<?php
+					echo $form->checkBoxList($materialsModel, 'MaterialID', $materialsModel->getMaterialsList());
 					echo $form->error($materialsModel,'MaterialID');?>
 				</div>
 			</td>
@@ -225,8 +225,8 @@ $('#search_header').hide();
 			<td class="left_td">Высота:</td>
 			<td>
 				<div class="row">
-				<?php 
-					echo $form->TextField($model,'Height', array('autocomplete'=>'Off')); 
+				<?php
+					echo $form->TextField($model,'Height', array('autocomplete'=>'Off'));
 					echo $form->error($model,'Height');?>
 				</div>
 			</td>
@@ -235,8 +235,8 @@ $('#search_header').hide();
 			<td class="left_td">Объем верха:</td>
 			<td>
 				<div class="row">
-				<?php 
-					echo $form->TextField($model,'TopVolume', array('autocomplete'=>'Off')); 
+				<?php
+					echo $form->TextField($model,'TopVolume', array('autocomplete'=>'Off'));
 					echo $form->error($model,'TopVolume');?>
 				</div>
 			</td>
@@ -245,8 +245,8 @@ $('#search_header').hide();
 			<td class="left_td">Объем лодыжки:</td>
 			<td>
 				<div class="row">
-				<?php 
-					echo $form->TextField($model,'AnkleVolume', array('autocomplete'=>'Off')); 
+				<?php
+					echo $form->TextField($model,'AnkleVolume', array('autocomplete'=>'Off'));
 					echo $form->error($model,'AnkleVolume');?>
 				</div>
 			</td>
@@ -255,8 +255,8 @@ $('#search_header').hide();
 			<td title="косого взъема" class="left_td">Объем КВ:</td>
 			<td>
 				<div class="row">
-				<?php 
-					echo $form->TextField($model,'KvVolume', array('autocomplete'=>'Off')); 
+				<?php
+					echo $form->TextField($model,'KvVolume', array('autocomplete'=>'Off'));
 					echo $form->error($model,'KvVolume');?>
 				</div>
 			</td>
@@ -266,32 +266,32 @@ $('#search_header').hide();
 			Заказчик:
 				<div style="margin-left:60px">
 					<div class="row">
-						<?php 
-						echo $form->TextField($customersModel,'CustomerSN', array('autocomplete'=>'Off', 'placeholder'=>'Фамилия')); 
+						<?php
+						echo $form->TextField($customersModel,'CustomerSN', array('autocomplete'=>'Off', 'placeholder'=>'Фамилия'));
 						echo $form->error($customersModel,'CustomerSN');?>
 					</div>
 					<div class="row">
-						<?php 
-						echo $form->TextField($customersModel,'CustomerFN', array('autocomplete'=>'Off', 'placeholder'=>'Имя')); 
+						<?php
+						echo $form->TextField($customersModel,'CustomerFN', array('autocomplete'=>'Off', 'placeholder'=>'Имя'));
 						echo $form->error($customersModel,'CustomerFN');?>
 					</div>
 					<div class="row">
-						<?php 
-						echo $form->TextField($customersModel,'CustomerP', array('autocomplete'=>'Off', 'placeholder'=>'Отчество')); 
+						<?php
+						echo $form->TextField($customersModel,'CustomerP', array('autocomplete'=>'Off', 'placeholder'=>'Отчество'));
 						echo $form->error($customersModel,'CustomerP');?>
 					</div>
 				</div>
 			</td>
 			<td colspan="2">Модельер:
 				<div class="row" style="margin-left:60px">
-				<?php 
-					echo $form->checkBoxList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList()); 
+				<?php
+					echo $form->checkBoxList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList());
 					echo $form->error($employeesModel,'EmployeeID');?>
 				</div>
 			</td>
 	    </tr>
 	    <tr>
-			
+
 	    </tr>
 	    <tr>
 			<td class="left_td">Комментарий:</td>
@@ -317,7 +317,7 @@ $('#search_header').hide();
 
 
 <?php if( isset($_GET['Orders']) ):
-Yii::app()->clientScript->registerScript('search',"
+Yii::app()->clientScript->registerScript('searchResults',"
 
 $('#hint').hide();
 $('#search_result').addClass('expand')
@@ -330,7 +330,7 @@ $('#search_header').click(function(){
 });
 
 ", CClientScript::POS_READY);
-$sort=$dataProvider->getSort(); 
+$sort=$dataProvider->getSort();
 ?>
 <div id="searchResult">
 	<h3 class="title_header" id="search_result" style="cursor:default">Найдено заказов: <?=$dataProvider->totalItemCount?></h3>
