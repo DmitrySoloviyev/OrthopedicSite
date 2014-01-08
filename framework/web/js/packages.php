@@ -104,4 +104,16 @@ return array(
 		'js'=>array('jqplot/js/jqplot.dateAxisRenderer.min.js'),
 		'depends'=>array('jquery'),
 	),
+	'jqplot.pieRenderer'=>array(
+		'js'=>array('jqplot/js/jqplot.pieRenderer.min.js'),
+		'depends'=>array('jquery'),
+	),
+	'jqplot.enhancedLegendRenderer'=>array(
+		'js'=>array('jqplot/js/jqplot.enhancedLegendRenderer.min.js'),
+		'depends'=>array('jquery'),
+	),
+	'jqplot.cursor'=>array(
+		'js'=>array('jqplot/js/jqplot.cursor.min.js'),
+		'depends'=>array('jquery'),
+	),
 );

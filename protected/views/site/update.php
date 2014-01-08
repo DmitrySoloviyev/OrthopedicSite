@@ -193,7 +193,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 	<?php echo $form->errorSummary($model); ?>
 	<table>
 	    <tr>
-			<td style="width:160px">№ заказа:</td>
+			<td style="width:160px" class="left_td">№ заказа:</td>
 			<td style="width:330px">
 				<div class="row">
 					<?php echo $form->TextField($model,'OrderIDUpdate', array('autocomplete'=>'Off', 'maxlength'=>'10', 'value'=>$model->OrderID)); 
@@ -234,7 +234,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 	    	</td>
 	    </tr>
 	    <tr>
-			<td>Модель:</td>
+			<td class="left_td">Модель:</td>
 			<td>
 				<div class="row">
 				<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
@@ -271,19 +271,19 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Размер:</td>
+			<td class="left_td">Размер:</td>
 			<td>
 				<div class="row">
 				<?php 
-					echo $form->TextField($model, 'SizeLEFTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'2', 'value'=>$model->sizeLEFT->SizeValue, 'size'=>1));
+					echo $form->TextField($model, 'SizeLEFTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'2', 'value'=>$model->sizeLEFT->SizeValue, 'size'=>2));
 					echo "<span class='delimiter'></span>";
-					echo $form->TextField($model,'SizeRIGHTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'2', 'value'=>$model->sizeRIGHT->SizeValue, 'size'=>1));
+					echo $form->TextField($model,'SizeRIGHTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'2', 'value'=>$model->sizeRIGHT->SizeValue, 'size'=>2));
 					echo $form->error($model,'SizeLEFTUpdate'); echo $form->error($model,'SizeRIGHTUpdate');?>
 				</div>
 			</td>
 	    </tr>
 	    <tr>
-			<td>УРК:</td>
+			<td class="left_td">УРК:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -295,7 +295,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Материал:</td>
+			<td class="left_td">Материал:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -305,49 +305,49 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Высота:</td>
+			<td class="left_td">Высота:</td>
 			<td>
 				<div class="row">
 				<?php 
-					echo $form->TextField($model,'HeightLEFTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'2', 'value'=>$model->heightLEFT->HeightValue, 'size'=>1));
+					echo $form->TextField($model,'HeightLEFTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'2', 'value'=>$model->heightLEFT->HeightValue, 'size'=>2));
 					echo "<span class='delimiter'></span>";
-					echo $form->TextField($model,'HeightRIGHTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'2', 'value'=>$model->heightRIGHT->HeightValue, 'size'=>1));
+					echo $form->TextField($model,'HeightRIGHTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'2', 'value'=>$model->heightRIGHT->HeightValue, 'size'=>2));
 					echo $form->error($model,'HeightLEFTUpdate'); echo $form->error($model,'HeightRIGHTUpdate');?>
 				</div>
 			</td>
 	    </tr>
 	    <tr>
-			<td>Объем верха:</td>
+			<td class="left_td">Объем верха:</td>
 			<td>
 				<div class="row">
 				<?php 
-					echo $form->TextField($model,'TopVolumeLEFTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'4', 'value'=>$model->topVolumeLEFT->TopVolumeValue, 'size'=>3));
+					echo $form->TextField($model,'TopVolumeLEFTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'4', 'value'=>$model->topVolumeLEFT->TopVolumeValue, 'size'=>2));
 					echo "<span class='delimiter'></span>";
-					echo $form->TextField($model,'TopVolumeRIGHTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'4', 'value'=>$model->topVolumeRIGHT->TopVolumeValue, 'size'=>3));
+					echo $form->TextField($model,'TopVolumeRIGHTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'4', 'value'=>$model->topVolumeRIGHT->TopVolumeValue, 'size'=>2));
 					echo $form->error($model,'TopVolumeLEFTUpdate'); echo $form->error($model,'TopVolumeRIGHTUpdate');?>
 				</div>
 			</td>
 	    </tr>
 	    <tr>
-			<td>Объем лодыжки:</td>
+			<td class="left_td">Объем лодыжки:</td>
 			<td>
 				<div class="row">
 				<?php 
-					echo $form->TextField($model,'AnkleVolumeLEFTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'4', 'value'=>$model->ankleVolumeLEFT->AnkleVolumeValue, 'size'=>3));
+					echo $form->TextField($model,'AnkleVolumeLEFTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'4', 'value'=>$model->ankleVolumeLEFT->AnkleVolumeValue, 'size'=>2));
 					echo "<span class='delimiter'></span>";
-					echo $form->TextField($model,'AnkleVolumeRIGHTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'4', 'value'=>$model->ankleVolumeRIGHT->AnkleVolumeValue, 'size'=>3));
+					echo $form->TextField($model,'AnkleVolumeRIGHTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'4', 'value'=>$model->ankleVolumeRIGHT->AnkleVolumeValue, 'size'=>2));
 					echo $form->error($model,'AnkleVolumeLEFTUpdate'); echo $form->error($model,'AnkleVolumeRIGHTUpdate');?>
 				</div>
 			</td>
 	    </tr>
 	    <tr>
-			<td title="косого взъема">Объем КВ:</td>
+			<td title="косого взъема" class="left_td">Объем КВ:</td>
 			<td>
 				<div class="row">
 				<?php 
-					echo $form->TextField($model,'KvVolumeLEFTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'4', 'value'=>$model->kvVolumeLEFT->KvVolumeValue, 'size'=>3));
+					echo $form->TextField($model,'KvVolumeLEFTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'4', 'value'=>$model->kvVolumeLEFT->KvVolumeValue, 'size'=>2));
 					echo "<span class='delimiter'></span>";
-					echo $form->TextField($model,'KvVolumeRIGHTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'4', 'value'=>$model->kvVolumeRIGHT->KvVolumeValue, 'size'=>3));
+					echo $form->TextField($model,'KvVolumeRIGHTUpdate', array('autocomplete'=>'Off', 'maxlength'=>'4', 'value'=>$model->kvVolumeRIGHT->KvVolumeValue, 'size'=>2));
 					echo $form->error($model,'KvVolumeLEFTUpdate'); echo $form->error($model,'KvVolumeRIGHTUpdate');?>
 				</div>
 			</td>
@@ -375,7 +375,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Модельер:</td>
+			<td class="left_td">Модельер:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -385,13 +385,26 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Комментарий:</td>
+			<td class="left_td">Комментарий:</td>
 			<td><?php echo $form->TextArea($model,'Comment', array('rows'=>'5', 'cols'=>'28')); echo $form->error($model,'Comment');?></td>
 	    </tr>
 	    <tr>
 			<td colspan="3">
 		    	<div class="row submit">
 					<?php echo CHtml::submitButton('Исправить', array('class'=>'button')); ?>
+					<?php echo CHtml::submitButton('Удалить заказ', 
+						array(
+							'class'=>'button_delete',
+							'style'=>'margin-left: 6%;',
+						    'submit'=>array(
+							    'site/delete',
+							    'id' => $model->OrderID,
+							),
+							'params'=>array(
+						        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+						    ),
+						    'confirm' => 'Вы действительно хотите удалить этот заказ?',
+					    )); ?>
 				</div>
 			</td>
 	    </tr>

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="ru">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -59,6 +58,12 @@
 				'background-color': '#E4E4E4',
 			});
 		});
+
+		//пункты меню
+		$('#navigation ul li a').mouseup(function(event) {
+			if(event.which == 1 )
+		    	$(this).parent().addClass('active');
+		});
 	", CClientScript::POS_READY);
 	?>
 </head>
@@ -66,10 +71,10 @@
 <body id="top">
 	<div class="container" id="page" >
 		<a href="https://github.com/DmitrySoloviyev/OrthopedicSite">
-		   	<img style="position: absolute; top: 0; left: 0; border: 0; float:left" src=<?php echo Yii::app()->request->baseUrl; ?>"/images/forkme_left_red.png" alt="Fork me on GitHub" />
+		   	<img width="149px" height="149px" style="position: absolute; top: 0; left: 0; border: 0; float:left" src=<?php echo Yii::app()->request->baseUrl; ?>"/images/forkme_left_red.png" alt="Fork me on GitHub" />
 		</a>
 		<div id="header">
-			<code style="position:absolute; font-size: 12px; color:black; left:120px; top:0px;text-shadow:1px 1px 1px rgba(255,255,255,1.0)">Версия 0.2.2</code>
+			<code style="position:absolute; font-style: italic; font-size: 12px; color:black; left:120px; top:0px;text-shadow:1px 1px 1px rgba(255,255,255,1.0)">Версия 0.2.3</code>
 			<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 
 			<div id="navigation">
@@ -110,6 +115,6 @@
 			<?php echo Yii::powered(); ?>
 		</div><!-- footer -->
 	</div><!-- page -->
-	<p id="back-top" style="z-index:2"><a href="#top"><img src="../../images/arrow_up_84.png"></img></a></p>
+	<p id="back-top" style="z-index:2"><a href="#top"><img width="78px" height="78px" src="../../images/arrow_up_84.png"></img></a></p>
 </body>
 </html>

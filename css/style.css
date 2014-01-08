@@ -32,25 +32,26 @@ html{
   height:100%;
   width:100%;
 }
+
 body{
-  /*background:url(../images/ibg.jpg) repeat;*/
   background:url(../images/bg_mat.png) repeat;
-  /*новый стиль:*/
-  /*background-color: #c9c9c9;*/
   height:100%;
   margin-top:0px;
   font: normal 100% 'Ubuntu', pfbeausansproregular, Verdana, Cambria, Georgia, Arial, sans-serif;
 }
+
 .fix{
   width:90%;
   margin:0px auto;
   min-height:100%;
   position:relative;
 }
+
 header{
   width:100%;
   margin:0 auto 0.5em auto;
 }
+
 header h1{
   font-size:2em;/* 24px/16px*/
   font-style:oblique;
@@ -59,6 +60,7 @@ header h1{
   color:#4094b6;
   background-color:transparent;
 }
+
 #center{
   height: 100%;
   padding:10px;
@@ -149,13 +151,10 @@ blockquote > p:first-child {
 
 #navigation ul li{
   display:inline;
-/*  background-color:#65909A;*/
   padding:6px 6px;
-/*  border-left:1px solid #bababa;
-  border-right:1px solid #bababa;*/
   margin: 0 1px 0 -6px;
   font-size: 14px;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 #navigation ul li a{
@@ -166,15 +165,14 @@ blockquote > p:first-child {
 }
 
 #navigation ul li:hover{
-  background: #ce4e21;
+  background: #db4928;
   background:linear-gradient(bottom,#E8563C,#E82C0C);
   box-shadow:0px 1px 10px rgba(0,0,0,0.6);
-  -moz-box-shadow:0px 1px 10px rgba(0,0,0,0.6);
-  -webkit-box-shadow:0px 1px 10px rgba(0,0,0,0.6);
+  -moz-box-shadow:0px 2px 2px rgba(0,0,0,0.7);
+  -webkit-box-shadow:0px 2px 2px rgba(0,0,0,0.7);
 }
 
 #navigation ul li.active{
-  font-weight:800;
   background: #db4928;
   box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 1);
   -moz-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 1);
@@ -198,19 +196,22 @@ blockquote > p:first-child {
   color: black;
   margin:3px
 }
+
 /*********************************************************таблица в разделе "просмотр базы"************/
 table.dboutput{
-  border:2px solid black;
+  border: 3px solid #383838;
   font-size:14px;
   text-align:center;
   width:100%;
   margin:auto;
   background: rgba(255,255,255,0.6);
+  border-collapse: collapse;
 }
 
 table.dboutput th{
   background:#232323;
   color:#bcbcbc;
+  border-color: #838383;
 }
 
 table.dboutput tr{
@@ -229,10 +230,11 @@ table.dboutput tr td{
   border:1px solid black;
 }
 
-input:focus, textarea:focus, summary:focus{
+input:not([type="submit"]):focus{
   outline: none;
-  border-radius:6px;
-  border-color:#E82C0C;
+  border-radius:4px;
+  /*border-color:#E82C0C;*/
+  border-color:#666666;
 /*   border-color:#4094b6; */
 }
 
@@ -246,56 +248,36 @@ input:focus, textarea:focus, summary:focus{
   background:#fe9223;
 }/*********************************************************конец таблица в разделе "просмотр базы"************/
 
-/*****************************************************************"кнопки"******/
-/***********************************************************кнопка удаления****************************/
 
-#button_delete {
-   border: 1px solid #0a3c59;
-   background: #9c3e3e;
-   background: -webkit-gradient(linear, left top, left bottom, from(#d66565), to(#9c3e3e));
-   background: -webkit-linear-gradient(top, #d66565, #9c3e3e);
-   background: -moz-linear-gradient(top, #d66565, #9c3e3e);
-   background: -ms-linear-gradient(top, #d66565, #9c3e3e);
-   background: -o-linear-gradient(top, #d66565, #9c3e3e);
-   background-image: -ms-linear-gradient(top, #d66565 0%, #9c3e3e 100%);
-   padding: 5.5px 11px;
-   -webkit-border-radius: 6px;
-   -moz-border-radius: 6px;
-   border-radius: 6px;
-   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
-   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
-   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
-   text-shadow: #bd7f7f 0 1px 0;
-   color: #6b0606;
-   font-size: 14px;
-   font-family: helvetica, serif;
-   text-decoration: none;
-   vertical-align: middle;
+/***********************************************************кнопка удаления****************************/
+.button_delete {
+  border-width: 1px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 1;
+  margin: 0 0 1.25em;
+  position: relative;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  padding-top: 0.75em;
+  padding-right: 1.6em;
+  padding-bottom: 0.8125em;
+  padding-left: 1.6em;
+  font-size: 1em;
+  background-color: #CB2B2B;
+  border-color: #A12222;
+  color: white;
+  width: 204px;
 }
-#button_delete:hover {
-   border: 1px solid #0a3c59;
-   text-shadow: #1e4158 0 1px 0;
-   background: #9c3e3e;
-   background: -webkit-gradient(linear, left top, left bottom, from(#d66565), to(#9c3e3e));
-   background: -webkit-linear-gradient(top, #d66565, #9c3e3e);
-   background: -moz-linear-gradient(top, #d66565, #9c3e3e);
-   background: -ms-linear-gradient(top, #d66565, #9c3e3e);
-   background: -o-linear-gradient(top, #d66565, #9c3e3e);
-   background-image: -ms-linear-gradient(top, #d66565 0%, #9c3e3e 100%);
-   color: #fff;
-   cursor: pointer;
+
+button:hover, button:focus, .button_delete:hover, .button_delete:focus {
+    background-color: #A12222;
 }
-#button_delete:active {
-   text-shadow: #1e4158 0 1px 0;
-   border: 1px solid #0a3c59;
-   background: #d66565;
-   background: -webkit-gradient(linear, left top, left bottom, from(#9c3e3e), to(#9c3e3e));
-   background: -webkit-linear-gradient(top, #9c3e3e, #d66565);
-   background: -moz-linear-gradient(top, #9c3e3e, #d66565);
-   background: -ms-linear-gradient(top, #9c3e3e, #d66565);
-   background: -o-linear-gradient(top, #9c3e3e, #d66565);
-   background-image: -ms-linear-gradient(top, #9c3e3e 0%, #d66565 100%);
-   color: #fff;
+
+button:hover, button:focus, .button_delete:hover, .button_delete:focus {
+  color: white;
 }
 
 /********************************************************************************конец раздела "кнопки"***************/
@@ -369,8 +351,9 @@ a.editrow:hover{
 .accordion h3 {
 	padding: 7px 15px;
 	margin: 0;
-	border-bottom:none;
-	border-radius:8px;
+	border-bottom: none;
+	border-radius: 5px;
+  font-size: 1.2em;
 }
 .accordion h3:hover {
 	background-color: #d9d8d8;
@@ -395,7 +378,6 @@ a.editrow:hover{
   top:19em;
   min-width:48%;/*480px;*/
   float:right;
-/*   padding:5px; */
   padding:1.5em;/*5/480*/
   box-shadow:0px 3px 1px rgba(0,0,0,0.4);
 }
@@ -403,7 +385,6 @@ a.editrow:hover{
 #description{
   padding-left:190px;
   line-height:1.5;
-/*   height:120px; */
   margin-top:25px;
 }
 
@@ -417,7 +398,6 @@ a.editrow:hover{
 }
 
 #next{
-/*   background:url(../images/next.png) no-repeat; */
   width:16px;
   height:22px;
   margin:16px;
@@ -425,7 +405,6 @@ a.editrow:hover{
 }
 
 #previous{
-/*   background:url(../images/previous.png) no-repeat; */
   width:16px;
   height:22px;
   margin:6px;
@@ -440,8 +419,8 @@ a.editrow:hover{
 
 .closeWindow{
   position:absolute;
-  top: 9px;
-  right: 10px;
+  top: -6px;
+  right: -14px;
   width: 36px;
   height: 36px;
   cursor: pointer;
@@ -493,6 +472,7 @@ button:hover, button:focus, .button:hover, .button:focus {
   font-size: 16px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.8);
   margin: 0 auto;
+  width: 723px;
 }
 
 .delimiter{
@@ -501,34 +481,55 @@ button:hover, button:focus, .button:hover, .button:focus {
   margin: 4px;
 }
 
-div.loading {
+.loading {
     background-color: #eee;
     background-image: url('../images/fancybox_loading.gif');
     background-position: center center;
     background-repeat: no-repeat;
     opacity: 1;
+    padding: 20px;
+    margin: 0 auto;
+    width: 100px;
 }
  
-div.loading * {
+.loading * {
     opacity: .8;
 }
 
-.searchResult{
-  position: absolute;
-  top: 30%;
-  background-color: #e5e5e5;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.7);
-  padding: 10px;
-  z-index: 2;
-  border-radius:6px;
-}
-
-#handler{
-  cursor:move; 
+.title_header{
   text-align:center;
   background-color: #C9C9C9;
-  padding: 5px;
-  margin-bottom: auto;
-  border-radius: 6px;
-  text-shadow:1px 1px 1px rgba(255,255,255,1.0)
+  padding: 5px 0;
+  margin-bottom: 1%;
+  border-radius: 4px;
+  text-shadow:1px 1px 1px rgba(255,255,255,1.0);
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.2em;
+  background-image: url('../images/nav_right.png');
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+.sorter_link{
+  color:#bcbcbc;
+}
+
+.sorter_link:hover{
+  color:#d1d1d1;
+}
+
+.left_td{
+  vertical-align: top;
+  padding-top: 1%;
+}
+
+h3 + p {
+  text-align: justify;
+}
+
+.expand{
+  background-image: url('../images/nav_down.png');
+  background-position: right;
+  background-repeat: no-repeat;
 }

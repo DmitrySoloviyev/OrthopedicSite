@@ -76,6 +76,8 @@ $('#previous').click(function(e){
     e.preventDefault;
 });
 
+$('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
+
 $('#ModelForm').draggable({
     delay:150,
     start:function(){
@@ -91,7 +93,8 @@ $('.closeWindow').click(function(e){
     return false;
 });
 
-$('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
+$('#search_header').hide();
+
 ", CClientScript::POS_READY);
 ?>
 
@@ -108,8 +111,9 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 <?php endif; ?>
 
 <div class="form">
+	<h3 id="search_header" class="title_header" width="100%"></h3>
 	<?php $form=$this->beginWidget('CActiveForm', array(
-		'id'=>'orders-new-form',
+		'id'=>'ordersSearchForm',
 		'enableClientValidation'=>false,
 		'clientOptions'=>array('validateOnSubmit'=>false),
 		'method'=>'GET'
@@ -117,9 +121,9 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 	<fieldset>
 	<legend style="margin-left:60px;">Поиск</legend>
 	<?php echo $form->errorSummary($model); ?>
-	<table>
+	<table style="padding-left:20px;">
 	    <tr>
-			<td style="width:160px">№ заказа:</td>
+			<td style="width:160px" class="left_td">№ заказа:</td>
 			<td style="width:330px">
 				<div class="row">
 					<?php 
@@ -143,7 +147,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 	    					<td colspan="2"><span id="pic"><img id='Models_ModelPicture' src=<?php echo "'".$modelsModel->ModelPicture."'";?> alt='изображение модели' width="200" height="200" /></span></td>
 	    				</tr>
 	    				<tr>
-	    					<td>Описание: </td>
+	    					<td style="width: 1px;">Описание: </td>
 	    					<td id='Models_ModelDescription'><?php echo CHtml::encode($modelsModel->ModelDescription); ?></td>
 	    				</tr>
 	    				<tr>
@@ -154,7 +158,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 	    	</td>
 	    </tr>
 	    <tr>
-			<td>Модель:</td>
+			<td class="left_td">Модель:</td>
 			<td>
 				<div class="row">
 				<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
@@ -188,7 +192,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Размер:</td>
+			<td class="left_td">Размер:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -198,7 +202,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 			</td>
 	    </tr>
 	    <tr>
-			<td>УРК:</td>
+			<td class="left_td">УРК:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -208,7 +212,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Материал:</td>
+			<td class="left_td">Материал:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -218,7 +222,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Высота:</td>
+			<td class="left_td">Высота:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -228,7 +232,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Объем верха:</td>
+			<td class="left_td">Объем верха:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -238,7 +242,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Объем лодыжки:</td>
+			<td class="left_td">Объем лодыжки:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -248,7 +252,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 			</td>
 	    </tr>
 	    <tr>
-			<td title="косого взъема">Объем КВ:</td>
+			<td title="косого взъема" class="left_td">Объем КВ:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -278,11 +282,8 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 					</div>
 				</div>
 			</td>
-	    </tr>
-	    <tr>
-			<td>Модельер:</td>
-			<td>
-				<div class="row">
+			<td colspan="2">Модельер:
+				<div class="row" style="margin-left:60px">
 				<?php 
 					echo $form->checkBoxList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList()); 
 					echo $form->error($employeesModel,'EmployeeID');?>
@@ -290,8 +291,11 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Комментарий:</td>
-			<td><?php echo $form->TextField($model,'Comment'); ?></td>
+			
+	    </tr>
+	    <tr>
+			<td class="left_td">Комментарий:</td>
+			<td><?php echo $form->TextArea($model,'Comment', array('rows'=>'4', 'cols'=>'22')); ?></td>
 	    </tr>
 	    <tr>
 			<td colspan="3">
@@ -304,70 +308,46 @@ $('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 	</fieldset>
 	<?php $this->endWidget(); ?>
 </div><!-- form -->
-
-<div class="loading"></div>
-
 <div id="hint">
-  <i>Поля, оставленные пустыми,<br /> участвовать в поиске не будут.<br />
-    Для задания диапазона используйте тире "-". Отделяйте каждое значение и диапазон пробелом.
-  </i>
+	<i>Поля, оставленные пустыми,<br /> участвовать в поиске не будут.<br />
+	   Для задания диапазона используйте тире "-". Отделяйте каждое значение и диапазон значений пробелом.
+	</i>
 </div>
 
 
-<?php
-if( isset($_GET['Orders']) ){
-	Yii::app()->clientScript->registerScript('search',"
-	$(function(){
-	   var docHeight = $(document).height();
-	   $('body').append('<div id=\'overlay\'></div>');
-	   $('#overlay')
-	      .height(docHeight)
-	      .css({
-	         'opacity' : 0.4,
-	         'position': 'absolute',
-	         'top': 0,
-	         'left': 0,
-	         'background-color': 'black',
-	         'width': '100%',
-	         'z-index': 1
-	      });
-	});
-	$('#closeSearchResult').click(function(){
-		$('.searchResult').fadeOut(500);
-		$('#overlay').remove();
-		return false;
-	});
 
-	$('.searchResult').draggable({
-	    delay:150,
-	    handle: '#handler',
-	    axis: 'y',
-	    start:function(){
-		    $(this).css('opacity', 0.5).css('cursor','move')
-		  },
-	    stop:function(){
-		    $(this).css('opacity', '').css('cursor','')
-		  }
-	});
-	", CClientScript::POS_READY);
+<?php if( isset($_GET['Orders']) ):
+Yii::app()->clientScript->registerScript('search',"
+
+$('#hint').hide();
+$('#search_result').addClass('expand')
+$('#ordersSearchForm').slideUp('medium');
+$('#search_header').show().text('Критерии поиска:');
+
+$('#search_header').click(function(){
+	$('#ordersSearchForm').slideToggle(600);
+	$(this).toggleClass('expand');
+});
+
+", CClientScript::POS_READY);
+$sort=$dataProvider->getSort(); 
 ?>
-<div class="searchResult">
-	<a href="#" id="closeSearchResult" class="closeWindow"></a>
-	<h3 id="handler">Результаты поиска:</h3>
+<div id="searchResult">
+	<h3 class="title_header" id="search_result" style="cursor:default">Найдено заказов: <?=$dataProvider->totalItemCount?></h3>
 	<table cols='14' border='2' class='dboutput'>
 		<tr>
-			<th>№ заказа</th>
-			<th>Модель</th>
+			<th><?=$sort->link('OrderID', '№ заказа', array('class'=>'sorter_link'));?></th>
+			<th><?=$sort->link('ModelName', 'Модель', array('class'=>'sorter_link'));?></th>
 			<th>Размер</th>
 			<th>Длина УРК</th>
-			<th>Материал</th>
+			<th><?=$sort->link('MaterialID', 'Материал', array('class'=>'sorter_link'));?></th>
 			<th>Высота</th>
 			<th>Объем верха</th>
 		    <th>Объем лодыжки</th>
 			<th>Объем КВ</th>
 			<th>Заказчик</th>
-		    <th>Модельер</th>
-			<th>Дата заказа</th>
+		    <th><?=$sort->link('EmployeeID', 'Модельер', array('class'=>'sorter_link'));?></th>
+			<th><?=$sort->link('Date', 'Дата заказа', array('class'=>'sorter_link'));?></th>
 		 	<th width="110px">Комментарий</th>
 			<th>Правка</th>
 		  	<th>Удалить</th>
@@ -376,13 +356,11 @@ if( isset($_GET['Orders']) ){
 		$this->widget('zii.widgets.CListView', array(
 			'dataProvider' => $dataProvider,
 			'itemView' => '_view',
-			'emptyText' => 'Нет записей',
+			'emptyText' => 'Поиск не дал результатов.',
 			'ajaxUpdate'=>true,
-			'sortableAttributes'=>array('OrderID', 'ModelName', 'Date'),
-			'summaryText'=>'Показано {start} - {end} из {count} заказов',
-			'sorterHeader'=>'Сортировать по: ',
+			'summaryText'=>'',
 		));
 		?>
 	</table>
 </div>
-<?php } ?>
+<?php endif; ?>

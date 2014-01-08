@@ -174,9 +174,9 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 	<fieldset>
 	<legend style="margin-left:60px;">Новый заказ</legend>
 	<?php echo $form->errorSummary($model); ?>
-	<table>
+	<table style="padding-left:20px;">
 	    <tr>
-			<td style="width:180px">№ заказа:</td>
+			<td style="width:180px" class="left_td">№ заказа:</td>
 			<td style="width:330px">
 				<div class="row">
 					<?php echo $form->TextField($model,'OrderID', array('autocomplete'=>'Off', 'maxlength'=>'10')); 
@@ -196,13 +196,17 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 	    					</td>
 	    				</tr>
 	    				<tr>
-	    					<td colspan="2"><span id="pic"><img id='Models_ModelPicture' src="#" alt='изображение модели' width="200" height="200" /></span></td>
+	    					<td colspan="2">
+	    						<span id="pic">
+	    							<img id='Models_ModelPicture' src="#" alt='изображение модели' width="200" height="200" />
+	    						</span>
+	    					</td>
 	    				</tr>
 	    				<tr>
 	    					<td colspan="2">Загрузить изображение: <?php echo $form->fileField($modelsModel, 'loadImage', array('style'=>'width:114px'));?></td>
 	    				</tr>
 	    				<tr>
-	    					<td>Описание: </td>
+	    					<td style="width: 1px;">Описание: </td>
 	    					<td>
 	    						<?php 
 	    							echo $form->TextArea($modelsModel,'ModelDescription', array('rows'=>'6', 'cols'=>'30','autocomplete'=>'Off'));
@@ -217,7 +221,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 	    	</td>
 	    </tr>
 	    <tr>
-			<td>Модель:</td>
+			<td class="left_td">Модель:</td>
 			<td>
 				<div class="row">
 				<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
@@ -254,7 +258,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Размер:</td>
+			<td class="left_td">Размер:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -264,7 +268,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td>УРК:</td>
+			<td class="left_td">УРК:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -274,7 +278,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Материал:</td>
+			<td class="left_td">Материал:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -284,7 +288,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Высота:</td>
+			<td class="left_td">Высота:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -294,7 +298,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Объем верха:</td>
+			<td class="left_td">Объем верха:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -304,7 +308,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Объем лодыжки:</td>
+			<td class="left_td">Объем лодыжки:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -314,7 +318,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td title="косого взъема">Объем КВ:</td>
+			<td title="косого взъема" class="left_td">Объем КВ:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -346,7 +350,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Модельер:</td>
+			<td class="left_td">Модельер:</td>
 			<td>
 				<div class="row">
 				<?php 
@@ -356,7 +360,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
-			<td>Комментарий:</td>
+			<td class="left_td">Комментарий:</td>
 			<td>
 				<?php echo $form->TextArea($model,'Comment', array('rows'=>'5', 'cols'=>'28')); 
 				echo $form->error($model,'Comment');?>

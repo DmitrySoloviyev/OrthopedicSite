@@ -52,11 +52,10 @@ Yii::app()->clientScript->registerScript('about',"
 
   <h3>Вывод отчета</h3>
   <p>
-    Начиная с версии 0.2.2 стала доступна возможность сохранять заказы в Excel за выбранный промежуток времени. Имейте в виду, что чем
-    больше разница между датами, тем, соответственно, больше заказов попадет в отчет за выбранный промежуток времени. Будьте готовы к тому,
-    что время создания такого документа может занять некоторое время, т.к существенно увеличивается
-    нагрузка на сервер. Вполне вероятна ситуация, связанная с нехваткой памяти. В этом случае обратитесь к системному админисратору с
-    просьбой увеличить количество памяти, выделяемой серверу.
+    Начиная с версии 0.2.2 стала доступна возможность сохранять заказы в Excel за выбранный промежуток времени. Имейте в виду, что при указании
+    существенной разницы между датами, в отчет попадет большое количество заказов. Будьте готовы к тому, что время создания такого документа может занять 
+    некоторое время, т.к существенно увеличивается нагрузка на сервер. Вполне вероятна ситуация, связанная с нехваткой памяти. В этом случае 
+    обратитесь к системному админисратору с просьбой увеличить количество памяти, выделяемой серверу.
   </p>
 
   <h3>Рекомендации</h3>
@@ -69,17 +68,24 @@ Yii::app()->clientScript->registerScript('about',"
   <h3>О настройке сервера</h3>
   <p>
     <code>
+      <span style="display:block; font-weight:600">Apache:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;enable mod_deflate<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;AllowOverride All<br/>
       <span style="display:block; font-weight:600">PHP:</span>
         &nbsp;&nbsp;&nbsp;&nbsp;extension=php_gd2<br />
         &nbsp;&nbsp;&nbsp;&nbsp;extension=php_mbstring<br />
         &nbsp;&nbsp;&nbsp;&nbsp;extension=php_mysql<br />
         &nbsp;&nbsp;&nbsp;&nbsp;extension=php_mysqli<br />
         &nbsp;&nbsp;&nbsp;&nbsp;extension=php_pdo_mysql<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;zlib.output_compression=On<br />
       <span style="display:block; font-weight:600">MySQL:</span>
+        [client]<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;default-character-set=utf8<br />
         [mysql]<br />
         &nbsp;&nbsp;&nbsp;&nbsp;default-character-set=utf8<br />
         [mysqld]<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;character-set-server=utf8
+        &nbsp;&nbsp;&nbsp;&nbsp;character-set-server=utf8<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;collation-server=utf8_general_ci<br />
     </code>
   </p>
 </div><br />

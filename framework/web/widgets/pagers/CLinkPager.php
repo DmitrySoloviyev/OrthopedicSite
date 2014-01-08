@@ -83,7 +83,7 @@ class CLinkPager extends CBasePager
 	/**
 	 * @var string the text shown before page buttons. Defaults to 'Go to page: '.
 	 */
-	public $header;
+	public $header = '';
 	/**
 	 * @var string the text shown after page buttons.
 	 */
