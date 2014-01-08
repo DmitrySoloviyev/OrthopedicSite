@@ -1,0 +1,4 @@
+Options All -Indexes
+<Files DUMP_DB_SHOES.sql>
+Deny from all
+</Files>

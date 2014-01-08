@@ -52,7 +52,7 @@ class Orders extends CActiveRecord
 	/*
 	 * INSERT
 	 */
-	public $OrderID;
+	public $OrderID = null;
 	public $Size;
 	public $Urk;
 	public $Height;

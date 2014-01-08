@@ -10,12 +10,16 @@
 
 ul.yiiPager
 {
-	font-size:11px;
+	font-size:12px;
 	border:0;
 	margin:4px;
 	padding:10px;
 	line-height:100%;
 	display:inline-block;
+	width: 100%;
+	margin: 10px auto;
+	text-align: center;
+	font-style: italic;
 }
 
 ul.yiiPager li
@@ -26,9 +30,10 @@ ul.yiiPager li
 ul.yiiPager a:link,
 ul.yiiPager a:visited
 {
-	border:solid 1px #9aafe5;
+/*	border:solid 1px #9aafe5;*/
 	font-weight:bold;
-	color:#0e509e;
+/*	color:#0e509e;*/
+	color:#272727;
 	padding:1px 6px;
 	text-decoration:none;
 }
@@ -36,23 +41,32 @@ ul.yiiPager a:visited
 ul.yiiPager .page a
 {
 	font-weight:normal;
+	border:solid 1px transparent;
+}
+
+ul.yiiPager .page a:hover
+{
+	border:solid 1px #c43f20;
+	border-radius: 3px;
 }
 
 ul.yiiPager a:hover
 {
-	border:solid 1px #0e509e;
+/*	border:solid 1px #0e509e;*/
 }
 
 ul.yiiPager .selected a
 {
-	background:#2e6ab1;
+/*	background:#2e6ab1;*/
+	background:#c43f20;
 	color:#FFFFFF;
 	font-weight:bold;
+	border-radius: 3px;
 }
 
 ul.yiiPager .hidden a
 {
-	border:solid 1px #DEDEDE;
+/*	border:solid 1px #DEDEDE;*/
 	color:#888888;
 }
 

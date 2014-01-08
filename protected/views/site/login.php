@@ -21,13 +21,13 @@ $this->pageTitle=Yii::app()->name . ' - Войти';
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?><br />
-		<?php echo $form->textField($model,'username'); ?>
+		<?php echo $form->textField($model,'username', array('class'=>'input_text')); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?><br />
-		<?php echo $form->passwordField($model,'password'); ?>
+		<?php echo $form->passwordField($model,'password', array('class'=>'input_text')); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 

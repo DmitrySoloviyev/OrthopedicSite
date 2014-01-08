@@ -56,7 +56,10 @@ div.form fieldset
 input:not([type='submit']):not([type='file']):not([type='checkbox'])
 {
   background: white;
-  width: 200px;
+}
+
+.input_text{
+	width: 200px;
 }
 
 /*
@@ -115,7 +118,8 @@ div.form textarea.success,
 div.form select.success
 {
 	background: #E6EFC2;
-	border-color: #C6D880;
+	/*border-color: #C6D880;*/
+	border-color: #82AC29;
 }
 
 div.form div.success label
@@ -175,6 +179,7 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	border-radius:4px;
 	position: absolute;
 	width: 380px;
+	background-color: rgba(232, 232, 232, 0.9);
 }
 
 #ModelForm td{
@@ -195,6 +200,10 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
   -o-transform: rotate(6deg) scale(1) skew(1deg) translate(10px);
   -ms-transform: rotate(6deg) scale(1) skew(1deg) translate(10px);
   /*background: url(../images/bg_info_left.gif) repeat-y, #f9f9f9 url(../images/bg_info_right.gif) repeat-y 100% 0;*/
+}
+
+#Models_ModelDescription{
+	padding: 4%;
 }
 
 #pic :hover{
@@ -232,4 +241,5 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	height: 20px;
 	background-color: transparent;
 	color: #4e443c;
+	width:199px;
 }

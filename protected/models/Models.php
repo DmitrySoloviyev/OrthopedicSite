@@ -43,7 +43,7 @@ class Models extends CActiveRecord
 			array('ModelDescription', 'length', 'max'=>255),
 			array('ModelPicture', 'length', 'max'=>255),
 			array('loadImage', 'file', 'types'=>'jpg, gif, png', 'allowEmpty'=>true),
-			array('basedID', 'safe'),
+		//	array('basedID', 'safe'),
 			array('isNewModel', 'boolean'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

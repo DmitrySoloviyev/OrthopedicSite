@@ -60,7 +60,7 @@ class SiteController extends Controller
 					{
 						Yii::app()->clientScript->registerScript(
 			        	        'myHideEffect',
-			                    '$(".flash-success").animate({opacity: 1.0}, 3000).fadeOut("medium");',
+			                    '$(".flash-success").animate({opacity: 1.0}, 3000).slideUp("medium");',
 			            	    CClientScript::POS_READY
 			            );
 			        	Yii::app()->user->setFlash('success',"Модельер ".
@@ -73,7 +73,7 @@ class SiteController extends Controller
 				{
 					Yii::app()->clientScript->registerScript(
 			        	        'myHideEffect',
-			                    '$(".flash-success").animate({opacity: 1.0}, 3000).fadeOut("medium");',
+			                    '$(".flash-success").animate({opacity: 1.0}, 3000).slideUp("medium");',
 			            	    CClientScript::POS_READY
 			            );
 			        Yii::app()->user->setFlash('success',"Новый модельер ".
@@ -84,7 +84,7 @@ class SiteController extends Controller
 		    	{
 		    		Yii::app()->clientScript->registerScript(
 		                    'myHideEffect',
-		                    '$(".flash-error").animate({opacity: 1.0}, 4000).fadeOut("medium");',
+		                    '$(".flash-error").animate({opacity: 1.0}, 4000).slideUp("medium");',
 		                    CClientScript::POS_READY
 		                );
 		        	Yii::app()->user->setFlash('error',"Ошибка при добавлении нового модельера!");
@@ -180,13 +180,11 @@ class SiteController extends Controller
 
 			//пишем заказчика и модель в соответствующие таблицы, если ок, то заполняем таблицу заказов
 			$transaction=$model->dbConnection->beginTransaction();
-			try
-			{
+			try {
 			    // используем транзакцию, чтобы удостовериться в целостности данных
 				//записываем заказчика
 				$valid = $customersModel->validate();
-				if($valid)
-				{
+				if($valid) {
 					$customersModel->save();
 					$model->CustomerID = $customersModel->CustomerID;
 				}
@@ -194,10 +192,8 @@ class SiteController extends Controller
 				//записываем модель
 				// если чек-бокс отмечен, значит это новая модель, тут просто сохраняем
 				// иначе мы должны вписать айдишник существующей модели и проапдейтить ее (возможно пользователь обновил ее данные)
-				if($modelsModel->basedID == 'null')
-				{
-		        	if($loadImage=CUploadedFile::getInstance($modelsModel,'loadImage'))
-		        	{
+				if($modelsModel->basedID == null) {
+		        	if($loadImage=CUploadedFile::getInstance($modelsModel,'loadImage')) {
 			            $modelsModel->loadImage=$loadImage;
 			            $modelsModel->loadImage->saveAs(Yii::app()->request->baseUrl.'assets/OrthopedicGallery/'.time().".".$modelsModel->loadImage->extensionName);
 		        		$modelsModel->ModelPicture = "".Yii::app()->request->baseUrl.'assets/OrthopedicGallery/'.time().".".$modelsModel->loadImage->extensionName;
@@ -205,14 +201,12 @@ class SiteController extends Controller
 		        	$modelsModel->save();
 		        	$model->ModelID = $modelsModel->ModelID;
 		        }
-		        else
-		        {
+		        else {
 		        	// это запрос на изменение картинки существующей модели
 		        	$model->ModelID = $modelsModel->basedID;
 		        	$newDescroption = $modelsModel->ModelDescription;
 		        	$modelsModel=Models::model()->findByPk($model->ModelID);
-		        	if($loadImage=CUploadedFile::getInstance($modelsModel,'loadImage'))
-		        	{
+		        	if($loadImage=CUploadedFile::getInstance($modelsModel,'loadImage')) {
 		            	$modelsModel->loadImage=$loadImage;
 		            	$oldImage = $modelsModel->ModelPicture;
 		            	// удаляем старую картинку если она существует
@@ -229,12 +223,11 @@ class SiteController extends Controller
 				$valid = $modelsModel->validate() && $valid;	
 				$valid = $model->validate() && $valid;
 				// записываем заказ
-			    if( $model->save() )
-				{
+			    if( $model->save() ) {
 					$transaction->commit();
 					Yii::app()->clientScript->registerScript(
 		        	        'myHideEffect',
-		                    '$(".flash-success").animate({opacity: 1.0}, 5000).fadeOut("slow");',
+		                    '$(".flash-success").animate({opacity: 1.0}, 5000).slideUp("slow");',
 		            	    CClientScript::POS_READY
 		            );
 		           	Yii::app()->user->setFlash('success',"Запись успешно добавлена!");
@@ -245,25 +238,27 @@ class SiteController extends Controller
 					$employeesModel->unsetAttributes();
 					$modelsModel->unsetAttributes();
 					$customersModel->unsetAttributes();
-				}
-				else
-				{
+					$model->Size = null;
+					$model->Urk = null;
+					$model->Height = null;
+					$model->TopVolume = null;
+					$model->AnkleVolume = null;
+					$model->KvVolume = null;
+				} else {
 					$transaction->rollback();
 				    Yii::app()->clientScript->registerScript(
 			                'myHideEffect',
-			                '$(".flash-error").animate({opacity: 1.0}, 5000).fadeOut("slow");',
+			                '$(".flash-error").animate({opacity: 1.0}, 5000).slideUp("slow");',
 			                CClientScript::POS_READY
 		                );
 		            Yii::app()->user->setFlash('error',"Ошибка при добавлении записи!");
 				}
-			}
-			catch(Exception $e)
-			{
+			} catch(Exception $e) {
 			    $transaction->rollback();
 			    throw $e;
 			    Yii::app()->clientScript->registerScript(
 		                    'myHideEffect',
-		                    '$(".flash-error").animate({opacity: 1.0}, 5000).fadeOut("slow");',
+		                    '$(".flash-error").animate({opacity: 1.0}, 5000).slideUp("slow");',
 		                    CClientScript::POS_READY
 		                );
 		        Yii::app()->user->setFlash('error',"Ошибка при добавлении записи!");
@@ -294,7 +289,7 @@ class SiteController extends Controller
 		$employeesModel->unsetAttributes();
 		$modelsModel->unsetAttributes();
 
-		if( isset($_GET['Orders']) ){
+		if( /*Yii::app()->request->isAjaxRequest &&*/ isset($_GET['Orders']) ){
 			$model->attributes=$_GET['Orders'];
 			$modelsModel->attributes=$_GET['Models'];
 			$materialsModel->attributes=$_GET['Materials'];
@@ -364,16 +359,10 @@ class SiteController extends Controller
 
 			if(!empty($materialsModel->MaterialID))
 			{
+				$searchMeaterials = "";
 				foreach ($materialsModel->MaterialID as $meterialId)
 				{
-					if(empty($where))
-					{
-						$where .= " MaterialID='".$meterialId."' ";
-					}
-					else
-					{
-						$where .= " OR MaterialID='".$meterialId."' "; 
-					}
+					$searchMeaterials .= "'".$meterialId."',";
 					$material = '';
 					switch ($meterialId) {
 						case 'mk':
@@ -394,23 +383,33 @@ class SiteController extends Controller
 					}
 					$js .= " $('td:nth-child(5)').highlight('".$material."'); ";
 				}
-			}
+				if(empty($where))
+				{
+					$where .= " MaterialID IN (".substr($searchMeaterials, 0, strlen($searchMeaterials)-1).") ";
+				}
+				else
+				{
+					$where .= " AND MaterialID IN (".substr($searchMeaterials, 0, strlen($searchMeaterials)-1).") ";
+				}
+			}// end of materials
 
 			if(!empty($employeesModel->EmployeeID))
 			{
+				$searchEmployees = "";
 				foreach ($employeesModel->EmployeeID as $employeeId)
 				{
-					if(empty($where))
-					{
-						$where .= " EmployeeID='".$employeeId."' ";
-					}
-					else
-					{
-						$where .= " OR EmployeeID='".$employeeId."' "; 
-					}
+					$searchEmployees .= "'".$employeeId."',";
 					$js .= " $('td:nth-child(11)').highlight('".Employees::getEmployeeShortcutList($employeeId)."'); ";
 				}
-			}
+				if(empty($where))
+				{
+					$where .= " EmployeeID IN(".substr($searchEmployees, 0, strlen($searchEmployees)-1).") ";
+				}
+				else
+				{
+					$where .= " AND EmployeeID IN (".substr($searchEmployees, 0, strlen($searchEmployees)-1).") "; 
+				}
+			}// end of employees
 
 			if(!empty($customersModel->CustomerSN))
 			{
@@ -451,8 +450,13 @@ class SiteController extends Controller
 				$js .= " $('td:nth-child(10)').highlight('".$customersModel->CustomerP."'); ";
 			}
 
-			if( isset($_GET['Orders']['Comment']) && !empty($_GET['Orders']['Comment']) )
+			if( isset($_GET['Orders']['Comment']) && !empty($_GET['Orders']['Comment']) ){
+				if(empty($where))
+					$where .= " Comment LIKE '%".$_GET['Orders']['Comment']."%' ";
+				else
+					$where .= " OR Comment LIKE '%".$_GET['Orders']['Comment']."%' ";
 				$js .= " $('td:nth-child(13)').highlight('".$_GET['Orders']['Comment']."'); ";
+			}
 
 			Yii::app()->clientScript->registerPackage('highlight');
 			Yii::app()->clientScript->registerScript('highlightQuery',$js, CClientScript::POS_READY);
@@ -480,6 +484,16 @@ class SiteController extends Controller
 	                            'desc'=>'ModelName DESC',
 	                            'default'=>'desc',
 	                        ),
+	                        'MaterialID'=>array(
+	                            'asc'=>'MaterialID ASC',
+	                            'desc'=>'MaterialID DESC',
+	                            'default'=>'desc',
+	                        ),
+	                        'EmployeeID'=>array(
+	                            'asc'=>'EmployeeID ASC',
+	                            'desc'=>'EmployeeID DESC',
+	                            'default'=>'desc',
+	                        ),
 	                        'Date'=>array(
 	                            'asc'=>'Date',
 	                            'desc'=>'Date DESC',
@@ -491,6 +505,7 @@ class SiteController extends Controller
 	                    )
 	           		),
 			));
+			
 			$this->render('search', array('dataProvider' => $dataProvider,
 									'model'=>$model, 
 									'customersModel'=>$customersModel, 
@@ -498,7 +513,9 @@ class SiteController extends Controller
 									'employeesModel'=>$employeesModel,
 									'modelsModel'=>$modelsModel,
 				));
-			exit();
+			//$this->renderPartial('tableOrders' , array('dataProvider'=>$dataProvider, 'js'=>$js), false, true);
+			// Завершаем приложение
+            Yii::app()->end();
 		}
 
 		$this->render('search', array('model'=>$model, 
@@ -588,6 +605,16 @@ class SiteController extends Controller
                         'ModelName'=>array(
                             'asc'=>'ModelName ASC',
                             'desc'=>'ModelName DESC',
+                            'default'=>'desc',
+                        ),
+                        'MaterialValue'=>array(
+                            'asc'=>'MaterialValue ASC',
+                            'desc'=>'MaterialValue DESC',
+                            'default'=>'desc',
+                        ),
+                        'EmployeeSN'=>array(
+                            'asc'=>'EmployeeSN ASC',
+                            'desc'=>'EmployeeSN DESC',
                             'default'=>'desc',
                         ),
                         'Date'=>array(
@@ -688,7 +715,7 @@ class SiteController extends Controller
 
 				//записываем модель, если чек-бокс отмечен, значит это новая модель, тут просто сохраняем
 				// иначе мы должны вписать айдишник существующей модели и проапдейтить ее (возможно пользователь обновил ее данные)
-				if($modelsModel->basedID == 'null')
+				if($modelsModel->basedID == null)
 				{
 					$newModel = new Models;
 					$newModel->attributes = $_POST['Models'];
@@ -730,7 +757,7 @@ class SiteController extends Controller
 					$transaction->commit();
 					Yii::app()->clientScript->registerScript(
 		        	        'myHideEffect',
-		                    '$(".flash-success").animate({opacity: 1.0}, 5000).fadeOut("slow");',
+		                    '$(".flash-success").animate({opacity: 1.0}, 5000).slideUp("slow");',
 		            	    CClientScript::POS_READY
 		            );
 		           	Yii::app()->user->setFlash('success',"Запись успешно изменена!");
@@ -749,7 +776,7 @@ class SiteController extends Controller
 					$transaction->rollback();
 				    Yii::app()->clientScript->registerScript(
 			                'myHideEffect',
-			                '$(".flash-error").animate({opacity: 1.0}, 5000).fadeOut("slow");',
+			                '$(".flash-error").animate({opacity: 1.0}, 5000).slideUp("slow");',
 			                CClientScript::POS_READY
 		                );
 		            Yii::app()->user->setFlash('error',"Ошибка при редактировании записи!");
@@ -761,7 +788,7 @@ class SiteController extends Controller
 			    throw $e;
 			    Yii::app()->clientScript->registerScript(
 		                    'myHideEffect',
-		                    '$(".flash-error").animate({opacity: 1.0}, 5000).fadeOut("slow");',
+		                    '$(".flash-error").animate({opacity: 1.0}, 5000).slideUp("slow");',
 		                    CClientScript::POS_READY
 		                );
 		        Yii::app()->user->setFlash('error',"Ошибка при редактировании записи!");
@@ -804,7 +831,7 @@ class SiteController extends Controller
 			{
 				Yii::app()->clientScript->registerScript(
 		        	        'myHideEffect',
-		                    '$(".flash-success").animate({opacity: 1.0}, 2000).fadeOut("medium");',
+		                    '$(".flash-success").animate({opacity: 1.0}, 2000).slideUp("medium");',
 		            	    CClientScript::POS_READY
 		            );
 		    	Yii::app()->user->setFlash('success',"Модельер успешно удален!");
@@ -817,6 +844,12 @@ class SiteController extends Controller
 			$connection = Yii::app()->db;
 			$command = $connection->createCommand('OPTIMIZE TABLE Orders, Employees, Customers, Materials, Sizes, Urk, Height, TopVolume, AnkleVolume, KvVolume, Models');
 			$result = $command->execute();
+			Yii::app()->clientScript->registerScript(
+		        	        'myHideEffect',
+		                    '$(".flash-success").animate({opacity: 1.0}, 2000).slideUp("medium");',
+		            	    CClientScript::POS_READY
+		    );
+			Yii::app()->user->setFlash('success',"Оптимизация успешно завершена!");
 		}
 
 		// БЕКАП БД
@@ -853,7 +886,7 @@ class SiteController extends Controller
 				{
 					Yii::app()->clientScript->registerScript(
 			        	        'myHideEffect',
-			                    '$(".flash-success").animate({opacity: 1.0}, 2000).fadeOut("medium");',
+			                    '$(".flash-success").animate({opacity: 1.0}, 2000).slideUp("medium");',
 			            	    CClientScript::POS_READY
 			            );
 			    	Yii::app()->user->setFlash('success',"База Данных успешно восстановлена из резервной копии!");
@@ -862,7 +895,7 @@ class SiteController extends Controller
 				{
 					Yii::app()->clientScript->registerScript(
 		                    'myHideEffect',
-		                    '$(".flash-error").animate({opacity: 1.0}, 5000).fadeOut("slow");',
+		                    '$(".flash-error").animate({opacity: 1.0}, 5000).slideUp("slow");',
 		                    CClientScript::POS_READY
 		                );
 		        	Yii::app()->user->setFlash('error',"Ошибка восстановления базы данных.");
@@ -872,7 +905,7 @@ class SiteController extends Controller
 			{
 			    Yii::app()->clientScript->registerScript(
 		                    'myHideEffect',
-		                    '$(".flash-error").animate({opacity: 1.0}, 5000).fadeOut("slow");',
+		                    '$(".flash-error").animate({opacity: 1.0}, 5000).slideUp("medium");',
 		                    CClientScript::POS_READY
 		                );
 		        Yii::app()->user->setFlash('error',"Ошибка загрузки файла. Файл неверного расширения или содержит ошибки.");
@@ -889,7 +922,7 @@ class SiteController extends Controller
 			if( (strtotime($end) - strtotime($start)) < 0 ){
 				Yii::app()->clientScript->registerScript(
 			        	        'myHideEffect',
-			                    '$(".flash-error").animate({opacity: 1.0}, 2000).fadeOut("medium");',
+			                    '$(".flash-error").animate({opacity: 1.0}, 2000).slideUp("medium");',
 			            	    CClientScript::POS_READY
 			            );
 			    Yii::app()->user->setFlash('error',"Ошибка! Начальная дата больше конечной!");
@@ -897,7 +930,7 @@ class SiteController extends Controller
 				$starts = $start;// формат даты для вывода в шапке таблицы
 				$ends   = $end; // формат даты для вывода в шапке таблицы
 
-				$start .=  ' 00:00:00';
+				$start .= ' 00:00:00';
 				$end   .= ' 23:59:59';
 				$start = date("Y-m-d H-i-s", strtotime($start));
 				$end   = date("Y-m-d H-i-s", strtotime($end));
@@ -1487,7 +1520,7 @@ class SiteController extends Controller
 						if($right == '')
 							$where .= " (".$left.">='".$prefix.$interval[0]."' AND ".$left."<='".$prefix.$interval[1]."') ";
 						else
-							$where .= " (".$left.">='".$prefix.$interval[0]."' AND ".$left."<='".$prefix.$interval[1]."') OR (".$right.">='".$prefix.$interval[0] . "' AND ".$right."<='".$prefix.$interval[1]."') ";
+							$where .= " ((".$left.">='".$prefix.$interval[0]."' AND ".$left."<='".$prefix.$interval[1]."') OR (".$right.">='".$prefix.$interval[0] . "' AND ".$right."<='".$prefix.$interval[1]."')) ";
 					} 
 					else 
 					{
@@ -1518,7 +1551,7 @@ class SiteController extends Controller
 						if($right == '')
 							$where .= " (".$left.">='".$prefixs.$interval[0]."' AND ".$left."<='".$prefix.$interval[1]."') AND ";
 						else
-							$where .= " (".$left.">='".$prefixs.$interval[0]."' AND ".$left."<='".$prefix.$interval[1]."') OR (".$right.">='".$prefixs.$interval[0] . "' AND ".$right."<='".$prefix.$interval[1]."') AND ";
+							$where .= " ((".$left.">='".$prefixs.$interval[0]."' AND ".$left."<='".$prefix.$interval[1]."') OR (".$right.">='".$prefixs.$interval[0] . "' AND ".$right."<='".$prefix.$interval[1]."')) AND ";
 					} 
 					else 
 					{
@@ -1560,7 +1593,7 @@ class SiteController extends Controller
 						if($right == '')
 							$where .= " AND ($left>='$prefix" . $interval[0]. "' AND $left<='$prefix". $interval[1] . "') ";
 						else
-							$where .= " AND ($left>='$prefix" . $interval[0]. "' AND $left<='$prefix". $interval[1] . "') OR "." ($right>='$prefix" . $interval[0]. "' AND $right<='$prefix". $interval[1] . "') ";
+							$where .= " AND (($left>='$prefix" . $interval[0]. "' AND $left<='$prefix". $interval[1] . "') OR "." ($right>='$prefix" . $interval[0]. "' AND $right<='$prefix". $interval[1] . "')) ";
 					} 
 					else 
 					{
@@ -1589,7 +1622,7 @@ class SiteController extends Controller
 						if($right == '')
 							$where .= " AND ($left>='$prefix" . $interval[0]. "' AND $left<='$prefix". $interval[1] . "') AND ";
 						else
-							$where .= " AND ($left>='$prefix" . $interval[0]. "' AND $left<='$prefix". $interval[1] . "') OR "." ($right>='$prefix" . $interval[0]. "' AND $right<='$prefix". $interval[1] . "') AND ";
+							$where .= " AND (($left>='$prefix" . $interval[0]. "' AND $left<='$prefix". $interval[1] . "') OR ($right>='$prefix" . $interval[0]. "' AND $right<='$prefix". $interval[1] . "')) AND ";
 					}
 					else 
 					{

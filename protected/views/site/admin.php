@@ -145,9 +145,9 @@ Yii::app()->clientScript->registerScript('datePicker',"
 		)); ?>
 		<fieldset>
 			<legend style="margin-left:60px;">Отчет за период</legend>
-			<input type="text" name="startDate" id="startDate" required autocomplete="Off" placeholder="дд.мм.гггг" /> 
+			<input type="text" name="startDate" id="startDate" required autocomplete="Off" style="width:150px" placeholder="дд.мм.гггг" /> 
 			&nbsp;&mdash;&nbsp; 
-			<input type="text" id="endDate" name="endDate" required autocomplete="Off" placeholder="дд.мм.гггг" />
+			<input type="text" id="endDate" name="endDate" required autocomplete="Off" style="width:150px" placeholder="дд.мм.гггг" />
 			<div class="row submit">
 				<?php echo CHtml::submitButton('Сохранить в Excel', array('class'=>'button', 'name'=>'saveAsExcel')); ?>
 			</div>

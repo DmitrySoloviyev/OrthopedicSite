@@ -16,7 +16,7 @@
 						.iconv_substr(CHtml::encode($data->employee->EmployeeFN), 0, 1, 'utf-8').". "
 						.iconv_substr(CHtml::encode($data->employee->EmployeeP), 0, 1, 'utf-8')."."
 		?></td>
-	<td><?php echo CHtml::encode($data->Date); ?></td>
+	<td><?php echo CHtml::encode( date('d.m.Y H:i', strtotime($data->Date)) ); ?></td>
 	<td><?php echo CHtml::encode($data->Comment); ?></td>
 	<td><?php echo CHtml::link('', array('site/update', 'id'=>$data->OrderID), array('class'=>'editrow'));?></td>
 	<td><?php echo CHtml::link('', '#', array(
