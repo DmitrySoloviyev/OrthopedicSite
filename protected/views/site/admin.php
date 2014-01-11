@@ -139,18 +139,47 @@ Yii::app()->clientScript->registerScript('datePicker',"
 
 	<div class="clear"></div>
 
-	<div class="form">
+	<div class="form" style="float:left; width:50%;">
 		<?php $form=$this->beginWidget('CActiveForm', array(
 			'htmlOptions'=>array('style'=>'margin:10px'),
 		)); ?>
 		<fieldset>
 			<legend style="margin-left:60px;">Отчет за период</legend>
-			<input type="text" name="startDate" id="startDate" required autocomplete="Off" style="width:150px" placeholder="дд.мм.гггг" /> 
-			&nbsp;&mdash;&nbsp; 
-			<input type="text" id="endDate" name="endDate" required autocomplete="Off" style="width:150px" placeholder="дд.мм.гггг" />
+			<div class="row">
+				<input type="text" name="startDate" id="startDate" required autocomplete="Off" style="width:150px" placeholder="дд.мм.гггг" /> 
+				&nbsp;&mdash;&nbsp; 
+				<input type="text" id="endDate" name="endDate" required autocomplete="Off" style="width:150px" placeholder="дд.мм.гггг" />
+			</div>
 			<div class="row submit">
 				<?php echo CHtml::submitButton('Сохранить в Excel', array('class'=>'button', 'name'=>'saveAsExcel')); ?>
 			</div>
 		</fieldset>
 		<?php $this->endWidget(); ?>
 	</div>
+
+	<!-- Новый материал -->
+	<div class="form" style="float:right; width:50%; ">
+		<?php $form=$this->beginWidget('CActiveForm', array(
+			'id'=>'create-new-material-form',
+			'enableClientValidation'=>true,
+			'clientOptions'=>array('validateOnSubmit'=>true),
+			'htmlOptions' => array(
+				'style'=>'margin:10px',
+			),
+		)); ?>
+		<fieldset>
+			<legend style="margin-left:60px;">Новый материал</legend>
+			<div class="row">
+				<?php 
+					echo $form->TextField($materialsModel,'MaterialValue', array('autocomplete'=>'Off', 'placeholder'=>'Название материала')); 
+					echo $form->error($materialsModel,'MaterialValue');
+				?>
+			</div>
+		   	<div class="row submit">
+				<?php echo CHtml::submitButton('Создать', array('class'=>'button', 'name'=>'newMaterialBtn')); ?>
+			</div>
+		</fieldset>
+		<?php $this->endWidget(); ?>
+	</div><!-- form -->
+
+	<div class="clear"></div>

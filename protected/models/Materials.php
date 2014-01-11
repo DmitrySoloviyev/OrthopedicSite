@@ -4,7 +4,7 @@
  * This is the model class for table "Materials".
  *
  * The followings are the available columns in table 'Materials':
- * @property string $MaterialID
+ * @property integer $MaterialID
  * @property string $MaterialValue
  *
  * The followings are the available model relations:
@@ -29,16 +29,26 @@ class Materials extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('MaterialID, MaterialValue', 'required', 'on'=>'insert'),
-			array('MaterialValue', 'length', 'max'=>33),
+			array('MaterialValue', 'required', 'on'=>'add'),
+			array('MaterialValue', 'length', 'max'=>30),
 			array('MaterialID', 'required', 'on'=>'update'),
 			array('MaterialID, MaterialValue', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function getMaterialsList(){
-		$query = Materials::model()->findAllBySql("SELECT MaterialID, MaterialValue FROM Materials");
+		$query = Materials::model()->findAllBySql("SELECT MaterialID, MaterialValue FROM Materials ORDER BY MaterialID");
 		$list =  CHtml::listData($query, 'MaterialID', 'MaterialValue');
 		return $list;
+	}
+
+	public static function getMaterialShortcutList($meterialId){
+		$material = Yii::app()->db->createCommand()
+		    ->select("MaterialValue AS Material")
+		    ->from('Materials')
+		    ->where('MaterialID=:id', array(':id'=>$meterialId))
+		    ->queryRow();
+		return $material['Material'];
 	}
 
 	/**
@@ -60,7 +70,7 @@ class Materials extends CActiveRecord
 	{
 		return array(
 			'MaterialID' => 'Материал',
-			'MaterialValue' => 'Material Value',
+			'MaterialValue' => 'Название материала',
 		);
 	}
 

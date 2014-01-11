@@ -328,9 +328,8 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 			</td>
 	    </tr>
 	    <tr>
+	    	<td>Заказчик:</td>
 	    	<td colspan="2">
-			Заказчик:
-				<div style="margin-left:60px">
 					<div class="row">
 						<?php 
 						echo $form->TextField($customersModel,'CustomerSN', array('autocomplete'=>'Off', 'maxlength'=>'29', 'placeholder'=>'Фамилия')); 
@@ -346,7 +345,6 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 						echo $form->TextField($customersModel,'CustomerP', array('autocomplete'=>'Off', 'maxlength'=>'29', 'placeholder'=>'Отчество')); 
 						echo $form->error($customersModel,'CustomerP');?>
 					</div>
-				</div>
 			</td>
 	    </tr>
 	    <tr>

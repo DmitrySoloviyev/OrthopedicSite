@@ -39,9 +39,12 @@ $monthNumber -= 2;
 $year = date("Y");
 $startDate = date("Y-m-d H-i-s", strtotime($year."-".$monthNumber."-01"));
 $roof = $monthNumber+3;
+/*
+$pre_result = Yii::app()->db->createCommand("SELECT COUNT(DAY(Date)) AS COUNT, DAYOFMONTH(Date) AS DAY, MONTHNAME(Date) AS MONTH FROM Orders 
+					WHERE Date BETWEEN '{$startDate}' AND NOW() GROUP BY MONTH, DAY WITH ROLLUP ")->queryAll();*/
+$pre_result = Yii::app()->db->createCommand("SELECT COUNT(DAY(Date)) AS COUNT, MONTHNAME(Date) AS MONTH, CONCAT(EmployeeSN, ' ', LEFT(EmployeeFN, 1), '.', LEFT(EmployeeP, 1), '.') as FIO 
+		FROM Orders INNER JOIN Employees USING(EmployeeID) WHERE Date BETWEEN '{$startDate}' AND NOW() GROUP BY FIO WITH ROLLUP")->queryAll();
 
-$pre_result = Yii::app()->db->createCommand("SELECT COUNT(DAY(Date)) AS COUNT, DAYOFMONTH(Date) AS DAY, MONTHNAME(Date) AS MONTH FROM Orders WHERE Date BETWEEN '{$startDate}' AND NOW()
-					GROUP BY MONTH, DAY WITH ROLLUP ")->queryAll();
 if( !$pre_result ) {
 	Yii::app()->clientScript->registerScript('prepareDone',"
 	$(function(){
@@ -51,10 +54,21 @@ if( !$pre_result ) {
 	echo 'Не обнаружено ни одного заказа.';
 	return;
 } else {
+	$pre_result = array_reverse($pre_result);
 	for ($i = 0; $i<count($pre_result); $i++) {
-		if( empty($pre_result[$i]['DAY']) ){
-			if( !empty($pre_result[$i]['MONTH']) )
-				echo '<div style="padding:5px 20px 5px 20px"><i>'.$monthNameRu[$pre_result[$i]['MONTH']].': выполнено заказов '.$pre_result[$i]['COUNT'].'</i></div>';
+		if( empty($pre_result[$i]['FIO']) ) {
+			Yii::app()->clientScript->registerScript('showEmployeesOrders',"
+				$('.for".$pre_result[$i]['MONTH']."').hide();
+				$('#".$pre_result[$i]['MONTH']."').click(function(){
+					$('.for".$pre_result[$i]['MONTH']."').each(function() {
+						$(this).slideToggle(600);
+					});
+				});
+			", CClientScript::POS_READY);
+			echo '<div id="'.$pre_result[$i]['MONTH'].'" style="padding:5px 20px 5px 20px; cursor:pointer;"><i>'.$monthNameRu[$pre_result[$i]['MONTH']].': выполнено заказов '.$pre_result[$i]['COUNT'].'</i></div>';
+		}
+		else {
+			echo '<div class="for'.$pre_result[$i]['MONTH'].'" style="padding:5px 40px;"><i>'.$pre_result[$i]['FIO'].': выполнено заказов '.$pre_result[$i]['COUNT'].'</i></div>';
 		}
 	}
 }
@@ -96,6 +110,8 @@ for ($i=0; $i<count($result); $i++) {
 			if( $max < $result[$i]['COUNT'] )
 				$max = $result[$i]['COUNT'];
 		} else {
+			if( $max < $result[$i]['COUNT'] )
+				$max = $result[$i]['COUNT'];
 			$data[] = "['".$result[$i]['DAYDATE']."', ".$result[$i]['COUNT']."]";
 		}
 }

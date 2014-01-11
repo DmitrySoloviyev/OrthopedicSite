@@ -363,25 +363,7 @@ class SiteController extends Controller
 				foreach ($materialsModel->MaterialID as $meterialId)
 				{
 					$searchMeaterials .= "'".$meterialId."',";
-					$material = '';
-					switch ($meterialId) {
-						case 'mk':
-							$material = 'КП';
-							break;
-						case 'mt':
-							$material = 'Траспира';
-							break;
-						case 'mn':
-							$material = 'Мех Натуральный';
-							break;
-						case 'ma':
-							$material = 'Мех Искусственный';
-							break;
-						case 'mw':
-							$material = 'Мех Полушерстяной';
-							break;
-					}
-					$js .= " $('td:nth-child(5)').highlight('".$material."'); ";
+					$js .= " $('td:nth-child(5)').highlight('".Materials::getMaterialShortcutList($meterialId)."'); ";
 				}
 				if(empty($where))
 				{
@@ -818,6 +800,7 @@ class SiteController extends Controller
 	 */
 	public function actionAdmin(){
 		$employeesModel = new Employees('delete');
+		$materialsModel = new Materials('add');
 
 		// УДАЛИТЬ МОДЕЛЬЕРА
 		if(isset($_POST['Employees']))
@@ -1351,8 +1334,38 @@ class SiteController extends Controller
 	    	}
 		}
 
+		// НОВЫЙ МАТЕРИАЛ
+		if( isset($_POST['newMaterialBtn']) ) {
+			$materialsModel->attributes = $_POST['Materials'];
+			$materialsModel->MaterialValue = mb_convert_case( trim($materialsModel->MaterialValue), MB_CASE_TITLE, 'UTF-8' );
+
+			if($materialsModel->validate())
+			{
+				if($materialsModel->save())
+				{
+					Yii::app()->clientScript->registerScript(
+				       	        'myHideEffect',
+				                   '$(".flash-success").animate({opacity: 1.0}, 3000).slideUp("medium");',
+				           	    CClientScript::POS_READY
+				           );
+				       Yii::app()->user->setFlash('success',"Новый материал ".$materialsModel->MaterialValue." успешно добавлен!");
+			    }
+			    else
+			    {
+			    	Yii::app()->clientScript->registerScript(
+			                   'myHideEffect',
+			                   '$(".flash-error").animate({opacity: 1.0}, 4000).slideUp("medium");',
+			                   CClientScript::POS_READY
+			               );
+			       	Yii::app()->user->setFlash('error',"Ошибка при добавлении нового материала!");
+			    }
+			    $materialsModel->unsetAttributes();
+			}
+		}
+
 		$this->render('admin',array(
-            'employeesModel'=>$employeesModel,
+            'employeesModel' => $employeesModel,
+            'materialsModel' => $materialsModel,
         ));
 	}
 

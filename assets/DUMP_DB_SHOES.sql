@@ -139,8 +139,8 @@ DROP TABLE IF EXISTS `Materials`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Materials` (
-  `MaterialID` char(2) NOT NULL,
-  `MaterialValue` enum('КП','Траспира','Мех Натуральный','Мех Искусственный','Мех Полушерстяной') NOT NULL,
+  `MaterialID` tinyint unsigned NOT NULL AUTO_INCREMENT,
+  `MaterialValue` varchar(30) NOT NULL,
   PRIMARY KEY (`MaterialID`),
   KEY `MaterialValue` (`MaterialValue`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -152,7 +152,7 @@ CREATE TABLE `Materials` (
 
 LOCK TABLES `Materials` WRITE;
 /*!40000 ALTER TABLE `Materials` DISABLE KEYS */;
-INSERT INTO `Materials` VALUES ('mk','КП'),('mt','Траспира'),('mn','Мех Натуральный'),('ma','Мех Искусственный'),('mw','Мех Полушерстяной');
+INSERT INTO `Materials` (`MaterialValue`) VALUES ('КП'),('Траспира'),('Мех Натуральный'),('Мех Искусственный'),('Мех Полушерстяной');
 /*!40000 ALTER TABLE `Materials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,7 +187,7 @@ CREATE TABLE `Orders` (
   `SizeRIGHT` char(3) NOT NULL,
   `UrkLEFT` char(4) NOT NULL,
   `UrkRIGHT` char(4) NOT NULL,
-  `MaterialID` char(2) NOT NULL,
+  `MaterialID` tinyint unsigned NOT NULL,
   `HeightLEFT` char(3) NOT NULL,
   `HeightRIGHT` char(3) NOT NULL,
   `TopVolumeLEFT` char(4) NOT NULL,

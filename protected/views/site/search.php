@@ -1,7 +1,6 @@
 <?php $this->pageTitle=Yii::app()->name . ' - Поиск';
 
 Yii::app()->clientScript->registerScript('search',"
-
 var Models = null;
 var currentModel = 0;
 
@@ -75,8 +74,6 @@ $('#previous').click(function(e){
     $('#ModelForm').show('drop', {direction: 'left'}, 300);
     e.preventDefault;
 });
-
-$('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
 
 $('#ModelForm').draggable({
     delay:150,
@@ -262,36 +259,33 @@ $('#search_header').hide();
 			</td>
 	    </tr>
 	    <tr>
+	    	<td>Заказчик:</td>
 	    	<td colspan="2">
-			Заказчик:
-				<div style="margin-left:60px">
-					<div class="row">
-						<?php
-						echo $form->TextField($customersModel,'CustomerSN', array('autocomplete'=>'Off', 'placeholder'=>'Фамилия'));
-						echo $form->error($customersModel,'CustomerSN');?>
-					</div>
-					<div class="row">
-						<?php
-						echo $form->TextField($customersModel,'CustomerFN', array('autocomplete'=>'Off', 'placeholder'=>'Имя'));
-						echo $form->error($customersModel,'CustomerFN');?>
-					</div>
-					<div class="row">
-						<?php
-						echo $form->TextField($customersModel,'CustomerP', array('autocomplete'=>'Off', 'placeholder'=>'Отчество'));
-						echo $form->error($customersModel,'CustomerP');?>
-					</div>
+				<div class="row">
+					<?php
+					echo $form->TextField($customersModel,'CustomerSN', array('autocomplete'=>'Off', 'placeholder'=>'Фамилия'));
+					echo $form->error($customersModel,'CustomerSN');?>
 				</div>
-			</td>
-			<td colspan="2">Модельер:
-				<div class="row" style="margin-left:60px">
-				<?php
-					echo $form->checkBoxList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList());
-					echo $form->error($employeesModel,'EmployeeID');?>
+				<div class="row">
+					<?php
+					echo $form->TextField($customersModel,'CustomerFN', array('autocomplete'=>'Off', 'placeholder'=>'Имя'));
+					echo $form->error($customersModel,'CustomerFN');?>
+				</div>
+				<div class="row">
+					<?php
+					echo $form->TextField($customersModel,'CustomerP', array('autocomplete'=>'Off', 'placeholder'=>'Отчество'));
+					echo $form->error($customersModel,'CustomerP');?>
 				</div>
 			</td>
 	    </tr>
 	    <tr>
-
+	    	<td class="left_td">Модельер:</td>
+	    	<td colspan="2">
+				<?php
+					echo $form->checkBoxList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList());
+					echo $form->error($employeesModel,'EmployeeID');
+				?>
+			</td>
 	    </tr>
 	    <tr>
 			<td class="left_td">Комментарий:</td>
@@ -315,20 +309,19 @@ $('#search_header').hide();
 </div>
 
 
-
-<?php if( isset($_GET['Orders']) ):
+<?php if( isset($_GET['Orders']) ) {
 Yii::app()->clientScript->registerScript('searchResults',"
-
 $('#hint').hide();
-$('#search_result').addClass('expand')
+$('#search_result').addClass('expand');
+$('#ModelForm').hide();
 $('#ordersSearchForm').slideUp('medium');
 $('#search_header').show().text('Критерии поиска:');
 
 $('#search_header').click(function(){
 	$('#ordersSearchForm').slideToggle(600);
 	$(this).toggleClass('expand');
+	$('#ModelForm').show();
 });
-
 ", CClientScript::POS_READY);
 $sort=$dataProvider->getSort();
 ?>
@@ -363,4 +356,9 @@ $sort=$dataProvider->getSort();
 		?>
 	</table>
 </div>
-<?php endif; ?>
+<?php } else {
+	Yii::app()->clientScript->registerScript('hideHint',"
+		$('#hint').hide().delay(1000).slideDown(500).delay(2000).fadeOut(2000);
+	", CClientScript::POS_READY);
+}
+?>
