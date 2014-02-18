@@ -53,22 +53,19 @@ div.form fieldset
     -moz-border-radius:7px;
 }
 
-input:not([type='submit']):not([type='file']):not([type='checkbox'])
+/*input:not([type='submit']):not([type='file']):not([type='checkbox'])*/
+input:not([type='submit']), textarea, select
 {
-  background: white;
+    background-color: #ffffff;
+    padding: 4px 8px;
+    border: 1px solid #b7b7b7;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0, 0.15);
 }
 
 .input_text{
-	width: 200px;
+	width: 184px;
 }
-
-/*
-div.form label
-{
-	font-weight: bold;
-	font-size: 0.9em;
-	display: block;
-}*/
 
 div.form .row
 {
@@ -106,8 +103,7 @@ div.form input.error,
 div.form textarea.error,
 div.form select.error
 {
-	background: #FEE;
-	border-color: #C00;
+	border: 1px solid #C00;
 }
 
 div.form div.success input,
@@ -117,8 +113,6 @@ div.form input.success,
 div.form textarea.success,
 div.form select.success
 {
-	background: #E6EFC2;
-	/*border-color: #C6D880;*/
 	border-color: #82AC29;
 }
 
@@ -138,8 +132,8 @@ div.form .errorSummary
 
 div.form .errorMessage
 {
-	color: red;
 	font-size: 0.9em;
+    color: #ea0000;
 }
 
 div.form .errorSummary p
@@ -199,11 +193,15 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
   -moz-transform: rotate(6deg) scale(1) skew(1deg) translate(10px);
   -o-transform: rotate(6deg) scale(1) skew(1deg) translate(10px);
   -ms-transform: rotate(6deg) scale(1) skew(1deg) translate(10px);
-  /*background: url(../images/bg_info_left.gif) repeat-y, #f9f9f9 url(../images/bg_info_right.gif) repeat-y 100% 0;*/
 }
 
 #Models_ModelDescription{
 	padding: 4%;
+}
+
+.loadImgModel
+{
+    width:121px
 }
 
 #pic :hover{
@@ -242,4 +240,7 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	background-color: transparent;
 	color: #4e443c;
 	width:199px;
+    box-shadow: none;
+    padding: 2px;
+    font-size: 13px;
 }

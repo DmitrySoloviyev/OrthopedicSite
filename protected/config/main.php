@@ -61,6 +61,8 @@ return array(
 			'username' => 'root',
 			'password' => '1111',
 			'charset' => 'utf8',
+            // включить кэширование схем бд для улучшения производительности, месяц
+            'schemaCachingDuration' => 2592000,
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
@@ -92,6 +94,6 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'sd_dima@mail.ru',
+		'adminEmail'=>'dmitry.soloviyev@gmail.com',
 	),
 );

@@ -1460,12 +1460,9 @@ class SiteController extends Controller
         return $model;
     }
 
-    public function actionGetModelNames()
+    public function actionGetModelNames($term)
     {
-    	if (isset($_GET['term']))
-    	{
-			echo Models::model()->getModelNames($_GET['term']);
-    	}
+			echo Models::model()->getModelNames($term);
     }
 
     public function actionGetModelInfo()

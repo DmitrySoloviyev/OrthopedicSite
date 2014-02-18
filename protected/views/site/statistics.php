@@ -61,14 +61,14 @@ if( !$pre_result ) {
 				$('.for".$pre_result[$i]['MONTH']."').hide();
 				$('#".$pre_result[$i]['MONTH']."').click(function(){
 					$('.for".$pre_result[$i]['MONTH']."').each(function() {
-						$(this).slideToggle(600);
+						$(this).slideToggle(400);
 					});
 				});
 			", CClientScript::POS_READY);
 			echo '<div id="'.$pre_result[$i]['MONTH'].'" style="padding:5px 20px 5px 20px; cursor:pointer;"><i>'.$monthNameRu[$pre_result[$i]['MONTH']].': выполнено заказов '.$pre_result[$i]['COUNT'].'</i></div>';
 		}
 		else {
-			echo '<div class="for'.$pre_result[$i]['MONTH'].'" style="padding:5px 40px;"><i>'.$pre_result[$i]['FIO'].': выполнено заказов '.$pre_result[$i]['COUNT'].'</i></div>';
+			echo '<div class="for'.$pre_result[$i]['MONTH'].'" style="padding:0 40px;"><i>'.$pre_result[$i]['FIO'].': выполнено заказов '.$pre_result[$i]['COUNT'].'</i></div>';
 		}
 	}
 }

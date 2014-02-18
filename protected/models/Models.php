@@ -34,8 +34,6 @@ class Models extends CActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('ModelName', 'required', 'on'=>'insert'),
 			array('ModelID', 'safe'),
@@ -45,8 +43,6 @@ class Models extends CActiveRecord
 			array('loadImage', 'file', 'types'=>'jpg, gif, png', 'allowEmpty'=>true),
 		//	array('basedID', 'safe'),
 			array('isNewModel', 'boolean'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
 			array('ModelID, ModelName, ModelDescription, Author, ModelPicture, DateModified', 'safe', 'on'=>'search'),
 		);
 	}

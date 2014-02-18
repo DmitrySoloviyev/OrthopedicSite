@@ -58,7 +58,7 @@ var currentModel = 0;
 function getModelInfo(){
 	var modelName = $('#Models_ModelName').val();
 	//пытаемся загрузить указанную модель, если ее не существует, отмечаем флажок и грузим форму создания новой модели
-	$.post('".$this->createUrl('/site/GetModelInfo')."', {modelName:modelName}, function(data){
+	$.post('".$this->createUrl('site/GetModelInfo')."', {modelName:modelName}, function(data){
 		var info = $.parseJSON(data);
 		if(info[0] == undefined)
 		{
@@ -203,7 +203,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 	    					</td>
 	    				</tr>
 	    				<tr>
-	    					<td colspan="2">Загрузить изображение: <?php echo $form->fileField($modelsModel, 'loadImage', array('style'=>'width:114px'));?></td>
+	    					<td colspan="2">Загрузить изображение: <?php echo $form->fileField($modelsModel, 'loadImage', array('class'=>'loadImgModel'));?></td>
 	    				</tr>
 	    				<tr>
 	    					<td style="width: 1px;">Описание: </td>
@@ -228,7 +228,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 					'model'=>$modelsModel,
 					'attribute'=>'ModelName',
 					'name'=>'ModelName',
-					'source'=>$this->createUrl("/site/GetModelNames"),
+					'source'=>$this->createUrl("site/GetModelNames"),
 					'options'=>array(
 						'minLength'=>'1',
 						'select'=>new CJavaScriptExpression('function(event,ui) {
@@ -241,7 +241,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 						'autocomplete'=>'Off',
 						'maxlength'=>'6'
 					),
-				)); 
+				));
 
 				echo "<br />".$form->checkBox($modelsModel,'isNewModel', array('disabled'=>'disabled'))." ";
 				echo $form->labelEx($modelsModel,'isNewModel', array('style'=>'font-weight: normal; font-style: italic; font-size: 0.9em; display: inline;'));

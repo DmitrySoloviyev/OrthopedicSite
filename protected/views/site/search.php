@@ -141,7 +141,11 @@ $('#search_header').hide();
 	    					</td>
 	    				</tr>
 	    				<tr>
-	    					<td colspan="2"><span id="pic"><img id='Models_ModelPicture' src=<?php echo "'".$modelsModel->ModelPicture."'";?> alt='изображение модели' width="200" height="200" /></span></td>
+	    					<td colspan="2">
+                                <span id="pic"><img id='Models_ModelPicture'
+                                    src=<?php echo "'".$modelsModel->ModelPicture."'";?> alt='изображение модели' width="200" height="200" />
+                                </span>
+                            </td>
 	    				</tr>
 	    				<tr>
 	    					<td style="width: 1px;">Описание: </td>
