@@ -1559,9 +1559,9 @@ class SiteController extends Controller
 						}
 
 						if($right == '')
-							$where .= " (".$left.">='".$prefixs.$interval[0]."' AND ".$left."<='".$prefix.$interval[1]."') AND ";
+							$where .= " (".$left.">='".$prefix.$interval[0]."' AND ".$left."<='".$prefix.$interval[1]."') AND ";
 						else
-							$where .= " ((".$left.">='".$prefixs.$interval[0]."' AND ".$left."<='".$prefix.$interval[1]."') OR (".$right.">='".$prefixs.$interval[0] . "' AND ".$right."<='".$prefix.$interval[1]."')) AND ";
+							$where .= " ((".$left.">='".$prefix.$interval[0]."' AND ".$left."<='".$prefix.$interval[1]."') OR (".$right.">='".$prefix.$interval[0] . "' AND ".$right."<='".$prefix.$interval[1]."')) AND ";
 					} 
 					else 
 					{

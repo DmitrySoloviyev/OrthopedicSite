@@ -230,7 +230,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 					'name'=>'ModelName',
 					'source'=>$this->createUrl("site/GetModelNames"),
 					'options'=>array(
-						'minLength'=>'1',
+						'minLength'=>'2',
 						'select'=>new CJavaScriptExpression('function(event,ui) {
 							$("#Models_ModelName").val(ui.item.label).change().blur();
 							return false;

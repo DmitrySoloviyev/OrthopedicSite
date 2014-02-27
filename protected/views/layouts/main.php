@@ -80,7 +80,7 @@
     </a>
 
     <div id="header">
-        <code class="version">Версия 0.2.4</code>
+        <code class="version">Версия 0.3-dev</code>
 
         <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 

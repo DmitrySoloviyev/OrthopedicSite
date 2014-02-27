@@ -1,2 +1,5 @@
 /protected/runtime/
 .directory
+/vagrant/var/
+.vagrant/
+.idea
