@@ -201,7 +201,7 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 
 .loadImgModel
 {
-    width:121px
+    width:122px
 }
 
 #pic :hover{
@@ -214,9 +214,8 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	right: 0;
 	top: 4px;
 	padding-left: 32px;
-	background: transparent url(/images/search.png) 10px 50% no-repeat;
-	background-color: #ededed;
-	border: solid 1px #C4C4C4;
+    background: #ededed url(/images/search.png) no-repeat 10px 50%;
+    border: solid 1px #C4C4C4;
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
 	-ms-border-radius: 20px;

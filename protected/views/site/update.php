@@ -216,7 +216,7 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 	    					<td colspan="2"><span id="pic"><img id='Models_ModelPicture' src="#" alt='изображение модели' width="200" height="200" /></span></td>
 	    				</tr>
 	    				<tr>
-	    					<td colspan="2">Загрузить изображение: <?php echo $form->fileField($modelsModel, 'loadImage', array('style'=>'width:114px'));?></td>
+	    					<td colspan="2">Загрузить изображение: <?php echo $form->fileField($modelsModel, 'loadImage', array('class'=>'loadImgModel'));?></td>
 	    				</tr>
 	    				<tr>
 	    					<td>Описание: </td>

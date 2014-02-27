@@ -2,100 +2,101 @@
 /* @import url(reset.css); */
 
 @media only screen and (max-width: 480px) {
-/* Здесь стили более разумных, но все еще мобильных устройств. Android, iPhone  и так далее. */
+    /* Здесь стили более разумных, но все еще мобильных устройств. Android, iPhone  и так далее. */
 }
 
 @media only screen and (max-width: 768px) {
-/* Планшеты в режиме portrait. */
+    /* Планшеты в режиме portrait. */
 
 }
 
 @media only screen and (max-width: 992px) {
-/* Планшеты в режиме landscape, нетбуки, ноутбуки, десктоп. */
+    /* Планшеты в режиме landscape, нетбуки, ноутбуки, десктоп. */
 }
 
 @media only screen and (max-width: 1382px) {
-/* Десктоп с большими разрешениями, телевизоры. */
+    /* Десктоп с большими разрешениями, телевизоры. */
 }
 
 /***********************************основные элементы*/
-*{
-  outline: none;
+* {
+    outline: none;
 }
 
-html{
-  height:100%;
-  width:100%;
+html {
+    height: 100%;
+    width: 100%;
 }
 
-body{
-  background:url(../images/bg_mat.png) repeat;
-  height:100%;
-  margin-top:0px;
-  font: normal 100% 'Ubuntu', Helvetica, Helvetica Neue, Verdana, Cambria, Georgia, Arial, sans-serif;
+body {
+    background: url(../images/bg_mat.png) repeat;
+    height: 100%;
+    margin-top: 0;
+    font: normal 100% 'Ubuntu', Helvetica, Helvetica Neue, Verdana, Cambria, Georgia, Arial, sans-serif;
 }
 
-.fix{
-  width:90%;
-  margin:0px auto;
-  min-height:100%;
-  position:relative;
+.fix {
+    width: 90%;
+    margin: 0 auto;
+    min-height: 100%;
+    position: relative;
 }
 
-header{
-  width:100%;
-  margin:0 auto 0.5em auto;
+header {
+    width: 100%;
+    margin: 0 auto 0.5em auto;
 }
 
-header h1{
-  font-size:2em;/* 24px/16px*/
-  font-style:oblique;
-  font-weight:600;
-  text-align:center;
-  color:#4094b6;
-  background-color:transparent;
+header h1 {
+    font-size: 2em; /* 24px/16px*/
+    font-style: oblique;
+    font-weight: 600;
+    text-align: center;
+    color: #4094b6;
+    background-color: transparent;
 }
 
-#center{
-  height: 100%;
-  padding:10px;
-  background: #e8e8e8;
-  border-radius: 6px;
-  margin-top: 15px;
-  box-shadow: 0px 1px 1px #000;
+#center {
+    height: 100%;
+    padding: 10px;
+    background: #e8e8e8;
+    border-radius: 6px;
+    margin-top: 15px;
+    box-shadow: 0 1px 1px #000;
 }
 
-footer{
-  text-align:center;
-  width:100%;
-  height:65px;
-  position:absolute;
-  bottom:0;
+footer {
+    text-align: center;
+    width: 100%;
+    height: 65px;
+    position: absolute;
+    bottom: 0;
 }
 
-#footer
-{
-  padding: 10px;
-  margin: 10px 20px;
-  font-size: 0.8em;
-  text-align: center;
+#footer {
+    padding: 10px;
+    margin: 10px 20px;
+    font-size: 0.8em;
+    text-align: center;
 }
 
-fieldset{
-  border-radius:6px;
-  margin:10px;
-  padding:10px 15px 10px 15px;
-}/*****************************конец основные***************/
+fieldset {
+    border-radius: 6px;
+    margin: 10px;
+    padding: 10px 15px 10px 15px;
+}
+
+/*****************************конец основные***************/
 
 /*******************Цитаты*******************/
 blockquote {
-    background-color: rgba(247,247,247, 0.7);
+    background-color: rgba(247, 247, 247, 0.7);
     border-left: 1px solid #bbb;
     font-style: italic;
     margin: 1.5em 10px;
     padding: 0.5em 10px;
 }
- 
+
 blockquote:before {
     color: #bbb;
     content: "\201C"; /* Непечатаемый символ слева */
@@ -104,7 +105,7 @@ blockquote:before {
     margin-right: 0.2em;
     vertical-align: -.4em;
 }
- 
+
 blockquote:after {
     color: #bbb;
     content: "\201D"; /* Непечатаемый символ справа */
@@ -112,159 +113,160 @@ blockquote:after {
     line-height: 0.1em;
     vertical-align: -.45em;
 }
- 
+
 blockquote > p:first-child {
     display: inline;
 }
 
 /****************подсветка слов поиска**********************/
 .highlight {
-  background: #fff09e;
-  border-top: 1px dashed #c16b3d;
-  border-bottom: 1px dashed #c16b3d;
-}/***************подсветка слов поиска**********************/
+    background: #fff09e;
+    border-top: 1px dashed #c16b3d;
+    border-bottom: 1px dashed #c16b3d;
+}
 
+/***************подсветка слов поиска**********************/
 
 /*********************************************меню сайта*********************************************/
-#navigation{
-  margin: 30px auto;
-  z-index: 1;
-  text-shadow: none;
-  font-style: normal;
-  background: #666;
-  border-radius: 6px;
-  width: 100%;
-  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.8);
+#navigation {
+    margin: 30px auto;
+    z-index: 1;
+    text-shadow: none;
+    font-style: normal;
+    background: #666;
+    border-radius: 6px;
+    width: 100%;
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
-#navigation ul{
-  text-align:center;
-  overflow:hidden;
-  padding:6px;
-  margin: 46px auto 5px;
+#navigation ul {
+    text-align: center;
+    overflow: hidden;
+    padding: 6px;
+    margin: 46px auto 5px;
 }
 
-#navigation ul li{
-  display:inline;
-  padding:6px 6px;
-  margin: 0 1px 0 -6px;
-  font-size: 14px;
-  border-radius: 4px;
+#navigation ul li {
+    display: inline;
+    padding: 6px 6px;
+    margin: 0 1px 0 -6px;
+    font-size: 14px;
+    border-radius: 4px;
 }
 
-#navigation ul li a{
-  text-decoration:none;
-  margin:6px;
-  color:white;
-  display:inline-block;
+#navigation ul li a {
+    text-decoration: none;
+    margin: 6px;
+    color: white;
+    display: inline-block;
 }
 
-#navigation ul li:hover{
-  background: #db4928;
-  background:linear-gradient(bottom,#E8563C,#E82C0C);
-  box-shadow:0px 1px 10px rgba(0,0,0,0.6);
-  -moz-box-shadow:0px 2px 2px rgba(0,0,0,0.7);
-  -webkit-box-shadow:0px 2px 2px rgba(0,0,0,0.7);
+#navigation ul li:hover {
+    background: #db4928;
+    background: linear-gradient(bottom, #E8563C, #E82C0C);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.7);
+    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.7);
 }
 
-#navigation ul li.active{
-  background: #db4928;
-  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 1);
-  -moz-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 1);
-  -webkit-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 1);
-}/*********************************************************************конец меню сайта*******************************/
+#navigation ul li.active {
+    background: #db4928;
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 1);
+    -moz-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 1);
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 1);
+}
+
+/*********************************************************************конец меню сайта*******************************/
 
 /****************************************************всплывающая подсказка************/
-#hint{
-  padding:10px;
-  background:#fc0;
-  border: 2px solid #B25538;
-  float:right;
-  position:absolute;
-  top:14.5em;
-  right:2.2em;
-  width:220px;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-  font-style:italic;
+#hint {
+    padding: 10px;
+    background: #fc0;
+    border: 2px solid #B25538;
+    float: right;
+    position: absolute;
+    top: 14.5em;
+    right: 2.2em;
+    width: 220px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    font-style: italic;
 }
-#hint a{
-  color: black;
-  margin:3px
+
+#hint a {
+    color: black;
+    margin: 3px
 }
 
 /*********************************************************таблица в разделе "просмотр базы"************/
-table.dboutput{
-  border: 3px solid #383838;
-  font-size:14px;
-  text-align:center;
-  width:100%;
-  margin:auto;
-  background: rgba(255,255,255,0.6);
-  border-collapse: collapse;
+table.dboutput {
+    border: 3px solid #383838;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.6);
+    border-collapse: collapse;
 }
 
-table.dboutput th{
-  background:#232323;
-  color:#bcbcbc;
-  border-color: #838383;
+table.dboutput th {
+    background: #232323;
+    color: #bcbcbc;
+    border-color: #838383;
 }
 
-table.dboutput tr{
-  height:40px;
-  padding:2px;
-  border:1px solid black;
+table.dboutput tr {
+    height: 40px;
+    padding: 2px;
+    border: 1px solid black;
 }
 
-table.dboutput tr:hover{
-  background-color:#d8d8d8;
+table.dboutput tr:hover {
+    background-color: #d8d8d8;
 }
 
-table.dboutput tr td{
-  padding:3px;
-  height:30px;
-  border:1px solid black;
+table.dboutput tr td {
+    padding: 3px;
+    height: 30px;
+    border: 1px solid black;
 }
 
-input:not([type="submit"]):focus{
-  outline: none;
-  border-radius:4px;
-  /*border-color:#E82C0C;*/
-  border-color:#666666;
-/*   border-color:#4094b6; */
+input:not([type="submit"]):focus {
+    outline: none;
+    border-radius: 4px;
+    /*border-color:#E82C0C;*/
+    border-color: #666666;
+    /*   border-color:#4094b6; */
 }
 
-.employeelist{
-  border:4px double #4094b6;
-  width:400px;
-  text-align:center;
+.employeelist {
+    border: 4px double #4094b6;
+    width: 400px;
+    text-align: center;
 }
 
-.tr_selected{
-  background:#fe9223;
-}/*********************************************************конец таблица в разделе "просмотр базы"************/
+.tr_selected {
+    background: #fe9223;
+}
 
+/*********************************************************конец таблица в разделе "просмотр базы"************/
 
 /***********************************************************кнопка удаления****************************/
 .button_delete {
-  border-width: 1px;
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: bold;
-  line-height: 1;
-  margin: 0 0 1.25em;
-  position: relative;
-  text-decoration: none;
-  text-align: center;
-  display: inline-block;
-  padding-top: 0.75em;
-  padding-right: 1.6em;
-  padding-bottom: 0.8125em;
-  padding-left: 1.6em;
-  font-size: 1em;
-  background-color: #CB2B2B;
-  border-color: #A12222;
-  color: white;
-  width: 204px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0 0 1.25em;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    padding: 0.75em 1.6em 0.8125em;
+    font-size: 1em;
+    background-color: #CB2B2B;
+    border: 1px #A12222;
+    color: white;
+    width: 204px;
 }
 
 button:hover, button:focus, .button_delete:hover, .button_delete:focus {
@@ -272,187 +274,166 @@ button:hover, button:focus, .button_delete:hover, .button_delete:focus {
 }
 
 button:hover, button:focus, .button_delete:hover, .button_delete:focus {
-  color: white;
+    color: white;
 }
 
 /********************************************************************************конец раздела "кнопки"***************/
-option{
-  color:black;
+option {
+    color: black;
 }
 
 /********************************************************************************картинки в ссылках меню******/
 /*****************удаление***********/
-a.delrow{
-  background:url(../images/delete_16px.png) no-repeat;
-  padding:16px;
-  background-position:center;
+a.delrow {
+    padding: 16px;
+    background: url(../images/delete_16px.png) no-repeat center;
 }
-a.delrow:hover{
-  background:url(../images/delete.png) no-repeat;
-  background-position:center;
-  padding:16px;
+
+a.delrow:hover {
+    background: url(../images/delete.png) no-repeat center;
+    padding: 16px;
 }
+
 /**************редактирование*******/
-a.editrow{
-  background:url(../images/edit_24px.png) no-repeat;
-  padding:16px;
-  background-position:center;
+a.editrow {
+    padding: 16px;
+    background: url(../images/edit_24px.png) no-repeat center;
 }
-a.editrow:hover{
-  background:url(../images/edit.png) no-repeat;
-  background-position:center;
+
+a.editrow:hover {
+    background: url(../images/edit.png) no-repeat center;
 }
 
 /*********************************************************Кнопка наверх*****************************************************/
 #back-top {
-  position: fixed;
-  bottom: 10px;
-  margin-left: 10px;
+    position: fixed;
+    bottom: 10px;
+    margin-left: 10px;
 }
+
 #back-top a {
-  text-align: center;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: #bbb;
-  /* замедление */
-  -webkit-transition: 1s;
-  -moz-transition: 1s;
-  transition: 1s;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #bbb;
+    /* замедление */
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    transition: 1s;
 }
+
 #back-top a:hover {
     color: #000;
 }
+
 /* изображение со стрелкой (тег img) */
 #back-top img {
-  /* замедление */
-  -webkit-transition: 1s;
-  -moz-transition: 1s;
-  transition: 1s;
-  opacity:0.3;
+    /* замедление */
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    transition: 1s;
+    opacity: 0.3;
 }
+
 #back-top a:hover img {
-  -webkit-transition: 2s;
-  -moz-transition: 2s;
-  transition: 2s;
-  opacity:1;
+    -webkit-transition: 2s;
+    -moz-transition: 2s;
+    transition: 2s;
+    opacity: 1;
 }
 
 /*********************аккордеон*****************/
 .accordion {
-  width:100%;
-  border-radius:6px;
-  line-height:1.7;
+    width: 100%;
+    border-radius: 6px;
+    line-height: 1.7;
 }
+
 .accordion h3 {
-	padding: 7px 15px;
-	margin: 0;
-	border-bottom: none;
-	border-radius: 5px;
-  font-size: 1.2em;
+    padding: 7px 15px;
+    margin: 0;
+    border-bottom: none;
+    border-radius: 5px;
+    font-size: 1.2em;
 }
+
 .accordion h3:hover {
-	background-color: #d9d8d8;
-	cursor: pointer;
+    background-color: #d9d8d8;
+    cursor: pointer;
 }
+
 .accordion h3.active {
-	background-position: right 5px;
-	background-color: #d9d8d8;
+    background: #d9d8d8 right 5px;
+    border: 1px solid #AFAFAF;
 }
+
 .accordion p {
-	margin: 0;
-	padding: 10px 20px;
-	display: none;
-	border-radius:6px;
+    margin: 0;
+    padding: 10px 20px;
+    display: none;
+    border-radius: 6px;
 }
 
 /**********************************всплывающее окно информации о модели****************/
-#model_info{
-  background: url(../images/bg_info_left.gif) repeat-y,#f9f9f9 url(../images/bg_info_right.gif) repeat-y 100% 0;
-  position:absolute;
-  left:50%;
-  top:19em;
-  min-width:48%;/*480px;*/
-  float:right;
-  padding:1.5em;/*5/480*/
-  box-shadow:0px 3px 1px rgba(0,0,0,0.4);
+#model_info form {
+    float: right;
 }
 
-#description{
-  padding-left:190px;
-  line-height:1.5;
-  margin-top:25px;
+#metainfo {
+    margin: 5px 5px 5px 190px;
+    border-top: 1px solid #c7c7c7;
 }
 
-#model_info form{
-  float:right;
+#next {
+    width: 16px;
+    height: 22px;
+    margin: 16px;
+    opacity: 0.4;
 }
 
-#metainfo{
-  margin:5px 5px 5px 190px;
-  border-top:1px solid #c7c7c7;
+#previous {
+    width: 16px;
+    height: 22px;
+    margin: 6px;
+    opacity: 0.4;
 }
 
-#next{
-  width:16px;
-  height:22px;
-  margin:16px;
-  opacity:0.4;
+#next:hover, #previous:hover {
+    cursor: pointer;
+    opacity: 1;
 }
 
-#previous{
-  width:16px;
-  height:22px;
-  margin:6px;
-  opacity:0.4;
+.closeWindow {
+    position: absolute;
+    top: -6px;
+    right: -14px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    background-image: url('../images/fancybox_sprite.png');
+    opacity: 0.4;
 }
 
-
-#next:hover, #previous:hover{
-  cursor:pointer;
-  opacity:1;
-}
-
-.closeWindow{
-  position:absolute;
-  top: -6px;
-  right: -14px;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-  background-image: url('../images/fancybox_sprite.png');
-  opacity:0.4;
-}
-
-.closeWindow:hover{
-  opacity:1;
-}
-
-.infoMessage{
-  text-shadow:1px 1px 1px rgba(255,255,255,1);
-  color: #424242;
-  font-style: italic;
+.closeWindow:hover {
+    opacity: 1;
 }
 
 button, .button {
-  border-width: 1px;
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: bold;
-  line-height: 1;
-  margin: 0 0 1.25em;
-  position: relative;
-  text-decoration: none;
-  text-align: center;
-  display: inline-block;
-  padding-top: 0.75em;
-  padding-right: 1.6em;
-  padding-bottom: 0.8125em;
-  padding-left: 1.6em;
-  font-size: 1em;
-  background-color: #2ba6cb;
-  border-color: #2284a1;
-  color: white;
-  width: 204px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0 0 1.25em;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    padding: 0.75em 1.6em 0.8125em;
+    font-size: 1em;
+    background-color: #2ba6cb;
+    border: 1px #2284a1;
+    color: white;
+    width: 204px;
 }
 
 button:hover, button:focus, .button:hover, .button:focus {
@@ -460,71 +441,63 @@ button:hover, button:focus, .button:hover, .button:focus {
 }
 
 button:hover, button:focus, .button:hover, .button:focus {
-  color: white;
+    color: white;
 }
 
-#tabs{
-  font-size: 16px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.8);
-  margin: 0 auto;
-  width: 732px;
+#tabs {
+    font-size: 16px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    margin: 0 auto;
+    width: 732px;
 }
 
-.delimiter{
-  width: 12px;
-  border-right: 2px groove #e2e2e2;
-  margin: 4px;
+.delimiter {
+    width: 12px;
+    border-right: 2px groove #e2e2e2;
+    margin: 4px;
 }
 
 .loading {
-    background-color: #eee;
-    background-image: url('../images/fancybox_loading.gif');
-    background-position: center center;
-    background-repeat: no-repeat;
+    background: #eee url('../images/fancybox_loading.gif') no-repeat center center;
     opacity: 1;
     padding: 20px;
     margin: 0 auto;
     width: 100px;
 }
- 
+
 .loading * {
     opacity: .8;
 }
 
-.title_header{
-  text-align:center;
-  background-color: #C9C9C9;
-  padding: 5px 0;
-  margin-bottom: 1%;
-  border-radius: 4px;
-  text-shadow:1px 1px 1px rgba(255,255,255,1.0);
-  width: 100%;
-  cursor: pointer;
-  font-size: 1.2em;
-  background-image: url('../images/nav_right.png');
-  background-position: right;
-  background-repeat: no-repeat;
+.title_header {
+    text-align: center;
+    padding: 5px 0;
+    margin-bottom: 1%;
+    border-radius: 4px;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 1.0);
+    width: 100%;
+    cursor: pointer;
+    font-size: 1.2em;
+    background: #C9C9C9 url('../images/nav_right.png') no-repeat right;
 }
 
-.sorter_link{
-  color:#bcbcbc;
+.sorter_link {
+    color: #bcbcbc;
 }
 
-.sorter_link:hover{
-  color:#d1d1d1;
+.sorter_link:hover {
+    color: #d1d1d1;
 }
 
-.left_td{
-  vertical-align: top;
-  padding-top: 1%;
+.left_td {
+    vertical-align: top;
+    padding-top: 1%;
 }
 
 h3 + p {
-  text-align: justify;
+    text-align: justify;
 }
 
-.expand{
-  background-image: url('../images/nav_down.png');
-  background-position: right;
-  background-repeat: no-repeat;
+.expand {
+    -webkit-background: url('../images/nav_down.png') no-repeat right;
 }
