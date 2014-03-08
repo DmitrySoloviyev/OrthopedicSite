@@ -26,18 +26,20 @@ return [
             'class' => 'system.gii.GiiModule',
             'password' => '1111',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
-            'ipFilters' => array('127.0.0.1', '::1'),
+            'ipFilters' => array('127.0.0.1', '192.168.33.1'),
         ],
     ],
 
     // application components
     'components' => [
+        'request' => [
+            'enableCsrfValidation' => true,
+        ],
         'user' => [
             // enable cookie-based authentication
             'allowAutoLogin' => true,
         ],
         // uncomment the following to enable URLs in path-format
-
         /*	'urlManager'=>array(
                 'urlFormat'=>'path',
                 'showScriptName' => false,
@@ -88,6 +90,12 @@ return [
 
                 ),
             ),*/
+        'session' => [
+            'class' => 'CCacheHttpSession',
+        ],
+        'cache' => [
+            'class' => 'CApcCache'
+        ],
     ],
 
     // application-level parameters that can be accessed

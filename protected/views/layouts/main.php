@@ -76,7 +76,7 @@
 <div class="container" id="page">
     <a href="https://github.com/DmitrySoloviyev/OrthopedicSite">
         <img width="149px" height="149px" style="position: absolute; top: 0; left: 0; border: 0; float:left"
-             src=<?php echo Yii::app()->request->baseUrl; ?>"/images/forkme_left_red.png" alt="Fork me on GitHub"/>
+             src=<?= Yii::app()->request->baseUrl; ?>"/images/forkme_left_red.png" alt="Fork me on GitHub"/>
     </a>
 
     <div id="header">
@@ -91,7 +91,7 @@
                     array('label' => 'Новый заказ', 'url' => array('/site/new')),
                     array('label' => 'Все заказы', 'url' => array('/site/view')),
                     array('label' => 'Поиск', 'url' => array('site/search')),
-                    array('label' => 'Статистика', 'url' => array('site/statistics')),
+                    array('label' => 'Статистика', 'url' => array('statistic/index')),
                     array('label' => 'Администрирование', 'url' => array('/site/admin'), 'visible' => !Yii::app()->user->isGuest),
                     //	array('label'=>'Контакты', 'url'=>array('/site/contact')),
                     array('label' => 'О сайте', 'url' => array('/site/page', 'view' => 'about')),
@@ -114,12 +114,12 @@
     </div>
     <!-- header -->
 
-    <div id="center"><?php echo $content; ?></div>
+    <div id="center"><?= $content ?></div>
     <div class="clear"></div>
     <div id="footer">
         <hr/>
-        Copyright &copy; 2013 - <?php echo date('Y'); ?>
-        by <?php echo CHtml::mailto('Dmitry Soloviyev', 'dmitry.soloviyev@gmail.com') ?>.<br/>
+        Copyright &copy; 2013 - <?= date('Y') ?>
+        by <?= CHtml::mailto('Dmitry Soloviyev', 'dmitry.soloviyev@gmail.com') ?>.<br/>
         г. Москва. All Rights Reserved.<br/>
         <?php echo Yii::powered(); ?>
     </div>

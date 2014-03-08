@@ -33,6 +33,7 @@ body {
     height: 100%;
     margin-top: 0;
     font: normal 100% 'Ubuntu', Helvetica, Helvetica Neue, Verdana, Cambria, Georgia, Arial, sans-serif;
+    min-width: 1016px;
 }
 
 .fix {
@@ -500,4 +501,20 @@ h3 + p {
 
 .expand {
     -webkit-background: url('../images/nav_down.png') no-repeat right;
+}
+
+.newsList {
+    list-style: none outside none;
+    margin: 1% 1%;
+}
+.newsList li{
+    position: relative;
+    padding-left: 2%;
+}
+
+.newsList li:after{
+    content: '✔';
+    position: absolute;
+    top: 0;
+    left: -10px;
 }

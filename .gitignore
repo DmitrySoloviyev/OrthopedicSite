@@ -3,3 +3,5 @@
 /vagrant/var/
 .vagrant/
 .idea
+/assets/
+/pma/
