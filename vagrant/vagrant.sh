@@ -65,7 +65,8 @@ configured() {
 configure-apc() {
     configured apc
     if [ "$?" -gt 0 ]; then
-        sudo echo "apc.shm_size = 32" >> /etc/php5/apache2/conf.d/apc.ini
+        sudo echo "apc.enabled = 1" >> /etc/php5/apache2/conf.d/apc.ini
+        sudo echo "apc.shm_size = 32M" >> /etc/php5/apache2/conf.d/apc.ini
         sudo service apache2 restart
         configured apc ok
     fi
@@ -100,7 +101,10 @@ configure-locale() {
 configure-mod-rewrite() {
     configured mod-rewrite
     if [ "$?" -gt 0 ]; then
-        sudo cp /var/www/vagrant/apache2.conf /etc/apache2/apache2.conf
+        sudo service apache2 stop
+        sudo cp /var/www/vagrant/apache2.conf /etc/apache2/
+        sudo cp /var/www/vagrant/httpd.conf /etc/apache2/
+        sudo service apache2 start
         configured mod-rewrite ok
     fi
 }
