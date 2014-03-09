@@ -44,13 +44,10 @@
     <td><?php echo CHtml::encode(date('d.m.Y H:i', strtotime($data->Date))); ?></td>
     <td><?php echo CHtml::encode($data->Comment); ?></td>
     <?php if (!Yii::app()->user->isGuest): ?>
-        <td><?php echo CHtml::link('', array('site/update', 'id' => $data->OrderID), array('class' => 'editrow')); ?></td>
+        <td><?php echo CHtml::link('', $this->createUrl('site/update', ['id' => $data->OrderID]), array('class' => 'editrow')); ?></td>
         <td><?php echo CHtml::link('', '#', array(
                     'class' => 'delrow',
-                    'submit' => array(
-                        'site/delete',
-                        'id' => $data->OrderID,
-                    ),
+                    'submit' => $this->createUrl('site/delete', ['id' => $data->OrderID]),
                     'confirm' => 'Вы действительно хотите удалить этот заказ?',
                     'csrf' => true)
             );?>

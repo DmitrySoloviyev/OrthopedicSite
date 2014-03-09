@@ -40,15 +40,18 @@ return [
             'allowAutoLogin' => true,
         ],
         // uncomment the following to enable URLs in path-format
-        /*	'urlManager'=>array(
-                'urlFormat'=>'path',
-                'showScriptName' => false,
-                'rules'=>array(
-                    '<controller:\w+>/<id:\d+>'=>'<controller>/view',
-                    '<controller:\w+>/<action:\w+>/<id:\d+|\w+>'=>'<controller>/<action>',
-                    '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-                ),
-            ),*/
+        'urlManager' => [
+            'urlFormat' => 'path',
+            'showScriptName' => false,
+            'rules' => [
+//                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                'gii' => 'gii',
+                'gii/<controller:\w+>' => 'gii/<controller>',
+                'gii/<controller:\w+>/<action:\w+>' => 'gii/<controller>/<action>',
+                '<controller:\w+>/<action:\w+>/<id:\d+|\w+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ],
+        ],
 
         /*
         'db'=>array(
@@ -70,26 +73,26 @@ return [
             // use 'site/error' action to display errors
             'errorAction' => 'site/error',
         ],
-/*        	'log'=>array(
-                'class'=>'CLogRouter',
-                'routes'=>array(
-                    array(
-                        'class'=>'CFileLogRoute',
-                        'levels'=>'error, warning',
-                    ),
-                    // uncomment the following to show log messages on web pages
+        /*        	'log'=>array(
+                        'class'=>'CLogRouter',
+                        'routes'=>array(
+                            array(
+                                'class'=>'CFileLogRoute',
+                                'levels'=>'error, warning',
+                            ),
+                            // uncomment the following to show log messages on web pages
 
-                    array(
-                        'class'=>'CWebLogRoute',
-                    ),
+                            array(
+                                'class'=>'CWebLogRoute',
+                            ),
 
-                    array(
-                        'class'=>'CProfileLogRoute',
-                        'enabled'=>true,
-                    ),
+                            array(
+                                'class'=>'CProfileLogRoute',
+                                'enabled'=>true,
+                            ),
 
-                ),
-            ),*/
+                        ),
+                    ),*/
         'session' => [
             'class' => 'CCacheHttpSession',
         ],

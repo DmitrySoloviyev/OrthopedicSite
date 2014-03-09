@@ -97,6 +97,14 @@ configure-locale() {
     fi
 }
 
+configure-mod-rewrite() {
+    configured mod-rewrite
+    if [ "$?" -gt 0 ]; then
+        sudo cp /var/www/vagrant/apache2.conf /etc/apache2/apache2.conf
+        configured mod-rewrite ok
+    fi
+}
+
 
 ##
 # Прочие функции
@@ -155,6 +163,7 @@ install-phpunit
 configure-apc
 configure-mysql
 configure-php
+configure-mod-rewrite
 
 #load-migrations
 

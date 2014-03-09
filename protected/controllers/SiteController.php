@@ -766,12 +766,15 @@ class SiteController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::app()->user->isGuest) {
+            throw new CException('У Вас недостаточно прав для данной операции');
+        }
         $this->loadModel($id)->delete();
         $this->redirect(array('view'));
     }
 
-    /*
-     * ДЕЙСТВИЕ АДМИНИСТРАТИВНОЙ ЧАСТИ
+    /**
+     * ДЕЙСТВИЯ АДМИНИСТРАТИВНОЙ ЧАСТИ
      */
     public function actionAdmin()
     {
