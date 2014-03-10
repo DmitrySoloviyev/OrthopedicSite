@@ -43,14 +43,16 @@
     </td>
     <td><?php echo CHtml::encode(date('d.m.Y H:i', strtotime($data->Date))); ?></td>
     <td><?php echo CHtml::encode($data->Comment); ?></td>
+
     <?php if (!Yii::app()->user->isGuest): ?>
-        <td><?php echo CHtml::link('', $this->createUrl('site/update', ['id' => $data->OrderID]), array('class' => 'editrow')); ?></td>
-        <td><?php echo CHtml::link('', '#', array(
+        <td><?php echo CHtml::link('', $this->createUrl('site/update', ['id' => $data->OrderID]), ['class' => 'editrow']); ?></td>
+        <td><?php echo CHtml::link('', '#', [
                     'class' => 'delrow',
                     'submit' => $this->createUrl('site/delete', ['id' => $data->OrderID]),
+                    'params' => [Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken],
                     'confirm' => 'Вы действительно хотите удалить этот заказ?',
-                    'csrf' => true)
-            );?>
+                    'csrf' => true
+                ]);?>
         </td>
     <?php endif; ?>
 </tr>

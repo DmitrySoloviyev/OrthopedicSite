@@ -66,7 +66,7 @@ configure-apc() {
     configured apc
     if [ "$?" -gt 0 ]; then
         sudo echo "apc.enabled = 1" >> /etc/php5/apache2/conf.d/apc.ini
-        sudo echo "apc.shm_size = 32M" >> /etc/php5/apache2/conf.d/apc.ini
+        sudo echo "apc.shm_size = 64M" >> /etc/php5/apache2/conf.d/apc.ini
         sudo service apache2 restart
         configured apc ok
     fi

@@ -607,6 +607,10 @@ class SiteController extends Controller
      */
     public function actionUpdate($id)
     {
+        $model = Orders::model()->findByPk($id);
+        if (!$model) {
+            throw new CHttpException(404, 'Указанная запись не найдена');
+        }
         $model = Orders::model()->with(
             'material',
             'model',

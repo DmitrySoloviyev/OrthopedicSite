@@ -2,7 +2,9 @@
 return [
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'База данных ортопедической обуви',
+    'defaultController' => 'site',
     'language' => 'ru',
+    'sourceLanguage' => 'en',
     'charset' => 'utf-8',
     'preload' => ['log'],
     'import' => [
@@ -19,6 +21,7 @@ return [
     'components' => [
         'request' => [
             'enableCsrfValidation' => true,
+            'enableCookieValidation' => true,
         ],
         'user' => [
             'allowAutoLogin' => true,
@@ -42,32 +45,26 @@ return [
             'username' => 'root',
             'password' => '1111',
             'charset' => 'utf8',
-//            'schemaCachingDuration' => 2592000, // включить кэширование схем бд для улучшения производительности, месяц
+            'enableProfiling' => true,
+            'enableParamLogging' => true,
+//            'schemaCachingDuration' => 2592000, // месяц
         ],
         'errorHandler' => [
-            // use 'site/error' action to display errors
             'errorAction' => 'site/error',
         ],
-        /*        	'log'=>array(
-                        'class'=>'CLogRouter',
-                        'routes'=>array(
-                            array(
-                                'class'=>'CFileLogRoute',
-                                'levels'=>'error, warning',
-                            ),
-                            // uncomment the following to show log messages on web pages
-
-                            array(
-                                'class'=>'CWebLogRoute',
-                            ),
-
-                            array(
-                                'class'=>'CProfileLogRoute',
-                                'enabled'=>true,
-                            ),
-
-                        ),
-                    ),*/
+        'log' => [
+            'class' => 'CLogRouter',
+            'routes' => [
+                [
+                    'class' => 'CProfileLogRoute',
+                    'enabled' => true,
+                    'report' => 'summary',
+                ],
+                [
+                    'class' => 'CWebLogRoute',
+                ],
+            ],
+        ],
         'session' => [
             'class' => 'CCacheHttpSession',
         ],

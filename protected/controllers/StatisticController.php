@@ -2,9 +2,9 @@
 
 class StatisticController extends Controller
 {
-    public function actionIndex()
+    public function actionShow()
     {
-        $this->render('index');
+        $this->render('show');
     }
 
 }

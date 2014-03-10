@@ -350,8 +350,10 @@ $('#search_header').click(function(){
                 <th><?= $sort->link('EmployeeID', 'Модельер', array('class' => 'sorter_link')); ?></th>
                 <th><?= $sort->link('Date', 'Дата заказа', array('class' => 'sorter_link')); ?></th>
                 <th width="110px">Комментарий</th>
-                <th>Правка</th>
-                <th>Удалить</th>
+                <?php if (!Yii::app()->user->isGuest): ?>
+                    <th>Правка</th>
+                    <th>Удалить</th>
+                <?php endif; ?>
             </tr>
             <?php
             $this->widget('zii.widgets.CListView', array(
