@@ -1,50 +1,33 @@
 <?php
-
-// uncomment the following to define a path alias
-// Yii::setPathOfAlias('local','path/to/local-folder');
-
-// This is the main Web application configuration. Any writable
-// CWebApplication properties can be configured here.
 return [
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'База данных ортопедической обуви',
     'language' => 'ru',
     'charset' => 'utf-8',
-
-    // preloading 'log' component
     'preload' => ['log'],
-
-    // autoloading model and component classes
     'import' => [
         'application.models.*',
         'application.components.*',
     ],
-
     'modules' => [
-        // uncomment the following to enable the Gii tool
         'gii' => [
             'class' => 'system.gii.GiiModule',
             'password' => '1111',
-            // If removed, Gii defaults to localhost only. Edit carefully to taste.
             'ipFilters' => array('127.0.0.1', '192.168.33.1'),
         ],
     ],
-
-    // application components
     'components' => [
         'request' => [
             'enableCsrfValidation' => true,
         ],
         'user' => [
-            // enable cookie-based authentication
             'allowAutoLogin' => true,
+            'loginUrl' => ['site/login'],
         ],
-        // uncomment the following to enable URLs in path-format
         'urlManager' => [
             'urlFormat' => 'path',
             'showScriptName' => false,
             'rules' => [
-//                '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 'gii' => 'gii',
                 'gii/<controller:\w+>' => 'gii/<controller>',
                 'gii/<controller:\w+>/<action:\w+>' => 'gii/<controller>/<action>',
@@ -52,13 +35,6 @@ return [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
         ],
-
-        /*
-        'db'=>array(
-            'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-        ),
-        */
-        // uncomment the following to use a MySQL database
         'db' => [
             'class' => 'CDbConnection',
             'connectionString' => 'mysql:host=localhost;dbname=SHOES',
@@ -66,8 +42,7 @@ return [
             'username' => 'root',
             'password' => '1111',
             'charset' => 'utf8',
-            // включить кэширование схем бд для улучшения производительности, месяц
-//            'schemaCachingDuration' => 2592000,
+//            'schemaCachingDuration' => 2592000, // включить кэширование схем бд для улучшения производительности, месяц
         ],
         'errorHandler' => [
             // use 'site/error' action to display errors
@@ -99,12 +74,31 @@ return [
         'cache' => [
             'class' => 'CApcCache'
         ],
+        'widgetFactory' => [
+            'widgets' => [
+                'CLinkPager' => [
+                    'maxButtonCount' => 5,
+                ],
+                'CJuiDatePicker' => [
+                    'language' => 'ru',
+                    'htmlOptions' => [
+                        'required' => 'required',
+                        'autocomplete' => 'Off',
+                        'style' => 'width:150px',
+                        'placeholder' => 'дд.мм.гггг',
+                    ],
+                    'options' => [
+                        'showAnim' => 'fadeIn',
+                        'maxDate' => '+0d',
+                        'changeYear' => true,
+                    ],
+                ],
+            ],
+        ],
     ],
 
-    // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
     'params' => [
-        // this is used in contact page
         'adminEmail' => 'dmitry.soloviyev@gmail.com',
     ],
     'timeZone' => 'Europe/Moscow',

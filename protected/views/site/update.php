@@ -1,6 +1,6 @@
 <?php
 if (Yii::app()->user->isGuest) {
-    throw new CException('У Вас недостаточно прав для данной операции');
+    $this->redirect(['site/login']);
 }
 $this->pageTitle = Yii::app()->name . ' - Редактирование';
 

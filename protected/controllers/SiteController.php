@@ -815,7 +815,7 @@ class SiteController extends Controller
         if (isset($_POST['backupDbBtn'])) {
             $now = date("_Y-n-d__H-i-s");
             $filename = "BACKUP_DB_SHOES_" . $now . ".sql";
-            $command = "mysqldump --flush-logs --databases -u" . Yii::app()->db->username . " -p" . Yii::app()->db->password . " -hlocalhost SHOES > $filename";
+            $command = "mysqldump --flush-logs --lock-tables --databases -u" . Yii::app()->db->username . " -p" . Yii::app()->db->password . " -hlocalhost SHOES > $filename";
             $result = system($command);
             if (!$result) {
                 ob_clean();

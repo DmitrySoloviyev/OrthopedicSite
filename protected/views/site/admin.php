@@ -1,46 +1,9 @@
 <?php
 if (Yii::app()->user->isGuest) {
-    header("Location: index.php");
-    exit();
+    $this->redirect(['site/login']);
+    Yii::app()->end();
 }
 $this->pageTitle = Yii::app()->name . ' - Администрирование';
-Yii::app()->clientScript->registerPackage('jquery.ui');
-Yii::app()->clientScript->registerScript('datePicker', "
-
-	$.datepicker.regional['ru'] = {
-        closeText: 'Закрыть',
-        prevText: '&#x3c;Пред',
-        nextText: 'След&#x3e;',
-		currentText: 'Сегодня',
-		monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
-		'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
-		monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
-		'Июл','Авг','Сен','Окт','Ноя','Дек'],
-		dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
-		dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
-		dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
-		weekHeader: 'Не',
-		dateFormat: 'dd.mm.yy',
-		firstDay: 1,
-		isRTL: false,
-		showMonthAfterYear: false,
-		yearSuffix: ''
-	};
-
-	$.datepicker.setDefaults(
-		$.extend($.datepicker.regional['ru'])
-	);
-	$('#startDate').datepicker({
-		firstDay:1,
-		showAnim: 'blind',
-		maxDate: '+0d'
-	});
-	$('#endDate').datepicker({
-		firstDay:1,
-		showAnim: 'blind',
-		maxDate: '+0d'
-	});
-", CClientScript::POS_READY);
 ?>
 
 <?php if (Yii::app()->user->hasFlash('success')): ?>
@@ -149,11 +112,15 @@ Yii::app()->clientScript->registerScript('datePicker', "
     <fieldset>
         <legend style="margin-left:60px;">Отчет за период</legend>
         <div class="row">
-            <input type="text" name="startDate" id="startDate" required autocomplete="Off" style="width:150px"
-                   placeholder="дд.мм.гггг"/>
+            <?php $this->widget('zii.widgets.jui.CJuiDatePicker', [
+                'name' => 'startDate',
+                'attribute' => 'startDate',
+            ]);?>
             &nbsp;&mdash;&nbsp;
-            <input type="text" id="endDate" name="endDate" required autocomplete="Off" style="width:150px"
-                   placeholder="дд.мм.гггг"/>
+            <?php $this->widget('zii.widgets.jui.CJuiDatePicker', [
+                'name' => 'endDate',
+                'attribute' => 'endDate',
+            ]);?>
         </div>
         <div class="row submit">
             <?php echo CHtml::submitButton('Сохранить в Excel', array('class' => 'button', 'name' => 'saveAsExcel')); ?>
