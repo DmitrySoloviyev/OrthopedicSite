@@ -75,7 +75,7 @@ configure-apc() {
 configure-php() {
     configured php54
     if [ "$?" -gt 0 ]; then
-        sudo cp /var/www/vagrant/php.ini /etc/php5/apache2/
+        sudo cp /var/www/vagrant/php.ini /etc/php5/apache2/php.ini
         configured php54 ok
     fi
 }
@@ -83,7 +83,7 @@ configure-php() {
 configure-mysql() {
     configured mysql
     if [ "$?" -gt 0 ]; then
-        sudo cp /var/www/vagrant/my.cnf /etc/mysql/
+        sudo cp /var/www/vagrant/my.cnf /etc/mysql/my.cnf
         configured mysql ok
     fi
 }
@@ -102,8 +102,9 @@ configure-mod-rewrite() {
     configured mod-rewrite
     if [ "$?" -gt 0 ]; then
         sudo service apache2 stop
-        sudo cp /var/www/vagrant/apache2.conf /etc/apache2/
-        sudo cp /var/www/vagrant/httpd.conf /etc/apache2/
+        sudo cp /var/www/vagrant/apache2.conf /etc/apache2/apache2.conf
+        sudo cp /var/www/vagrant/httpd.conf /etc/apache2/httpd.conf
+        sudo cp /var/www/vagrant/000-default /etc/apache2/sites-enabled/000-default
         sudo service apache2 start
         configured mod-rewrite ok
     fi
@@ -134,6 +135,25 @@ add-php54-repository() {
     if [ "$?" -gt 0 ]; then
         sudo add-apt-repository -y ppa:ondrej/php5-oldstable && apt-get update
         configured php54 ok
+    fi
+}
+
+created() {
+    if [ -z "$2" ]; then
+        if [ -f /var/www/vagrant/var/created-$1 ]; then
+            return 0;
+        fi
+        return 1;
+    fi
+
+    touch /var/www/vagrant/var/created-$1
+}
+
+create-db() {
+    created db
+    if [ "$?" -gt 0 ]; then
+        mysqladmin -uroot -p1111 CREATE ortho_db
+        created db ok
     fi
 }
 
@@ -169,6 +189,7 @@ configure-mysql
 configure-php
 configure-mod-rewrite
 
+create-db
 #load-migrations
 
 sudo service apache2 restart && echo -e "\napache is ready!"

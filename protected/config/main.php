@@ -15,7 +15,7 @@ return [
         'gii' => [
             'class' => 'system.gii.GiiModule',
             'password' => '1111',
-            'ipFilters' => array('127.0.0.1', '192.168.33.1'),
+            'ipFilters' => ['127.0.0.1', '192.168.33.1'],
         ],
     ],
     'components' => [
@@ -47,7 +47,7 @@ return [
             'charset' => 'utf8',
             'enableProfiling' => true,
             'enableParamLogging' => true,
-//            'schemaCachingDuration' => 2592000, // месяц
+            'schemaCachingDuration' => 0, // месяц 2592000
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -62,6 +62,11 @@ return [
                 ],
                 [
                     'class' => 'CWebLogRoute',
+                ],
+                [
+                    'class' => 'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
+                    'ipFilters' => array('127.0.0.1', '192.168.33.1'),
+                    'enabled' => YII_DEBUG,
                 ],
             ],
         ],
@@ -93,8 +98,6 @@ return [
             ],
         ],
     ],
-
-    // using Yii::app()->params['paramName']
     'params' => [
         'adminEmail' => 'dmitry.soloviyev@gmail.com',
     ],
