@@ -5,7 +5,7 @@ return [
     'preload' => ['log'],
     'components' => [
         'db' => [
-            'connectionString' => 'mysql:host=localhost;dbname=SHOES',
+            'connectionString' => 'mysql:host=localhost;dbname=ortho_db',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => '1111',

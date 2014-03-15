@@ -29,7 +29,7 @@ html {
 }
 
 body {
-    background: url(../images/bg_mat.png) repeat;
+    background: url('../images/bg_mat.png') repeat;
     height: 100%;
     margin-top: 0;
     font: normal 100% 'Ubuntu', Helvetica, Helvetica Neue, Verdana, Cambria, Georgia, Arial, sans-serif;
@@ -287,28 +287,34 @@ option {
 /*****************удаление***********/
 a.delrow {
     padding: 16px;
-    background: url(../images/delete_16px.png) no-repeat center;
+    background: url('../images/delete_16px.png') no-repeat center;
 }
 
 a.delrow:hover {
-    background: url(../images/delete.png) no-repeat center;
+    background: url('../images/delete.png') no-repeat center;
     padding: 16px;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    transition: 1s;
 }
 
 /**************редактирование*******/
 a.editrow {
     padding: 16px;
-    background: url(../images/edit_24px.png) no-repeat center;
+    background: url('../images/edit_24px.png') no-repeat center;
 }
 
 a.editrow:hover {
-    background: url(../images/edit.png) no-repeat center;
+    background: url('../images/edit.png') no-repeat center;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    transition: 1s;
 }
 
 /*********************************************************Кнопка наверх*****************************************************/
 #back-top {
     position: fixed;
-    bottom: 10px;
+    bottom: -20px;
     margin-left: 10px;
 }
 
@@ -507,14 +513,23 @@ h3 + p {
     list-style: none outside none;
     margin: 1% 1%;
 }
-.newsList li{
+
+.newsList li {
     position: relative;
     padding-left: 2%;
 }
 
-.newsList li:after{
+.newsList li:after {
     content: '✔';
     position: absolute;
     top: 0;
     left: -10px;
+}
+
+#forkme {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    float: left;
 }

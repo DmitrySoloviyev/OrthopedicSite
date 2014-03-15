@@ -2,23 +2,23 @@
 
 class SiteController extends Controller
 {
-/* TODO
-    public function filters()
-    {
-        return [
-            'accessControl + admin',
-        ];
-    }
+    /* TODO
+        public function filters()
+        {
+            return [
+                'accessControl + admin',
+            ];
+        }
 
-    public function accessRules()
-    {
-        return [
-            ['deny',
-                'actions' => ['admin'],
-                'roles' => ['admin'],
-            ],
-        ];
-    }*/
+        public function accessRules()
+        {
+            return [
+                ['deny',
+                    'actions' => ['admin'],
+                    'roles' => ['admin'],
+                ],
+            ];
+        }*/
 
     /**
      * Declares class-based actions.
@@ -45,69 +45,44 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        //создать БД SHOES если таковой не существует
-        try {
-            Yii::app()->db->createCommand('SHOW TABLES FROM SHOES')->queryAll();
-        } catch (Exception $e) {
-            $mysqli = mysqli_connect('localhost', "root", "1111");
-            mysqli_query($mysqli, 'CREATE DATABASE SHOES');
-            $createDbSql = "mysql -u" . Yii::app()->db->username . " -p" . Yii::app()->db->password . " SHOES < " . Yii::app()->request->baseUrl . "assets/DUMP_DB_SHOES.sql";
-            system($createDbSql);
-        }
-        $employeesModel = new Employees('add');
+        $employee = new Employee();
 
-        if (isset($_POST['Employees'])) {
-            $employeesModel->attributes = $_POST['Employees'];
+        if (isset($_POST['Employee'])) {
+            $name = mb_convert_case(trim($_POST['Employee']['name']), MB_CASE_TITLE, 'UTF-8');
+            $surname = mb_convert_case(trim($_POST['Employee']['surname']), MB_CASE_TITLE, 'UTF-8');
+            $patronymic = mb_convert_case(trim($_POST['Employee']['patronymic']), MB_CASE_TITLE, 'UTF-8');
 
-            $employeesModel->EmployeeSN = mb_convert_case(trim($employeesModel->EmployeeSN), MB_CASE_TITLE, 'UTF-8');
-            $employeesModel->EmployeeFN = mb_convert_case(trim($employeesModel->EmployeeFN), MB_CASE_TITLE, 'UTF-8');
-            $employeesModel->EmployeeP = mb_convert_case(trim($employeesModel->EmployeeP), MB_CASE_TITLE, 'UTF-8');
-
-            if ($employeesModel->validate()) {
-                $review = Employees::model()->findBySQL("SELECT EmployeeID, STATUS FROM Employees WHERE EmployeeFN='" .
-                    $employeesModel->EmployeeFN . "' AND EmployeeSN='" .
-                    $employeesModel->EmployeeSN . "' AND EmployeeP='" .
-                    $employeesModel->EmployeeP . "'");
-                if ($review != NULL) {
-                    $connection = Yii::app()->db;
-                    $command = $connection->createCommand("UPDATE Employees SET STATUS='Работает' WHERE EmployeeID='" . $review->EmployeeID . "'");
-                    $rowCount = $command->execute();
-
-                    if ($rowCount == 1) {
-                        Yii::app()->clientScript->registerScript(
-                            'myHideEffect',
-                            '$(".flash-success").animate({opacity: 1.0}, 3000).slideUp("medium");',
-                            CClientScript::POS_READY
-                        );
-                        Yii::app()->user->setFlash('success', "Модельер " .
-                            $employeesModel->EmployeeSN . " " .
-                            $employeesModel->EmployeeFN . " " .
-                            $employeesModel->EmployeeP . " успешно восстановлен!");
-                    }
-                } else if ($employeesModel->save()) {
-                    Yii::app()->clientScript->registerScript(
-                        'myHideEffect',
-                        '$(".flash-success").animate({opacity: 1.0}, 3000).slideUp("medium");',
-                        CClientScript::POS_READY
-                    );
-                    Yii::app()->user->setFlash('success', "Новый модельер " .
-                        $employeesModel->EmployeeSN . " " .
-                        $employeesModel->EmployeeFN . " " .
-                        $employeesModel->EmployeeP . " успешно добавлен!");
+            // если такой модельер уже есть - восстанавливаем
+            $employeeExists = Employee::model()->findByAttributes([
+                'name' => $name,
+                'surname' => $surname,
+                'patronymic' => $patronymic,
+            ]);
+            if ($employeeExists) {
+                $employeeExists->is_deleted = 0;
+                if ($employeeExists->save(false)) {
+                    Yii::app()->user->setFlash('success', 'Модельер ' . $employeeExists->fullName() . ' успешно восстановлен!');
                 } else {
-                    Yii::app()->clientScript->registerScript(
-                        'myHideEffect',
-                        '$(".flash-error").animate({opacity: 1.0}, 4000).slideUp("medium");',
-                        CClientScript::POS_READY
-                    );
-                    Yii::app()->user->setFlash('error', "Ошибка при добавлении нового модельера!");
+                    Yii::app()->user->setFlash('error', "Ошибка при сохранении модельера!");
+                }
+            } else {
+                $employee->setAttributes([
+                    'name' => $name,
+                    'surname' => $surname,
+                    'patronymic' => $patronymic,
+                ], false);
+                if ($employee->save()) {
+                    Yii::app()->user->setFlash('success', "Новый модельер " . $employee->fullName() . " успешно добавлен!");
+                } else {
+                    Yii::app()->user->setFlash('error', "Ошибка при сохранении модельера!");
                 }
             }
         }
-        $employeesModel->unsetAttributes();
-        $this->render('index', array(
-            'employeesModel' => $employeesModel,
-        ));
+
+        $employee->unsetAttributes();
+        $this->render('index', [
+            'employee' => $employee,
+        ]);
     }
 
     /**

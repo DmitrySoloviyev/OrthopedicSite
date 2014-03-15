@@ -190,7 +190,7 @@ configure-php
 configure-mod-rewrite
 
 create-db
-#load-migrations
+load-migrations
 
 sudo service apache2 restart && echo -e "\napache is ready!"
 sudo service mysql restart && echo "mysql is ready!"

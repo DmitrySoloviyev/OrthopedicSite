@@ -1,6 +1,6 @@
 <?php
 $this->pageTitle = Yii::app()->name;
-Yii::app()->clientScript->registerPackage('jquery.ui');
+Yii::app()->clientScript->registerCoreScript('jquery.ui');
 Yii::app()->clientScript->registerScript('t', "
     $('#tabs').tabs({
      	collapsible: true,
@@ -9,35 +9,34 @@ Yii::app()->clientScript->registerScript('t', "
      	active: 3
     });
 ", CClientScript::POS_READY);
+Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::POS_END);
 ?>
 <?php if (Yii::app()->user->hasFlash('success')): ?>
-    <div class="flash-success">
+    <div class='flash-success'>
         <?php echo Yii::app()->user->getFlash('success'); ?>
     </div>
 <?php endif; ?>
 <?php if (Yii::app()->user->hasFlash('error')): ?>
-    <div class="flash-error">
+    <div class='flash-error'>
         <?php echo Yii::app()->user->getFlash('error'); ?>
     </div>
 <?php endif; ?>
 
-<div id="tabs">
-
+<div id='tabs'>
     <blockquote>
-        <p class="mytext">
+        <p class='mytext'>
             <?php
             $quotes = file(Yii::app()->request->baseUrl . 'assets/quotes.txt');
             if ($quotes) {
                 $cnt = count($quotes);
                 echo $quotes[rand(0, --$cnt)];
             } else {
-                echo "Дешевая пара обуви — плохая экономия. Не экономьте на главном: обувь — основа вашего гардероба. <br />&copy;
-						Джорджио Армани.";
+                echo 'Дешевая пара обуви — плохая экономия. Не экономьте на главном: обувь — основа вашего гардероба. <br />&copy;
+						Джорджио Армани.';
             }
             ?>
         </p>
     </blockquote>
-
     <ul>
         <li><a href="#tabs_1">Новый модельер</a></li>
         <li><a href="#tabs_2">Зарегестрированные модельеры</a></li>
@@ -45,55 +44,42 @@ Yii::app()->clientScript->registerScript('t', "
     </ul>
     <div id="tabs_1">
         <div class="form">
-            <?php $form = $this->beginWidget('CActiveForm', array(
+            <?php $form = $this->beginWidget('CActiveForm', [
                 'id' => 'add-employee-form',
                 'enableClientValidation' => true,
-                'clientOptions' => array('validateOnSubmit' => true),
-            )); ?>
+                'clientOptions' => ['validateOnSubmit' => true],
+            ]); ?>
             <fieldset>
                 <legend>Новый сотрудник</legend>
                 <div>
                     <div class="row">
                         <?php
-                        echo $form->TextField(
-                            $employeesModel,
-                            'EmployeeSN',
-                            array(
+                        echo $form->TextField($employee, 'surname', [
                                 'autocomplete' => 'Off',
                                 'maxlength' => '29',
                                 'placeholder' => 'Фамилия',
                                 'class' => 'input_text',
-                            )
-                        );
-                        echo $form->error($employeesModel, 'EmployeeSN');?>
+                            ]);
+                        echo $form->error($employee, 'surname');?>
                     </div>
                     <div class="row">
-                        <?php
-                        echo $form->TextField(
-                            $employeesModel,
-                            'EmployeeFN',
-                            array(
+                        <?php echo $form->TextField($employee, 'name', [
                                 'autocomplete' => 'Off',
                                 'maxlength' => '29',
                                 'placeholder' => 'Имя',
                                 'class' => 'input_text',
-                            )
-                        );
-                        echo $form->error($employeesModel, 'EmployeeFN');?>
+                            ]);
+                        echo $form->error($employee, 'name');?>
                     </div>
                     <div class="row">
                         <?php
-                        echo $form->TextField(
-                            $employeesModel,
-                            'EmployeeP',
-                            array(
+                        echo $form->TextField($employee, 'patronymic', [
                                 'autocomplete' => 'Off',
                                 'maxlength' => '29',
                                 'placeholder' => 'Отчество',
                                 'class' => 'input_text',
-                            )
-                        );
-                        echo $form->error($employeesModel, 'EmployeeP');?>
+                            ]);
+                        echo $form->error($employee, 'patronymic');?>
                     </div>
                 </div>
                 <div class="row submit">
@@ -101,26 +87,13 @@ Yii::app()->clientScript->registerScript('t', "
                 </div>
             </fieldset>
             <?php $this->endWidget(); ?>
-        </div>
-        <!-- form -->
+        </div><!-- form -->
     </div>
     <div id="tabs_2">
-        <?php
-        $result = Employees::model()->findAllBySql(
-            "SELECT CONCAT_WS(' ', EmployeeSN, EmployeeFN, EmployeeP) AS FIO FROM Employees WHERE STATUS = 'Работает'");
-        foreach ($result as $key => $value) {
-            echo "<div>" . $value->FIO . "</div>";
-        }
-        ?>
+        <?= Employee::searchEmployee()?>
     </div>
     <div id="tabs_3">
-        <?php
-        $result = Employees::model()->findAllBySql(
-            "SELECT CONCAT_WS(' ', EmployeeSN, EmployeeFN, EmployeeP) AS FIO FROM Employees WHERE STATUS = 'Уволен'");
-        foreach ($result as $key => $value) {
-            echo "<div>" . $value->FIO . "</div>";
-        }
-        ?>
+        <?= Employee::searchEmployee(true)?>
     </div>
 </div>
 <br/>
@@ -138,6 +111,7 @@ Yii::app()->clientScript->registerScript('t', "
     <li>Отображение таблицы через метод search() модели</li>
     <li>Заменить CListView на CGridView</li>
     <li>Фильтровать ввод, экранировать вывод</li>
+    <li>TODO $this->createIndex('employees_is_deleted', 'employees', 'is_deleted');</li>
     <li>Рассмотреть возможность избавиться от меню "Поиск" и реализовать его в GridView</li>
     <del><li>Php-акселлератор php-apc</li></del>
     <del><li>Удалять и редактировать заказы только от имени администратора.</li></del>
@@ -151,7 +125,7 @@ Yii::app()->clientScript->registerScript('t', "
 
 <!-- <tr><td style="vertical-align:text-top"><i>0.4</i></td><td>Синхронизация базы данных с мобильным приложением.</td></tr> -->
 <!-- <tr class="infoMessage"><td style="vertical-align:text-top; padding: 1% 0;"><i><b>Сообщение:</b></i></td><td style="padding: 1% 0;"><b>
-		Обновление приложения для Android по работе с базой данных - 
+		Обновление приложения для Android по работе с базой данных -
 		<a href="<?php echo Yii::app()->request->baseUrl; ?>/assets/OrthopedicDB.apk">OrthopedicDB</a>(текущая версия 1.1).<b>Синхронизация базы
 		данных с мобильным приложением.</td></tr> -->
 

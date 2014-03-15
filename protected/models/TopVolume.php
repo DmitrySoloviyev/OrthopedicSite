@@ -1,99 +1,50 @@
 <?php
 
 /**
- * This is the model class for table "TopVolume".
+ * This is the model class for table "top_volume".
  *
- * The followings are the available columns in table 'TopVolume':
- * @property string $TopVolumeID
- * @property double $TopVolumeValue
+ * The followings are the available columns in table 'top_volume':
+ * @property integer $id
+ * @property double $volume
  *
  * The followings are the available model relations:
- * @property Orders[] $orders
+ * @property Order[] $orders
+ * @property Order[] $orders1
  */
 class TopVolume extends CActiveRecord
 {
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'TopVolume';
-	}
+    public function tableName()
+    {
+        return 'top_volume';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('TopVolumeID, TopVolumeValue', 'required'),
-			array('TopVolumeValue', 'numerical'),
-			array('TopVolumeID', 'length', 'max'=>4),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('TopVolumeID, TopVolumeValue', 'safe', 'on'=>'search'),
-		);
-	}
+    public function rules()
+    {
+        return [
+            ['volume', 'required'],
+            ['volume', 'numerical'],
+            ['id, volume', 'safe', 'on' => 'search'],
+        ];
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'orders' => array(self::HAS_MANY, 'Orders', 'TopVolumeRIGHT'),
-		);
-	}
+    public function relations()
+    {
+        return [
+            'orders' => [self::HAS_MANY, 'Order', 'top_volume_left_id'],
+            'orders1' => [self::HAS_MANY, 'Order', 'top_volume_right_id'],
+        ];
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'TopVolumeID' => 'Top Volume',
-			'TopVolumeValue' => 'Top Volume Value',
-		);
-	}
+    public function attributeLabels()
+    {
+        return [
+            'TopVolumeValue' => 'Объем верха',
+        ];
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('TopVolumeID',$this->TopVolumeID,true);
-		$criteria->compare('TopVolumeValue',$this->TopVolumeValue);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return TopVolume the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
 }

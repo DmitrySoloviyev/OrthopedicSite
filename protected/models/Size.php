@@ -1,44 +1,46 @@
 <?php
 
 /**
- * This is the model class for table "urks".
+ * This is the model class for table "sizes".
  *
- * The followings are the available columns in table 'urks':
+ * The followings are the available columns in table 'sizes':
  * @property integer $id
- * @property integer $urk
+ * @property integer $size
  *
  * The followings are the available model relations:
  * @property Order[] $orders
  * @property Order[] $orders1
  */
-class Urk extends CActiveRecord
+class Size extends CActiveRecord
 {
+    public $Size;
+
     public function tableName()
     {
-        return 'urks';
+        return 'sizes';
     }
 
     public function rules()
     {
         return [
-            ['urk', 'required'],
-            ['urk', 'numerical', 'integerOnly' => true],
-            ['id, urk', 'safe', 'on' => 'search'],
+            ['size', 'required'],
+            ['size', 'numerical', 'integerOnly' => true],
+            ['id, size', 'safe', 'on' => 'search'],
         ];
     }
 
     public function relations()
     {
         return [
-            'orders' => [self::HAS_MANY, 'Order', 'urk_left_id'],
-            'orders1' => [self::HAS_MANY, 'Order', 'urk_right_id'],
+            'orders' => [self::HAS_MANY, 'Order', 'size_left_id'],
+            'orders1' => [self::HAS_MANY, 'Order', 'size_right_id'],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'urk' => 'Урк',
+            'size' => 'Размер',
         ];
     }
 

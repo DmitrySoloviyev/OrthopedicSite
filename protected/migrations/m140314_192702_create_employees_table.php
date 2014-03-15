@@ -10,7 +10,6 @@ class m140314_192702_create_employees_table extends CDbMigration
             'name' => 'varchar(30) not null',
             'patronymic' => 'varchar(30) not null',
             'date_created' => 'datetime not null ',
-            'date_modified' => 'datetime not null ',
             'is_deleted' => 'boolean not null default 0',
         ], 'engine=innodb default charset=utf8');
 	}

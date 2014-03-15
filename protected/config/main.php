@@ -40,7 +40,7 @@ return [
         ],
         'db' => [
             'class' => 'CDbConnection',
-            'connectionString' => 'mysql:host=localhost;dbname=SHOES',
+            'connectionString' => 'mysql:host=localhost;dbname=ortho_db',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => '1111',
