@@ -48,6 +48,7 @@ Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::
                 'id' => 'add-employee-form',
                 'enableClientValidation' => true,
                 'clientOptions' => ['validateOnSubmit' => true],
+                'action' => Yii::app()->createUrl('user/create'),
             ]); ?>
             <fieldset>
                 <legend>Новый сотрудник</legend>
@@ -93,7 +94,7 @@ Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::
         <?= Employee::searchEmployee()?>
     </div>
     <div id="tabs_3">
-        <?= Employee::searchEmployee(true)?>
+        <?= Employee::searchEmployee(1)?>
     </div>
 </div>
 <br/>

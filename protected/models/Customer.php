@@ -49,4 +49,10 @@ class Customer extends CActiveRecord
         return parent::model($className);
     }
 
+
+    public function fullName()
+    {
+        return CHtml::encode($this->surname . ' ' . $this->name . ' ' . $this->patronymic);
+    }
+
 }

@@ -2,7 +2,7 @@
 return [
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'База данных ортопедической обуви',
-    'defaultController' => 'site',
+    'defaultController' => 'order',
     'language' => 'ru',
     'sourceLanguage' => 'en',
     'charset' => 'utf-8',
@@ -25,7 +25,7 @@ return [
         ],
         'user' => [
             'allowAutoLogin' => true,
-            'loginUrl' => ['site/login'],
+            'loginUrl' => ['user/login'],
         ],
         'urlManager' => [
             'urlFormat' => 'path',
@@ -50,7 +50,7 @@ return [
             'schemaCachingDuration' => 0, // месяц 2592000
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'order/error',
         ],
         'log' => [
             'class' => 'CLogRouter',
@@ -94,6 +94,10 @@ return [
                         'maxDate' => '+0d',
                         'changeYear' => true,
                     ],
+                ],
+                'CActiveForm' => [
+                    'enableClientValidation' => true,
+                    'clientOptions' => ['validateOnSubmit' => true],
                 ],
             ],
         ],

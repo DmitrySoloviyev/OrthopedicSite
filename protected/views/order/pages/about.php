@@ -95,29 +95,4 @@ Yii::app()->clientScript->registerScript('about', "
         2. Настоятельно рекомендуется пользоваться сайтом при помощи браузера <a
             href="https://www.google.com/intl/ru/chrome/">Google Chrome</a>.
     </p>
-
-    <h3>О настройке сервера</h3>
-
-    <p>
-        <code>
-            <span style="display:block; font-weight:600">Apache:</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;enable mod_deflate<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;AllowOverride All<br/><br/>
-            <span style="display:block; font-weight:600">PHP:</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;extension=php_gd2<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;extension=php_mbstring<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;extension=php_mysql<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;extension=php_mysqli<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;extension=php_pdo_mysql<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;zlib.output_compression=On<br/><br/>
-            <span style="display:block; font-weight:600">MySQL:</span>
-            [client]<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;default-character-set=utf8<br/>
-            [mysql]<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;default-character-set=utf8<br/>
-            [mysqld]<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;character-set-server=utf8<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;collation-server=utf8_general_ci<br/>
-        </code>
-    </p>
-</div><br/>
+</div>

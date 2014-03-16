@@ -63,47 +63,48 @@ class Model extends CActiveRecord
     public function getModelNames($name)
     {
         $criteria = new CDbCriteria;
-        $criteria->select = 'ModelName';
-        $criteria->condition = 'ModelName LIKE :ModelName';
-        $criteria->params = array(':ModelName' => '%' . $name . '%');
+        $criteria->select = 'name';
+        $criteria->condition = 'name LIKE :name';
+        $criteria->params = array(':name' => '%' . $name . '%');
         $modelNames = $this->findAll($criteria);
-        $result = array();
+        $result = [];
         foreach ($modelNames as $name) {
-            $result[] = array('label' => $name->ModelName, 'value' => $name->ModelName);
+            $result[] = ['label' => $name->name, 'value' => $name->name];
         }
+
         return json_encode($result);
     }
 
     public function getModels($name)
     {
         $criteria = new CDbCriteria;
-        $criteria->select = 'ModelID, ModelName, ModelDescription, ModelPicture, DateModified';
+        $criteria->select = 'id, name, description, picture, date_modified';
         $criteria->condition = 'ModelName=:name';
         $criteria->params = array(':name' => $name);
 
         $count = $this->count($criteria);
-
-        if ($count == 0)
-            return json_encode(array('null' => null, 'null' => null));
-
-        $searchModels = $this->findAll($criteria);
-
-        $result = array();
-        foreach ($searchModels as $modelItem) {
-            $result[] = array('ModelID' => $modelItem->ModelID,
-                'ModelName' => $modelItem->ModelName,
-                'ModelDescription' => $modelItem->ModelDescription,
-                'ModelPicture' => $modelItem->ModelPicture,
-                'DateModified' => $modelItem->DateModified
-            );
+        if ($count == 0) {
+            return json_encode(['null' => null, 'null' => null]);
         }
+        $searchModels = $this->findAll($criteria);
+        $result = [];
+        foreach ($searchModels as $modelItem) {
+            $result[] = [
+                'id' => $modelItem->id,
+                'name' => $modelItem->name,
+                'description' => $modelItem->description,
+                'picture' => $modelItem->picture,
+                'date_modified' => $modelItem->date_modified,
+            ];
+        }
+
         return json_encode($result);
     }
 
     public function getModelById($id)
     {
         $criteria = new CDbCriteria;
-        $criteria->select = 'ModelID, ModelName, ModelDescription, ModelPicture, DateModified';
+        $criteria->select = 'id, name, description, picture, date_modified';
         $criteria->condition = 'ModelID=:id';
         $criteria->params = array(':id' => $id);
 
@@ -111,12 +112,13 @@ class Model extends CActiveRecord
 
         $result = array();
         foreach ($searchModels as $modelItem) {
-            $result[] = array('ModelID' => $modelItem->ModelID,
-                'ModelName' => $modelItem->ModelName,
-                'ModelDescription' => $modelItem->ModelDescription,
-                'ModelPicture' => $modelItem->ModelPicture,
-                'DateModified' => $modelItem->DateModified
-            );
+            $result[] = [
+                'id' => $modelItem->id,
+                'name' => $modelItem->name,
+                'description' => $modelItem->description,
+                'picture' => $modelItem->picture,
+                'date_modified' => $modelItem->date_modified
+            ];
         }
         return json_encode($result);
     }
@@ -124,19 +126,20 @@ class Model extends CActiveRecord
     public function GetAllModels()
     {
         $criteria = new CDbCriteria;
-        $criteria->select = 'ModelID, ModelName, ModelDescription, ModelPicture, DateModified';
-
+        $criteria->select = 'id, name, description, picture, date_modified';
         $searchModels = $this->findAll($criteria);
 
-        $result = array();
+        $result = [];
         foreach ($searchModels as $modelItem) {
-            $result[] = array('ModelID' => $modelItem->ModelID,
-                'ModelName' => $modelItem->ModelName,
-                'ModelDescription' => $modelItem->ModelDescription,
-                'ModelPicture' => $modelItem->ModelPicture,
-                'DateModified' => $modelItem->DateModified
-            );
+            $result[] = [
+                'id' => $modelItem->id,
+                'name' => $modelItem->name,
+                'description' => $modelItem->description,
+                'picture' => $modelItem->picture,
+                'date_modified' => $modelItem->date_modified
+            ];
         }
+
         return json_encode($result);
     }
 

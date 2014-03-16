@@ -36,15 +36,15 @@
         <div id="navigation">
             <?php $this->widget('zii.widgets.CMenu', [
                 'items' => [
-                    ['label' => 'Главная', 'url' => ['site/index']],
-                    ['label' => 'Новый заказ', 'url' => ['site/new']],
-                    ['label' => 'Все заказы', 'url' => ['site/view']],
-                    ['label' => 'Поиск', 'url' => ['site/search']],
+                    ['label' => 'Главная', 'url' => ['order/index']],
+                    ['label' => 'Новый заказ', 'url' => ['order/new']],
+                    ['label' => 'Все заказы', 'url' => ['order/view']],
+                    ['label' => 'Поиск', 'url' => ['order/search']],
                     ['label' => 'Статистика', 'url' => ['statistic/show']],
-                    ['label' => 'Администрирование', 'url' => ['site/admin'], 'visible' => !Yii::app()->user->isGuest],
-                    ['label' => 'О сайте', 'url' => ['site/page', 'view' => 'about']],
-                    ['label' => 'Войти', 'url' => ['site/login'], 'visible' => Yii::app()->user->isGuest],
-                    ['label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => ['site/logout'], 'visible' => !Yii::app()->user->isGuest]
+                    ['label' => 'Администрирование', 'url' => ['admin/index'], 'visible' => !Yii::app()->user->isGuest],
+                    ['label' => 'О сайте', 'url' => ['order/page', 'view' => 'about']],
+                    ['label' => 'Войти', 'url' => ['user/login'], 'visible' => Yii::app()->user->isGuest],
+                    ['label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => ['user/logout'], 'visible' => !Yii::app()->user->isGuest]
                 ],
             ]); ?>
         </div><!-- mainmenu -->

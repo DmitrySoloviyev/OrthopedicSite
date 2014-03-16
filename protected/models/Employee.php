@@ -67,19 +67,21 @@ class Employee extends CActiveRecord
         return parent::beforeSave();
     }
 
-
-    public function getEmployeeList($id = null)
+    public function defaultScope()
     {
-        if ($id === null) {
-            $query = Employee::model()->findAllBySql("SELECT id, CONCAT_WS(' ', surname, name, patronymic) AS FIO FROM employees WHERE is_deleted = 0");
-            $list = CHtml::listData($query, 'id', 'FIO');
-            return $list;
-        } else {
-            $query = Employee::model()->findAllBySql("SELECT id, CONCAT_WS(' ', surname, name, patronymic) AS FIO
-														FROM employees WHERE is_deleted=0 OR id='" . $id . "' ");
-            $list = CHtml::listData($query, 'id', 'FIO');
-            return $list;
-        }
+        return [
+            'order' => 'surname',
+        ];
+    }
+
+
+    public function employeeList()
+    {
+        $employees = self::model()->findAll('is_deleted = ' . 0);
+
+        return CHtml::listData($employees, 'id', function($employee){
+            return $employee->fullName();
+        });
     }
 
     public static function getEmployeeShortcutList($employee_id)
@@ -94,15 +96,15 @@ class Employee extends CActiveRecord
 
     public function fullName()
     {
-        return $this->surname . ' ' . $this->name . ' ' . $this->patronymic;
+        return CHtml::encode($this->surname . ' ' . $this->name . ' ' . $this->patronymic);
     }
 
-    public static function searchEmployee($is_deleted = false)
+    public static function searchEmployee($is_deleted = 0)
     {
         $result = self::model()->findAll([
             'select' => 'surname, name, patronymic',
             'condition' => 'is_deleted=:is_deleted',
-            'params' => [':is_deleted' => $is_deleted ? 1 : 0],
+            'params' => [':is_deleted' => $is_deleted],
         ]);
 
         $deleted = '';

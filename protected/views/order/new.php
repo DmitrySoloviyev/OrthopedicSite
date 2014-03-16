@@ -1,5 +1,5 @@
 <?php $this->pageTitle = Yii::app()->name . ' - Новый заказ';
-
+Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScript('model', "
 // показываем/скрываем форму для модели
 $('#ModelForm').css('opacity', '0');
@@ -165,22 +165,24 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 <?php endif; ?>
 
 <div class="form">
-<?php $form = $this->beginWidget('CActiveForm', array(
+<?php $form = $this->beginWidget('CActiveForm', [
     'id' => 'orders-new-form',
     'enableClientValidation' => true,
-    'clientOptions' => array('validateOnSubmit' => true),
-    'htmlOptions' => array('enctype' => 'multipart/form-data'),
-)); ?>
+    'clientOptions' => ['validateOnSubmit' => true],
+    'htmlOptions' => ['enctype' => 'multipart/form-data'],
+]); ?>
 <fieldset>
 <legend style="margin-left:60px;">Новый заказ</legend>
-<?php echo $form->errorSummary($model); ?>
+<?php echo $form->errorSummary($order); ?>
 <table style="padding-left:20px;">
     <tr>
         <td style="width:180px" class="left_td">№ заказа:</td>
         <td style="width:330px">
             <div class="row">
-                <?php echo $form->TextField($model, 'OrderID', array('autocomplete' => 'Off', 'maxlength' => '10'));
-                echo $form->error($model, 'OrderID'); ?>
+                <?php
+                    echo $form->TextField($order, 'order_id', ['autocomplete' => 'Off', 'maxlength' => '10']);
+                    echo $form->error($order, 'order_id');
+                ?>
             </div>
         </td>
         <td id="ModelForm" rowspan="10">
@@ -205,20 +207,21 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">Загрузить
-                            изображение: <?php echo $form->fileField($modelsModel, 'loadImage', array('class' => 'loadImgModel')); ?></td>
+                        <td colspan="2">Загрузить изображение:
+                            <?= $form->fileField($model, 'picture', ['class' => 'loadImgModel']); ?>
+                        </td>
                     </tr>
                     <tr>
                         <td style="width: 1px;">Описание:</td>
                         <td>
                             <?php
-                            echo $form->TextArea($modelsModel, 'ModelDescription', array('rows' => '6', 'cols' => '30', 'autocomplete' => 'Off'));
-                            echo $form->error($modelsModel, 'ModelDescription');?>
+                                echo $form->TextArea($model, 'description', ['rows' => '6', 'cols' => '30', 'autocomplete' => 'Off']);
+                                echo $form->error($model, 'description');
+                            ?>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" id='Models_DateModified'>Дата
-                            изменения: <?php echo $modelsModel->DateModified; ?></td>
+                        <td colspan="2" id='Models_DateModified'>Дата изменения: <?= $model->date_modified; ?></td>
                     </tr>
                 </table>
             </fieldset>
@@ -228,35 +231,35 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
         <td class="left_td">Модель:</td>
         <td>
             <div class="row">
-                <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                    'model' => $modelsModel,
-                    'attribute' => 'ModelName',
-                    'name' => 'ModelName',
-                    'source' => $this->createUrl("site/GetModelNames"),
-                    'options' => array(
+                <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', [
+                    'model' => $model,
+                    'attribute' => 'name',
+                    'name' => 'name',
+                    'source' => $this->createUrl("site/getModels"),
+                    'options' => [
                         'minLength' => '2',
                         'select' => new CJavaScriptExpression('function(event,ui) {
 							$("#Models_ModelName").val(ui.item.label).change().blur();
 							return false;
 						}')
-                    ),
-                    'htmlOptions' => array(
-                        'id' => CHtml::activeId($modelsModel, 'ModelName'),
+                    ],
+                    'htmlOptions' => [
+                        'id' => CHtml::activeId($model, 'ModelName'),
                         'autocomplete' => 'Off',
                         'maxlength' => '6'
-                    ),
-                ));
+                    ],
+                ]);
 
-                echo "<br />" . $form->checkBox($modelsModel, 'isNewModel', array('disabled' => 'disabled')) . " ";
-                echo $form->labelEx($modelsModel, 'isNewModel', array('style' => 'font-weight: normal; font-style: italic; font-size: 0.9em; display: inline;'));
-                echo $form->error($modelsModel, 'ModelName');
-                echo $form->hiddenField($modelsModel, 'basedID', array('id' => 'basedID'));
-                $this->widget('ext.fancybox.EFancyBox', array(
+                echo "<br />" . $form->checkBox($model, 'isNewModel', ['disabled' => 'disabled']) . " ";
+                echo $form->labelEx($model, 'isNewModel', ['style' => 'font-weight: normal; font-style: italic; font-size: 0.9em; display: inline;']);
+                echo $form->error($model, 'ModelName');
+                echo $form->hiddenField($model, 'basedID', ['id' => 'basedID']);
+                $this->widget('ext.fancybox.EFancyBox', [
                     'target' => '#pic',
-                    'config' => array(
+                    'config' => [
                         'enableEscapeButton' => true,
-                    ),
-                ));
+                    ],
+                ]);
                 ?>
             </div>
         </td>
@@ -266,8 +269,9 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
         <td>
             <div class="row">
                 <?php
-                echo $form->TextField($model, 'Size', array('autocomplete' => 'Off', 'maxlength' => '5'));
-                echo $form->error($model, 'Size');?>
+                    echo $form->TextField($order, 'size', ['autocomplete' => 'Off', 'maxlength' => '5']);
+                    echo $form->error($order, 'size');
+                ?>
             </div>
         </td>
     </tr>
@@ -276,8 +280,9 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
         <td>
             <div class="row">
                 <?php
-                echo $form->TextField($model, 'Urk', array('autocomplete' => 'Off', 'maxlength' => '7'));
-                echo $form->error($model, 'Urk');?>
+                    echo $form->TextField($order, 'urk', ['autocomplete' => 'Off', 'maxlength' => '7']);
+                    echo $form->error($order, 'urk');
+                ?>
             </div>
         </td>
     </tr>
@@ -286,8 +291,9 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
         <td>
             <div class="row">
                 <?php
-                echo $form->dropDownList($materialsModel, 'MaterialID', $materialsModel->getMaterialsList(), array('empty' => 'Выберите материал'));
-                echo $form->error($materialsModel, 'MaterialID');?>
+                    echo $form->dropDownList($material, 'id', $material->getMaterialsList(), ['empty' => 'Выберите материал']);
+                    echo $form->error($material, 'id');
+                ?>
             </div>
         </td>
     </tr>
@@ -296,8 +302,9 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
         <td>
             <div class="row">
                 <?php
-                echo $form->TextField($model, 'Height', array('autocomplete' => 'Off', 'maxlength' => '5'));
-                echo $form->error($model, 'Height');?>
+                    echo $form->TextField($order, 'height', ['autocomplete' => 'Off', 'maxlength' => '5']);
+                    echo $form->error($order, 'height');
+                ?>
             </div>
         </td>
     </tr>
@@ -306,8 +313,9 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
         <td>
             <div class="row">
                 <?php
-                echo $form->TextField($model, 'TopVolume', array('autocomplete' => 'Off', 'maxlength' => '9'));
-                echo $form->error($model, 'TopVolume');?>
+                    echo $form->TextField($order, 'topVolume', ['autocomplete' => 'Off', 'maxlength' => '9']);
+                    echo $form->error($order, 'topVolume');
+                ?>
             </div>
         </td>
     </tr>
@@ -316,8 +324,9 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
         <td>
             <div class="row">
                 <?php
-                echo $form->TextField($model, 'AnkleVolume', array('autocomplete' => 'Off', 'maxlength' => '9'));
-                echo $form->error($model, 'AnkleVolume');?>
+                    echo $form->TextField($order, 'ankleVolume', ['autocomplete' => 'Off', 'maxlength' => '9']);
+                    echo $form->error($order, 'ankleVolume');
+                ?>
             </div>
         </td>
     </tr>
@@ -326,8 +335,9 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
         <td>
             <div class="row">
                 <?php
-                echo $form->TextField($model, 'KvVolume', array('autocomplete' => 'Off', 'maxlength' => '9'));
-                echo $form->error($model, 'KvVolume');?>
+                    echo $form->TextField($order, 'kvVolume', ['autocomplete' => 'Off', 'maxlength' => '9']);
+                    echo $form->error($order, 'kvVolume');
+                ?>
             </div>
         </td>
     </tr>
@@ -336,18 +346,21 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
         <td colspan="2">
             <div class="row">
                 <?php
-                echo $form->TextField($customersModel, 'CustomerSN', array('autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Фамилия'));
-                echo $form->error($customersModel, 'CustomerSN');?>
+                    echo $form->TextField($customer, 'surname', ['autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Фамилия']);
+                    echo $form->error($customer, 'surname');
+                ?>
             </div>
             <div class="row">
                 <?php
-                echo $form->TextField($customersModel, 'CustomerFN', array('autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Имя'));
-                echo $form->error($customersModel, 'CustomerFN');?>
+                    echo $form->TextField($customer, 'name', ['autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Имя']);
+                    echo $form->error($customer, 'name');
+                ?>
             </div>
             <div class="row">
                 <?php
-                echo $form->TextField($customersModel, 'CustomerP', array('autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Отчество'));
-                echo $form->error($customersModel, 'CustomerP');?>
+                    echo $form->TextField($customer, 'patronymic', ['autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Отчество']);
+                    echo $form->error($customer, 'patronymic');
+                ?>
             </div>
         </td>
     </tr>
@@ -356,22 +369,25 @@ $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
         <td>
             <div class="row">
                 <?php
-                echo $form->dropDownList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList(), array('empty' => 'Ф.И.О Модельера'));
-                echo $form->error($employeesModel, 'EmployeeID');?>
+                    echo $form->dropDownList($employee, 'id', $employee->getEmployeeList(), ['empty' => 'Ф.И.О Модельера']);
+                    echo $form->error($employee, 'id');
+                ?>
             </div>
         </td>
     </tr>
     <tr>
         <td class="left_td">Комментарий:</td>
         <td>
-            <?php echo $form->TextArea($model, 'Comment', array('rows' => '5', 'cols' => '28'));
-            echo $form->error($model, 'Comment');?>
+            <?php
+                echo $form->TextArea($order, 'comment', ['rows' => '5', 'cols' => '28']);
+                echo $form->error($order, 'comment');
+            ?>
         </td>
     </tr>
     <tr>
         <td colspan="3">
             <div class="row submit">
-                <?php echo CHtml::submitButton('Записать', array('class' => 'button')); ?>
+                <?= CHtml::submitButton('Записать', ['class' => 'button']); ?>
             </div>
         </td>
     </tr>

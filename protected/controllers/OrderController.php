@@ -1,83 +1,19 @@
 <?php
 
-class SiteController extends Controller
+class OrderController extends Controller
 {
-    /* TODO
-        public function filters()
-        {
-            return [
-                'accessControl + admin',
-            ];
-        }
-
-        public function accessRules()
-        {
-            return [
-                ['deny',
-                    'actions' => ['admin'],
-                    'roles' => ['admin'],
-                ],
-            ];
-        }*/
-
-    /**
-     * Declares class-based actions.
-     */
     public function actions()
     {
-        return array(
-            // captcha action renders the CAPTCHA image displayed on the contact page
-            /*			'captcha'=>[
-                            'class'=>'CCaptchaAction',
-                            'backColor'=>0xFFFFFF,
-                        ],*/
-            // page action renders "static" pages stored under 'protected/views/site/pages'
-            // They can be accessed via: index.php?r=site/page&view=FileName
-            'page' => array(
+        return [
+            'page' => [
                 'class' => 'CViewAction',
-            ),
-        );
+            ],
+        ];
     }
 
-    /**
-     * This is the default 'index' action that is invoked
-     * when an action is not explicitly requested by users.
-     */
     public function actionIndex()
     {
         $employee = new Employee();
-
-        if (isset($_POST['Employee'])) {
-            $name = mb_convert_case(trim($_POST['Employee']['name']), MB_CASE_TITLE, 'UTF-8');
-            $surname = mb_convert_case(trim($_POST['Employee']['surname']), MB_CASE_TITLE, 'UTF-8');
-            $patronymic = mb_convert_case(trim($_POST['Employee']['patronymic']), MB_CASE_TITLE, 'UTF-8');
-
-            // если такой модельер уже есть - восстанавливаем
-            $employeeExists = Employee::model()->findByAttributes([
-                'name' => $name,
-                'surname' => $surname,
-                'patronymic' => $patronymic,
-            ]);
-            if ($employeeExists) {
-                $employeeExists->is_deleted = 0;
-                if ($employeeExists->save(false)) {
-                    Yii::app()->user->setFlash('success', 'Модельер ' . $employeeExists->fullName() . ' успешно восстановлен!');
-                } else {
-                    Yii::app()->user->setFlash('error', "Ошибка при сохранении модельера!");
-                }
-            } else {
-                $employee->setAttributes([
-                    'name' => $name,
-                    'surname' => $surname,
-                    'patronymic' => $patronymic,
-                ], false);
-                if ($employee->save()) {
-                    Yii::app()->user->setFlash('success', "Новый модельер " . $employee->fullName() . " успешно добавлен!");
-                } else {
-                    Yii::app()->user->setFlash('error', "Ошибка при сохранении модельера!");
-                }
-            }
-        }
 
         $employee->unsetAttributes();
         $this->render('index', [
@@ -90,19 +26,18 @@ class SiteController extends Controller
      */
     public function actionNew()
     {
-        $model = new Orders;
-        $customersModel = new Customers;
-        $materialsModel = new Materials;
-        $employeesModel = new Employees;
-        $modelsModel = new Models;
-        //$this->performAjaxValidation($model);
+        $order = new Order();
+        $customer = new Customer();
+        $material = new Material();
+        $employee = new Employee();
+        $model = new Model();
 
-        if (isset($_POST['Orders'])) {
-            $model->attributes = $_POST['Orders'];
-            $customersModel->attributes = $_POST['Customers'];
-            $materialsModel->attributes = $_POST['Materials'];
-            $employeesModel->attributes = $_POST['Employees'];
-            $modelsModel->attributes = $_POST['Models'];
+        if (isset($_POST['Order'])) {
+            $order->attributes = $_POST['Order'];
+            $customer->attributes = $_POST['Customer'];
+            $material->attributes = $_POST['Material'];
+            $employee->attributes = $_POST['Employee'];
+            $model->attributes = $_POST['Model'];
 
             //фильтруем введенные значения
             //РАЗМЕРЫ
@@ -163,35 +98,35 @@ class SiteController extends Controller
                 $model->KvVolumeLEFT = $model->KvVolumeRIGHT = "k" . $model->KvVolume * 10;
             }
 
-            $model->MaterialID = $materialsModel->MaterialID;
-            $model->EmployeeID = $employeesModel->EmployeeID;
+            $model->MaterialID = $material->MaterialID;
+            $model->EmployeeID = $employee->EmployeeID;
 
             //пишем заказчика и модель в соответствующие таблицы, если ок, то заполняем таблицу заказов
             $transaction = $model->dbConnection->beginTransaction();
             try {
                 // используем транзакцию, чтобы удостовериться в целостности данных
                 //записываем заказчика
-                $valid = $customersModel->validate();
+                $valid = $customer->validate();
                 if ($valid) {
-                    $customersModel->save();
-                    $model->CustomerID = $customersModel->CustomerID;
+                    $customer->save();
+                    $model->CustomerID = $customer->CustomerID;
                 }
 
                 //записываем модель
                 // если чек-бокс отмечен, значит это новая модель, тут просто сохраняем
                 // иначе мы должны вписать айдишник существующей модели и проапдейтить ее (возможно пользователь обновил ее данные)
-                if ($modelsModel->basedID == null) {
-                    if ($loadImage = CUploadedFile::getInstance($modelsModel, 'loadImage')) {
-                        $modelsModel->loadImage = $loadImage;
-                        $modelsModel->loadImage->saveAs(Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $modelsModel->loadImage->extensionName);
-                        $modelsModel->ModelPicture = "" . Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $modelsModel->loadImage->extensionName;
+                if ($model->basedID == null) {
+                    if ($loadImage = CUploadedFile::getInstance($model, 'loadImage')) {
+                        $model->loadImage = $loadImage;
+                        $model->loadImage->saveAs(Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $modelsModel->loadImage->extensionName);
+                        $model->ModelPicture = "" . Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $modelsModel->loadImage->extensionName;
                     }
                     $modelsModel->save();
                     $model->ModelID = $modelsModel->ModelID;
                 } else {
                     // это запрос на изменение картинки существующей модели
-                    $model->ModelID = $modelsModel->basedID;
-                    $newDescroption = $modelsModel->ModelDescription;
+                    $model->ModelID = $model->basedID;
+                    $newDescroption = $model->ModelDescription;
                     $modelsModel = Models::model()->findByPk($model->ModelID);
                     if ($loadImage = CUploadedFile::getInstance($modelsModel, 'loadImage')) {
                         $modelsModel->loadImage = $loadImage;
@@ -221,10 +156,10 @@ class SiteController extends Controller
 
                     //очищаем поля формы
                     $model->unsetAttributes();
-                    $materialsModel->unsetAttributes();
-                    $employeesModel->unsetAttributes();
+                    $material->unsetAttributes();
+                    $employee->unsetAttributes();
                     $modelsModel->unsetAttributes();
-                    $customersModel->unsetAttributes();
+                    $customer->unsetAttributes();
                     $model->Size = null;
                     $model->Urk = null;
                     $model->Height = null;
@@ -233,31 +168,21 @@ class SiteController extends Controller
                     $model->KvVolume = null;
                 } else {
                     $transaction->rollback();
-                    Yii::app()->clientScript->registerScript(
-                        'myHideEffect',
-                        '$(".flash-error").animate({opacity: 1.0}, 5000).slideUp("slow");',
-                        CClientScript::POS_READY
-                    );
                     Yii::app()->user->setFlash('error', "Ошибка при добавлении записи!");
                 }
             } catch (Exception $e) {
                 $transaction->rollback();
-                throw $e;
-                Yii::app()->clientScript->registerScript(
-                    'myHideEffect',
-                    '$(".flash-error").animate({opacity: 1.0}, 5000).slideUp("slow");',
-                    CClientScript::POS_READY
-                );
                 Yii::app()->user->setFlash('error', "Ошибка при добавлении записи!");
+                throw $e;
             }
         }
 
-        $this->render('new', array('model' => $model,
-            'customersModel' => $customersModel,
-            'materialsModel' => $materialsModel,
-            'employeesModel' => $employeesModel,
-            'modelsModel' => $modelsModel,
-        ));
+        $this->render('new', ['order' => $order,
+            'customer' => $customer,
+            'material' => $material,
+            'employee' => $employee,
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -753,564 +678,6 @@ class SiteController extends Controller
     }
 
     /**
-     * ДЕЙСТВИЯ АДМИНИСТРАТИВНОЙ ЧАСТИ
-     */
-    public function actionAdmin()
-    {
-        $employeesModel = new Employees('delete');
-        $materialsModel = new Materials('add');
-
-        // УДАЛИТЬ МОДЕЛЬЕРА
-        if (isset($_POST['Employees'])) {
-            $id = (int)trim($_POST['Employees']['EmployeeID']);
-
-            $connection = Yii::app()->db;
-            $command = $connection->createCommand("UPDATE Employees SET STATUS='Уволен' WHERE EmployeeID='" . $id . "'");
-            $rowCount = $command->execute();
-            if ($rowCount == 1) {
-                Yii::app()->clientScript->registerScript(
-                    'myHideEffect',
-                    '$(".flash-success").animate({opacity: 1.0}, 2000).slideUp("medium");',
-                    CClientScript::POS_READY
-                );
-                Yii::app()->user->setFlash('success', "Модельер успешно удален!");
-            }
-        }
-
-        // ОПТИМИЗИРОВАТЬ БД
-        if (isset($_POST['optimizeDbBtn'])) {
-            $connection = Yii::app()->db;
-            $command = $connection->createCommand('OPTIMIZE TABLE Orders, Employees, Customers, Materials, Sizes, Urk, Height, TopVolume, AnkleVolume, KvVolume, Models');
-            $result = $command->execute();
-            Yii::app()->clientScript->registerScript(
-                'myHideEffect',
-                '$(".flash-success").animate({opacity: 1.0}, 2000).slideUp("medium");',
-                CClientScript::POS_READY
-            );
-            Yii::app()->user->setFlash('success', "Оптимизация успешно завершена!");
-        }
-
-        // БЕКАП БД
-        if (isset($_POST['backupDbBtn'])) {
-            $now = date("_Y-n-d__H-i-s");
-            $filename = "BACKUP_DB_SHOES_" . $now . ".sql";
-            $command = "mysqldump --flush-logs --lock-tables --databases -u" . Yii::app()->db->username . " -p" . Yii::app()->db->password . " -hlocalhost SHOES > $filename";
-            $result = system($command);
-            if (!$result) {
-                ob_clean();
-                header("Content-Type: text/plain;");
-                header("Content-Disposition: attachment; filename='$filename'");
-                echo file_get_contents($filename);
-                unlink($filename);
-                exit();
-            }
-        }
-
-        // ВОССТАНОВИТЬ БД
-        if (isset($_POST['recoveryDbBtn'])) {
-            if (($_FILES['recoveryDb']['type'] == 'text/x-sql' OR $_FILES['recoveryDb']['type'] == 'application/octet-stream') AND $_FILES['recoveryDb']['error'] == 0) {
-                $tmp = $_FILES['recoveryDb']['tmp_name'];
-                $name = $_FILES['recoveryDb']['name'];
-                move_uploaded_file($tmp, $name);
-
-                $command = "mysql -u" . Yii::app()->db->username . " -p" . Yii::app()->db->password . " SHOES < $name";
-                $result = system($command);
-                unlink("$name");
-                if (!$result) {
-                    Yii::app()->clientScript->registerScript(
-                        'myHideEffect',
-                        '$(".flash-success").animate({opacity: 1.0}, 2000).slideUp("medium");',
-                        CClientScript::POS_READY
-                    );
-                    Yii::app()->user->setFlash('success', "База Данных успешно восстановлена из резервной копии!");
-                } else {
-                    Yii::app()->clientScript->registerScript(
-                        'myHideEffect',
-                        '$(".flash-error").animate({opacity: 1.0}, 5000).slideUp("slow");',
-                        CClientScript::POS_READY
-                    );
-                    Yii::app()->user->setFlash('error', "Ошибка восстановления базы данных.");
-                }
-            } else {
-                Yii::app()->clientScript->registerScript(
-                    'myHideEffect',
-                    '$(".flash-error").animate({opacity: 1.0}, 5000).slideUp("medium");',
-                    CClientScript::POS_READY
-                );
-                Yii::app()->user->setFlash('error', "Ошибка загрузки файла. Файл неверного расширения или содержит ошибки.");
-            }
-        }
-
-        // ОТДАТЬ EXCEL
-        if (isset($_POST['saveAsExcel'])) {
-            $start = $_POST['startDate'];
-            $end = $_POST['endDate'];
-
-            // проверка, что выбранная конечная дата больше начальной
-            if ((strtotime($end) - strtotime($start)) < 0) {
-                Yii::app()->clientScript->registerScript(
-                    'myHideEffect',
-                    '$(".flash-error").animate({opacity: 1.0}, 2000).slideUp("medium");',
-                    CClientScript::POS_READY
-                );
-                Yii::app()->user->setFlash('error', "Ошибка! Начальная дата больше конечной!");
-            } else {
-                $starts = $start; // формат даты для вывода в шапке таблицы
-                $ends = $end; // формат даты для вывода в шапке таблицы
-
-                $start .= ' 00:00:00';
-                $end .= ' 23:59:59';
-                $start = date("Y-m-d H-i-s", strtotime($start));
-                $end = date("Y-m-d H-i-s", strtotime($end));
-
-                Yii::import('ext.phpexcel.XPHPExcel');
-                $xls = XPHPExcel::createPHPExcel();
-
-                // Устанавливаем индекс активного листа
-                // необходима таблица, шириной 19 ячеек, 6 их них объединены
-                $xls->setActiveSheetIndex(0);
-                // Получаем активный лист и подписываем
-                $sheet = $xls->getActiveSheet();
-                $sheet->setTitle('Заказы за период');
-
-                //Ориентация страницы и  размер листа
-                $sheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-                $sheet->getPageSetup()->SetPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
-
-                //Поля документа
-                $sheet->getPageMargins()->setTop(1);
-                $sheet->getPageMargins()->setRight(0.75);
-                $sheet->getPageMargins()->setLeft(0.75);
-                $sheet->getPageMargins()->setBottom(1);
-
-                $sheet->setCellValue("A1", 'Таблица заказов Санкт-Петербургской фабрики ортопедической обуви за период с ' . $starts . ' по ' . $ends . '.');
-                $sheet->getStyle('A1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor();
-                $sheet->mergeCells('A1:S1');
-
-                // Выравнивание текста
-                $sheet->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-
-                $sheet->getRowDimension('1')->setRowHeight(34);
-                // подготавливаем шапку таблицы
-                $sheet->setCellValue('A2', 'Номер заказа')->mergeCells('A2:A3')
-                    ->setCellValue('B2', 'Модель')->mergeCells('B2:B3')
-                    ->setCellValue('C2', 'Размер')->mergeCells('C2:D2')
-                    ->setCellValue('E2', 'Длина УРК')->mergeCells('E2:F2')
-                    ->setCellValue('G2', 'Материал')->mergeCells('G2:G3')
-                    ->setCellValue('H2', 'Высота')->mergeCells('H2:I2')
-                    ->setCellValue('J2', 'Объем верха')->mergeCells('J2:K2')
-                    ->setCellValue('L2', 'Объем лодыжки')->mergeCells('L2:M2')
-                    ->setCellValue('N2', 'Объем КВ')->mergeCells('N2:O2')
-                    ->setCellValue('P2', 'Заказчик')->mergeCells('P2:P3')
-                    ->setCellValue('Q2', 'Модельер')->mergeCells('Q2:Q3')
-                    ->setCellValue('R2', 'Дата заказа')->mergeCells('R2:R3')
-                    ->setCellValue('S2', 'Комментарий')->mergeCells('S2:S3')
-                    ->setCellValue('C3', 'Левый')->setCellValue('D3', 'Правый')
-                    ->setCellValue('E3', 'Левый')->setCellValue('F3', 'Правый')
-                    ->setCellValue('H3', 'Левый')->setCellValue('I3', 'Правый')
-                    ->setCellValue('J3', 'Левый')->setCellValue('K3', 'Правый')
-                    ->setCellValue('L3', 'Левый')->setCellValue('M3', 'Правый')
-                    ->setCellValue('N3', 'Левый')->setCellValue('O3', 'Правый');
-
-
-                // Стили для шапки таблицы
-                $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14)->setItalic(true);
-
-                // Выравниваем по центру и рисуем рамки
-                $styleTop = array(
-                    'borders' => array(
-                        'bottom' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array('rgb' => '000000')
-                        ),
-                        'top' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array('rgb' => '000000')
-                        ),
-                        'left' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array('rgb' => '000000')
-                        ),
-                        'right' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array('rgb' => '000000')
-                        )
-                    ),
-                    'alignment' => array(
-                        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-                        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-                    ),
-                );
-
-                $sheet->getStyle('A1:S1')->applyFromArray($styleTop);
-                $sheet->getStyle('A2:A3')->applyFromArray($styleTop);
-                $sheet->getStyle('B2')->applyFromArray($styleTop);
-                $sheet->getStyle('G2')->applyFromArray($styleTop);
-                $sheet->getStyle('P2:P3')->applyFromArray($styleTop);
-                $sheet->getStyle('Q2:Q3')->applyFromArray($styleTop);
-                $sheet->getStyle('R2:R3')->applyFromArray($styleTop);
-                $sheet->getStyle('S2:S3')->applyFromArray($styleTop);
-                $sheet->getStyle('C2')->applyFromArray($styleTop);
-                $sheet->getStyle('E2')->applyFromArray($styleTop);
-                $sheet->getStyle('H2')->applyFromArray($styleTop);
-                $sheet->getStyle('J2')->applyFromArray($styleTop);
-                $sheet->getStyle('L2')->applyFromArray($styleTop);
-                $sheet->getStyle('N2')->applyFromArray($styleTop);
-
-                $styleMergeTopLeft = array(
-                    'borders' => array(
-                        'bottom' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array('rgb' => '000000')
-                        ),
-                        'top' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array('rgb' => '000000')
-                        ),
-                        'left' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array('rgb' => '000000')
-                        ),
-                        'right' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_THIN,
-                            'color' => array('rgb' => '000000')
-                        )
-                    ),
-                    'alignment' => array(
-                        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-                        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-                    ),
-                );
-
-                $styleMergeTopRight = array(
-                    'borders' => array(
-                        'bottom' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array('rgb' => '000000')
-                        ),
-                        'top' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array('rgb' => '000000')
-                        ),
-                        'left' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_THIN,
-                            'color' => array('rgb' => '000000')
-                        ),
-                        'right' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array('rgb' => '000000')
-                        )
-                    ),
-                    'alignment' => array(
-                        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-                        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-                    ),
-                );
-
-                $sheet->getStyle('C3')->applyFromArray($styleMergeTopLeft);
-                $sheet->getStyle('E3')->applyFromArray($styleMergeTopLeft);
-                $sheet->getStyle('H3')->applyFromArray($styleMergeTopLeft);
-                $sheet->getStyle('J3')->applyFromArray($styleMergeTopLeft);
-                $sheet->getStyle('L3')->applyFromArray($styleMergeTopLeft);
-                $sheet->getStyle('N3')->applyFromArray($styleMergeTopLeft);
-                $sheet->getStyle('D3')->applyFromArray($styleMergeTopRight);
-                $sheet->getStyle('F3')->applyFromArray($styleMergeTopRight);
-                $sheet->getStyle('I3')->applyFromArray($styleMergeTopRight);
-                $sheet->getStyle('K3')->applyFromArray($styleMergeTopRight);
-                $sheet->getStyle('M3')->applyFromArray($styleMergeTopRight);
-                $sheet->getStyle('O3')->applyFromArray($styleMergeTopRight);
-
-                // делаем у столбцов фиксированную ширину;
-                $sheet->getColumnDimension('A')->setWidth(14);
-                $sheet->getColumnDimension('B')->setWidth(14);
-                $sheet->getColumnDimension('C')->setWidth(8);
-                $sheet->getColumnDimension('D')->setWidth(8);
-                $sheet->getColumnDimension('E')->setWidth(8);
-                $sheet->getColumnDimension('F')->setWidth(8);
-                $sheet->getColumnDimension('G')->setWidth(12);
-                $sheet->getColumnDimension('H')->setWidth(8);
-                $sheet->getColumnDimension('I')->setWidth(8);
-                $sheet->getColumnDimension('J')->setWidth(8);
-                $sheet->getColumnDimension('K')->setWidth(8);
-                $sheet->getColumnDimension('L')->setWidth(8);
-                $sheet->getColumnDimension('M')->setWidth(8);
-                $sheet->getColumnDimension('N')->setWidth(8);
-                $sheet->getColumnDimension('O')->setWidth(8);
-                $sheet->getColumnDimension('P')->setWidth(18);
-                $sheet->getColumnDimension('Q')->setWidth(18);
-                $sheet->getColumnDimension('R')->setWidth(14);
-                $sheet->getColumnDimension('S')->setWidth(20);
-
-                // массивы стилей для столбцов:
-                $arrayABGPQRS = array(
-                    'borders' => array(
-                        'bottom' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        ),
-                        'top' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        ),
-                        'left' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        ),
-                        'right' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        )
-                    ),
-                    'alignment' => array(
-                        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-                        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-                        'wrap' => true,
-                    ),
-                );
-
-                $arrayCDEFHIJKLMNO = array(
-                    'borders' => array(
-                        'bottom' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        ),
-                        'top' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_THIN,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        ),
-                        'left' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        ),
-                        'right' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        )
-                    ),
-                    'alignment' => array(
-                        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-                        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-                        'wrap' => true,
-                    ),
-                );
-
-                // левые смежные ячейки
-                $arrayCEHJLN = array(
-                    'borders' => array(
-                        'bottom' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        ),
-                        'top' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        ),
-                        'left' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        ),
-                        'right' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_THIN,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        )
-                    ),
-                    'alignment' => array(
-                        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-                        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-                        'wrap' => true,
-                    ),
-                );
-
-                // правые смежные ячейки
-                $arrayDFIKMO = array(
-                    'borders' => array(
-                        'bottom' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        ),
-                        'top' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        ),
-                        'left' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_THIN,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        ),
-                        'right' => array(
-                            'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
-                            'color' => array(
-                                'rgb' => '333333'
-                            )
-                        )
-                    ),
-                    'alignment' => array(
-                        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-                        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-                        'wrap' => true,
-                    ),
-                );
-                // запрос в базу
-                $criteria = new CDbCriteria;
-                $criteria->addBetweenCondition('Date', $start, $end, 'AND');
-                $criteria->order = 'Date DESC';
-                $data = Orders::model()->with(
-                    'material',
-                    'model',
-                    'sizeLEFT',
-                    'sizeRIGHT',
-                    'topVolumeLEFT',
-                    'topVolumeRIGHT',
-                    'ankleVolumeLEFT',
-                    'ankleVolumeRIGHT',
-                    'kvVolumeLEFT',
-                    'kvVolumeRIGHT',
-                    'customer',
-                    'employee',
-                    'urkLEFT',
-                    'urkRIGHT',
-                    'heightLEFT',
-                    'heightRIGHT'
-                )->findAll($criteria);
-
-                //  заполняем документ заказами:
-                foreach ($data as $value) {
-                    static $i = 4;
-
-                    $sheet->setCellValue("A" . $i, $value->OrderID)
-                        ->getStyle("A" . $i)->applyFromArray($arrayABGPQRS);
-
-                    $sheet->setCellValue("B" . $i, $value->model->ModelName)
-                        ->getStyle("B" . $i)->applyFromArray($arrayABGPQRS);
-
-                    $sheet->setCellValue("C" . $i, $value->sizeLEFT->SizeValue)
-                        ->getStyle("C" . $i)->applyFromArray($arrayCEHJLN);
-
-                    $sheet->setCellValue("D" . $i, $value->sizeRIGHT->SizeValue)
-                        ->getStyle("D" . $i)->applyFromArray($arrayDFIKMO);
-
-                    $sheet->setCellValue("E" . $i, $value->urkLEFT->UrkValue)
-                        ->getStyle("E" . $i)->applyFromArray($arrayCEHJLN);
-
-                    $sheet->setCellValue("F" . $i, $value->urkRIGHT->UrkValue)
-                        ->getStyle("F" . $i)->applyFromArray($arrayDFIKMO);
-
-                    $sheet->setCellValue("G" . $i, $value->material->MaterialValue)
-                        ->getStyle("G" . $i)->applyFromArray($arrayABGPQRS);
-
-                    $sheet->setCellValue("H" . $i, $value->heightLEFT->HeightValue)
-                        ->getStyle("H" . $i)->applyFromArray($arrayCEHJLN);
-
-                    $sheet->setCellValue("I" . $i, $value->heightRIGHT->HeightValue)
-                        ->getStyle("I" . $i)->applyFromArray($arrayDFIKMO);
-
-                    $sheet->setCellValue("J" . $i, $value->topVolumeLEFT->TopVolumeValue)
-                        ->getStyle("J" . $i)->applyFromArray($arrayCEHJLN);
-
-                    $sheet->setCellValue("K" . $i, $value->topVolumeRIGHT->TopVolumeValue)
-                        ->getStyle("K" . $i)->applyFromArray($arrayDFIKMO);
-
-                    $sheet->setCellValue("L" . $i, $value->ankleVolumeLEFT->AnkleVolumeValue)
-                        ->getStyle("L" . $i)->applyFromArray($arrayCEHJLN);
-
-                    $sheet->setCellValue("M" . $i, $value->ankleVolumeRIGHT->AnkleVolumeValue)
-                        ->getStyle("M" . $i)->applyFromArray($arrayDFIKMO);
-
-                    $sheet->setCellValue("N" . $i, $value->kvVolumeLEFT->KvVolumeValue)
-                        ->getStyle("N" . $i)->applyFromArray($arrayCEHJLN);
-
-                    $sheet->setCellValue("O" . $i, $value->kvVolumeRIGHT->KvVolumeValue)
-                        ->getStyle("O" . $i)->applyFromArray($arrayDFIKMO);
-
-                    $sheet->setCellValue("P" . $i, $value->customer->CustomerSN . " " .
-                        $value->customer->CustomerFN . " " .
-                        $value->customer->CustomerP)
-                        ->getStyle("P" . $i)->applyFromArray($arrayABGPQRS);
-
-                    $sheet->setCellValue("Q" . $i, $value->employee->EmployeeSN . " " .
-                        $value->employee->EmployeeFN . " " .
-                        $value->employee->EmployeeP)
-                        ->getStyle("Q" . $i)->applyFromArray($arrayABGPQRS);
-
-                    $sheet->setCellValue("R" . $i, $value->Date)->getStyle("R" . $i)->applyFromArray($arrayABGPQRS);
-                    $sheet->setCellValue("S" . $i, $value->Comment)->getStyle("S" . $i)->applyFromArray($arrayABGPQRS);
-
-                    $sheet->getRowDimension($i)->setRowHeight(28);
-                    ++$i;
-                }
-
-                // Выводим HTTP-заголовки
-                header('Content-Type: application/vnd.ms-excel');
-                header('Content-Disposition: attachment;filename="orders.xls"');
-                header('Cache-Control: no-cache, must-revalidate');
-                header('Pragma: no-cache');
-                // Выводим содержимое excel-файла
-                $objWriter = PHPExcel_IOFactory::createWriter($xls, 'Excel5');
-                $objWriter->save('php://output');
-            }
-        }
-
-        // НОВЫЙ МАТЕРИАЛ
-        if (isset($_POST['newMaterialBtn'])) {
-            $materialsModel->attributes = $_POST['Materials'];
-            $materialsModel->MaterialValue = mb_convert_case(trim($materialsModel->MaterialValue), MB_CASE_TITLE, 'UTF-8');
-
-            if ($materialsModel->validate()) {
-                if ($materialsModel->save()) {
-                    Yii::app()->clientScript->registerScript(
-                        'myHideEffect',
-                        '$(".flash-success").animate({opacity: 1.0}, 3000).slideUp("medium");',
-                        CClientScript::POS_READY
-                    );
-                    Yii::app()->user->setFlash('success', "Новый материал " . $materialsModel->MaterialValue . " успешно добавлен!");
-                } else {
-                    Yii::app()->clientScript->registerScript(
-                        'myHideEffect',
-                        '$(".flash-error").animate({opacity: 1.0}, 4000).slideUp("medium");',
-                        CClientScript::POS_READY
-                    );
-                    Yii::app()->user->setFlash('error', "Ошибка при добавлении нового материала!");
-                }
-                $materialsModel->unsetAttributes();
-            }
-        }
-
-        $this->render('admin', array(
-            'employeesModel' => $employeesModel,
-            'materialsModel' => $materialsModel,
-        ));
-    }
-
-    /**
      * This is the action to handle external exceptions.
      */
     public function actionError()
@@ -1347,60 +714,27 @@ class SiteController extends Controller
         $this->render('contact', array('model' => $model));
     }
 
-    /**
-     * Displays the login page
-     */
-    public function actionLogin()
-    {
-        $model = new LoginForm;
-
-        // if it is ajax validation request
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-
-        // collect user input data
-        if (isset($_POST['LoginForm'])) {
-            $model->attributes = $_POST['LoginForm'];
-            // validate user input and redirect to the previous page if valid
-            if ($model->validate() && $model->login())
-                $this->redirect(Yii::app()->user->returnUrl);
-        }
-        // display the login form
-        $this->render('login', array('model' => $model));
-    }
-
-    /**
-     * Logs out the current user and redirect to homepage.
-     */
-    public function actionLogout()
-    {
-        Yii::app()->user->logout();
-        $this->redirect(Yii::app()->homeUrl);
-    }
-
     public function loadModel($id)
     {
-        $model = Orders::model()->findByPk($id);
+        $model = Order::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая страница не существует.');
         return $model;
     }
 
-    public function actionGetModelNames($term)
+    public function actionGetModels($term)
     {
-        echo Models::model()->getModelNames($term);
+        echo Model::model()->getModelNames($term);
     }
 
     public function actionGetModelInfo()
     {
-        echo Models::model()->getModels($_POST['modelName']);
+        echo Model::model()->getModels($_POST['modelName']);
     }
 
     public function actionGetModelInfoById()
     {
-        echo Models::model()->getModelById($_POST['id']);
+        echo Model::model()->getModelById($_POST['id']);
     }
 
     /*
