@@ -1,0 +1,28 @@
+.quote_widget {
+    background-color: rgba(247, 247, 247, 0.7);
+    border-left: 1px solid #bbb;
+    font-style: italic;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+}
+
+.quote_widget:before {
+    color: #bbb;
+    content: "\201C";
+    font-size: 3em;
+    line-height: 0.1em;
+    margin-right: 0.2em;
+    vertical-align: -.4em;
+}
+
+.quote_widget:after {
+    color: #bbb;
+    content: "\201D";
+    font-size: 3em;
+    line-height: 0.1em;
+    vertical-align: -.45em;
+}
+
+.quote_widget > p:first-child {
+    display: inline;
+}

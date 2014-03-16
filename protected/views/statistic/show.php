@@ -42,10 +42,10 @@ $roof = $monthNumber + 3;
 
 $db = Yii::app()->db;
 
-$pre_result = $db->createCommand("SELECT COUNT(DAY(Date)) AS COUNT, MONTHNAME(Date) AS monthName,
-  CONCAT(EmployeeSN, ' ', LEFT(EmployeeFN, 1), '.', LEFT(EmployeeP, 1), '.') as FIO
-  FROM Orders JOIN Employees USING(EmployeeID)
-  WHERE Date BETWEEN '{$startDate}' AND NOW()
+$pre_result = $db->createCommand("SELECT COUNT(DAY(o.date_created)) AS COUNT, MONTHNAME(o.date_created) AS monthName,
+  CONCAT(e.surname, ' ', LEFT(e.name, 1), '.', LEFT(e.patronymic, 1), '.') as FIO
+  FROM orders o JOIN employees e ON o.employee_id=e.id
+  WHERE o.date_created BETWEEN '{$startDate}' AND NOW()
   GROUP BY FIO, monthName WITH ROLLUP")->queryAll();
 
 if (!$pre_result) {

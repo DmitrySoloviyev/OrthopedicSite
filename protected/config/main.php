@@ -7,6 +7,11 @@ return [
     'sourceLanguage' => 'en',
     'charset' => 'utf-8',
     'preload' => ['log'],
+    'controllerMap' => [
+        'min' => [
+            'class' => 'ext.minScript.controllers.ExtMinScriptController',
+        ],
+    ],
     'import' => [
         'application.models.*',
         'application.components.*',
@@ -100,6 +105,9 @@ return [
                     'clientOptions' => ['validateOnSubmit' => true],
                 ],
             ],
+        ],
+        'clientScript' => [
+            'class' => 'ext.minScript.components.ExtMinScript',
         ],
     ],
     'params' => [

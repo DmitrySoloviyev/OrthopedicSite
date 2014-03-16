@@ -21,7 +21,7 @@
         ->registerCssFile('/css/form.css')
         ->registerCssFile('/css/style.css')
         ->registerCssFile('/css/jquery.fancybox.css')
-        ->registerScriptFile('/js/main.js', CClientScript::POS_END);
+        ->registerScriptFile('/js/main.js', CClientScript::POS_HEAD);
     ?>
 </head>
 

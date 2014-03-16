@@ -10,33 +10,17 @@ Yii::app()->clientScript->registerScript('t', "
     });
 ", CClientScript::POS_READY);
 Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::POS_END);
+$this->widget('ext.yii-flash.Flash', [
+    'keys' => ['success', 'error'],
+    'htmlOptions' => [
+        'success' => ['class' => 'flash-success'],
+        'error' => ['class' => 'flash-error'],
+    ],
+]);
 ?>
-<?php if (Yii::app()->user->hasFlash('success')): ?>
-    <div class='flash-success'>
-        <?php echo Yii::app()->user->getFlash('success'); ?>
-    </div>
-<?php endif; ?>
-<?php if (Yii::app()->user->hasFlash('error')): ?>
-    <div class='flash-error'>
-        <?php echo Yii::app()->user->getFlash('error'); ?>
-    </div>
-<?php endif; ?>
 
 <div id='tabs'>
-    <blockquote>
-        <p class='mytext'>
-            <?php
-            $quotes = file(Yii::app()->request->baseUrl . 'assets/quotes.txt');
-            if ($quotes) {
-                $cnt = count($quotes);
-                echo $quotes[rand(0, --$cnt)];
-            } else {
-                echo 'Дешевая пара обуви — плохая экономия. Не экономьте на главном: обувь — основа вашего гардероба. <br />&copy;
-						Джорджио Армани.';
-            }
-            ?>
-        </p>
-    </blockquote>
+    <?php $this->widget('ext.quote-widget.Quote'); ?>
     <ul>
         <li><a href="#tabs_1">Новый модельер</a></li>
         <li><a href="#tabs_2">Зарегестрированные модельеры</a></li>
@@ -136,9 +120,8 @@ Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::
         <td style="color:grey;">
             Поиск осуществляется при помощи поисковой системы  <a href="http://sphinxsearch.com/">Sphinx</a>.
             Подключен <a href="http://angularjs.org/">AngularJS</a>.
-            Переключение страниц осуществляется посредством ajax-запросов. Задействовано расширение minScript для
-            сжатия js- и css-файлов. Новое окно с регистрацией и просмотром модельеров на главной странице, предпросмотр
-            загружаемого изображения модели.
+            Переключение страниц осуществляется посредством ajax-запросов. Новое окно с регистрацией и просмотром
+            модельеров на главной странице, предпросмотр загружаемого изображения модели.
         </td>
 </tr>
 -->
@@ -152,10 +135,12 @@ Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::
         <ul class="newsList">
             <li>
                 Внедрено кэширования данных (реализовано при помощи <a href="http://redis.io/">Redis</a>).
+                Задействовано расширение <a href="https://bitbucket.org/limi7less/minscript/wiki/Home">minScript</a>
+                для сжатия js- и css-файлов.
             </li>
             <li>
                 Проведено эталонное тестирование и профилирование: проанализированы и оптимизированы все MySQL-запросы,
-                добавлены недостающие индексы к таблицам и т.д. Тестирование производилось при помощи
+                добавлены недостающие индексы к таблицам и т.д. Нагрузка эмулировалась при помощи
                 <a href="http://www.yiiframework.com/extension/yii-debug-toolbar">yii-debug-toolbar</a> и
                 <a href="http://httpd.apache.org/docs/2.2/programs/ab.html">Apache Benchmark tool (ab)</a>.
             </li>
@@ -186,8 +171,7 @@ Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::
                 выполнение этого файла в ночное время.
             </li>
         </ul>
-        <i>Начиная с этой версии, для работы сайта требуется версия PHP не ниже 5.4.</i>
-
+        <i>Начиная с этой версии, для работы сайта требуется версия PHP не ниже 5.4.</i><br />
         Приложение протестировано и полностью готово к работе под нагрузкой с количеством записей в базе свыше 1 000 000.
     </td>
 </tr>

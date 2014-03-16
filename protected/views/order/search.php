@@ -93,221 +93,216 @@ $('.closeWindow').click(function(e){
 $('#search_header').hide();
 
 ", CClientScript::POS_READY);
+$this->widget('ext.yii-flash.Flash', [
+    'keys' => ['success', 'error'],
+    'htmlOptions' => [
+        'success' => ['class' => 'flash-success'],
+        'error' => ['class' => 'flash-error'],
+    ],
+]);
 ?>
 
-<?php if (Yii::app()->user->hasFlash('success')): ?>
-    <div class="flash-success">
-        <?php echo Yii::app()->user->getFlash('success'); ?>
-    </div>
-<?php endif; ?>
-
-<?php if (Yii::app()->user->hasFlash('error')): ?>
-    <div class="flash-error">
-        <?php echo Yii::app()->user->getFlash('error'); ?>
-    </div>
-<?php endif; ?>
-
     <div class="form">
-        <h3 id="search_header" class="title_header" width="100%"></h3>
-        <?php $form = $this->beginWidget('CActiveForm', array(
-            'id' => 'ordersSearchForm',
-            'enableClientValidation' => false,
-            'clientOptions' => array('validateOnSubmit' => false),
-            'method' => 'GET'
-        )); ?>
-        <fieldset>
-            <legend style="margin-left:60px;">Поиск</legend>
-            <?php echo $form->errorSummary($model); ?>
-            <table style="padding-left:20px;">
-                <tr>
-                    <td style="width:160px" class="left_td">№ заказа:</td>
-                    <td style="width:330px">
-                        <div class="row">
-                            <?php
-                            echo $form->TextField($model, 'OrderID', array('autocomplete' => 'Off'));
-                            echo $form->error($model, 'OrderID'); ?>
-                        </div>
-                    </td>
-                    <td id="ModelForm" rowspan="10">
-                        <a href="#" class="closeWindow"></a>
-                        <fieldset>
-                            <legend style="margin-left:30px;">Модель</legend>
-                            <table>
-                                <tr>
-                                    <td colspan="2" style="font-style: normal; font-size: 1em; text-align:center">
-                                        <span id="previous"><img src="/images/previous.png"/></span>
-                                        <span id="modelNameTitle">Модель №</span>
-                                        <span id="next"><img src="/images/next.png"/></span>
-                                        <hr/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
+    <h3 id="search_header" class="title_header" width="100%"></h3>
+    <?php $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'ordersSearchForm',
+        'enableClientValidation' => false,
+        'clientOptions' => array('validateOnSubmit' => false),
+        'method' => 'GET'
+    )); ?>
+    <fieldset>
+        <legend style="margin-left:60px;">Поиск</legend>
+        <?php echo $form->errorSummary($model); ?>
+        <table style="padding-left:20px;">
+            <tr>
+                <td style="width:160px" class="left_td">№ заказа:</td>
+                <td style="width:330px">
+                    <div class="row">
+                        <?php
+                        echo $form->TextField($model, 'OrderID', array('autocomplete' => 'Off'));
+                        echo $form->error($model, 'OrderID'); ?>
+                    </div>
+                </td>
+                <td id="ModelForm" rowspan="10">
+                    <a href="#" class="closeWindow"></a>
+                    <fieldset>
+                        <legend style="margin-left:30px;">Модель</legend>
+                        <table>
+                            <tr>
+                                <td colspan="2" style="font-style: normal; font-size: 1em; text-align:center">
+                                    <span id="previous"><img src="/images/previous.png"/></span>
+                                    <span id="modelNameTitle">Модель №</span>
+                                    <span id="next"><img src="/images/next.png"/></span>
+                                    <hr/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
                                 <span id="pic"><img id='Models_ModelPicture'
                                                     src=<?php echo "'" . $modelsModel->ModelPicture . "'"; ?> alt='изображение
                                                     модели' width="200" height="200" />
                                 </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 1px;">Описание:</td>
-                                    <td id='Models_ModelDescription'><?php echo CHtml::encode($modelsModel->ModelDescription); ?></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" id='Models_DateModified'>Дата
-                                        изменения: <?php echo CHtml::encode($modelsModel->DateModified); ?></td>
-                                </tr>
-                            </table>
-                        </fieldset>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="left_td">Модель:</td>
-                    <td>
-                        <div class="row">
-                            <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                                'model' => $modelsModel,
-                                'attribute' => 'ModelName',
-                                'name' => 'ModelName',
-                                'source' => $this->createUrl("/site/GetModelNames"),
-                                'options' => array(
-                                    'minLength' => '1',
-                                    'select' => new CJavaScriptExpression('function(event,ui) {
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 1px;">Описание:</td>
+                                <td id='Models_ModelDescription'><?php echo CHtml::encode($modelsModel->ModelDescription); ?></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" id='Models_DateModified'>Дата
+                                    изменения: <?php echo CHtml::encode($modelsModel->DateModified); ?></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td class="left_td">Модель:</td>
+                <td>
+                    <div class="row">
+                        <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                            'model' => $modelsModel,
+                            'attribute' => 'ModelName',
+                            'name' => 'ModelName',
+                            'source' => $this->createUrl("/site/GetModelNames"),
+                            'options' => array(
+                                'minLength' => '1',
+                                'select' => new CJavaScriptExpression('function(event,ui) {
 							$("#Models_ModelName").val(ui.item.label).change();
 							return false;
 						}')
-                                ),
-                                'htmlOptions' => array(
-                                    'id' => CHtml::activeId($modelsModel, 'ModelName'),
-                                    'autocomplete' => 'Off',
-                                    'maxlength' => '6'
-                                ),
-                            ));
-                            echo "<br /><input type='checkbox' id='showAllModels'/><label for='showAllModels' style='font-weight: normal; font-style: italic; font-size: 0.9em; display: inline;'>Показать все модели</label>";
-                            echo $form->error($modelsModel, 'ModelName');
-                            $this->widget('ext.fancybox.EFancyBox', array(
-                                'target' => '#pic',
-                                'config' => array(
-                                    'enableEscapeButton' => true,
-                                ),
-                            ));
-                            ?>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="left_td">Размер:</td>
-                    <td>
-                        <div class="row">
-                            <?php
-                            echo $form->TextField($model, 'Size', array('autocomplete' => 'Off'));
-                            echo $form->error($model, 'Size');?>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="left_td">УРК:</td>
-                    <td>
-                        <div class="row">
-                            <?php
-                            echo $form->TextField($model, 'Urk', array('autocomplete' => 'Off'));
-                            echo $form->error($model, 'Urk');?>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="left_td">Материал:</td>
-                    <td>
-                        <div class="row">
-                            <?php
-                            echo $form->checkBoxList($materialsModel, 'MaterialID', $materialsModel->getMaterialsList());
-                            echo $form->error($materialsModel, 'MaterialID');?>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="left_td">Высота:</td>
-                    <td>
-                        <div class="row">
-                            <?php
-                            echo $form->TextField($model, 'Height', array('autocomplete' => 'Off'));
-                            echo $form->error($model, 'Height');?>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="left_td">Объем верха:</td>
-                    <td>
-                        <div class="row">
-                            <?php
-                            echo $form->TextField($model, 'TopVolume', array('autocomplete' => 'Off'));
-                            echo $form->error($model, 'TopVolume');?>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="left_td">Объем лодыжки:</td>
-                    <td>
-                        <div class="row">
-                            <?php
-                            echo $form->TextField($model, 'AnkleVolume', array('autocomplete' => 'Off'));
-                            echo $form->error($model, 'AnkleVolume');?>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td title="косого взъема" class="left_td">Объем КВ:</td>
-                    <td>
-                        <div class="row">
-                            <?php
-                            echo $form->TextField($model, 'KvVolume', array('autocomplete' => 'Off'));
-                            echo $form->error($model, 'KvVolume');?>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Заказчик:</td>
-                    <td colspan="2">
-                        <div class="row">
-                            <?php
-                            echo $form->TextField($customersModel, 'CustomerSN', array('autocomplete' => 'Off', 'placeholder' => 'Фамилия'));
-                            echo $form->error($customersModel, 'CustomerSN');?>
-                        </div>
-                        <div class="row">
-                            <?php
-                            echo $form->TextField($customersModel, 'CustomerFN', array('autocomplete' => 'Off', 'placeholder' => 'Имя'));
-                            echo $form->error($customersModel, 'CustomerFN');?>
-                        </div>
-                        <div class="row">
-                            <?php
-                            echo $form->TextField($customersModel, 'CustomerP', array('autocomplete' => 'Off', 'placeholder' => 'Отчество'));
-                            echo $form->error($customersModel, 'CustomerP');?>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="left_td">Модельер:</td>
-                    <td colspan="2">
-                        <?php
-                        echo $form->checkBoxList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList());
-                        echo $form->error($employeesModel, 'EmployeeID');
+                            ),
+                            'htmlOptions' => array(
+                                'id' => CHtml::activeId($modelsModel, 'ModelName'),
+                                'autocomplete' => 'Off',
+                                'maxlength' => '6'
+                            ),
+                        ));
+                        echo "<br /><input type='checkbox' id='showAllModels'/><label for='showAllModels' style='font-weight: normal; font-style: italic; font-size: 0.9em; display: inline;'>Показать все модели</label>";
+                        echo $form->error($modelsModel, 'ModelName');
+                        $this->widget('ext.fancybox.EFancyBox', array(
+                            'target' => '#pic',
+                            'config' => array(
+                                'enableEscapeButton' => true,
+                            ),
+                        ));
                         ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="left_td">Комментарий:</td>
-                    <td><?php echo $form->TextArea($model, 'Comment', array('rows' => '4', 'cols' => '22')); ?></td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <div class="row submit">
-                            <?php echo CHtml::submitButton('Искать', array('class' => 'button')); ?>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
-        <?php $this->endWidget(); ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="left_td">Размер:</td>
+                <td>
+                    <div class="row">
+                        <?php
+                        echo $form->TextField($model, 'Size', array('autocomplete' => 'Off'));
+                        echo $form->error($model, 'Size');?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="left_td">УРК:</td>
+                <td>
+                    <div class="row">
+                        <?php
+                        echo $form->TextField($model, 'Urk', array('autocomplete' => 'Off'));
+                        echo $form->error($model, 'Urk');?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="left_td">Материал:</td>
+                <td>
+                    <div class="row">
+                        <?php
+                        echo $form->checkBoxList($materialsModel, 'MaterialID', $materialsModel->getMaterialsList());
+                        echo $form->error($materialsModel, 'MaterialID');?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="left_td">Высота:</td>
+                <td>
+                    <div class="row">
+                        <?php
+                        echo $form->TextField($model, 'Height', array('autocomplete' => 'Off'));
+                        echo $form->error($model, 'Height');?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="left_td">Объем верха:</td>
+                <td>
+                    <div class="row">
+                        <?php
+                        echo $form->TextField($model, 'TopVolume', array('autocomplete' => 'Off'));
+                        echo $form->error($model, 'TopVolume');?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="left_td">Объем лодыжки:</td>
+                <td>
+                    <div class="row">
+                        <?php
+                        echo $form->TextField($model, 'AnkleVolume', array('autocomplete' => 'Off'));
+                        echo $form->error($model, 'AnkleVolume');?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td title="косого взъема" class="left_td">Объем КВ:</td>
+                <td>
+                    <div class="row">
+                        <?php
+                        echo $form->TextField($model, 'KvVolume', array('autocomplete' => 'Off'));
+                        echo $form->error($model, 'KvVolume');?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Заказчик:</td>
+                <td colspan="2">
+                    <div class="row">
+                        <?php
+                        echo $form->TextField($customersModel, 'CustomerSN', array('autocomplete' => 'Off', 'placeholder' => 'Фамилия'));
+                        echo $form->error($customersModel, 'CustomerSN');?>
+                    </div>
+                    <div class="row">
+                        <?php
+                        echo $form->TextField($customersModel, 'CustomerFN', array('autocomplete' => 'Off', 'placeholder' => 'Имя'));
+                        echo $form->error($customersModel, 'CustomerFN');?>
+                    </div>
+                    <div class="row">
+                        <?php
+                        echo $form->TextField($customersModel, 'CustomerP', array('autocomplete' => 'Off', 'placeholder' => 'Отчество'));
+                        echo $form->error($customersModel, 'CustomerP');?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="left_td">Модельер:</td>
+                <td colspan="2">
+                    <?php
+                    echo $form->checkBoxList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList());
+                    echo $form->error($employeesModel, 'EmployeeID');
+                    ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="left_td">Комментарий:</td>
+                <td><?php echo $form->TextArea($model, 'Comment', array('rows' => '4', 'cols' => '22')); ?></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="row submit">
+                        <?php echo CHtml::submitButton('Искать', array('class' => 'button')); ?>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <?php $this->endWidget(); ?>
     </div><!-- form -->
     <div id="hint">
         <i>Поля, оставленные пустыми,<br/> участвовать в поиске не будут.<br/>

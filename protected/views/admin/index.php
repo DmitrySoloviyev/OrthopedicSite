@@ -8,19 +8,15 @@ if (Yii::app()->user->isGuest) {
 }
 $this->pageTitle = Yii::app()->name . ' - Администрирование';
 Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::POS_END);
+
+$this->widget('ext.yii-flash.Flash', [
+    'keys' => ['success', 'error'],
+    'htmlOptions' => [
+        'success' => ['class' => 'flash-success'],
+        'error' => ['class' => 'flash-error'],
+    ],
+]);
 ?>
-
-<?php if (Yii::app()->user->hasFlash('success')): ?>
-    <div class="flash-success">
-        <?php echo Yii::app()->user->getFlash('success'); ?>
-    </div>
-<?php endif; ?>
-
-<?php if (Yii::app()->user->hasFlash('error')): ?>
-    <div class="flash-error">
-        <?php echo Yii::app()->user->getFlash('error'); ?>
-    </div>
-<?php endif; ?>
 
 <!-- Удалить модельера -->
 <div class="form" style="float:left; width:50%; ">
@@ -149,12 +145,12 @@ Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::
         <legend class='legend'>Новый материал</legend>
         <div class="row">
             <?php
-                echo $form->TextField($material, 'material', [
-                    'autocomplete' => 'Off',
-                    'placeholder' => 'Название материала',
-                    'class' => 'input_text'
-                ]);
-                echo $form->error($material, 'material');
+            echo $form->TextField($material, 'material', [
+                'autocomplete' => 'Off',
+                'placeholder' => 'Название материала',
+                'class' => 'input_text'
+            ]);
+            echo $form->error($material, 'material');
             ?>
         </div>
         <div class="row submit">

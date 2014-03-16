@@ -13,8 +13,9 @@ Yii::app()->clientScript->registerScript('about', "
     });
   });
 ", CClientScript::POS_READY);
-?>
 
+if($this->beginCache('about', ['duration' => 3600])):
+?>
 <div class="accordion">
     <h3>Общая информация</h3>
 
@@ -96,3 +97,4 @@ Yii::app()->clientScript->registerScript('about', "
             href="https://www.google.com/intl/ru/chrome/">Google Chrome</a>.
     </p>
 </div>
+<?php $this->endCache(); endif; ?>

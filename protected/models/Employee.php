@@ -77,7 +77,10 @@ class Employee extends CActiveRecord
 
     public function employeeList()
     {
-        $employees = self::model()->findAll('is_deleted = ' . 0);
+        $employees = self::model()->findAll([
+            'select' => 'surname, name, patronymic',
+            'condition' => 'is_deleted = ' . 0
+        ]);
 
         return CHtml::listData($employees, 'id', function($employee){
             return $employee->fullName();

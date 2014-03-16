@@ -150,19 +150,14 @@ $('.closeWindow').click(function(e){
 
 $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 ", CClientScript::POS_READY);
+$this->widget('ext.yii-flash.Flash', [
+    'keys' => ['success', 'error'],
+    'htmlOptions' => [
+        'success' => ['class' => 'flash-success'],
+        'error' => ['class' => 'flash-error'],
+    ],
+]);
 ?>
-
-<?php if (Yii::app()->user->hasFlash('success')): ?>
-    <div class="flash-success">
-        <?php echo Yii::app()->user->getFlash('success'); ?>
-    </div>
-<?php endif; ?>
-
-<?php if (Yii::app()->user->hasFlash('error')): ?>
-    <div class="flash-error">
-        <?php echo Yii::app()->user->getFlash('error'); ?>
-    </div>
-<?php endif; ?>
 
 <div class="form">
 <?php $form = $this->beginWidget('CActiveForm', [

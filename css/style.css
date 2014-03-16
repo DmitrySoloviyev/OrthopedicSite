@@ -89,36 +89,6 @@ fieldset {
 
 /*****************************конец основные***************/
 
-/*******************Цитаты*******************/
-blockquote {
-    background-color: rgba(247, 247, 247, 0.7);
-    border-left: 1px solid #bbb;
-    font-style: italic;
-    margin: 1.5em 10px;
-    padding: 0.5em 10px;
-}
-
-blockquote:before {
-    color: #bbb;
-    content: "\201C"; /* Непечатаемый символ слева */
-    font-size: 3em;
-    line-height: 0.1em;
-    margin-right: 0.2em;
-    vertical-align: -.4em;
-}
-
-blockquote:after {
-    color: #bbb;
-    content: "\201D"; /* Непечатаемый символ справа */
-    font-size: 3em;
-    line-height: 0.1em;
-    vertical-align: -.45em;
-}
-
-blockquote > p:first-child {
-    display: inline;
-}
-
 /****************подсветка слов поиска**********************/
 .highlight {
     background: #fff09e;
