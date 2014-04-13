@@ -1,5 +1,7 @@
 #!/bin/bash
 
+CURRENT_DIR=$(pwd)
+
 exiterr() {
     if [ "$1" -gt 0 ]; then
         if [ ! -z "$2" ]; then
@@ -38,13 +40,24 @@ install-phpunit() {
     if [ "$?" -gt 0 ]; then
         pear channel-discover pear.phpunit.de
         pear channel-discover components.ez.no
+        pear channel-discover pear.symfony-project.com
         pear channel-discover pear.symfony.com
-        pear install --alldeps phpunit/PHPUnit
+        pear update-channels
+        pear install --alldeps phpunit/PHPUnit-3.7.32
         pear install --alldeps phpunit/DbUnit
         pear install --alldeps phpunit/PHPUnit_Story
         pear install --alldeps phpunit/PHPUnit_Selenium
         installed phpunit ok
     fi
+}
+
+install-composer() {
+  if [ ! -f /var/www/composer.phar ]; then
+    cd /var/www/
+    curl -sS https://getcomposer.org/installer | php || exiterr $? "Failed to install the composer"
+    cd $CURRENT_DIR
+    installed composer ok
+  fi
 }
 
 
@@ -126,8 +139,19 @@ update-apt() {
     fi
 }
 
+update-composer() {
+  cd /var/www/
+  php composer.phar self-update
+  php composer.phar update || exiterr $? "Failed to update the composer"
+  cd $CURRENT_DIR
+}
+
 load-migrations() {
-    /var/www/protected/yiic migrate up || exiterr $? "Failed to load migrations!"
+    php /var/www/protected/yiic migrate || exiterr $? "Failed to load migrations!"
+}
+
+load-migrations-test() {
+    php /var/www/protected/yiic migrate --connectionID=db_test || exiterr $? "Failed to load migrations!"
 }
 
 add-php54-repository() {
@@ -157,6 +181,14 @@ create-db() {
     fi
 }
 
+create-db-test() {
+    created db_test
+    if [ "$?" -gt 0 ]; then
+        mysqladmin -uroot -p1111 CREATE ortho_db_test
+        created db_test ok
+    fi
+}
+
 
 ### Выполнение ###
 update-apt
@@ -168,20 +200,23 @@ install mysql-client
 install update-manager
 install virtualbox-guest-utils
 install python-software-properties
-add-php54-repository
 install apache2
 install curl
+install php5-curl
 install php5
+install php-pear
+add-php54-repository
 install php5-mysql
 install php5-json
 install php5-gd
 install php-apc
-install php-pear
+#install-composer
+#update-composer
 install php5-xdebug
 install apache2-utils
 
-pear upgrade pear
-pear upgrade
+#pear upgrade pear
+#pear upgrade
 install-phpunit
 
 configure-apc
@@ -190,7 +225,9 @@ configure-php
 configure-mod-rewrite
 
 create-db
+create-db-test
 load-migrations
+load-migrations-test
 
 sudo service apache2 restart && echo -e "\napache is ready!"
 sudo service mysql restart && echo "mysql is ready!"

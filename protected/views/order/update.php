@@ -180,12 +180,10 @@ $this->widget('ext.yii-flash.Flash', [
 ?>
 
 <div class="form">
-<?php $form = $this->beginWidget('CActiveForm', array(
+<?php $form = $this->beginWidget('CActiveForm', [
     'id' => 'orders-update-form',
-    'enableClientValidation' => true,
-    'clientOptions' => array('validateOnSubmit' => true),
-    'htmlOptions' => array('enctype' => 'multipart/form-data'),
-)); ?>
+    'htmlOptions' => ['enctype' => 'multipart/form-data'],
+]); ?>
 <fieldset>
 <legend style="margin-left:60px;">Редактирование</legend>
 <?php echo $form->errorSummary($model); ?>
@@ -194,80 +192,46 @@ $this->widget('ext.yii-flash.Flash', [
     <td style="width:160px" class="left_td">№ заказа:</td>
     <td style="width:330px">
         <div class="row">
-            <?php echo $form->TextField($model, 'OrderIDUpdate', array('autocomplete' => 'Off', 'maxlength' => '10', 'value' => $model->OrderID));
-            echo $form->error($model, 'OrderIDUpdate'); ?>
+            <?php
+            echo $form->TextField($model, 'OrderIDUpdate', ['autocomplete' => 'Off', 'maxlength' => '10', 'value' => $model->OrderID]);
+            echo $form->error($model, 'OrderIDUpdate');
+            ?>
         </div>
-    </td>
-    <td id="ModelForm" rowspan="10">
-        <a href="#" class="closeWindow"></a>
-        <fieldset>
-            <legend style="margin-left:30px;">Модель</legend>
-            <table>
-                <tr>
-                    <td colspan="2" style="font-style: normal; font-size: 1em; text-align:center">
-                        <span id="previous"><img src="/images/previous.png"/></span>
-                        <span id="modelNameTitle">Модель №</span>
-                        <span id="next"><img src="/images/next.png"/></span>
-                        <hr/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"><span id="pic"><img id='Models_ModelPicture' src="#" alt='изображение модели'
-                                                        width="200" height="200"/></span></td>
-                </tr>
-                <tr>
-                    <td colspan="2">Загрузить
-                        изображение: <?php echo $form->fileField($modelsModel, 'loadImage', array('class' => 'loadImgModel')); ?></td>
-                </tr>
-                <tr>
-                    <td>Описание:</td>
-                    <td>
-                        <?php
-                        echo $form->TextArea($modelsModel, 'ModelDescription', array('rows' => '6', 'cols' => '30', 'autocomplete' => 'Off'));
-                        echo $form->error($modelsModel, 'ModelDescription'); ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" id='Models_DateModified'>Дата
-                        изменения: <?php echo $modelsModel->DateModified; ?></td>
-                </tr>
-            </table>
-        </fieldset>
     </td>
 </tr>
 <tr>
     <td class="left_td">Модель:</td>
     <td>
         <div class="row">
-            <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+            <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', [
                 'model' => $modelsModel,
                 'attribute' => 'ModelName',
                 'name' => 'ModelName',
                 'source' => $this->createUrl("/site/GetModelNames"),
-                'options' => array(
-                    'minLength' => '1',
+                'options' => [
+                    'minLength' => '2',
                     'select' => new CJavaScriptExpression('function(event,ui) {
 							$("#Models_ModelName").val(ui.item.label).change().blur();
 							return false;
 						}')
-                ),
-                'htmlOptions' => array(
+                ],
+                'htmlOptions' => [
                     'id' => CHtml::activeId($modelsModel, 'ModelName'),
                     'autocomplete' => 'Off',
                     'maxlength' => '6'
-                ),
-            ));
+                ],
+            ]);
 
-            echo "<br />" . $form->checkBox($modelsModel, 'isNewModel', array('disabled' => 'disabled')) . " ";
-            echo $form->labelEx($modelsModel, 'isNewModel', array('style' => 'font-weight: normal; font-style: italic; font-size: 0.9em; display: inline;'));
+            echo "<br />" . $form->checkBox($modelsModel, 'isNewModel', ['disabled' => 'disabled']) . " ";
+            echo $form->labelEx($modelsModel, 'isNewModel', ['style' => 'font-weight: normal; font-style: italic; font-size: 0.9em; display: inline;']);
             echo $form->error($modelsModel, 'ModelName');
-            echo $form->hiddenField($modelsModel, 'basedID', array('id' => 'basedID', 'value' => $modelsModel->ModelID));
-            $this->widget('ext.fancybox.EFancyBox', array(
+            echo $form->hiddenField($modelsModel, 'basedID', ['id' => 'basedID', 'value' => $modelsModel->ModelID]);
+            $this->widget('ext.fancybox.EFancyBox', [
                 'target' => '#pic',
-                'config' => array(
+                'config' => [
                     'enableEscapeButton' => true,
-                ),
-            ));
+                ],
+            ]);
             ?>
         </div>
     </td>
@@ -277,11 +241,12 @@ $this->widget('ext.yii-flash.Flash', [
     <td>
         <div class="row">
             <?php
-            echo $form->TextField($model, 'SizeLEFTUpdate', array('autocomplete' => 'Off', 'maxlength' => '2', 'value' => $model->sizeLEFT->SizeValue, 'size' => 2));
+            echo $form->TextField($model, 'SizeLEFTUpdate', ['autocomplete' => 'Off', 'maxlength' => '2', 'value' => $model->sizeLEFT->SizeValue, 'size' => 2]);
             echo "<span class='delimiter'></span>";
-            echo $form->TextField($model, 'SizeRIGHTUpdate', array('autocomplete' => 'Off', 'maxlength' => '2', 'value' => $model->sizeRIGHT->SizeValue, 'size' => 2));
+            echo $form->TextField($model, 'SizeRIGHTUpdate', ['autocomplete' => 'Off', 'maxlength' => '2', 'value' => $model->sizeRIGHT->SizeValue, 'size' => 2]);
             echo $form->error($model, 'SizeLEFTUpdate');
-            echo $form->error($model, 'SizeRIGHTUpdate');?>
+            echo $form->error($model, 'SizeRIGHTUpdate');
+            ?>
         </div>
     </td>
 </tr>
@@ -290,11 +255,12 @@ $this->widget('ext.yii-flash.Flash', [
     <td>
         <div class="row">
             <?php
-            echo $form->TextField($model, 'UrkLEFTUpdate', array('autocomplete' => 'Off', 'maxlength' => '3', 'value' => $model->urkLEFT->UrkValue, 'size' => 2));
+            echo $form->TextField($model, 'UrkLEFTUpdate', ['autocomplete' => 'Off', 'maxlength' => '3', 'value' => $model->urkLEFT->UrkValue, 'size' => 2]);
             echo "<span class='delimiter'></span>";
-            echo $form->TextField($model, 'UrkRIGHTUpdate', array('autocomplete' => 'Off', 'maxlength' => '3', 'value' => $model->urkRIGHT->UrkValue, 'size' => 2));
+            echo $form->TextField($model, 'UrkRIGHTUpdate', ['autocomplete' => 'Off', 'maxlength' => '3', 'value' => $model->urkRIGHT->UrkValue, 'size' => 2]);
             echo $form->error($model, 'UrkLEFTUpdate');
-            echo $form->error($model, 'UrkRIGHTUpdate');?>
+            echo $form->error($model, 'UrkRIGHTUpdate');
+            ?>
         </div>
     </td>
 </tr>
@@ -304,7 +270,8 @@ $this->widget('ext.yii-flash.Flash', [
         <div class="row">
             <?php
             echo $form->dropDownList($materialsModel, 'MaterialID', $materialsModel->getMaterialsList());
-            echo $form->error($materialsModel, 'MaterialID');?>
+            echo $form->error($materialsModel, 'MaterialID');
+            ?>
         </div>
     </td>
 </tr>
@@ -313,11 +280,12 @@ $this->widget('ext.yii-flash.Flash', [
     <td>
         <div class="row">
             <?php
-            echo $form->TextField($model, 'HeightLEFTUpdate', array('autocomplete' => 'Off', 'maxlength' => '2', 'value' => $model->heightLEFT->HeightValue, 'size' => 2));
+            echo $form->TextField($model, 'HeightLEFTUpdate', ['autocomplete' => 'Off', 'maxlength' => '2', 'value' => $model->heightLEFT->HeightValue, 'size' => 2]);
             echo "<span class='delimiter'></span>";
-            echo $form->TextField($model, 'HeightRIGHTUpdate', array('autocomplete' => 'Off', 'maxlength' => '2', 'value' => $model->heightRIGHT->HeightValue, 'size' => 2));
+            echo $form->TextField($model, 'HeightRIGHTUpdate', ['autocomplete' => 'Off', 'maxlength' => '2', 'value' => $model->heightRIGHT->HeightValue, 'size' => 2]);
             echo $form->error($model, 'HeightLEFTUpdate');
-            echo $form->error($model, 'HeightRIGHTUpdate');?>
+            echo $form->error($model, 'HeightRIGHTUpdate');
+            ?>
         </div>
     </td>
 </tr>
@@ -326,11 +294,12 @@ $this->widget('ext.yii-flash.Flash', [
     <td>
         <div class="row">
             <?php
-            echo $form->TextField($model, 'TopVolumeLEFTUpdate', array('autocomplete' => 'Off', 'maxlength' => '4', 'value' => $model->topVolumeLEFT->TopVolumeValue, 'size' => 2));
+            echo $form->TextField($model, 'TopVolumeLEFTUpdate', ['autocomplete' => 'Off', 'maxlength' => '4', 'value' => $model->topVolumeLEFT->TopVolumeValue, 'size' => 2]);
             echo "<span class='delimiter'></span>";
-            echo $form->TextField($model, 'TopVolumeRIGHTUpdate', array('autocomplete' => 'Off', 'maxlength' => '4', 'value' => $model->topVolumeRIGHT->TopVolumeValue, 'size' => 2));
+            echo $form->TextField($model, 'TopVolumeRIGHTUpdate', ['autocomplete' => 'Off', 'maxlength' => '4', 'value' => $model->topVolumeRIGHT->TopVolumeValue, 'size' => 2]);
             echo $form->error($model, 'TopVolumeLEFTUpdate');
-            echo $form->error($model, 'TopVolumeRIGHTUpdate');?>
+            echo $form->error($model, 'TopVolumeRIGHTUpdate');
+            ?>
         </div>
     </td>
 </tr>
@@ -339,11 +308,12 @@ $this->widget('ext.yii-flash.Flash', [
     <td>
         <div class="row">
             <?php
-            echo $form->TextField($model, 'AnkleVolumeLEFTUpdate', array('autocomplete' => 'Off', 'maxlength' => '4', 'value' => $model->ankleVolumeLEFT->AnkleVolumeValue, 'size' => 2));
+            echo $form->TextField($model, 'AnkleVolumeLEFTUpdate', ['autocomplete' => 'Off', 'maxlength' => '4', 'value' => $model->ankleVolumeLEFT->AnkleVolumeValue, 'size' => 2]);
             echo "<span class='delimiter'></span>";
-            echo $form->TextField($model, 'AnkleVolumeRIGHTUpdate', array('autocomplete' => 'Off', 'maxlength' => '4', 'value' => $model->ankleVolumeRIGHT->AnkleVolumeValue, 'size' => 2));
+            echo $form->TextField($model, 'AnkleVolumeRIGHTUpdate', ['autocomplete' => 'Off', 'maxlength' => '4', 'value' => $model->ankleVolumeRIGHT->AnkleVolumeValue, 'size' => 2]);
             echo $form->error($model, 'AnkleVolumeLEFTUpdate');
-            echo $form->error($model, 'AnkleVolumeRIGHTUpdate');?>
+            echo $form->error($model, 'AnkleVolumeRIGHTUpdate');
+            ?>
         </div>
     </td>
 </tr>
@@ -352,11 +322,12 @@ $this->widget('ext.yii-flash.Flash', [
     <td>
         <div class="row">
             <?php
-            echo $form->TextField($model, 'KvVolumeLEFTUpdate', array('autocomplete' => 'Off', 'maxlength' => '4', 'value' => $model->kvVolumeLEFT->KvVolumeValue, 'size' => 2));
+            echo $form->TextField($model, 'KvVolumeLEFTUpdate', ['autocomplete' => 'Off', 'maxlength' => '4', 'value' => $model->kvVolumeLEFT->KvVolumeValue, 'size' => 2]);
             echo "<span class='delimiter'></span>";
-            echo $form->TextField($model, 'KvVolumeRIGHTUpdate', array('autocomplete' => 'Off', 'maxlength' => '4', 'value' => $model->kvVolumeRIGHT->KvVolumeValue, 'size' => 2));
+            echo $form->TextField($model, 'KvVolumeRIGHTUpdate', ['autocomplete' => 'Off', 'maxlength' => '4', 'value' => $model->kvVolumeRIGHT->KvVolumeValue, 'size' => 2]);
             echo $form->error($model, 'KvVolumeLEFTUpdate');
-            echo $form->error($model, 'KvVolumeRIGHTUpdate');?>
+            echo $form->error($model, 'KvVolumeRIGHTUpdate');
+            ?>
         </div>
     </td>
 </tr>
@@ -366,18 +337,21 @@ $this->widget('ext.yii-flash.Flash', [
         <div style="margin-left:60px">
             <div class="row">
                 <?php
-                echo $form->TextField($customersModel, 'CustomerSNUpdate', array('autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Фамилия', 'value' => $model->customer->CustomerSN));
-                echo $form->error($customersModel, 'CustomerSNUpdate');?>
+                echo $form->TextField($customersModel, 'CustomerSNUpdate', ['autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Фамилия', 'value' => $model->customer->CustomerSN]);
+                echo $form->error($customersModel, 'CustomerSNUpdate');
+                ?>
             </div>
             <div class="row">
                 <?php
-                echo $form->TextField($customersModel, 'CustomerFNUpdate', array('autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Имя', 'value' => $model->customer->CustomerFN));
-                echo $form->error($customersModel, 'CustomerFNUpdate');?>
+                echo $form->TextField($customersModel, 'CustomerFNUpdate', ['autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Имя', 'value' => $model->customer->CustomerFN]);
+                echo $form->error($customersModel, 'CustomerFNUpdate');
+                ?>
             </div>
             <div class="row">
                 <?php
-                echo $form->TextField($customersModel, 'CustomerPUpdate', array('autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Отчество', 'value' => $model->customer->CustomerP));
-                echo $form->error($customersModel, 'CustomerPUpdate');?>
+                echo $form->TextField($customersModel, 'CustomerPUpdate', ['autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Отчество', 'value' => $model->customer->CustomerP]);
+                echo $form->error($customersModel, 'CustomerPUpdate');
+                ?>
             </div>
         </div>
     </td>
@@ -388,32 +362,36 @@ $this->widget('ext.yii-flash.Flash', [
         <div class="row">
             <?php
             echo $form->dropDownList($employeesModel, 'EmployeeID', $employeesModel->getEmployeeList($employeesModel->EmployeeID));
-            echo $form->error($employeesModel, 'EmployeeID');?>
+            echo $form->error($employeesModel, 'EmployeeID');
+            ?>
         </div>
     </td>
 </tr>
 <tr>
     <td class="left_td">Комментарий:</td>
-    <td><?php echo $form->TextArea($model, 'Comment', array('rows' => '5', 'cols' => '28'));
-        echo $form->error($model, 'Comment'); ?></td>
+    <td><?php
+        echo $form->TextArea($model, 'Comment', ['rows' => '5', 'cols' => '28']);
+        echo $form->error($model, 'Comment');
+        ?>
+    </td>
 </tr>
 <tr>
     <td colspan="3">
         <div class="row submit">
-            <?php echo CHtml::submitButton('Исправить', array('class' => 'button')); ?>
-            <?php echo CHtml::submitButton('Удалить заказ',
-                array(
-                    'class' => 'button_delete',
-                    'style' => 'margin-left: 6%;',
-                    'submit' => array(
-                        'site/delete',
-                        'id' => $model->OrderID,
-                    ),
-                    'params' => array(
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    ),
-                    'confirm' => 'Вы действительно хотите удалить этот заказ?',
-                )); ?>
+            <?= CHtml::submitButton('Исправить', ['class' => 'button']); ?>
+            <?=
+            CHtml::submitButton('Удалить заказ', [
+                'class' => 'button_delete',
+                'style' => 'margin-left: 6%;',
+                'submit' => [
+                    'order/delete',
+                    'id' => $model->OrderID,
+                ],
+                'params' => [
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                ],
+                'confirm' => 'Вы действительно хотите удалить этот заказ?',
+            ]);?>
         </div>
     </td>
 </tr>

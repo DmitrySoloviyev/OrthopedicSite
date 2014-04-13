@@ -380,21 +380,6 @@ a.editrow:hover {
     opacity: 1;
 }
 
-.closeWindow {
-    position: absolute;
-    top: -6px;
-    right: -14px;
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-    background-image: url('../images/fancybox_sprite.png');
-    opacity: 0.4;
-}
-
-.closeWindow:hover {
-    opacity: 1;
-}
-
 button, .button {
     cursor: pointer;
     font-family: inherit;
@@ -435,15 +420,7 @@ button:hover, button:focus, .button:hover, .button:focus {
 }
 
 .loading {
-    background: #eee url('../images/fancybox_loading.gif') no-repeat center center;
-    opacity: 1;
-    padding: 20px;
-    margin: 0 auto;
-    width: 100px;
-}
-
-.loading * {
-    opacity: .8;
+    background: #eee url('../images/loading.gif') no-repeat center center;
 }
 
 .title_header {

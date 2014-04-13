@@ -27,7 +27,7 @@
  * @property string $date_modified
  *
  * The followings are the available model relations:
- * @property Model $model
+ * @property Models $model
  * @property Employee $employee
  * @property TopVolume $topVolumeLeft
  * @property TopVolume $topVolumeRight
@@ -46,14 +46,6 @@
  */
 class Order extends CActiveRecord
 {
-
-    public $size;
-    public $urk;
-    public $height;
-    public $topVolume;
-    public $ankleVolume;
-    public $kvVolume;
-
     public function tableName()
     {
         return 'orders';
@@ -64,7 +56,7 @@ class Order extends CActiveRecord
         return [
             ['order_id, model_id, size_left_id, size_right_id, urk_left_id, urk_right_id, material_id, height_left_id, height_right_id, top_volume_left_id, top_volume_right_id, ankle_volume_left_id, ankle_volume_right_id, kv_volume_left_id, kv_volume_right_id, customer_id, employee_id', 'required'],
             ['model_id, size_left_id, size_right_id, urk_left_id, urk_right_id, material_id, height_left_id, height_right_id, top_volume_left_id, top_volume_right_id, ankle_volume_left_id, ankle_volume_right_id, kv_volume_left_id, kv_volume_right_id, customer_id, employee_id', 'numerical', 'integerOnly' => true],
-            ['OrderID', 'unique', 'message' => 'Такой заказ уже есть в базе!'],
+            ['order_id', 'unique', 'message' => 'Заказ с таким номером уже есть в базе!'],
             ['order_id', 'length', 'max' => 10],
             ['size', 'match', 'pattern' => '/(^(([2-4][0-9])|15|16|17|18|19)$)|(^(([2-4][0-9])|15|16|17|18|19) (([2-4][0-9])|15|16|17|18|19)$)/', 'on' => 'insert'],
             ['height', 'match', 'pattern' => '/(^(([1-3][0-9])|0|7|8|9|40)$)|(^(([1-3][0-9])|0|7|8|9|40) (([1-3][0-9])|0|7|8|9|40)$)/', 'on' => 'insert'],
@@ -73,7 +65,7 @@ class Order extends CActiveRecord
             ['kvVolume', 'match', 'pattern' => '/(^(([2-6][0-9])|15|16|17|18|19|70)(\\.[05])?$)|(^(([2-6][0-9])|15|16|17|18|19|70)(\\.[05])? (([2-6][0-9])|15|16|17|18|19|70)(\\.[05])?$)/', 'on' => 'insert'],
             ['comment', 'length', 'max' => 255],
 
-            ['model_id', 'exist', 'className' => 'Model', 'attributeName' => 'id', 'message' => 'Неизвестная модель'],
+            ['model_id', 'exist', 'className' => 'Models', 'attributeName' => 'id', 'message' => 'Неизвестная модель'],
             ['material_id', 'exist', 'className' => 'Material', 'attributeName' => 'id', 'message' => 'Неизвестный материал'],
             ['employee_id', 'exist', 'className' => 'Employee', 'attributeName' => 'id', 'message' => 'Неизвестный модельер'],
             ['customer_id', 'exist', 'className' => 'Customer', 'attributeName' => 'id', 'message' => 'Неизвестный заказчик'],
@@ -111,7 +103,7 @@ class Order extends CActiveRecord
     public function relations()
     {
         return [
-            'model' => [self::BELONGS_TO, 'Model', 'model_id'],
+            'model' => [self::BELONGS_TO, 'Models', 'model_id'],
             'topVolumeLeft' => [self::BELONGS_TO, 'TopVolume', 'top_volume_left_id'],
             'topVolumeRight' => [self::BELONGS_TO, 'TopVolume', 'top_volume_right_id'],
             'ankleVolumeLeft' => [self::BELONGS_TO, 'AnkleVolume', 'ankle_volume_left_id'],
@@ -132,7 +124,7 @@ class Order extends CActiveRecord
 
     public function attributeLabels()
     {
-        return array(
+        return [
             'order_id' => 'Номер заказа',
             'model_id' => 'Модель',
             'size' => 'Размер',
@@ -158,7 +150,46 @@ class Order extends CActiveRecord
             'ankle_volume_right_id' => 'Объем лодыжки правый',
             'kv_volume_left_id' => 'Объем КВ левый',
             'kv_volume_right_id' => 'Объем КВ правый',
-        );
+        ];
+    }
+
+    public function beforeValidate()
+    {
+        $this->size_left_id = $this->filter('Size', 'size', $this->size_left_id);
+        $this->size_right_id = $this->filter('Size', 'size', $this->size_right_id);
+
+        $this->urk_left_id = $this->filter('Urk', 'urk', $this->urk_left_id);
+        $this->urk_right_id = $this->filter('Urk', 'urk', $this->urk_right_id);
+
+        $this->height_left_id = $this->filter('Height', 'height', $this->height_left_id);
+        $this->height_right_id = $this->filter('Height', 'height', $this->height_right_id);
+
+        $this->top_volume_left_id = $this->filter('TopVolume', 'volume', $this->top_volume_left_id);
+        $this->top_volume_right_id = $this->filter('TopVolume', 'volume', $this->top_volume_right_id);
+
+        $this->ankle_volume_left_id = $this->filter('AnkleVolume', 'volume', $this->ankle_volume_left_id);
+        $this->ankle_volume_right_id = $this->filter('AnkleVolume', 'volume', $this->ankle_volume_right_id);
+
+        $this->kv_volume_left_id = $this->filter('KvVolume', 'volume', $this->kv_volume_left_id);
+        $this->kv_volume_right_id = $this->filter('KvVolume', 'volume', $this->kv_volume_right_id);
+    }
+
+    public function beforeSave()
+    {
+        if ($this->isNewRecord) {
+            $this->date_created = new CDbExpression('NOW()');
+        }
+        $this->date_modified = new CDbExpression('NOW()');
+    }
+
+    private function filter($model, $field, $value)
+    {
+        $result = CActiveRecord::model($model)->findByAttributes([$field => $value]);
+        if ($result) {
+            return $result['id'];
+        }
+
+        return null;
     }
 
     public function search()

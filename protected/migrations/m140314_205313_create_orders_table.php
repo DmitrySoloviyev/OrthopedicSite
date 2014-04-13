@@ -23,7 +23,7 @@ class m140314_205313_create_orders_table extends CDbMigration
             'kv_volume_right_id' => 'int not null',
             'customer_id' => 'int not null',
             'employee_id' => 'int not null',
-            'comment' => 'string not null default "-"',
+            'comment' => 'string not null default ""',
             'date_created' => 'datetime not null',
             'date_modified' => 'datetime not null',
         ], 'engine=innodb default charset=utf8');

@@ -28,159 +28,68 @@ class OrderController extends Controller
     {
         $order = new Order();
         $customer = new Customer();
-        $material = new Material();
-        $employee = new Employee();
-        $model = new Model();
+        $model = new Models();
 
         if (isset($_POST['Order'])) {
             $order->attributes = $_POST['Order'];
             $customer->attributes = $_POST['Customer'];
-            $material->attributes = $_POST['Material'];
-            $employee->attributes = $_POST['Employee'];
-            $model->attributes = $_POST['Model'];
+            $model->attributes = $_POST['Models'];
 
-            //фильтруем введенные значения
-            //РАЗМЕРЫ
-            if (strlen($model->Size) > 2) {
-                //если длина введеной строки больше 2х цифр, значит для каждой ноги введен свой размер
-                $array_size = explode(" ", $model->Size);
-                $model->SizeLEFT = "s" . $array_size[0];
-                $model->SizeRIGHT = "s" . $array_size[1];
-            } else {
-                //иначе размеры ног одинаковые
-                $model->SizeLEFT = $model->SizeRIGHT = "s" . $model->Size;
-            }
-
-            //УРК
-            if (strlen($model->Urk) > 3) {
-                //если длина введеной строки больше 2х цифр, значит для каждой ноги введен свой размер
-                $array_urk = explode(" ", $model->Urk);
-                $model->UrkLEFT = "u" . $array_urk[0];
-                $model->UrkRIGHT = "u" . $array_urk[1];
-            } else {
-                //иначе размеры ног одинаковые
-                $model->UrkLEFT = $model->UrkRIGHT = "u" . $model->Urk;
-            }
-
-            //ВЫСОТА
-            if (strlen($model->Height) > 2) {
-                $array_height = explode(" ", $model->Height);
-                $model->HeightLEFT = "h" . $array_height[0];
-                $model->HeightRIGHT = "h" . $array_height[1];
-            } else {
-                $model->HeightLEFT = $model->HeightRIGHT = "h" . $model->Height;
-            }
-
-            //ОБЪЕМ ВЕРХА
-            if (strlen($model->TopVolume) > 4) {
-                $array_top_volume = explode(" ", $model->TopVolume);
-                $model->TopVolumeLEFT = "t" . $array_top_volume[0] * 10;
-                $model->TopVolumeRIGHT = "t" . $array_top_volume[1] * 10;
-            } else {
-                $model->TopVolumeLEFT = $model->TopVolumeRIGHT = "t" . $model->TopVolume * 10;
-            }
-
-            //ОБЪЕМ ЛОДЫЖКИ
-            if (strlen($model->AnkleVolume) > 4) {
-                $array_ankle_volume = explode(" ", $model->AnkleVolume);
-                $model->AnkleVolumeLEFT = "a" . $array_ankle_volume[0] * 10;
-                $model->AnkleVolumeRIGHT = "a" . $array_ankle_volume[1] * 10;
-            } else {
-                $model->AnkleVolumeLEFT = $model->AnkleVolumeRIGHT = "a" . $model->AnkleVolume * 10;
-            }
-
-            //ОБЪЕМ КВ
-            if (strlen($model->KvVolume) > 4) {
-                $array_kv_volume = explode(" ", $model->KvVolume);
-                $model->KvVolumeLEFT = "k" . $array_kv_volume[0] * 10;
-                $model->KvVolumeRIGHT = "k" . $array_kv_volume[1] * 10;
-            } else {
-                $model->KvVolumeLEFT = $model->KvVolumeRIGHT = "k" . $model->KvVolume * 10;
-            }
-
-            $model->MaterialID = $material->MaterialID;
-            $model->EmployeeID = $employee->EmployeeID;
-
-            //пишем заказчика и модель в соответствующие таблицы, если ок, то заполняем таблицу заказов
             $transaction = $model->dbConnection->beginTransaction();
-            try {
-                // используем транзакцию, чтобы удостовериться в целостности данных
-                //записываем заказчика
-                $valid = $customer->validate();
-                if ($valid) {
-                    $customer->save();
-                    $model->CustomerID = $customer->CustomerID;
-                }
-
-                //записываем модель
-                // если чек-бокс отмечен, значит это новая модель, тут просто сохраняем
-                // иначе мы должны вписать айдишник существующей модели и проапдейтить ее (возможно пользователь обновил ее данные)
-                if ($model->basedID == null) {
-                    if ($loadImage = CUploadedFile::getInstance($model, 'loadImage')) {
-                        $model->loadImage = $loadImage;
-                        $model->loadImage->saveAs(Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $modelsModel->loadImage->extensionName);
-                        $model->ModelPicture = "" . Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $modelsModel->loadImage->extensionName;
-                    }
-                    $modelsModel->save();
-                    $model->ModelID = $modelsModel->ModelID;
-                } else {
-                    // это запрос на изменение картинки существующей модели
-                    $model->ModelID = $model->basedID;
-                    $newDescroption = $model->ModelDescription;
-                    $modelsModel = Models::model()->findByPk($model->ModelID);
-                    if ($loadImage = CUploadedFile::getInstance($modelsModel, 'loadImage')) {
-                        $modelsModel->loadImage = $loadImage;
-                        $oldImage = $modelsModel->ModelPicture;
-                        // удаляем старую картинку если она существует
-                        if (file_exists($oldImage))
-                            unlink($oldImage);
-                        $modelsModel->loadImage->saveAs(Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $modelsModel->loadImage->extensionName);
-                        $modelsModel->ModelPicture = Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $modelsModel->loadImage->extensionName;
-                    }
-                    $modelsModel->ModelDescription = $newDescroption;
-                    $modelsModel->save();
-                }
-
-
-                $valid = $modelsModel->validate() && $valid;
-                $valid = $model->validate() && $valid;
-                // записываем заказ
-                if ($model->save()) {
-                    $transaction->commit();
-                    Yii::app()->clientScript->registerScript(
-                        'myHideEffect',
-                        '$(".flash-success").animate({opacity: 1.0}, 5000).slideUp("slow");',
-                        CClientScript::POS_READY
-                    );
-                    Yii::app()->user->setFlash('success', "Запись успешно добавлена!");
-
-                    //очищаем поля формы
-                    $model->unsetAttributes();
-                    $material->unsetAttributes();
-                    $employee->unsetAttributes();
-                    $modelsModel->unsetAttributes();
-                    $customer->unsetAttributes();
-                    $model->Size = null;
-                    $model->Urk = null;
-                    $model->Height = null;
-                    $model->TopVolume = null;
-                    $model->AnkleVolume = null;
-                    $model->KvVolume = null;
-                } else {
-                    $transaction->rollback();
-                    Yii::app()->user->setFlash('error', "Ошибка при добавлении записи!");
-                }
-            } catch (Exception $e) {
+            // сохраняем заказчика
+            if (!$customer->save()) {
                 $transaction->rollback();
                 Yii::app()->user->setFlash('error', "Ошибка при добавлении записи!");
-                throw $e;
+            }
+            $order->customer_id = $customer->id;
+
+            //записываем модель
+            // если чек-бокс отмечен, значит это новая модель, тут просто сохраняем
+            // иначе мы должны вписать айдишник существующей модели и проапдейтить ее (возможно пользователь обновил ее данные)
+            if ($model->basedID == null) {
+                if ($loadImage = CUploadedFile::getInstance($model, 'loadImage')) {
+                    $model->loadImage = $loadImage;
+                    $model->loadImage->saveAs(Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $model->loadImage->extensionName);
+                    $model->ModelPicture = "" . Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $model->loadImage->extensionName;
+                }
+                $model->save();
+                $model->ModelID = $model->id;
+            } else {
+                // это запрос на изменение картинки существующей модели
+                $model->ModelID = $model->basedID;
+                $newDescroption = $model->ModelDescription;
+                $modelsModel = Models::model()->findByPk($model->ModelID);
+                if ($loadImage = CUploadedFile::getInstance($modelsModel, 'loadImage')) {
+                    $modelsModel->loadImage = $loadImage;
+                    $oldImage = $modelsModel->ModelPicture;
+                    // удаляем старую картинку если она существует
+                    if (file_exists($oldImage))
+                        unlink($oldImage);
+                    $modelsModel->loadImage->saveAs(Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $modelsModel->loadImage->extensionName);
+                    $modelsModel->ModelPicture = Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $modelsModel->loadImage->extensionName;
+                }
+                $modelsModel->ModelDescription = $newDescroption;
+                $modelsModel->save();
+            }
+
+            // записываем заказ
+            if ($model->save()) {
+                $transaction->commit();
+                Yii::app()->user->setFlash('success', "Запись успешно добавлена!");
+
+                //очищаем поля формы
+                $order->unsetAttributes();
+                $model->unsetAttributes();
+                $customer->unsetAttributes();
+            } else {
+                $transaction->rollback();
+                Yii::app()->user->setFlash('error', "Ошибка при добавлении записи!");
             }
         }
 
-        $this->render('new', ['order' => $order,
+        $this->render('new', [
+            'order' => $order,
             'customer' => $customer,
-            'material' => $material,
-            'employee' => $employee,
             'model' => $model,
         ]);
     }
@@ -190,10 +99,10 @@ class OrderController extends Controller
      */
     public function actionSearch()
     {
-        $model = new Orders('search');
-        $customersModel = new Customers('search');
-        $materialsModel = new Materials('search');
-        $employeesModel = new Employees('search');
+        $model = new Order('search');
+        $customersModel = new Customer('search');
+        $materialsModel = new Material('search');
+        $employeesModel = new Employee('search');
         $modelsModel = new Models('search');
 
         $model->unsetAttributes();
@@ -268,7 +177,7 @@ class OrderController extends Controller
                 $searchMeaterials = "";
                 foreach ($materialsModel->MaterialID as $meterialId) {
                     $searchMeaterials .= "'" . $meterialId . "',";
-                    $js .= " $('td:nth-child(5)').highlight('" . Materials::getMaterialShortcutList($meterialId) . "'); ";
+                    $js .= " $('td:nth-child(5)').highlight('" . Material::getMaterialShortcutList($meterialId) . "'); ";
                 }
                 if (empty($where)) {
                     $where .= " MaterialID IN (" . substr($searchMeaterials, 0, strlen($searchMeaterials) - 1) . ") ";
@@ -282,7 +191,7 @@ class OrderController extends Controller
                 $searchEmployees = "";
                 foreach ($employeesModel->EmployeeID as $employeeId) {
                     $searchEmployees .= "'" . $employeeId . "',";
-                    $js .= " $('td:nth-child(11)').highlight('" . Employees::getEmployeeShortcutList($employeeId) . "'); ";
+                    $js .= " $('td:nth-child(11)').highlight('" . Employee::getEmployeeShortcutList($employeeId) . "'); ";
                 }
                 if (empty($where)) {
                     $where .= " EmployeeID IN(" . substr($searchEmployees, 0, strlen($searchEmployees) - 1) . ") ";
@@ -333,7 +242,7 @@ class OrderController extends Controller
             $criteria = new CDbCriteria;
             $criteria->condition = $where;
 
-            $dataProvider = new CActiveDataProvider(Orders::model()->with('model', 'customer'), array(
+            $dataProvider = new CActiveDataProvider(Order::model()->with('model', 'customer'), array(
                 'criteria' => $criteria,
                 //	'enablePagination'=>false,
                 'pagination' => array(
@@ -382,8 +291,7 @@ class OrderController extends Controller
                 'employeesModel' => $employeesModel,
                 'modelsModel' => $modelsModel,
             ));
-            //$this->renderPartial('tableOrders' , array('dataProvider'=>$dataProvider, 'js'=>$js), false, true);
-            // Завершаем приложение
+
             Yii::app()->end();
         }
 
@@ -404,7 +312,7 @@ class OrderController extends Controller
 
         // Быстрый поиск прямо на странице всех заказов
         if (!empty($_GET['quickSearchValue'])) {
-            $quickSearchQuery = explode(" ", $_GET['quickSearchValue']);
+            $quickSearchQuery = explode(' ', $_GET['quickSearchValue']);
             $quickSearchQuery = trim($quickSearchQuery[0]);
             $queryForVolumes = $quickSearchQuery * 10;
             $quickSearchQuery = iconv(mb_detect_encoding($quickSearchQuery, mb_detect_order(), true), "utf-8", $quickSearchQuery);
@@ -440,66 +348,63 @@ class OrderController extends Controller
             $criteria->condition = $query;
         }
 
-        $dataProvider = new CActiveDataProvider(Orders::model()->with(
+        $dataProvider = new CActiveDataProvider(Order::model()->with(
                 'material',
                 'model',
-                'sizeLEFT',
-                'sizeRIGHT',
-                'topVolumeLEFT',
-                'topVolumeRIGHT',
-                'ankleVolumeLEFT',
-                'ankleVolumeRIGHT',
-                'kvVolumeLEFT',
-                'kvVolumeRIGHT',
+                'sizeLeft',
+                'sizeRight',
+                'topVolumeLeft',
+                'topVolumeRight',
+                'ankleVolumeLeft',
+                'ankleVolumeRight',
+                'kvVolumeLeft',
+                'kvVolumeRight',
                 'customer',
                 'employee',
-                'urkLEFT',
-                'urkRIGHT',
-                'heightLEFT',
-                'heightRIGHT'
-            ),
-            array(
+                'urkLeft',
+                'urkRight',
+                'heightLeft',
+                'heightRight'
+            ),[
                 'criteria' => $criteria,
-                'pagination' => array(
+                'pagination' => [
                     'pageSize' => 20,
-                ),
-                'sort' => array(
-                    //атрибуты по которым происходит сортировка
-                    'attributes' => array(
-                        'OrderID' => array(
-                            'asc' => 'OrderID ASC',
-                            'desc' => 'OrderID DESC',
-                            //по умолчанию, сортируем поле OrderID по убыванию (desc)
+                ],
+                'sort' => [
+                    'attributes' => [
+                        'order_id' => [
+                            'asc' => 'order_id ASC',
+                            'desc' => 'order_id desc',
                             'default' => 'desc',
-                        ),
-                        'ModelName' => array(
-                            'asc' => 'ModelName ASC',
-                            'desc' => 'ModelName DESC',
+                        ],
+                        'model_id' => [
+                            'asc' => 'model_id asc',
+                            'desc' => 'model_id desc',
                             'default' => 'desc',
-                        ),
-                        'MaterialValue' => array(
-                            'asc' => 'MaterialValue ASC',
-                            'desc' => 'MaterialValue DESC',
+                        ],
+                        'material_id' => [
+                            'asc' => 'material_id asc',
+                            'desc' => 'material_id desc',
                             'default' => 'desc',
-                        ),
-                        'EmployeeSN' => array(
-                            'asc' => 'EmployeeSN ASC',
-                            'desc' => 'EmployeeSN DESC',
+                        ],
+                        'employee_id' => [
+                            'asc' => 'employee_id asc',
+                            'desc' => 'employee_id desc',
                             'default' => 'desc',
-                        ),
-                        'Date' => array(
-                            'asc' => 'Date',
-                            'desc' => 'Date DESC',
+                        ],
+                        't.date_created' => [
+                            'asc' => 't.date_created',
+                            'desc' => 't.date_created desc',
                             'default' => 'desc',
-                        ),
-                    ),
-                    'defaultOrder' => array(
-                        'Date' => CSort::SORT_DESC,
-                    )
-                ),
-            ));
-
-        $this->render('view', array('dataProvider' => $dataProvider));
+                        ],
+                    ],
+                    'defaultOrder' => [
+                        't.date_created' => CSort::SORT_DESC,
+                    ]
+                ],
+            ]);
+print_r($dataProvider);
+        $this->render('view', ['dataProvider' => $dataProvider]);
     }
 
     /**
@@ -507,32 +412,32 @@ class OrderController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = Orders::model()->findByPk($id);
+        $model = Order::model()->with(
+            'material',
+            'model',
+            'sizeLeft',
+            'sizeRight',
+            'topVolumeLeft',
+            'topVolumeRight',
+            'ankleVolumeLeft',
+            'ankleVolumeRight',
+            'kvVolumeLeft',
+            'kvVolumeRight',
+            'customer',
+            'employee',
+            'urkLeft',
+            'urkRight',
+            'heightLeft',
+            'heightRight'
+        )->findByPk($id);
+
         if (!$model) {
             throw new CHttpException(404, 'Указанная запись не найдена');
         }
-        $model = Orders::model()->with(
-            'material',
-            'model',
-            'sizeLEFT',
-            'sizeRIGHT',
-            'topVolumeLEFT',
-            'topVolumeRIGHT',
-            'ankleVolumeLEFT',
-            'ankleVolumeRIGHT',
-            'kvVolumeLEFT',
-            'kvVolumeRIGHT',
-            'customer',
-            'employee',
-            'urkLEFT',
-            'urkRIGHT',
-            'heightLEFT',
-            'heightRIGHT'
-        )->findByPk($id);
-        //	$model->scenario = 'update';
-        $customersModel = Customers::model()->findByPk($model->CustomerID);
-        $materialsModel = Materials::model()->findByPk($model->MaterialID);
-        $employeesModel = Employees::model()->findByPk($model->EmployeeID);
+
+        $customer = Customer::model()->findByPk($model->customer_id);
+        $materialsModel = Material::model()->findByPk($model->MaterialID);
+        $employeesModel = Employee::model()->findByPk($model->EmployeeID);
         $modelsModel = Models::model()->findByPk($model->ModelID);
 
         if (isset($_POST['Orders'])) {
@@ -540,7 +445,7 @@ class OrderController extends Controller
             $materialsModel->attributes = $_POST['Materials'];
             $employeesModel->attributes = $_POST['Employees'];
             $modelsModel->attributes = $_POST['Models'];
-            $customersModel->attributes = $_POST['Customers'];
+            $customer->attributes = $_POST['Customers'];
 
             $model->OrderID = $model->OrderIDUpdate;
 
@@ -571,23 +476,23 @@ class OrderController extends Controller
             $model->MaterialID = $materialsModel->MaterialID;
             $model->EmployeeID = $employeesModel->EmployeeID;
 
-            $customersModel->CustomerSN = $customersModel->CustomerSNUpdate;
-            $customersModel->CustomerFN = $customersModel->CustomerFNUpdate;
-            $customersModel->CustomerP = $customersModel->CustomerPUpdate;
+            $customer->CustomerSN = $customer->CustomerSNUpdate;
+            $customer->CustomerFN = $customer->CustomerFNUpdate;
+            $customer->CustomerP = $customer->CustomerPUpdate;
 
             $transaction = $model->dbConnection->beginTransaction();
             try {
                 // используем транзакцию, чтобы удостовериться в целостности данных
                 //записываем заказчика
-                $valid = $customersModel->validate();
+                $valid = $customer->validate();
                 if ($valid) {
-                    $customersModel->save();
+                    $customer->save();
                 }
 
                 //записываем модель, если чек-бокс отмечен, значит это новая модель, тут просто сохраняем
                 // иначе мы должны вписать айдишник существующей модели и проапдейтить ее (возможно пользователь обновил ее данные)
                 if ($modelsModel->basedID == null) {
-                    $newModel = new Models;
+                    $newModel = new Models();
                     $newModel->attributes = $_POST['Models'];
                     if ($loadImage = CUploadedFile::getInstance($newModel, 'loadImage')) {
                         $newModel->loadImage = $loadImage;
@@ -620,11 +525,6 @@ class OrderController extends Controller
                 // записываем заказ
                 if ($model->save()) {
                     $transaction->commit();
-                    Yii::app()->clientScript->registerScript(
-                        'myHideEffect',
-                        '$(".flash-success").animate({opacity: 1.0}, 5000).slideUp("slow");',
-                        CClientScript::POS_READY
-                    );
                     Yii::app()->user->setFlash('success', "Запись успешно изменена!");
 
                     //очищаем поля формы
@@ -632,33 +532,23 @@ class OrderController extends Controller
                     $materialsModel->unsetAttributes();
                     $employeesModel->unsetAttributes();
                     $modelsModel->unsetAttributes();
-                    $customersModel->unsetAttributes();
+                    $customer->unsetAttributes();
 
                     $this->redirect(array('view'));
                 } else {
                     $transaction->rollback();
-                    Yii::app()->clientScript->registerScript(
-                        'myHideEffect',
-                        '$(".flash-error").animate({opacity: 1.0}, 5000).slideUp("slow");',
-                        CClientScript::POS_READY
-                    );
                     Yii::app()->user->setFlash('error', "Ошибка при редактировании записи!");
                 }
             } catch (Exception $e) {
                 $transaction->rollback();
-                throw $e;
-                Yii::app()->clientScript->registerScript(
-                    'myHideEffect',
-                    '$(".flash-error").animate({opacity: 1.0}, 5000).slideUp("slow");',
-                    CClientScript::POS_READY
-                );
                 Yii::app()->user->setFlash('error', "Ошибка при редактировании записи!");
+                throw $e;
             }
         }
 
         $this->render('update', array(
             'model' => $model,
-            'customersModel' => $customersModel,
+            'customersModel' => $customer,
             'materialsModel' => $materialsModel,
             'employeesModel' => $employeesModel,
             'modelsModel' => $modelsModel,
@@ -673,8 +563,12 @@ class OrderController extends Controller
         if (Yii::app()->user->isGuest) {
             throw new CException('У Вас недостаточно прав для данной операции');
         }
-        $this->loadModel($id)->delete();
-        $this->redirect(array('view'));
+        $model = Order::model()->findByPk($id);
+        if (!$model) {
+            throw new CHttpException(404, 'Запрашиваемая страница не существует.');
+        }
+        $model->delete();
+        $this->redirect(['view']);
     }
 
     /**
@@ -695,7 +589,7 @@ class OrderController extends Controller
      */
     public function actionContact()
     {
-        $model = new ContactForm;
+        $model = new ContactForm();
         if (isset($_POST['ContactForm'])) {
             $model->attributes = $_POST['ContactForm'];
             if ($model->validate()) {
@@ -714,39 +608,16 @@ class OrderController extends Controller
         $this->render('contact', array('model' => $model));
     }
 
-    public function loadModel($id)
-    {
-        $model = Order::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая страница не существует.');
-        return $model;
-    }
-
-    public function actionGetModels($term)
-    {
-        echo Model::model()->getModelNames($term);
-    }
-
-    public function actionGetModelInfo()
-    {
-        echo Model::model()->getModels($_POST['modelName']);
-    }
-
-    public function actionGetModelInfoById()
-    {
-        echo Model::model()->getModelById($_POST['id']);
-    }
-
     /*
 	 * ПОДСВЕТКА СЛОВ ПОИСКА
      */
     function jquery_highlight_create($from_post, $num_child)
     {
-        $array_field = explode(" ", $from_post);
+        $array_field = explode(' ', $from_post);
         $params = "";
         foreach ($array_field as $num) {
             if (strpbrk($num, "-")) {
-                $num_interval = explode("-", $num);
+                $num_interval = explode('-', $num);
                 for ($i = $num_interval[0]; $i <= $num_interval[1]; ++$i)
                     $params .= " $('td:nth-child($num_child)').highlight('" . $i . "'); ";
             } else {
@@ -883,11 +754,6 @@ class OrderController extends Controller
                 }
             }
         }
-    }
-
-    public function actionGetAllModelsInfo()
-    {
-        echo Models::model()->GetAllModels();
     }
 
 }

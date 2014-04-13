@@ -46,21 +46,19 @@ class Material extends CActiveRecord
     }
 
 
-    public function getMaterialsList()
+    public static function materialList()
     {
-        $query = Material::model()->findAllBySql("SELECT MaterialID, MaterialValue FROM Materials ORDER BY MaterialID");
-        $list = CHtml::listData($query, 'MaterialID', 'MaterialValue');
-        return $list;
+        return CHtml::listData(self::model()->findAll(), 'id', CHtml::encode('material'));
     }
 
     public static function getMaterialShortcutList($meterialId)
     {
         $material = Yii::app()->db->createCommand()
-            ->select("MaterialValue AS Material")
-            ->from('Materials')
-            ->where('MaterialID=:id', array(':id' => $meterialId))
+            ->select("material")
+            ->from('materials')
+            ->where('id=:id', array(':id' => $meterialId))
             ->queryRow();
-        return $material['Material'];
+        return $material['material'];
     }
 
 }

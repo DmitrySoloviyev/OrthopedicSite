@@ -37,6 +37,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'gii' => 'gii',
+                '' => 'order/index',
                 'gii/<controller:\w+>' => 'gii/<controller>',
                 'gii/<controller:\w+>/<action:\w+>' => 'gii/<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<id:\d+|\w+>' => '<controller>/<action>',
@@ -70,7 +71,7 @@ return [
                 ],
                 [
                     'class' => 'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
-                    'ipFilters' => array('127.0.0.1', '192.168.33.1'),
+                    'ipFilters' => ['127.0.0.1', '192.168.33.1'],
                     'enabled' => YII_DEBUG,
                 ],
             ],

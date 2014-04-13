@@ -34,16 +34,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-div.form
-{
-}
-
-div.form input,
-div.form textarea,
-div.form select
-{
-	margin: 0.2em 0 0.5em 0;
-}
+/*div.form input, div.form textarea, div.form select*/
+/*{*/
+	/*margin: 0.2em 0 0.5em 0;*/
+/*}*/
 
 div.form fieldset
 {
@@ -61,6 +55,7 @@ input:not([type='submit']), textarea, select
     border: 1px solid #b7b7b7;
     border-radius: 3px;
     box-shadow: inset 0 1px 2px rgba(0,0,0, 0.15);
+    margin: 8px 2px;
 }
 
 .input_text{
@@ -171,7 +166,7 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 #ModelForm{
 	box-shadow:30px 30px 10px rgba(0,0,0,0.2);
 	border-radius:4px;
-	position: absolute;
+	/*position: absolute;*/
 	width: 380px;
 	background-color: rgba(232, 232, 232, 0.9);
 }
@@ -182,7 +177,7 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	font-style: italic;
 }
 
-#ModelForm #Models_ModelPicture{
+#pic img{
   padding:5px;
   max-width:300px;
   width: 300px;
