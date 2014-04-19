@@ -75,21 +75,11 @@ configured() {
     touch /var/www/vagrant/var/configured-$1
 }
 
-configure-apc() {
-    configured apc
-    if [ "$?" -gt 0 ]; then
-        sudo echo "apc.enabled = 1" >> /etc/php5/apache2/conf.d/apc.ini
-        sudo echo "apc.shm_size = 64M" >> /etc/php5/apache2/conf.d/apc.ini
-        sudo service apache2 restart
-        configured apc ok
-    fi
-}
-
 configure-php() {
-    configured php54
+    configured php55
     if [ "$?" -gt 0 ]; then
         sudo cp /var/www/vagrant/php.ini /etc/php5/apache2/php.ini
-        configured php54 ok
+        configured php55 ok
     fi
 }
 
@@ -116,8 +106,7 @@ configure-mod-rewrite() {
     if [ "$?" -gt 0 ]; then
         sudo service apache2 stop
         sudo cp /var/www/vagrant/apache2.conf /etc/apache2/apache2.conf
-        sudo cp /var/www/vagrant/httpd.conf /etc/apache2/httpd.conf
-        sudo cp /var/www/vagrant/000-default /etc/apache2/sites-enabled/000-default
+        sudo cp /var/www/vagrant/000-default.conf /etc/apache2/sites-enabled/000-default.conf
         sudo service apache2 start
         configured mod-rewrite ok
     fi
@@ -127,39 +116,12 @@ configure-mod-rewrite() {
 ##
 # Прочие функции
 ##
-update-apt() {
-    configured apt-update
-    if [ "$?" -gt 0 ]; then
-        sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --force-yes -fuy upgrade
-        configured apt-update ok
-#       --force-confdef: Это поведение по умолчанию dpkg и этот параметр в основном используется в сочетании с --force-confold.
-#       -force-confold: не изменять текущую конфигурацию в файл, новая версия устанавливается с .dpkg-dist suffix.
-#       С помощью этой опции в покое, даже конфигурационные файлы, которые вы не изменяли, остануться нетронутыми.
-#       Вам надо объединить его с --force-confdef, чтобы позволить dpkg перезаписать файлы конфигурации, которые вы не изменяли.
-    fi
-}
-
-update-composer() {
-  cd /var/www/
-  php composer.phar self-update
-  php composer.phar update || exiterr $? "Failed to update the composer"
-  cd $CURRENT_DIR
-}
-
 load-migrations() {
     php /var/www/protected/yiic migrate || exiterr $? "Failed to load migrations!"
 }
 
 load-migrations-test() {
     php /var/www/protected/yiic migrate --connectionID=db_test || exiterr $? "Failed to load migrations!"
-}
-
-add-php54-repository() {
-    configured php54
-    if [ "$?" -gt 0 ]; then
-        sudo add-apt-repository -y ppa:ondrej/php5-oldstable && apt-get update
-        configured php54 ok
-    fi
 }
 
 created() {
@@ -191,21 +153,16 @@ create-db-test() {
 
 
 ### Выполнение ###
-update-apt
 configure-locale
+install virtualbox-guest-utils
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password 1111'
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password 1111'
 install mysql-server
 install mysql-client
-install update-manager
-install virtualbox-guest-utils
-install python-software-properties
 install apache2
-install curl
 install php5-curl
 install php5
 install php-pear
-add-php54-repository
 install php5-mysql
 install php5-json
 install php5-gd
@@ -214,12 +171,8 @@ install php-apc
 #update-composer
 install php5-xdebug
 install apache2-utils
-
-#pear upgrade pear
-#pear upgrade
 install-phpunit
 
-configure-apc
 configure-mysql
 configure-php
 configure-mod-rewrite

@@ -15,7 +15,6 @@ class OrderController extends Controller
     {
         $employee = new Employee();
 
-        $employee->unsetAttributes();
         $this->render('index', [
             'employee' => $employee,
         ]);
