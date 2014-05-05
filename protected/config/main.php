@@ -87,7 +87,7 @@ return [
             'class' => 'CCacheHttpSession',
         ],
         'cache' => [
-            'class' => 'CApcCache'
+            'class' => 'application.components.YiiRedis.ARedisCache'
         ],
         'widgetFactory' => [
             'widgets' => [

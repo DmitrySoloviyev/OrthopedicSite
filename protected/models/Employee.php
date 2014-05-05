@@ -77,11 +77,17 @@ class Employee extends CActiveRecord
 
     public static function employeeList()
     {
-        $employees = self::model()->findAll('is_deleted = 0');
+        $employees = Yii::app()->redis->getClient()->get('employeesList');
+        if ($employees === false) {
+            $employees = CHtml::listData(self::model()->findAll('is_deleted = 0'), 'id', function($employee){
+                return $employee->fullName();
+            });
+            Yii::app()->redis->getClient()->set('employeesList', CJSON::encode($employees));
+        } else {
+            $employees = CJSON::decode($employees);
+        }
 
-        return CHtml::listData($employees, 'id', function($employee){
-            return $employee->fullName();
-        });
+        return $employees;
     }
 
     public static function getEmployeeShortcutList($employee_id)
@@ -113,6 +119,11 @@ class Employee extends CActiveRecord
         }
 
         return $deleted;
+    }
+
+    public function afterSave()
+    {
+        Yii::app()->redis->getClient()->del('employeesList');
     }
 
 }

@@ -48,7 +48,15 @@ class Material extends CActiveRecord
 
     public static function materialList()
     {
-        return CHtml::listData(self::model()->findAll(), 'id', CHtml::encode('material'));
+        $materials = Yii::app()->redis->getClient()->get('materialsList');
+        if ($materials === false) {
+            $materials = CHtml::listData(self::model()->findAll(), 'id', CHtml::encode('material'));
+            Yii::app()->redis->getClient()->set('materialsList', CJSON::encode($materials));
+        } else {
+            $materials = CJSON::decode($materials);
+        }
+
+        return $materials;
     }
 
     public static function getMaterialShortcutList($meterialId)
@@ -59,6 +67,11 @@ class Material extends CActiveRecord
             ->where('id=:id', array(':id' => $meterialId))
             ->queryRow();
         return $material['material'];
+    }
+
+    public function afterSave()
+    {
+        Yii::app()->redis->getClient()->del('materialsList');
     }
 
 }
