@@ -24,6 +24,13 @@ return [
         ],
     ],
     'components' => [
+        'redis' => [
+            'class' => 'application.components.YiiRedis.ARedisConnection',
+            'hostname' => 'localhost',
+            'port' => 6379,
+            'database' => 1,
+            'prefix' => 'Yii.redis.'
+        ],
         'request' => [
             'enableCsrfValidation' => true,
             'enableCookieValidation' => true,

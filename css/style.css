@@ -443,11 +443,6 @@ button:hover, button:focus, .button:hover, .button:focus {
     color: #d1d1d1;
 }
 
-.left_td {
-    vertical-align: top;
-    padding-top: 1%;
-}
-
 h3 + p {
     text-align: justify;
 }

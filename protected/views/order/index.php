@@ -106,9 +106,9 @@ $this->widget('ext.yii-flash.Flash', [
 <table style="line-height:1.6; padding:0 2% 1% 1%; text-align: justify;">
 <!-- <tr><td style="vertical-align:text-top"><i>Version</i></td><td>Text</td></tr> -->
 
-<!-- <tr><td style="vertical-align:text-top"><i>0.5</i></td><td>Работа с заказчиком. Переработка в соответствии с ТЗ.</td></tr> -->
+<!-- <tr><td style="vertical-align:text-top"><i>0.6</i></td><td>Работа с заказчиком. Переработка в соответствии с ТЗ.</td></tr> -->
 
-<!-- <tr><td style="vertical-align:text-top"><i>0.4</i></td><td>Синхронизация базы данных с мобильным приложением.</td></tr> -->
+<!-- <tr><td style="vertical-align:text-top"><i>0.5</i></td><td>Синхронизация базы данных с мобильным приложением.</td></tr> -->
 <!-- <tr class="infoMessage"><td style="vertical-align:text-top; padding: 1% 0;"><i><b>Сообщение:</b></i></td><td style="padding: 1% 0;"><b>
 		Обновление приложения для Android по работе с базой данных -
 		<a href="<?= Yii::app()->request->baseUrl?>/assets/OrthopedicDB.apk">OrthopedicDB</a>(текущая версия 1.1).<b>Синхронизация базы
@@ -116,7 +116,7 @@ $this->widget('ext.yii-flash.Flash', [
 
 <!--
 <tr>
-    <td style="vertical-align:text-top; color:grey"><i>0.3.9</i></td>
+    <td style="vertical-align:text-top; color:grey"><i>0.4</i></td>
     <td style="color:grey">Портирование на Yii2.</td>
 </tr>
 -->
@@ -125,8 +125,8 @@ $this->widget('ext.yii-flash.Flash', [
 <tr>
     <td style="vertical-align:text-top; color:grey"><i>0.3.1</i></td>
     <td style="color:grey">Поиск осуществляется при помощи поисковой системы полнотекстового поиска
-        <a href="http://sphinxsearch.com/">Sphinx</a>. Изменена регистрация, добавлена
-        авторизация. Разграничение прав доступа на основе RBAC. Начиная с этой версии, можно добавлять заказы только
+        <a href="http://sphinxsearch.com/">Sphinx</a>. Изменена регистрация, добавлена авторизация.
+        Разграничение прав доступа на основе RBAC. Начиная с этой версии, можно добавлять заказы только
         от имени того пользователя, под которым был осуществлен вход. Редактировать и удалять можно только свои
         заказы. Список зарегистрированных и удаленных модельеров теперь виден только в разделе администрирования.
         Визуальная переработка страницы редактирования заказа и таблицы всех заказов.
@@ -150,17 +150,15 @@ $this->widget('ext.yii-flash.Flash', [
             <li>
                 Проведено эталонное тестирование и профилирование: проанализированы и оптимизированы все MySQL-запросы,
                 добавлены недостающие индексы к таблицам и т.д. Нагрузка эмулировалась при помощи
-                <a href="http://www.yiiframework.com/extension/yii-debug-toolbar">yii-debug-toolbar</a> и
                 <a href="http://httpd.apache.org/docs/2.2/programs/ab.html">Apache Benchmark tool (ab)</a>.
             </li>
             <li>
-                Функциональное и Unit-тестирование приложения при помощи таких инструментов, как
-                <a href="http://docs.seleniumhq.org/">Selenium</a> и фрэймворка автоматизированного тестирования
-                <a href="http://phpunit.de/">PHPUnit</a> соответственно. Покрытие приложения тестами -
+                Unit-тестирование приложения при помощи фрэймворка автоматизированного тестирования
+                <a href="http://phpunit.de/">PHPUnit</a>. Покрытие приложения тестами -
                 <a href="#" id="testsReport">100%</a>.
             </li>
             <li>
-                Несколько переработана структура БД (убраны внешние ключи), а ее создание вынесено в миграцию, что
+                Несколько переработана структура БД, а ее создание вынесено в миграцию, что
                 позволит в будущем производить безболезненные изменения в ее структуре, если это потребуется.
                 Резервная копия создается при помощи <a href="http://www.maatkit.org/">Maatkit</a>.
             </li>

@@ -11,66 +11,62 @@ $success = <<< JSS
 
     $('#ModelForm').removeClass('loading');
 JSS;
-
 ?>
-<table>
-    <tr>
-        <td colspan="2" style="font-style: normal; font-size: 1em; text-align:center">
-            <?= CHtml::ajaxLink(
-                "<img src='/images/previous.png' height='16' width='16' />",
-                $this->createUrl('ajax/prevmodel', [Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken]),
-                [
-                    ['replace' => '#ModelForm'],
-                    'data' => [
-                        'id' => "1",
-                        'name' => 'винтажная'
-                    ],
-                    'beforeSend' => "function(request) { " . $beforeSend . " }",
-                    'success' => "function(data){ " . $success . " }",
-                ],
-                ['id' => 'previous',]
-            );?>
 
-            <span id="modelNameTitle">Модель № <?= CHtml::encode($model->name) ?></span>
+<div id="navLeft">
+    <?=
+    CHtml::ajaxLink("<img src='/images/arrow_left.png' height=48 width='48' />",
+        $this->createUrl('ajax/prevmodel', [Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken]),
+        [
+            ['replace' => '#ModelForm'],
+            'data' => [
+                'id' => "1",
+                'name' => 'винтажная'
+            ],
+            'beforeSend' => "function(request) { " . $beforeSend . " }",
+            'success' => "function(data){ " . $success . " }",
+        ],
+        ['id' => 'previous',]
+    );?>
+</div>
 
-            <?= CHtml::ajaxLink(
-                "<img src='/images/next.png' height='16' width='16' />",
-                $this->createUrl('ajax/nextmodel', [Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken]),
-                [
-                    ['replace' => '#ModelForm'],
-                    'data' => [
-                        'id' => "2",
-                        'name' => 'винтажная'
-                    ],
-                    'beforeSend' => "function(request) { " . $beforeSend . " }",
-                    'success' => "function(data){ " . $success . " }",
-                ],
-                ['id' => 'next']
-            );?>
-            <hr/>
-            <br/>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <span id="pic"><img src="#" id="ddd" alt='изображение модели' width="200" height="200"/></span>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">Загрузить изображение:
-            <?= $form->fileField($model, 'picture', ['class' => 'loadImgModel']); ?>
-        </td>
-    </tr>
-    <tr>
-        <td style="width: 1px;">Описание:</td>
-        <td>
-            <?php
-            echo $form->TextArea($model, 'description', ['rows' => '6', 'cols' => '30', 'autocomplete' => 'Off']);
-            echo $form->error($model, 'description');
-            ?>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" id='Models_date_modified'>Дата изменения: <?= $model->date_modified; ?></td>
-    </tr>
-</table>
+<div id="navRight">
+    <?=
+    CHtml::ajaxLink("<img src='/images/arrow_right.png' height=48 width='48' />",
+        $this->createUrl('ajax/nextmodel', [Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken]),
+        [
+            ['replace' => '#ModelForm'],
+            'data' => [
+                'id' => "2",
+                'name' => 'винтажная'
+            ],
+            'beforeSend' => "function(request) { " . $beforeSend . " }",
+            'success' => "function(data){ " . $success . " }",
+        ],
+        ['id' => 'next']
+    );?>
+</div>
+
+<div id="modelContent">
+
+    <span style="font-style: italic; font-size: 1.1em;">Модель № <?= CHtml::encode($model->name) ?></span>
+
+    <div id="pic">
+        <img src="#" id="ddd" alt='изображение модели'/>
+    </div>
+
+    <label style="display: block;text-align: center;cursor: pointer;">
+        <a>Загрузить изображение
+            <?= $form->fileField($model, 'picture', ['class' => 'loadImgModel', 'style' => 'display:none']); ?>
+        </a>
+    </label>
+
+    <div style="margin: 3% auto">
+        <?php
+        echo $form->TextArea($model, 'description', ['rows' => '10', 'cols' => '39', 'autocomplete' => 'Off', 'placeholder' => 'Описание модели']);
+        echo $form->error($model, 'description');
+        ?>
+    </div>
+
+    <div class="subInfo">Дата изменения: <?= $model->date_modified; ?></div>
+</div>

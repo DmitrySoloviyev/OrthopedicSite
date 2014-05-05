@@ -134,17 +134,29 @@ jQuery(function ($) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                console.log(e);
+                $('#ddd').attr('href', e.target.result);
                 $('#ddd').attr('src', e.target.result);
-                $('#ddd').fancybox();
+//                $('#ddd').fancybox();
             };
 
             reader.readAsDataURL(input.files[0]);
         }
     }
 
+    function PreviewImage() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("Models_picture").files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("ddd").src = oFREvent.target.result;
+//            $('#ddd').fancybox({href: oFREvent.target.result});
+
+        };
+    };
+
     $('#Models_picture').change(function () {
         readURL(this);
+//        PreviewImage();
     });
 
     $('#ModelForm').draggable({

@@ -22,9 +22,13 @@ class UserCreateTest extends TestCase
             ]
         ];
 
-        $response = $this->sendPost('user/create', $data);
+//        echo Yii::app()->getBaseUrl(true);
+//        echo Yii::app()->createAbsoluteUrl('user/create');
+        $response = $this->sendPost('/user/create', $data);
         print_r($response);
-print_r(Yii::app()->db);
-        print_r(Employee::model()->findAll());
+
+//        print_r(Employee::model()->findAll());
+//        $this->assertTrue(true);
+        // phpunit --coverage-html report unit/UserCreateTest.php
     }
 }

@@ -20,16 +20,17 @@
 
 		selectedIndex = 0, selectedOpts = {}, selectedArray = [], currentIndex = 0, currentOpts = {}, currentArray = [],
 
-		ajaxLoader = null, imgPreloader = new Image(), imgRegExp = /\.(jpg|gif|png|bmp|jpeg)(.*)?$/i, swfRegExp = /[^\.]\.(swf)\s*$/i,
-
-		loadingTimer, loadingFrame = 1,
+//		ajaxLoader = null, imgPreloader = new Image(), imgRegExp = /\.(jpg|gif|png|bmp|jpeg)(.*)?$/i, swfRegExp = /[^\.]\.(swf)\s*$/i,
+        ajaxLoader = null, imgPreloader = new Image(), imgRegExpdatauri=/^data:image/i ,imgRegExp = /.(jpg|gif|png|bmp|jpeg)(.)?$/i, swfRegExp = /[^.].(swf)\s$/i,
+        swfRegExp = /[^\.]\.(swf)\s*$/i,
+        loadingTimer, loadingFrame = 1,
 
 		titleHeight = 0, titleStr = '', start_pos, final_pos, busy = false, fx = $.extend($('<div/>')[0], { prop: 0 }),
 
 		isIE6 = $.browser.msie && $.browser.version < 7 && !window.XMLHttpRequest,
 
 		/*
-		 * Private methods 
+		 * Private methods
 		 */
 
 		_abort = function() {
@@ -63,8 +64,8 @@
 
 		_start = function() {
 			var obj = selectedArray[ selectedIndex ],
-				href, 
-				type, 
+				href,
+				type,
 				title,
 				str,
 				emb,
@@ -110,7 +111,11 @@
 				type = 'html';
 
 			} else if (href) {
-				if (href.match(imgRegExp)) {
+                if (href.match(imgRegExpdatauri)) {
+                    type = 'image2';
+                    console.log('dfgf')
+
+                } else if (href.match(imgRegExp)) {
 					type = 'image';
 
 				} else if (href.match(swfRegExp)) {
@@ -146,7 +151,7 @@
 					selectedOpts.width = 'auto';
 					selectedOpts.height = 'auto';
 				} else {
-					selectedOpts.autoDimensions = false;	
+					selectedOpts.autoDimensions = false;
 				}
 			}
 
@@ -164,7 +169,7 @@
 			tmp.css('padding', (selectedOpts.padding + selectedOpts.margin));
 
 			$('.fancybox-inline-tmp').unbind('fancybox-cancel').bind('fancybox-change', function() {
-				$(this).replaceWith(content.children());				
+				$(this).replaceWith(content.children());
 			});
 
 			switch (type) {
@@ -192,6 +197,23 @@
 
 					_process_inline();
 				break;
+
+                case 'image2':
+                    busy = false;
+
+                    $.fancybox.showActivity();
+                    imgPreloader = new Image();
+                    imgPreloader.onerror = function() {
+                        _error();
+                    };
+
+                    imgPreloader.onload = function() {
+                        busy = true;
+                        imgPreloader.onerror = imgPreloader.onload = null;
+                        _process_image();
+                    };
+                    imgPreloader.src = href;
+                break;
 
 				case 'image':
 					busy = false;
@@ -285,14 +307,14 @@
 				w = parseInt( ($(window).width() - (selectedOpts.margin * 2)) * parseFloat(w) / 100, 10) + 'px';
 
 			} else {
-				w = w == 'auto' ? 'auto' : w + 'px';	
+				w = w == 'auto' ? 'auto' : w + 'px';
 			}
 
 			if (h.toString().indexOf('%') > -1) {
 				h = parseInt( ($(window).height() - (selectedOpts.margin * 2)) * parseFloat(h) / 100, 10) + 'px';
 
 			} else {
-				h = h == 'auto' ? 'auto' : h + 'px';	
+				h = h == 'auto' ? 'auto' : h + 'px';
 			}
 
 			tmp.wrapInner('<div style="width:' + w + ';height:' + h + ';overflow: ' + (selectedOpts.scrolling == 'auto' ? 'auto' : (selectedOpts.scrolling == 'yes' ? 'scroll' : 'hidden')) + ';position:relative;"></div>');
@@ -445,8 +467,8 @@
 				return;
 			}
 
-			if (currentOpts.titlePosition == 'inside' && titleHeight > 0) {	
-				title.show();	
+			if (currentOpts.titlePosition == 'inside' && titleHeight > 0) {
+				title.show();
 			}
 
 			content
@@ -560,7 +582,7 @@
 				});
 			}
 
-			if (!currentOpts.showNavArrows) { 
+			if (!currentOpts.showNavArrows) {
 				nav_left.hide();
 				nav_right.hide();
 				return;
@@ -596,7 +618,7 @@
 			}
 
 			_set_navigation();
-	
+
 			if (currentOpts.hideOnContentClick)	{
 				content.bind('click', $.fancybox.close);
 			}
@@ -627,7 +649,7 @@
 		},
 
 		_preload_images = function() {
-			var href, 
+			var href,
 				objNext;
 
 			if ((currentArray.length -1) > currentIndex) {
@@ -781,7 +803,7 @@
 		};
 
 	/*
-	 * Public methods 
+	 * Public methods
 	 */
 
 	$.fn.fancybox = function(options) {
@@ -1014,14 +1036,14 @@
 		var view, align;
 
 		if (busy) {
-			return;	
+			return;
 		}
 
 		align = arguments[0] === true ? 1 : 0;
 		view = _get_viewport();
 
 		if (!align && (wrap.width() > view[0] || wrap.height() > view[1])) {
-			return;	
+			return;
 		}
 
 		wrap

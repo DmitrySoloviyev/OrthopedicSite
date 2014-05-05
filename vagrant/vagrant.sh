@@ -172,6 +172,8 @@ install php-apc
 install php5-xdebug
 install apache2-utils
 install-phpunit
+install redis-server
+install php5-redis
 
 configure-mysql
 configure-php

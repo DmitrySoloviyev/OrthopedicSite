@@ -16,7 +16,14 @@ return CMap::mergeArray(
             ],
             'urlManager' => [
                 'urlFormat' => 'get',
+                'showScriptName' => true,
             ],
+//            'request' => [
+//                'serverName' => 'http://localhost',
+//                'scriptUrl' => '/',
+//                'hostInfo' => 'http://localhost',
+//                'baseUrl' => 'http://localhost/index-test.php',
+//            ],
         ],
     ]
 );

@@ -2,6 +2,6 @@
 .directory
 /vagrant/var/
 .vagrant/
-.idea
+.idea/
 /assets/
 /pma/
