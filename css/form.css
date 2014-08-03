@@ -153,7 +153,6 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage {
 #modelForm {
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
-    /*width: 380px;*/
     width: 41%;
     background-color: rgba(232, 232, 232, 0.9);
     float: left;
@@ -256,7 +255,7 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage {
     height: 20px;
     background-color: transparent;
     color: #4e443c;
-    width: 199px;
+    width: 210px;
     box-shadow: none;
     padding: 2px;
     font-size: 13px;

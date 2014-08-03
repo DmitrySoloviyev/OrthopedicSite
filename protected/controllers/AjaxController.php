@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: dmitry
@@ -10,20 +11,20 @@ class AjaxController extends Controller
     public function filters()
     {
         return [
-            'ajaxOnly + getmodels, nextmodel, prevmodel',
+            'ajaxOnly + getmodels, nextmodel, prevmodel, GetModelInfoById',
         ];
     }
 
     public function actionGetModels($term)
     {
-        $criteria = new CDbCriteria;
-        $criteria->select = 'name';
+        $criteria = new CDbCriteria();
+        $criteria->select = 'id, name';
         $criteria->condition = 'name LIKE :name';
         $criteria->params = [':name' => '%' . $term . '%'];
         $models = Models::model()->findAll($criteria);
         $result = [];
         foreach ($models as $model) {
-            $result[] = ['label' => $model->name, 'value' => $model->name];
+            $result[] = ['id' => $model->id, 'label' => $model->name, 'value' => $model->name];
         }
 
         echo CJSON::encode($result);
@@ -40,7 +41,6 @@ class AjaxController extends Controller
             $model = Models::model()->findByPk($_GET['id']);
         }
 
-//        $this->renderPartial('/order/_model', ['model' => $model], false, true);
         echo CJSON::encode($model);
     }
 
@@ -55,8 +55,18 @@ class AjaxController extends Controller
             $model = Models::model()->findByPk($_GET['id']);
         }
 
-//        $this->renderPartial('/order/_model', ['model' => $model], false, true);
         echo CJSON::encode($model);
+    }
+
+    public function actionGetModelInfoById($id)
+    {
+//        $criteria = new CDbCriteria;
+//        $criteria->condition = 'name = :name';
+//        $criteria->params = [':name' => $_GET['name']];
+//        $criteria->limit = 1;
+//        $model = Models::model()->findByPk($id);
+
+        echo CJSON::encode(Models::model()->findByPk($_GET['id']));
     }
 
 }

@@ -18,8 +18,7 @@ $this->widget('ext.yii-flash.Flash', [
         'success' => ['class' => 'flash-success'],
         'error' => ['class' => 'flash-error'],
     ],
-]);
-?>
+]); ?>
 
 <div class="form">
     <?php $form = $this->beginWidget('CActiveForm', [
@@ -44,15 +43,16 @@ $this->widget('ext.yii-flash.Flash', [
                     'model' => $model,
                     'attribute' => 'name',
                     'name' => 'name',
-                    'source' => $this->createUrl("ajax/getmodels", [Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken]),
+                    'source' => $this->createUrl('ajax/getmodels', [Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken]),
                     'options' => [
                         'showAnim' => 'fold',
-                        'minLength' => '2',
-                        'select' => new CJavaScriptExpression('function(event,ui) {
-                                $("#Models_name").val(ui.item.label).change().blur();
-                                $("#modelId").val(ui.item.id);
-                                return false;
-                            }'),
+                        'minLength' => '1',
+                        'select' => 'js:function(event,ui) {
+                            $("#Models_name").val(ui.item.label).change().blur();
+                            $("#selectedModelId").val(ui.item.id);
+                            getModelInfoById(ui.item.id);
+                            return false;
+                        }',
                     ],
                     'htmlOptions' => [
                         'id' => CHtml::activeId($model, 'name'),
@@ -60,13 +60,10 @@ $this->widget('ext.yii-flash.Flash', [
                         'maxlength' => '6'
                     ],
                 ]);
-
-                echo '<br />' . $form->checkBox($model, 'is_new_model', ['disabled' => 'disabled']) . ' ';
-                echo $form->labelEx($model, 'is_new_model', ['style' => 'font-weight: normal; font-style: italic; font-size: 0.9em; display: inline;']);
                 echo $form->error($model, 'name');
                 ?>
             </div>
-            <input type="hidden" id="modelId" value=""/>
+            <input type="hidden" id="selectedModelId" />
 
             <div>Размер:</div>
             <div class="row" style="float: left">

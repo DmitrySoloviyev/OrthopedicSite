@@ -38,13 +38,15 @@
         echo 'п ';
         echo CHtml::encode($data->kvVolumeRight->Value); ?>
     </td>
-    <td><?= CHtml::encode($data->customer->surname) . ' '
-            . iconv_substr(CHtml::encode($data->customer->name), 0, 1, 'utf-8') . '. '
-            . iconv_substr(CHtml::encode($data->customer->patronymic), 0, 1, 'utf-8') . ".";?>
+    <td><?=
+        CHtml::encode($data->customer->surname) . ' '
+        . iconv_substr(CHtml::encode($data->customer->name), 0, 1, 'utf-8') . '. '
+        . iconv_substr(CHtml::encode($data->customer->patronymic), 0, 1, 'utf-8') . ".";?>
     </td>
-    <td><?= CHtml::encode($data->employee->surname) . ' '
-            . iconv_substr(CHtml::encode($data->employee->name), 0, 1, 'utf-8') . '. '
-            . iconv_substr(CHtml::encode($data->employee->patronymic), 0, 1, 'utf-8') . '.'
+    <td><?=
+        CHtml::encode($data->employee->surname) . ' '
+        . iconv_substr(CHtml::encode($data->employee->name), 0, 1, 'utf-8') . '. '
+        . iconv_substr(CHtml::encode($data->employee->patronymic), 0, 1, 'utf-8') . '.'
         ?>
     </td>
     <td><?= CHtml::encode(date('d.m.Y H:i', strtotime($data->date_created))); ?></td>
@@ -52,13 +54,17 @@
 
     <?php if (!Yii::app()->user->isGuest): ?>
         <td><?= CHtml::link('', $this->createUrl('order/update', ['id' => $data->order_id]), ['class' => 'editrow']); ?></td>
-        <td><?= CHtml::link('', '#', [
-                    'class' => 'delrow',
-                    'submit' => $this->createUrl('order/delete', ['id' => $data->order_id]),
-                    'params' => [Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken],
-                    'confirm' => 'Вы действительно хотите удалить этот заказ?',
-                    'csrf' => true
-                ]);?>
+        <td><?=
+            CHtml::link('', '#', [
+                'class' => 'delrow',
+                'submit' => $this->createUrl('order/delete', ['id' => $data->order_id]),
+                'params' => [Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken],
+                'confirm' => 'Вы действительно хотите удалить этот заказ?',
+                'csrf' => true
+            ]);?>
         </td>
     <?php endif; ?>
 </tr>
+
+
+

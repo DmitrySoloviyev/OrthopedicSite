@@ -22,63 +22,14 @@ $this->widget('ext.yii-flash.Flash', [
 <div id='tabs'>
     <?php $this->widget('ext.quote-widget.Quote'); ?>
     <ul>
-        <li><a href="#tabs_1">Новый модельер</a></li>
         <li><a href="#tabs_2">Зарегестрированные модельеры</a></li>
         <li><a href="#tabs_3">Удаленные модельеры</a></li>
     </ul>
-    <div id="tabs_1">
-        <div class="form">
-            <?php $form = $this->beginWidget('CActiveForm', [
-                'id' => 'add-employee-form',
-                'enableClientValidation' => true,
-                'clientOptions' => ['validateOnSubmit' => true],
-                'action' => Yii::app()->createUrl('user/create'),
-            ]); ?>
-            <fieldset>
-                <legend>Новый сотрудник</legend>
-                <div>
-                    <div class="row">
-                        <?php
-                        echo $form->TextField($employee, 'surname', [
-                                'autocomplete' => 'Off',
-                                'maxlength' => '29',
-                                'placeholder' => 'Фамилия',
-                                'class' => 'input_text',
-                            ]);
-                        echo $form->error($employee, 'surname');?>
-                    </div>
-                    <div class="row">
-                        <?php echo $form->TextField($employee, 'name', [
-                                'autocomplete' => 'Off',
-                                'maxlength' => '29',
-                                'placeholder' => 'Имя',
-                                'class' => 'input_text',
-                            ]);
-                        echo $form->error($employee, 'name');?>
-                    </div>
-                    <div class="row">
-                        <?php
-                        echo $form->TextField($employee, 'patronymic', [
-                                'autocomplete' => 'Off',
-                                'maxlength' => '29',
-                                'placeholder' => 'Отчество',
-                                'class' => 'input_text',
-                            ]);
-                        echo $form->error($employee, 'patronymic');?>
-                    </div>
-                </div>
-                <div class="row submit">
-                    <?php echo CHtml::submitButton('Отправить', array('class' => 'button')); ?>
-                </div>
-            </fieldset>
-            <?php $this->endWidget(); ?>
-        </div><!-- form -->
-    </div>
     <div id="tabs_2">
         <?= Employee::searchEmployee()?>
     </div>
     <div id="tabs_3">
-        <?= Employee::searchEmployee(1)?>
+        <?= Employee::searchEmployee(true)?>
     </div>
 </div>
 <br/>
@@ -86,15 +37,16 @@ $this->widget('ext.yii-flash.Flash', [
 <ul>
     <li>Чистка и профессиональное оформление кода</li>
     <li>Улучшить интеграцию с Yii</li>
-    <li>Кэширование: Redis</li>
+    <del><li>Кэширование: Redis</li></del>
     <del><li>Убрать в actionIndex проверку существования базы (реализовать миграцию)</li></del>
     <li>Профилирование: анализ MySQL запросов (лог медленных запросов) и их оптимизация (если возможно)</li>
     <li>Эталонное тестирование</li>
     <li>Повысить безопасность</li>
     <del><li>Включить кэширование схем бд для улучшения производительности</li></del>
-    <li>PHPUnit</li>
-    <li>Отображение таблицы через метод search() модели</li>
-    <li>Заменить CListView на CGridView</li>
+    <li>Codeception</li>
+    <del><li>Отображение таблицы через метод search() модели</li></del>
+    <del><li>Заменить CListView на CGridView</li></del>
+    <del><li>Админка</li></del>
     <li>Фильтровать ввод, экранировать вывод</li>
     <li>TODO $this->createIndex('employees_is_deleted', 'employees', 'is_deleted');</li>
     <li>Рассмотреть возможность избавиться от меню "Поиск" и реализовать его в GridView</li>
@@ -117,29 +69,39 @@ $this->widget('ext.yii-flash.Flash', [
 <!--
 <tr>
     <td style="vertical-align:text-top; color:grey"><i>0.4</i></td>
-    <td style="color:grey">Портирование на Yii2.</td>
+    <td style="color:grey">Портирование на Yii 2.0</td>
 </tr>
 -->
 
 <!--
 <tr>
-    <td style="vertical-align:text-top; color:grey"><i>0.3.1</i></td>
-    <td style="color:grey">Поиск осуществляется при помощи поисковой системы полнотекстового поиска
-        <a href="http://sphinxsearch.com/">Sphinx</a>. Изменена регистрация, добавлена авторизация.
-        Разграничение прав доступа на основе RBAC. Начиная с этой версии, можно добавлять заказы только
-        от имени того пользователя, под которым был осуществлен вход. Редактировать и удалять можно только свои
-        заказы. Список зарегистрированных и удаленных модельеров теперь виден только в разделе администрирования.
-        Визуальная переработка страницы редактирования заказа и таблицы всех заказов.
+    <td style="vertical-align:text-top; color:grey"><i>0.3.2</i></td>
+    <td style="color:grey">Благодаря внедрению поисковой системы полнотекстового поиска
+        <a href="http://sphinxsearch.com/">Sphinx</a> поиск по базе данных осуществляется на порядок быстрее.
     </td>
+</tr>
+-->
+
+<!--
+<tr>
+    <td style="vertical-align:text-top"><i>0.3.1</i></td>
+    <td style="color:grey">Добавлена регистрация и авторизация. Разграничение прав доступа на основе RBAC.
+    Начиная с этой версии, заказы добавляются от имени того пользователя, под которым был осуществлен вход.
+    Редактировать и удалять можно только свои заказы и модели. Администратору, как и положено - любые.
+    К моделями добавлен атрибут автор. Ресайз загружаемых изображений моделей. На странице со всеми моделями теперь
+    отображаются их уменьшенные изображения. Серьезно изменена визуальная основа сайта: внешний вид основан на
+    <a href="http://getbootstrap.com/">Bootstrap</a>, совместно с
+    <a href="http://fontawesome.veliovgroup.com/">Font Awesome</a>.</td>
 </tr>
 -->
 
 <tr>
     <td style="vertical-align:text-top; color:grey"><i>0.3</i></td>
-    <td style="color:grey;padding-bottom: 2%;">Новая ступень развития. Каких-либо визуальных изменений практически нет,
-        все изменения и доработки "под капотом" сайта. Текущая ветка имеет в основном чисто технический характер.
-        В первую очередь уделено внимание безопасности сайта, его стабильности и оптимизации, с целью повышения
-        производительности. Полностью переработан, оптимизирован и корректно оформлен код. Теперь конкретнее:
+    <td style="color:grey;padding-bottom: 2%;">Фреймворк обновлен до версии 1.1.15.
+        Каких-либо визуальных изменений практически нет, все изменения и доработки "под капотом" сайта.
+        Текущая ветка имеет в основном чисто технический характер. В первую очередь уделено внимание безопасности сайта,
+        его стабильности и оптимизации, с целью повышения производительности. Полностью переработан, оптимизирован и
+        корректно оформлен код. Теперь конкретнее:
         <ul class="newsList">
             <li>
                 Внедрено кэширования данных (реализовано при помощи <a href="http://redis.io/">Redis</a>).
@@ -148,19 +110,18 @@ $this->widget('ext.yii-flash.Flash', [
                 php-акселлератор APC (Alternative PHP Cache).
             </li>
             <li>
-                Проведено эталонное тестирование и профилирование: проанализированы и оптимизированы все MySQL-запросы,
-                добавлены недостающие индексы к таблицам и т.д. Нагрузка эмулировалась при помощи
+                Проведено эталонное тестирование и профилирование. Нагрузка эмулировалась при помощи
                 <a href="http://httpd.apache.org/docs/2.2/programs/ab.html">Apache Benchmark tool (ab)</a>.
             </li>
             <li>
-                Unit-тестирование приложения при помощи фрэймворка автоматизированного тестирования
-                <a href="http://phpunit.de/">PHPUnit</a>. Покрытие приложения тестами -
-                <a href="#" id="testsReport">100%</a>.
+                Тестирование приложения при помощи фреймворка автоматического тестирования веб-приложений
+                <a href="http://codeception.com/">Codeception</a>.
             </li>
             <li>
                 Несколько переработана структура БД, а ее создание вынесено в миграцию, что
                 позволит в будущем производить безболезненные изменения в ее структуре, если это потребуется.
                 Резервная копия создается при помощи <a href="http://www.maatkit.org/">Maatkit</a>.
+
             </li>
             <li>
                 Автоматическое развертывание веб-приложения при помощи <a href="http://www.vagrantup.com/">Vagrant</a>.
@@ -170,6 +131,13 @@ $this->widget('ext.yii-flash.Flash', [
             </li>
             <li>
                 Более тесная и полная интеграция с фреймворком Yii.
+            </li>
+            <li>
+                Полноценная админка для создания, редактирования, удаления и просмотра моделей, материалов, модельеров,
+                а также выполнения некоторых специфичных действий (выгрузка отчетов, бэкап базы данных и т.д).
+                Больше нет возможности создать новую модель при оформлении нового заказа,
+                теперь это возможно в соответствующем разделе меню (администратор это также может делать из админки).
+                В таблице с заказами добавилась кнопка детального просмотра.
             </li>
             <li>
                 Приложение включает в себя консольную утилиту, выполняющая резервное копирование базы данных. Настройте
@@ -237,9 +205,9 @@ $this->widget('ext.yii-flash.Flash', [
 <tr class="infoMessage">
     <td style="vertical-align:text-top; padding: 1% 0;"><i><b>Сообщение:</b></i></td>
     <td style="padding: 1% 0;"><b> Состоялся <u>релиз</u> приложения для Android по работе с базой данных -
-            <a href="<?php echo Yii::app()->request->baseUrl; ?>/assets/OrthopedicDB.apk"><i>OrthopedicDB</i></a>
-            (текущая
-            версия 1.0).<b></td>
+        <a href="<?php echo Yii::app()->request->baseUrl; ?>/upload/OrthopedicDB.apk"><i>OrthopedicDB</i></a>
+        (текущая версия 1.0).<b>
+    </td>
 </tr>
 
 <tr>

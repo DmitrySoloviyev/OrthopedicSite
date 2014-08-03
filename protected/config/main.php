@@ -12,15 +12,37 @@ return [
             'class' => 'ext.minScript.controllers.ExtMinScriptController',
         ],
     ],
+//    'aliases' => [
+//        'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'),
+//    ],
     'import' => [
         'application.models.*',
         'application.components.*',
+//        'bootstrap.helpers.TbHtml',
     ],
     'modules' => [
+        'admin' => [
+            'class' => 'application.modules.admin.AdminModule',
+            'preload' => ['bootstrap'],
+            'aliases' => [
+                'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'),
+            ],
+            'import' => [
+                'bootstrap.helpers.*',
+                'bootstrap.behaviors.*',
+                'bootstrap.widgets.*',
+            ],
+            'components' => [
+                'bootstrap' => [
+                    'class' => 'bootstrap.components.TbApi',
+                ],
+            ],
+        ],
         'gii' => [
             'class' => 'system.gii.GiiModule',
             'password' => '1111',
             'ipFilters' => ['127.0.0.1', '192.168.33.1'],
+//            'generatorPaths' => ['bootstrap.gii'],
         ],
     ],
     'components' => [
@@ -29,8 +51,11 @@ return [
             'hostname' => 'localhost',
             'port' => 6379,
             'database' => 1,
-            'prefix' => 'Yii.redis.'
+            'prefix' => 'ortho.'
         ],
+//        'bootstrap' => [
+//            'class' => 'bootstrap.components.TbApi',
+//        ],
         'request' => [
             'enableCsrfValidation' => true,
             'enableCookieValidation' => true,
@@ -45,10 +70,15 @@ return [
             'rules' => [
                 'gii' => 'gii',
                 '' => 'order/index',
-                'gii/<controller:\w+>' => 'gii/<controller>',
-                'gii/<controller:\w+>/<action:\w+>' => 'gii/<controller>/<action>',
-                '<controller:\w+>/<action:\w+>/<id:\d+|\w+>' => '<controller>/<action>',
+                '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>/<id>',
+
+                '<module:\w+>/<controller:\w+>/<id:\d+>' => '<module>/<controller>/view',
+                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
+
+                '/admin/*' => 'admin',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>/<id>',
             ],
         ],
         'db' => [
@@ -58,9 +88,9 @@ return [
             'username' => 'root',
             'password' => '1111',
             'charset' => 'utf8',
-            'enableProfiling' => true,
-            'enableParamLogging' => true,
-            'schemaCachingDuration' => 0, // месяц 2592000
+            'enableProfiling' => YII_DEBUG,
+            'enableParamLogging' => YII_DEBUG,
+            'schemaCachingDuration' => YII_DEBUG ? 0 : 2592000,
         ],
         'errorHandler' => [
             'errorAction' => 'order/error',
@@ -70,16 +100,11 @@ return [
             'routes' => [
                 [
                     'class' => 'CProfileLogRoute',
-                    'enabled' => true,
+                    'enabled' => YII_DEBUG,
                     'report' => 'summary',
                 ],
                 [
                     'class' => 'CWebLogRoute',
-                ],
-                [
-                    'class' => 'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
-                    'ipFilters' => ['127.0.0.1', '192.168.33.1'],
-                    'enabled' => YII_DEBUG,
                 ],
             ],
         ],
@@ -120,6 +145,7 @@ return [
     ],
     'params' => [
         'adminEmail' => 'dmitry.soloviyev@gmail.com',
+        'version' => 'Версия 0.3 - dev',
     ],
     'timeZone' => 'Europe/Moscow',
 ];

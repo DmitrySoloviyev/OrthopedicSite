@@ -33,48 +33,46 @@ class OrderController extends Controller
             $order->attributes = $_POST['Order'];
             $customer->attributes = $_POST['Customer'];
             $model->attributes = $_POST['Models'];
-
-            $transaction = $model->dbConnection->beginTransaction();
+print_r($_POST);
+            $transaction = Yii::app()->db->beginTransaction();
             // сохраняем заказчика
             if (!$customer->save()) {
                 $transaction->rollback();
-                Yii::app()->user->setFlash('error', "Ошибка при добавлении записи!");
+                Yii::app()->user->setFlash('error', 'Ошибка при сохранении заказчика!');
+
+                return;
             }
             $order->customer_id = $customer->id;
 
-            //записываем модель
-            // если чек-бокс отмечен, значит это новая модель, тут просто сохраняем
-            // иначе мы должны вписать айдишник существующей модели и проапдейтить ее (возможно пользователь обновил ее данные)
-            if ($model->basedID == null) {
-                if ($loadImage = CUploadedFile::getInstance($model, 'loadImage')) {
-                    $model->loadImage = $loadImage;
-                    $model->loadImage->saveAs(Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $model->loadImage->extensionName);
-                    $model->ModelPicture = "" . Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $model->loadImage->extensionName;
-                }
-                $model->save();
-                $model->ModelID = $model->id;
-            } else {
-                // это запрос на изменение картинки существующей модели
+
+            if (!$model->save()) {
+                $transaction->rollback();
+                Yii::app()->user->setFlash('error', 'Ошибка при сохранении модели!');
+
+                return;
+            }
+            $order->model_id = $model->id;
+
+            /*
                 $model->ModelID = $model->basedID;
-                $newDescroption = $model->ModelDescription;
-                $modelsModel = Models::model()->findByPk($model->ModelID);
-                if ($loadImage = CUploadedFile::getInstance($modelsModel, 'loadImage')) {
-                    $modelsModel->loadImage = $loadImage;
-                    $oldImage = $modelsModel->ModelPicture;
+                $newDescroption = $model->description;
+                $model= Models::model()->findByPk($model->id);
+                if ($loadImage = CUploadedFile::getInstance($model, 'picture')) {
+                    $model->loadImage = $loadImage;
+                    $oldImage = $model->picture;
                     // удаляем старую картинку если она существует
                     if (file_exists($oldImage))
                         unlink($oldImage);
-                    $modelsModel->loadImage->saveAs(Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $modelsModel->loadImage->extensionName);
-                    $modelsModel->ModelPicture = Yii::app()->request->baseUrl . 'assets/OrthopedicGallery/' . time() . "." . $modelsModel->loadImage->extensionName;
+                    $model->loadImage->saveAs(YiiBase::getPathOfAlias(Models::imagePath) . time() . '.' . $model->picture->extensionName);
+                    $model->ModelPicture = YiiBase::getPathOfAlias(Models::imagePath) . time() . '.' . $model->picture->extensionName;
                 }
-                $modelsModel->ModelDescription = $newDescroption;
-                $modelsModel->save();
+                $model->ModelDescription = $newDescroption;
             }
-
+*/
             // записываем заказ
-            if ($model->save()) {
+            if ($order->save(false)) {
                 $transaction->commit();
-                Yii::app()->user->setFlash('success', "Запись успешно добавлена!");
+                Yii::app()->user->setFlash('success', 'Новый заказ успешно добавлен!');
 
                 //очищаем поля формы
                 $order->unsetAttributes();
@@ -82,7 +80,7 @@ class OrderController extends Controller
                 $customer->unsetAttributes();
             } else {
                 $transaction->rollback();
-                Yii::app()->user->setFlash('error', "Ошибка при добавлении записи!");
+                Yii::app()->user->setFlash('error', 'Ошибка при добавлении заказа!', $order->getErrors());
             }
         }
 
@@ -347,63 +345,11 @@ class OrderController extends Controller
             $criteria->condition = $query;
         }
 
-        $dataProvider = new CActiveDataProvider(Order::model()->with(
-                'material',
-                'model',
-                'sizeLeft',
-                'sizeRight',
-                'topVolumeLeft',
-                'topVolumeRight',
-                'ankleVolumeLeft',
-                'ankleVolumeRight',
-                'kvVolumeLeft',
-                'kvVolumeRight',
-                'customer',
-                'employee',
-                'urkLeft',
-                'urkRight',
-                'heightLeft',
-                'heightRight'
-            ),[
-                'criteria' => $criteria,
-                'pagination' => [
-                    'pageSize' => 20,
-                ],
-                'sort' => [
-                    'attributes' => [
-                        'order_id' => [
-                            'asc' => 'order_id ASC',
-                            'desc' => 'order_id desc',
-                            'default' => 'desc',
-                        ],
-                        'model_id' => [
-                            'asc' => 'model_id asc',
-                            'desc' => 'model_id desc',
-                            'default' => 'desc',
-                        ],
-                        'material_id' => [
-                            'asc' => 'material_id asc',
-                            'desc' => 'material_id desc',
-                            'default' => 'desc',
-                        ],
-                        'employee_id' => [
-                            'asc' => 'employee_id asc',
-                            'desc' => 'employee_id desc',
-                            'default' => 'desc',
-                        ],
-                        't.date_created' => [
-                            'asc' => 't.date_created',
-                            'desc' => 't.date_created desc',
-                            'default' => 'desc',
-                        ],
-                    ],
-                    'defaultOrder' => [
-                        't.date_created' => CSort::SORT_DESC,
-                    ]
-                ],
-            ]);
-print_r($dataProvider);
-        $this->render('view', ['dataProvider' => $dataProvider]);
+        $order = new Order('search');
+
+        $this->render('view', [
+            'order' => $order
+        ]);
     }
 
     /**
@@ -479,7 +425,7 @@ print_r($dataProvider);
             $customer->CustomerFN = $customer->CustomerFNUpdate;
             $customer->CustomerP = $customer->CustomerPUpdate;
 
-            $transaction = $model->dbConnection->beginTransaction();
+            $transaction = Yii::app()->db->beginTransaction();
             try {
                 // используем транзакцию, чтобы удостовериться в целостности данных
                 //записываем заказчика
@@ -623,6 +569,7 @@ print_r($dataProvider);
                 $params .= " $('td:nth-child($num_child)').highlight('" . $num . "'); ";
             }
         }
+
         return $params;
     }
 

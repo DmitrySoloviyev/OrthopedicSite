@@ -153,6 +153,7 @@ create-db-test() {
 
 
 ### Выполнение ###
+sudo apt-get update
 configure-locale
 install virtualbox-guest-utils
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password 1111'

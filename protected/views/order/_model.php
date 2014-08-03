@@ -20,8 +20,8 @@ JSS;
         [
             ['replace' => '#ModelForm'],
             'data' => [
-                'id' => "1",
-                'name' => 'винтажная'
+                'id' => 'js:$("#Models_name").val()',
+                'name' => 'js:$("#modelId").val()',
             ],
             'beforeSend' => "function(request) { " . $beforeSend . " }",
             'success' => "function(data){ " . $success . " }",
@@ -37,8 +37,8 @@ JSS;
         [
             ['replace' => '#ModelForm'],
             'data' => [
-                'id' => "2",
-                'name' => 'винтажная'
+                'id' => 'js:$("#Models_name").val()',
+                'name' => 'js:$("#modelId").val()',
             ],
             'beforeSend' => "function(request) { " . $beforeSend . " }",
             'success' => "function(data){ " . $success . " }",
@@ -52,7 +52,7 @@ JSS;
     <span style="font-style: italic; font-size: 1.1em;">Модель № <?= CHtml::encode($model->name) ?></span>
 
     <div id="pic">
-        <img src="#" id="ddd" alt='изображение модели'/>
+        <img src="../../../upload/OrthopedicGallery/ortho.jpg" href="../../../upload/OrthopedicGallery/ortho.jpg" id="ddd" alt='изображение модели' />
     </div>
 
     <label style="display: block;text-align: center;cursor: pointer;">

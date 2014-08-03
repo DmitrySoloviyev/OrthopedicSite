@@ -5,3 +5,6 @@
 .idea/
 /assets/
 /pma/
+/upload/*
+/upload/!OrthopedicDB.apk
+/upload/!.htaccess

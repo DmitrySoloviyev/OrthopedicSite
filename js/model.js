@@ -1,17 +1,27 @@
 /**
  * Created by dmitry on 21.03.14.
  */
-jQuery(function ($) {
-// показываем/скрываем форму для модели
-    $('#ModelForm').css('opacity', '1');
-    /*
-     var name = $('#Models_ModelName').val();
-     if (name != '') {
-     $('#ModelForm').animate({opacity: 1.0}, 800);
-     $('#Models_isNewModel').removeAttr('disabled');
-     getModelInfo();
-     }
 
+function getModelInfoById(id) {
+    $.get('/ajax/GetModelInfoById', {id: id}, function (data) {
+        console.log(data);
+    });
+}
+
+function resetModelView() {
+
+}
+
+jQuery(function ($) {
+
+    $('#Models_name').change(function () {
+        var name = $(this).val();
+        if (name != '') {
+            $('#Models_is_new_model').removeAttr('disabled');
+        }
+    });
+
+    /*
      $('#Models_ModelName').change(function (e) {
      var modelName = $(this).val();
      if (modelName != '') {
@@ -134,41 +144,27 @@ jQuery(function ($) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#ddd').attr('href', e.target.result);
-                $('#ddd').attr('src', e.target.result);
-//                $('#ddd').fancybox();
+                $('#ddd').attr('href', e.target.result).attr('src', e.target.result);
             };
 
             reader.readAsDataURL(input.files[0]);
         }
     }
 
-    function PreviewImage() {
-        var oFReader = new FileReader();
-        oFReader.readAsDataURL(document.getElementById("Models_picture").files[0]);
-
-        oFReader.onload = function (oFREvent) {
-            document.getElementById("ddd").src = oFREvent.target.result;
-//            $('#ddd').fancybox({href: oFREvent.target.result});
-
-        };
-    };
-
     $('#Models_picture').change(function () {
         readURL(this);
-//        PreviewImage();
     });
-
-    $('#ModelForm').draggable({
-        delay: 150,
-        start: function () {
-            $(this).css('opacity', 0.6).css('cursor', 'move')
-        },
-        stop: function () {
-            $(this).css('opacity', '').css('cursor', '')
-        }
-    });
-
+    /*
+     $('#ModelForm').draggable({
+     delay: 150,
+     start: function () {
+     $(this).css('opacity', 0.6).css('cursor', 'move')
+     },
+     stop: function () {
+     $(this).css('opacity', '').css('cursor', '')
+     }
+     });
+     */
     $('#hint').hide().delay(1000).slideDown(500).delay(1500).fadeOut(800);
 
     var order_size_left_id = $('#Order_size_left_id');

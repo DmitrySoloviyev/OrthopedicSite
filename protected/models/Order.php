@@ -4,6 +4,7 @@
  * This is the model class for table "orders".
  *
  * The followings are the available columns in table 'orders':
+ *
  * @property integer $id
  * @property string $order_id
  * @property integer $model_id
@@ -196,6 +197,17 @@ class Order extends CActiveRecord
     {
         $criteria = new CDbCriteria;
 
+        $criteria->with = [
+            'sizeLeft', 'sizeRight',
+            'urkLeft', 'urkRight',
+            'heightLeft', 'sizeRight',
+            'topVolumeLeft', 'topVolumeRight',
+            'ankleVolumeLeft', 'ankleVolumeRight',
+            'kvVolumeLeft', 'kvVolumeRight',
+            'customer',
+            'material', 'model',
+        ];
+
         $criteria->compare('order_id', $this->order_id, true);
         $criteria->compare('model_id', $this->model_id, true);
         $criteria->compare('size_left_id', $this->size_left_id, true);
@@ -217,8 +229,17 @@ class Order extends CActiveRecord
         $criteria->compare('date_created', $this->date_created, true);
         $criteria->compare('date_modified', $this->date_modified, true);
 
+        $sort = new CSort();
+        $sort->attributes = [
+            'defaultOrder' => 't.date_created DESC',
+        ];
+
         return new CActiveDataProvider($this, [
             'criteria' => $criteria,
+            'sort' => $sort,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
         ]);
     }
 

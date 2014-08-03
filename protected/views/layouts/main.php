@@ -13,8 +13,7 @@
         href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic&subset=latin,cyrillic-ext,greek-ext,cyrillic,latin-ext,greek'
         rel='stylesheet' type='text/css'>
     <title><?= CHtml::encode($this->pageTitle) ?></title>
-    <?php
-    Yii::app()->clientScript
+    <?php Yii::app()->clientScript
         ->registerCssFile('/css/screen.css', 'screen, projection')
         ->registerCssFile('/css/print.css', 'print')
         ->registerCssFile('/css/main.css')
@@ -22,6 +21,7 @@
         ->registerCssFile('/css/style.css')
         ->registerCssFile('/css/jquery.fancybox.css')
         ->registerScriptFile('/js/main.js', CClientScript::POS_END);
+//        Yii::app()->bootstrap->register();
     ?>
 </head>
 
@@ -31,17 +31,19 @@
         <img width="149px" height="149px" id="forkme" src=<?= Yii::app()->request->baseUrl ?>"/images/forkme_left_red.png" alt="Fork me on GitHub"/>
     </a>
     <div id="header">
-        <code class="version">Версия 0.3-dev</code>
+        <code class="version"><?= Yii::app()->params['version']?></code>
         <div id="logo"><?= CHtml::encode(Yii::app()->name)?></div>
         <div id="navigation">
             <?php $this->widget('zii.widgets.CMenu', [
                 'items' => [
                     ['label' => 'Главная', 'url' => ['order/index']],
                     ['label' => 'Новый заказ', 'url' => ['order/new']],
+                    ['label' => 'Новая модель', 'url' => ['model/create']],
                     ['label' => 'Все заказы', 'url' => ['order/view']],
+                    ['label' => 'Все модели', 'url' => ['model/index']],
                     ['label' => 'Поиск', 'url' => ['order/search']],
                     ['label' => 'Статистика', 'url' => ['statistic/show']],
-                    ['label' => 'Администрирование', 'url' => ['admin/index'], 'visible' => !Yii::app()->user->isGuest],
+                    ['label' => 'Администрирование', 'url' => ['/admin'], 'visible' => !Yii::app()->user->isGuest],
                     ['label' => 'О сайте', 'url' => ['order/page', 'view' => 'about']],
                     ['label' => 'Войти', 'url' => ['user/login'], 'visible' => Yii::app()->user->isGuest],
                     ['label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => ['user/logout'], 'visible' => !Yii::app()->user->isGuest]
@@ -56,7 +58,7 @@
             ]); ?>
             <input type="text" id='quickSearchVal'
                 <?= (isset($_GET['quickSearchValue'])) ? "value='" . $_GET['quickSearchValue'] . "'" : "" ?>
-                    name="quickSearchValue" autocomplete='Off' placeholder='Поиск по ключевому слову'/>
+                    name="quickSearchValue" autocomplete='Off' placeholder='Поиск заказа по ключевому слову'/>
         <?php $this->endWidget(); ?>
     </div>
     <!-- header -->

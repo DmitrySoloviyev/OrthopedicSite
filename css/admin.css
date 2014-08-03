@@ -1,0 +1,20 @@
+.content {
+    margin-bottom: 20px;
+    margin-right: 10px;
+}
+
+.container{
+    width: 95%;
+}
+
+.footer {
+    text-align: center;
+}
+
+.mynav {
+    margin-left: 0;
+}
+
+.grid-view .table tr.selected td {
+    background: #bbbbbb;
+}

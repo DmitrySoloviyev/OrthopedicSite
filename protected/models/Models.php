@@ -4,20 +4,22 @@
  * This is the model class for table "models".
  *
  * The followings are the available columns in table 'models':
+ *
  * @property integer $id
  * @property string $name
  * @property string $description
  * @property string $picture
  * @property string $date_created
  * @property string $date_modified
+ * @property boolean $is_deleted
  *
  * The followings are the available model relations:
  * @property Order[] $orders
  */
+// * @property integer $author
 class Models extends CActiveRecord
 {
-    public $is_new_model;
-    public $loadImage;
+    const MODEL_IMAGE_PATH = '/upload/OrthopedicGallery/';
 
     public function tableName()
     {
@@ -28,10 +30,12 @@ class Models extends CActiveRecord
     {
         return [
             ['name', 'required'],
+            ['name', 'unique'],
             ['name', 'length', 'max' => 6],
-            ['description, picture', 'length', 'max' => 255],
+            ['is_deleted', 'boolean'],
+            ['description', 'length', 'max' => 255],
             ['picture', 'file', 'types' => 'jpg, jpeg, gif, png', 'allowEmpty' => true],
-            ['id, name, description, picture, date_created, date_modified', 'safe', 'on' => 'search'],
+            ['id, name, description, date_created, date_modified', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -43,14 +47,16 @@ class Models extends CActiveRecord
     }
 
     public function beforeSave()
-    {
+    {/*
         if(empty($this->picture)) {
             $this->picture = '';
-        }
+        }*/
         if ($this->isNewRecord) {
             $this->date_created = new CDbExpression('NOW()');
         }
         $this->date_modified = new CDbExpression('NOW()');
+
+        return parent::beforeSave();
     }
 
     public function attributeLabels()
@@ -61,7 +67,6 @@ class Models extends CActiveRecord
             'picture' => 'Изображение модели',
             'date_created' => 'Дата создания',
             'date_modified' => 'Дата изменения',
-            'is_new_model' => 'Новая модель',
         ];
     }
 
@@ -69,5 +74,52 @@ class Models extends CActiveRecord
     {
         return parent::model($className);
     }
+
+    public function delete()
+    {
+        $this->is_deleted = 1;
+
+        return $this->save();
+    }
+
+    public function search()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('id', $this->id);
+        $criteria->compare('name', $this->name, true);
+        $criteria->compare('description', $this->description, true);
+        $criteria->compare('is_deleted', 0);
+
+        return new CActiveDataProvider($this, [
+            'criteria' => $criteria,
+            'sort' => [
+                'defaultOrder' => [
+                    'date_created' => 'desc',
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * Удаление изображения
+     *
+     * поскольку у каждой модели индивидуальное изображение
+     * необходимо их удалять при удалении модели
+     */
+    public function deletePicture()
+    {
+//        $documentPath = Yii::getPathOfAlias('webroot.media') . DIRECTORY_SEPARATOR .
+//            $this->document;
+//        if (is_file($documentPath))
+//            unlink($documentPath);
+    }
+
+//    protected function beforeDelete()
+//    {
+//        if (!parent::beforeDelete())
+//            return false;
+//        $this->deletePicture(); // удалили модель? удаляем и файл
+//        return true;
+//    }
 
 }

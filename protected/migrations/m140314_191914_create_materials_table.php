@@ -6,7 +6,8 @@ class m140314_191914_create_materials_table extends CDbMigration
     {
         $this->createTable('materials', [
             'id' => 'pk',
-            'material' => 'varchar(30) not null'
+            'material_name' => 'varchar(30) not null',
+            'is_deleted' => 'boolean not null default 0'
         ], 'engine=innodb default charset=utf8');
 
         $this->insertMultiple('materials', [
