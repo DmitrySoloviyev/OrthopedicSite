@@ -23,7 +23,7 @@ $this->widget('bootstrap.widgets.TbDetailView', [
         'picture' => [
             'name' => 'picture',
             'type' => 'raw',
-            'value' => CHtml::image(Yii::app()->baseUrl . '/upload/OrthopedicGallery/' . $model->picture, $model->name, [
+            'value' => TbHtml::imagePolaroid(Yii::app()->baseUrl . '/upload/OrthopedicGallery/' . $model->picture, $model->name, [
                     'width' => '350px',
                     'id' => $model->id,
                     'href' => Yii::app()->baseUrl . '/upload/OrthopedicGallery/' . $model->picture,

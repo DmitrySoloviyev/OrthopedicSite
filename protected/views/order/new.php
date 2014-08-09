@@ -2,6 +2,8 @@
 /**
  * @var $order Order
  * @var $model Models
+ * @var $customer Customer
+ * @var $form CActiveForm
  */
 $this->pageTitle = Yii::app()->name . ' - Новый заказ';
 Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::POS_END);
@@ -23,174 +25,160 @@ $this->widget('ext.yii-flash.Flash', [
 <div class="form">
     <?php $form = $this->beginWidget('CActiveForm', [
         'id' => 'orders-new-form',
-        'htmlOptions' => ['enctype' => 'multipart/form-data'],
     ]); ?>
     <fieldset class="formContainer">
         <legend style="margin-left:60px;">Новый заказ</legend>
         <?= $form->errorSummary($order) ?>
-        <div id="leftForm">
-            <div>№ заказа:</div>
-            <div class="row">
-                <?php
-                echo $form->TextField($order, 'order_id', ['autocomplete' => 'Off', 'maxlength' => '10']);
-                echo $form->error($order, 'order_id');
-                ?>
-            </div>
 
-            <div>Модель:</div>
-            <div class="row">
-                <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', [
-                    'model' => $model,
-                    'attribute' => 'name',
-                    'name' => 'name',
-                    'source' => $this->createUrl('ajax/getmodels', [Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken]),
-                    'options' => [
-                        'showAnim' => 'fold',
-                        'minLength' => '1',
-                        'select' => 'js:function(event,ui) {
-                            $("#Models_name").val(ui.item.label).change().blur();
-                            $("#selectedModelId").val(ui.item.id);
-                            getModelInfoById(ui.item.id);
-                            return false;
-                        }',
-                    ],
-                    'htmlOptions' => [
-                        'id' => CHtml::activeId($model, 'name'),
-                        'autocomplete' => 'Off',
-                        'maxlength' => '6'
-                    ],
-                ]);
-                echo $form->error($model, 'name');
-                ?>
-            </div>
-            <input type="hidden" id="selectedModelId" />
-
-            <div>Размер:</div>
-            <div class="row" style="float: left">
-                <?= $form->TextField($order, 'size_left_id', ['autocomplete' => 'Off', 'maxlength' => '2']) ?>
-            </div>
-            <div class="row">
-            <?= $form->TextField($order, 'size_right_id', ['autocomplete' => 'Off', 'maxlength' => '2']) ?>
-            </div>
-            <?php
-                echo $form->error($order, 'size_left_id');
-                echo $form->error($order, 'size_right_id');
-            ?>
-
-
-            <div>УРК:</div>
-            <div class="row" style="float: left">
-                <?= $form->TextField($order, 'urk_left_id', ['autocomplete' => 'Off', 'maxlength' => '3']) ?>
-            </div>
-            <div class="row">
-                <?= $form->TextField($order, 'urk_right_id', ['autocomplete' => 'Off', 'maxlength' => '3']) ?>
-            </div>
-            <?php
-                echo $form->error($order, 'urk_left_id');
-                echo $form->error($order, 'urk_right_id');
-            ?>
-
-            <div>Материал:</div>
-            <div class="row">
-                <?php
-                echo $form->dropDownList($order, 'material_id', Material::materialList(), ['empty' => 'Выберите материал']);
-                echo $form->error($order, 'material_id');
-                ?>
-            </div>
-
-            <div>Высота:</div>
-            <div class="row" style="float: left">
-                <?= $form->TextField($order, 'height_left_id', ['autocomplete' => 'Off', 'maxlength' => '2']) ?>
-            </div>
-            <div class="row">
-                <?= $form->TextField($order, 'height_right_id', ['autocomplete' => 'Off', 'maxlength' => '2']) ?>
-            </div>
-            <?php
-            echo $form->error($order, 'height_left_id');
-            echo $form->error($order, 'height_right_id');
-            ?>
-
-            <div>Объем верха:</div>
-            <div class="row" style="float: left">
-                <?= $form->TextField($order, 'top_volume_left_id', ['autocomplete' => 'Off', 'maxlength' => '4']) ?>
-            </div>
-            <div class="row">
-                <?= $form->TextField($order, 'top_volume_right_id', ['autocomplete' => 'Off', 'maxlength' => '4']) ?>
-            </div>
-            <?php
-            echo $form->error($order, 'top_volume_left_id');
-            echo $form->error($order, 'top_volume_right_id');
-            ?>
-
-            <div>Объем лодыжки:</div>
-            <div class="row" style="float: left">
-                <?= $form->TextField($order, 'ankle_volume_left_id', ['autocomplete' => 'Off', 'maxlength' => '4']) ?>
-            </div>
-            <div class="row">
-                <?= $form->TextField($order, 'ankle_volume_right_id', ['autocomplete' => 'Off', 'maxlength' => '4']) ?>
-            </div>
-            <?php
-            echo $form->error($order, 'ankle_volume_left_id');
-            echo $form->error($order, 'ankle_volume_right_id');
-            ?>
-
-            <div title="косого взъема">Объем КВ:</div>
-            <div class="row" style="float: left">
-                <?= $form->TextField($order, 'kv_volume_left_id', ['autocomplete' => 'Off', 'maxlength' => '4']) ?>
-            </div>
-            <div class="row">
-                <?= $form->TextField($order, 'kv_volume_right_id', ['autocomplete' => 'Off', 'maxlength' => '4']) ?>
-            </div>
-            <?php
-            echo $form->error($order, 'kv_volume_left_id');
-            echo $form->error($order, 'kv_volume_right_id');
-            ?>
-
-            <div>Заказчик:</div>
-            <div class="row">
-                <?= $form->TextField($customer, 'surname', ['autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Фамилия']) ?>
-            </div>
-            <div class="row">
-                <?= $form->TextField($customer, 'name', ['autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Имя']) ?>
-            </div>
-            <div class="row">
-                <?= $form->TextField($customer, 'patronymic', ['autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Отчество']) ?>
-            </div>
-            <?php
-            echo $form->error($customer, 'surname');
-            echo $form->error($customer, 'name');
-            echo $form->error($customer, 'patronymic');
-            ?>
-
-            <div>Модельер:</div>
-            <div class="row">
-                <?php
-                echo $form->dropDownList($order, 'employee_id', Employee::employeeList(), ['empty' => 'Ф.И.О Модельера']);
-                echo $form->error($order, 'employee_id');
-                ?>
-            </div>
-
-            <div>Комментарий:</div>
-            <div class="row">
-                <?php
-                echo $form->TextArea($order, 'comment', ['rows' => '5', 'cols' => '28']);
-                echo $form->error($order, 'comment');
-                ?>
-            </div>
-
-            <div class="row submit">
-                <?= CHtml::submitButton('Записать', ['class' => 'button']); ?>
-            </div>
-        </div>
-
-        <div id="modelForm">
-            <?php $this->renderPartial('_model', ['model' => $model, 'form' => $form]); ?>
-        </div>
-
-        <div class="clear"></div>
+        <table style="padding-left:20px;">
+            <tr>
+                <td style="width:180px" class="left_td">№ заказа:</td>
+                <td style="width:330px">
+                    <div class="row">
+                        <?= $form->TextField($order, 'order_id', ['autocomplete' => 'Off', 'maxlength' => '10']); ?>
+                        <?= $form->error($order, 'order_id'); ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Модель:</td>
+                <td>
+                    <div class="row">
+                        <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', [
+                            'name' => 'model_id_autocomplete',
+                            'value' => isset($_POST['model_id_autocomplete']) ? $_POST['model_id_autocomplete'] : '',
+                            'source' => $this->createUrl('ajax/GetModelByName', [
+                                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken]),
+                            'options' => [
+                                'showAnim' => 'fold',
+                                'minLength' => '2',
+                                'select' => 'js:function(event,ui) {
+                                    this.value = ui.item.value;
+                                    $("#Order_model_id").val(ui.item.id);
+                                    getModelInfoById(ui.item.id);
+                                    return false;
+                                }',
+                            ],
+                            'htmlOptions' => [
+                                'autocomplete' => 'Off',
+                                'maxlength' => '6',
+                            ],
+                        ]); ?>
+                        <?= $form->TextField($order, 'model_id', ['hidden' => 'hidden']); ?>
+                        <?= $form->error($order, 'model_id'); ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Размер:</td>
+                <td>
+                    <div class="row">
+                        <?= $form->TextField($order, 'sizes', ['autocomplete' => 'Off', 'maxlength' => '5']) ?>
+                        <?= $form->error($order, 'sizes'); ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>УРК:</td>
+                <td>
+                    <div class="row">
+                        <?= $form->TextField($order, 'urks', ['autocomplete' => 'Off', 'maxlength' => '7']) ?>
+                        <?= $form->error($order, 'urks'); ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Материал:</td>
+                <td>
+                    <div class="row">
+                        <?= $form->dropDownList($order, 'material_id', Material::materialList(), ['empty' => 'Выберите материал']); ?>
+                        <?= $form->error($order, 'material_id'); ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Высота:</td>
+                <td>
+                    <div class="row">
+                        <?= $form->TextField($order, 'heights', ['autocomplete' => 'Off', 'maxlength' => '5']) ?>
+                        <?= $form->error($order, 'heights'); ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Объем верха:</td>
+                <td>
+                    <div class="row">
+                        <?= $form->TextField($order, 'top_volumes', ['autocomplete' => 'Off', 'maxlength' => '9']) ?>
+                        <?= $form->error($order, 'top_volumes'); ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Объем лодыжки:</td>
+                <td>
+                    <div class="row">
+                        <?= $form->TextField($order, 'ankle_volumes', ['autocomplete' => 'Off', 'maxlength' => '9']) ?>
+                        <?= $form->error($order, 'ankle_volumes'); ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td title="косого взъема">Объем КВ:</td>
+                <td>
+                    <div class="row">
+                        <?= $form->TextField($order, 'kv_volumes', ['autocomplete' => 'Off', 'maxlength' => '9']) ?>
+                        <?= $form->error($order, 'kv_volumes'); ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Заказчик:</td>
+                <td>
+                    <div class="row">
+                        <?= $form->TextField($customer, 'surname', ['autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Фамилия']) ?>
+                        <br>
+                        <?= $form->TextField($customer, 'name', ['autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Имя']) ?>
+                        <br>
+                        <?= $form->TextField($customer, 'patronymic', ['autocomplete' => 'Off', 'maxlength' => '29', 'placeholder' => 'Отчество']) ?>
+                        <?= $form->error($customer, 'surname'); ?>
+                        <?= $form->error($customer, 'name'); ?>
+                        <?= $form->error($customer, 'patronymic'); ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Модельер:</td>
+                <td>
+                    <div class="row">
+                        <?= $form->dropDownList($order, 'employee_id', Employee::employeeList(), ['empty' => 'Ф.И.О Модельера']); ?>
+                        <?= $form->error($order, 'employee_id'); ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Комментарий:</td>
+                <td>
+                    <div class="row">
+                        <?= $form->TextArea($order, 'comment', ['rows' => '5', 'cols' => '28']); ?>
+                        <?= $form->error($order, 'comment'); ?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="row submit">
+                        <?= CHtml::submitButton('Записать', ['class' => 'button']); ?>
+                    </div>
+                </td>
+            </tr>
+            <!--<div id="modelForm">-->
+            <!--            --><?php //$this->renderPartial('_model', ['model' => $model, 'form' => $form]); ?>
+            <!--</div>-->
+        </table>
     </fieldset>
     <?php $this->endWidget(); ?>
-</div><!-- form -->
+</div>
 
 <div id="hint">
     <i>Дробные числа обязательно<br/>вводить через точку.</i>

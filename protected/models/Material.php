@@ -32,7 +32,7 @@ class Material extends CActiveRecord
     public function relations()
     {
         return [
-            'orders' => array(self::HAS_MANY, 'Order', 'material_id'),
+            'orders' => [self::HAS_MANY, 'Order', 'material_id'],
         ];
     }
 

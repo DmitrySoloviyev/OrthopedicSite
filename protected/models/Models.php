@@ -47,10 +47,7 @@ class Models extends CActiveRecord
     }
 
     public function beforeSave()
-    {/*
-        if(empty($this->picture)) {
-            $this->picture = '';
-        }*/
+    {
         if ($this->isNewRecord) {
             $this->date_created = new CDbExpression('NOW()');
         }
@@ -99,27 +96,5 @@ class Models extends CActiveRecord
             ],
         ]);
     }
-
-    /**
-     * Удаление изображения
-     *
-     * поскольку у каждой модели индивидуальное изображение
-     * необходимо их удалять при удалении модели
-     */
-    public function deletePicture()
-    {
-//        $documentPath = Yii::getPathOfAlias('webroot.media') . DIRECTORY_SEPARATOR .
-//            $this->document;
-//        if (is_file($documentPath))
-//            unlink($documentPath);
-    }
-
-//    protected function beforeDelete()
-//    {
-//        if (!parent::beforeDelete())
-//            return false;
-//        $this->deletePicture(); // удалили модель? удаляем и файл
-//        return true;
-//    }
 
 }

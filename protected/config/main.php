@@ -2,7 +2,7 @@
 return [
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'База данных ортопедической обуви',
-    'defaultController' => 'order',
+    'defaultController' => 'site',
     'language' => 'ru',
     'sourceLanguage' => 'en',
     'charset' => 'utf-8',
@@ -69,7 +69,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'gii' => 'gii',
-                '' => 'order/index',
+                '' => 'site/index',
                 '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>/<id>',
 
@@ -93,7 +93,7 @@ return [
             'schemaCachingDuration' => YII_DEBUG ? 0 : 2592000,
         ],
         'errorHandler' => [
-            'errorAction' => 'order/error',
+            'errorAction' => 'site/error',
         ],
         'log' => [
             'class' => 'CLogRouter',
@@ -105,6 +105,12 @@ return [
                 ],
                 [
                     'class' => 'CWebLogRoute',
+                ],
+                [
+                    'class' => 'CFileLogRoute',
+                    'levels' => 'error, warning',
+                    'categories' => 'system.db.*',
+                    'logFile' => 'db.log',
                 ],
             ],
         ],

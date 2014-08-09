@@ -6,8 +6,8 @@ $this->widget('zii.widgets.grid.CGridView', [
     'id' => 'models-grid',
     'dataProvider' => $model->search(),
     'filter' => $model,
+    'itemsCssClass' => 'dboutput',
     'columns' => [
-        'id',
         'name',
         'description',
 //        'picture',

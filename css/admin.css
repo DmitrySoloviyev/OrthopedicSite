@@ -18,3 +18,7 @@
 .grid-view .table tr.selected td {
     background: #bbbbbb;
 }
+
+.ui-datepicker .ui-datepicker-title select {
+    width: 90px;
+}

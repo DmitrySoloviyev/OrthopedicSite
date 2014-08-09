@@ -1,23 +1,3 @@
-/*сброс всех настроек*/
-/* @import url(reset.css); */
-
-@media only screen and (max-width: 480px) {
-    /* Здесь стили более разумных, но все еще мобильных устройств. Android, iPhone  и так далее. */
-}
-
-@media only screen and (max-width: 768px) {
-    /* Планшеты в режиме portrait. */
-
-}
-
-@media only screen and (max-width: 992px) {
-    /* Планшеты в режиме landscape, нетбуки, ноутбуки, десктоп. */
-}
-
-@media only screen and (max-width: 1382px) {
-    /* Десктоп с большими разрешениями, телевизоры. */
-}
-
 /***********************************основные элементы*/
 * {
     outline: none;
@@ -121,7 +101,7 @@ fieldset {
     display: inline;
     padding: 6px 6px;
     margin: 0 1px 0 -6px;
-    font-size: 14px;
+    font-size: 15px;
     border-radius: 4px;
 }
 
@@ -185,14 +165,21 @@ table.dboutput th {
     border-color: #838383;
 }
 
+table.dboutput th a{
+    background: #232323;
+    color: #bcbcbc;
+    text-decoration: none;
+    border-color: #838383;
+}
+
 table.dboutput tr {
     height: 40px;
     padding: 2px;
     border: 1px solid black;
 }
 
-table.dboutput tr:hover {
-    background-color: #d8d8d8;
+table.dboutput a:hover {
+    color: #d8d8d8;
 }
 
 table.dboutput tr td {
@@ -474,4 +461,9 @@ h3 + p {
     left: 0;
     border: 0;
     float: left;
+}
+
+.grid-view .filters input, .grid-view .filters select {
+    width: 70%;
+    border: 1px solid #ccc;
 }

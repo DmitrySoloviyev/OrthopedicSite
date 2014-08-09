@@ -2,24 +2,6 @@
 
 class OrderController extends Controller
 {
-    public function actions()
-    {
-        return [
-            'page' => [
-                'class' => 'CViewAction',
-            ],
-        ];
-    }
-
-    public function actionIndex()
-    {
-        $employee = new Employee();
-
-        $this->render('index', [
-            'employee' => $employee,
-        ]);
-    }
-
     /**
      * ДЕЙСТВИЕ НОВЫЙ ЗАКАЗ
      */
@@ -27,13 +9,10 @@ class OrderController extends Controller
     {
         $order = new Order();
         $customer = new Customer();
-        $model = new Models();
 
         if (isset($_POST['Order'])) {
             $order->attributes = $_POST['Order'];
             $customer->attributes = $_POST['Customer'];
-            $model->attributes = $_POST['Models'];
-print_r($_POST);
             $transaction = Yii::app()->db->beginTransaction();
             // сохраняем заказчика
             if (!$customer->save()) {
@@ -44,40 +23,10 @@ print_r($_POST);
             }
             $order->customer_id = $customer->id;
 
-
-            if (!$model->save()) {
-                $transaction->rollback();
-                Yii::app()->user->setFlash('error', 'Ошибка при сохранении модели!');
-
-                return;
-            }
-            $order->model_id = $model->id;
-
-            /*
-                $model->ModelID = $model->basedID;
-                $newDescroption = $model->description;
-                $model= Models::model()->findByPk($model->id);
-                if ($loadImage = CUploadedFile::getInstance($model, 'picture')) {
-                    $model->loadImage = $loadImage;
-                    $oldImage = $model->picture;
-                    // удаляем старую картинку если она существует
-                    if (file_exists($oldImage))
-                        unlink($oldImage);
-                    $model->loadImage->saveAs(YiiBase::getPathOfAlias(Models::imagePath) . time() . '.' . $model->picture->extensionName);
-                    $model->ModelPicture = YiiBase::getPathOfAlias(Models::imagePath) . time() . '.' . $model->picture->extensionName;
-                }
-                $model->ModelDescription = $newDescroption;
-            }
-*/
-            // записываем заказ
-            if ($order->save(false)) {
+            if ($order->save()) {
                 $transaction->commit();
                 Yii::app()->user->setFlash('success', 'Новый заказ успешно добавлен!');
-
-                //очищаем поля формы
-                $order->unsetAttributes();
-                $model->unsetAttributes();
-                $customer->unsetAttributes();
+                $this->redirect('new');
             } else {
                 $transaction->rollback();
                 Yii::app()->user->setFlash('error', 'Ошибка при добавлении заказа!', $order->getErrors());
@@ -87,7 +36,6 @@ print_r($_POST);
         $this->render('new', [
             'order' => $order,
             'customer' => $customer,
-            'model' => $model,
         ]);
     }
 
@@ -108,9 +56,7 @@ print_r($_POST);
         $employeesModel->unsetAttributes();
         $modelsModel->unsetAttributes();
 
-        if ( /*Yii::app()->request->isAjaxRequest &&*/
-        isset($_GET['Orders'])
-        ) {
+        if (isset($_GET['Orders'])) {
             $model->attributes = $_GET['Orders'];
             $modelsModel->attributes = $_GET['Models'];
             $materialsModel->attributes = $_GET['Materials'];
@@ -303,7 +249,7 @@ print_r($_POST);
     /**
      * ДЕЙСТВИЕ ВСЕ ЗАКАЗЫ
      */
-    public function actionView()
+    public function actionIndex()
     {
         $criteria = new CDbCriteria;
 
@@ -347,7 +293,7 @@ print_r($_POST);
 
         $order = new Order('search');
 
-        $this->render('view', [
+        $this->render('index', [
             'order' => $order
         ]);
     }
@@ -517,44 +463,7 @@ print_r($_POST);
     }
 
     /**
-     * This is the action to handle external exceptions.
-     */
-    public function actionError()
-    {
-        if ($error = Yii::app()->errorHandler->error) {
-            if (Yii::app()->request->isAjaxRequest)
-                echo $error['message'];
-            else
-                $this->render('error', $error);
-        }
-    }
-
-    /**
-     * Displays the contact page
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if (isset($_POST['ContactForm'])) {
-            $model->attributes = $_POST['ContactForm'];
-            if ($model->validate()) {
-                $name = '=?UTF-8?B?' . base64_encode($model->name) . '?=';
-                $subject = '=?UTF-8?B?' . base64_encode($model->subject) . '?=';
-                $headers = "From: $name <{$model->email}>\r\n" .
-                    "Reply-To: {$model->email}\r\n" .
-                    "MIME-Version: 1.0\r\n" .
-                    "Content-Type: text/plain; charset=UTF-8";
-
-                mail(Yii::app()->params['adminEmail'], $subject, $model->body, $headers);
-                Yii::app()->user->setFlash('contact', 'Благодарю Вас за обращение. Я отвечу вам как можно скорее.');
-                $this->refresh();
-            }
-        }
-        $this->render('contact', array('model' => $model));
-    }
-
-    /*
-	 * ПОДСВЕТКА СЛОВ ПОИСКА
+     * ПОДСВЕТКА СЛОВ ПОИСКА
      */
     function jquery_highlight_create($from_post, $num_child)
     {
@@ -573,7 +482,7 @@ print_r($_POST);
         return $params;
     }
 
-    /*
+    /**
      * СОЗДАНИЕ УСЛОВИЯ ПОИСКА WHERE
      */
     public function getWhere($inputData, $left, $right, $prefix, &$where)

@@ -2,14 +2,22 @@
 /* @var $this ModelController */
 /* @var $model Models */
 /* @var $form CActiveForm */
-?>
 
-<div class="form">
+Yii::app()->clientScript->registerScriptFile('/js/preview.js', CClientScript::POS_END);
+$this->widget('ext.fancybox.EFancyBox', [
+    'target' => '#preview',
+    'config' => [
+        'enableEscapeButton' => true,
+    ],
+]); ?>
+
+<div class="row-fluid">
 
     <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
         'id' => 'models-form',
         'enableAjaxValidation' => false,
-        'htmlOptions' => ['enctype' => 'multipart/form-data'],
+        'htmlOptions' => ['enctype' => 'multipart/form-data', 'class' => 'span5'],
+
     ]); ?>
 
     <?= $form->errorSummary($model); ?>
@@ -26,10 +34,14 @@
     <?= $form->fileField($model, 'picture'); ?>
     <?= $form->error($model, 'picture'); ?>
 
-    <div class="buttons">
-        <?= CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
+    <div><br>
+        <?= CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить',  ['class' => 'btn btn-primary']); ?>
     </div>
 
     <?php $this->endWidget(); ?>
+
+    <div class="span5">
+        <img alt="preview" id="preview" src="<?=Models::MODEL_IMAGE_PATH . 'ortho.jpg'?>" width="350px"/>
+    </div>
 
 </div>

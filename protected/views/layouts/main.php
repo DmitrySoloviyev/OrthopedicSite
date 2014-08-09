@@ -36,15 +36,15 @@
         <div id="navigation">
             <?php $this->widget('zii.widgets.CMenu', [
                 'items' => [
-                    ['label' => 'Главная', 'url' => ['order/index']],
+                    ['label' => 'Главная', 'url' => ['site/index']],
                     ['label' => 'Новый заказ', 'url' => ['order/new']],
                     ['label' => 'Новая модель', 'url' => ['model/create']],
-                    ['label' => 'Все заказы', 'url' => ['order/view']],
+                    ['label' => 'Все заказы', 'url' => ['order/index']],
                     ['label' => 'Все модели', 'url' => ['model/index']],
                     ['label' => 'Поиск', 'url' => ['order/search']],
                     ['label' => 'Статистика', 'url' => ['statistic/show']],
                     ['label' => 'Администрирование', 'url' => ['/admin'], 'visible' => !Yii::app()->user->isGuest],
-                    ['label' => 'О сайте', 'url' => ['order/page', 'view' => 'about']],
+                    ['label' => 'О сайте', 'url' => ['site/about']],
                     ['label' => 'Войти', 'url' => ['user/login'], 'visible' => Yii::app()->user->isGuest],
                     ['label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => ['user/logout'], 'visible' => !Yii::app()->user->isGuest]
                 ],
@@ -74,7 +74,7 @@
     </div><!-- footer -->
 </div><!-- page -->
 <p id='back-top' style="z-index:2">
-    <a href='#top'><img width='78' height='78' src='../../images/arrow_up_84.png'/></a>
+    <a href='#top'><img width='84' height='84' src='<?= Yii::app()->request->baseUrl ?>/images/arrow_up_84.png'/></a>
 </p>
 </body>
 </html>

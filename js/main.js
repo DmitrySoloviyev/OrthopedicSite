@@ -2,7 +2,7 @@
  * Created by dmitry on 15.03.14.
  */
 jQuery(function ($) {
-    $('#center').hide().fadeIn(800);
+    $('#center').hide().fadeIn(700);
 
     //перемотка вверх
     var back_top = $('#back-top');

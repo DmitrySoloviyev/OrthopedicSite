@@ -47,6 +47,13 @@
  */
 class Order extends CActiveRecord
 {
+    public $sizes;
+    public $urks;
+    public $heights;
+    public $top_volumes;
+    public $ankle_volumes;
+    public $kv_volumes;
+
     public function tableName()
     {
         return 'orders';
@@ -59,44 +66,12 @@ class Order extends CActiveRecord
             ['model_id, size_left_id, size_right_id, urk_left_id, urk_right_id, material_id, height_left_id, height_right_id, top_volume_left_id, top_volume_right_id, ankle_volume_left_id, ankle_volume_right_id, kv_volume_left_id, kv_volume_right_id, customer_id, employee_id', 'numerical', 'integerOnly' => true],
             ['order_id', 'unique', 'message' => 'Заказ с таким номером уже есть в базе!'],
             ['order_id', 'length', 'max' => 10],
-            ['size', 'match', 'pattern' => '/(^(([2-4][0-9])|15|16|17|18|19)$)|(^(([2-4][0-9])|15|16|17|18|19) (([2-4][0-9])|15|16|17|18|19)$)/', 'on' => 'insert'],
-            ['height', 'match', 'pattern' => '/(^(([1-3][0-9])|0|7|8|9|40)$)|(^(([1-3][0-9])|0|7|8|9|40) (([1-3][0-9])|0|7|8|9|40)$)/', 'on' => 'insert'],
-            ['urk', 'match', 'pattern' => '/(^([1-3]\\d\\d)|400$)|(^([1-3]\\d\\d)|400 ([1-3]\\d\\d)|400$)/', 'on' => 'insert'],
-            ['topVolume, ankleVolume', 'match', 'pattern' => '/(^(([1-4][0-9])|50)(\\.[05])?$)|(^(([1-4][0-9])|50)(\\.[05])? (([1-4][0-9])|50)(\\.[05])?$)/', 'on' => 'insert'],
-            ['kvVolume', 'match', 'pattern' => '/(^(([2-6][0-9])|15|16|17|18|19|70)(\\.[05])?$)|(^(([2-6][0-9])|15|16|17|18|19|70)(\\.[05])? (([2-6][0-9])|15|16|17|18|19|70)(\\.[05])?$)/', 'on' => 'insert'],
+            ['sizes', 'match', 'pattern' => '/(^(([2-4][0-9])|15|16|17|18|19)$)|(^(([2-4][0-9])|15|16|17|18|19) (([2-4][0-9])|15|16|17|18|19)$)/'],
+            ['heights', 'match', 'pattern' => '/(^(([1-3][0-9])|0|7|8|9|40)$)|(^(([1-3][0-9])|0|7|8|9|40) (([1-3][0-9])|0|7|8|9|40)$)/'],
+            ['urks', 'match', 'pattern' => '/(^([1-3]\\d\\d)|400$)|(^([1-3]\\d\\d)|400 ([1-3]\\d\\d)|400$)/'],
+            ['top_volumes, ankle_volumes', 'match', 'pattern' => '/(^(([1-4][0-9])|50)(\\.[05])?$)|(^(([1-4][0-9])|50)(\\.[05])? (([1-4][0-9])|50)(\\.[05])?$)/'],
+            ['kv_volumes', 'match', 'pattern' => '/(^(([2-6][0-9])|15|16|17|18|19|70)(\\.[05])?$)|(^(([2-6][0-9])|15|16|17|18|19|70)(\\.[05])? (([2-6][0-9])|15|16|17|18|19|70)(\\.[05])?$)/', 'on' => 'insert'],
             ['comment', 'length', 'max' => 255],
-
-            ['model_id', 'exist', 'className' => 'Models', 'attributeName' => 'id', 'message' => 'Неизвестная модель'],
-            ['material_id', 'exist', 'className' => 'Material', 'attributeName' => 'id', 'message' => 'Неизвестный материал'],
-            ['employee_id', 'exist', 'className' => 'Employee', 'attributeName' => 'id', 'message' => 'Неизвестный модельер'],
-            ['customer_id', 'exist', 'className' => 'Customer', 'attributeName' => 'id', 'message' => 'Неизвестный заказчик'],
-
-            ['size_left_id', 'exist', 'className' => 'Size', 'attributeName' => 'id', 'message' => 'Неизвестный размер'],
-            ['size_right_id', 'exist', 'className' => 'Size', 'attributeName' => 'id', 'message' => 'Неизвестный размер'],
-
-            ['urk_left_id', 'exist', 'className' => 'Urk', 'attributeName' => 'id', 'message' => 'Неизвестный урк'],
-            ['urk_right_id', 'exist', 'className' => 'Urk', 'attributeName' => 'id', 'message' => 'Неизвестный урк'],
-
-            ['size_left_id', 'exist', 'className' => 'Size', 'attributeName' => 'id', 'message' => 'Неизвестный размер'],
-            ['size_right_id', 'exist', 'className' => 'Size', 'attributeName' => 'id', 'message' => 'Неизвестный размер'],
-
-            ['height_left_id', 'exist', 'className' => 'Height', 'attributeName' => 'id', 'message' => 'Неизвестная высота'],
-            ['height_right_id', 'exist', 'className' => 'Height', 'attributeName' => 'id', 'message' => 'Неизвестная высота'],
-
-            ['top_volume_left_id', 'exist', 'className' => 'TopVolume', 'attributeName' => 'id', 'message' => 'Неизвестный объем верха'],
-            ['top_volume_right_id', 'exist', 'className' => 'TopVolume', 'attributeName' => 'id', 'message' => 'Неизвестный объем верха'],
-
-            ['ankle_volume_left_id', 'exist', 'className' => 'AnkleVolume', 'attributeName' => 'id', 'message' => 'Неизвестный объем лодыжки'],
-            ['ankle_volume_right_id', 'exist', 'className' => 'AnkleVolume', 'attributeName' => 'id', 'message' => 'Неизвестный объем лодыжки'],
-
-            ['kv_volume_left_id', 'exist', 'className' => 'KvVolume', 'attributeName' => 'id', 'message' => 'Неизвестный объем КВ'],
-            ['kv_volume_right_id', 'exist', 'className' => 'KvVolume', 'attributeName' => 'id', 'message' => 'Неизвестный объем КВ'],
-
-            ['size_left_id, size_right_id', 'match', 'pattern' => '/^(([2-4][0-9])|15|16|17|18|19)$/'],
-            ['height_left_id, height_right_id', 'match', 'pattern' => '/^(([1-3][0-9])|0|7|8|9|40)$/'],
-            ['urk_left_id, urk_right_id', 'match', 'pattern' => '/^([1-3]\\d\\d)|400$/'],
-            ['top_volume_left_id, top_volume_right_id, ankle_volume_left_id, ankle_volume_right_id', 'match', 'pattern' => '/^(([1-4][0-9])|50)(\\.[05])?$/'],
-            ['kv_volume_left_id, kv_volume_right_id', 'match', 'pattern' => '/^(([2-6][0-9])|15|16|17|18|19|70)(\\.[05])?$/'],
             ['order_id, model_id, size_left_id, size_right_id, urk_left_id, urk_right_id, material_id, height_left_id, height_right_id, top_volume_left_id, top_volume_right_id, ankle_volume_left_id, ankle_volume_right_id, kv_volume_left_id, kv_volume_right_id, customer_id, employee_id, comment', 'safe', 'on' => 'search'],
         ];
     }
@@ -151,11 +126,26 @@ class Order extends CActiveRecord
             'ankle_volume_right_id' => 'Объем лодыжки правый',
             'kv_volume_left_id' => 'Объем КВ левый',
             'kv_volume_right_id' => 'Объем КВ правый',
+
+            'sizes' => 'Размер',
+            'urks' => 'Урк',
+            'heights' => 'Высота',
+            'top_volumes' => 'Объем верха',
+            'ankle_volumes' => 'Объем лодыжки',
+            'kv_volumes' => 'Объем КВ',
         ];
     }
 
     public function beforeValidate()
     {
+        $this->preFilter($this->sizes, 'size');
+        $this->preFilter($this->urks, 'urk');
+        $this->preFilter($this->heights, 'height');
+        $this->preFilter($this->top_volumes, 'top_volume');
+        $this->preFilter($this->ankle_volumes, 'ankle_volume');
+        $this->preFilter($this->kv_volumes, 'kv_volume');
+
+
         $this->size_left_id = $this->filter('Size', 'size', $this->size_left_id);
         $this->size_right_id = $this->filter('Size', 'size', $this->size_right_id);
 
@@ -173,6 +163,8 @@ class Order extends CActiveRecord
 
         $this->kv_volume_left_id = $this->filter('KvVolume', 'volume', $this->kv_volume_left_id);
         $this->kv_volume_right_id = $this->filter('KvVolume', 'volume', $this->kv_volume_right_id);
+
+        return parent::beforeValidate();
     }
 
     public function beforeSave()
@@ -181,8 +173,61 @@ class Order extends CActiveRecord
             $this->date_created = new CDbExpression('NOW()');
         }
         $this->date_modified = new CDbExpression('NOW()');
+
+        return parent::beforeSave();
     }
 
+    /**
+     * 1 input, 2 параметра
+     * разбивка введенных значений
+     *
+     * @param $value
+     * @param $attribute
+     */
+    private function preFilter($value, $attribute)
+    {
+        if (strlen($value) > $this->getMaxInputChars($attribute)) {
+            // если длина введеной строки больше 2х цифр, значит для каждой ноги введено свое значение
+            $array_value = explode(' ', $value);
+            $this->{$attribute . '_left_id'} = $array_value[0];
+            $this->{$attribute . '_right_id'} = $array_value[1];
+        } else {
+            $this->{$attribute . '_left_id'} = $this->{$attribute . '_right_id'} = $value;
+        }
+    }
+
+    private function getMaxInputChars($attribute)
+    {
+        switch ($attribute) {
+            case 'size':
+                return 2;
+                break;
+            case 'urk':
+                return 3;
+                break;
+            case 'height':
+                return 2;
+                break;
+            case 'top_volume':
+                return 4;
+                break;
+            case 'ankle_volume':
+                return 4;
+                break;
+            case 'kv_volume':
+                return 4;
+                break;
+        }
+    }
+
+    /**
+     * Нахождение id связанных данных
+     *
+     * @param $model
+     * @param $field
+     * @param $value
+     * @return null
+     */
     private function filter($model, $field, $value)
     {
         $result = CActiveRecord::model($model)->findByAttributes([$field => $value]);

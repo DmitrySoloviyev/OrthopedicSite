@@ -15,6 +15,7 @@ $this->widget('ext.fancybox.EFancyBox', [
 
 $this->widget('zii.widgets.CDetailView', [
     'data' => $model,
+    'htmlOptions' => ['class' => ''],
     'attributes' => [
         'name',
         'description',

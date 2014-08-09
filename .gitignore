@@ -1,4 +1,4 @@
-/protected/runtime/
+/protected/runtime/*
 .directory
 /vagrant/var/
 .vagrant/

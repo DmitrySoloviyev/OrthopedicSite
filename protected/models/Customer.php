@@ -4,6 +4,7 @@
  * This is the model class for table "customers".
  *
  * The followings are the available columns in table 'customers':
+ *
  * @property integer $id
  * @property string $surname
  * @property string $name
@@ -22,16 +23,16 @@ class Customer extends CActiveRecord
     public function rules()
     {
         return [
-            array('surname, name, patronymic', 'required'),
-            array('surname, name, patronymic', 'length', 'max' => 30),
-            array('surname, name, patronymic', 'safe', 'on' => 'search'),
+            ['surname, name, patronymic', 'required'],
+            ['surname, name, patronymic', 'length', 'max' => 30],
+            ['surname, name, patronymic', 'safe', 'on' => 'search'],
         ];
     }
 
     public function relations()
     {
         return [
-            'orders' => array(self::HAS_MANY, 'Order', 'customer_id'),
+            'orders' => [self::HAS_MANY, 'Order', 'customer_id'],
         ];
     }
 
