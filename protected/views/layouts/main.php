@@ -15,7 +15,6 @@
     <title><?= CHtml::encode($this->pageTitle) ?></title>
     <?php Yii::app()->clientScript
         ->registerCssFile('/css/screen.css', 'screen, projection')
-        ->registerCssFile('/css/print.css', 'print')
         ->registerCssFile('/css/main.css')
         ->registerCssFile('/css/form.css')
         ->registerCssFile('/css/style.css')

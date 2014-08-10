@@ -114,6 +114,7 @@ class OrderController extends Controller
 
     public function loadModel($id)
     {
+        // TODO искать по первичному ключу и где is_deleted = 0 (относится и к остальным моделям)
         $model = Order::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');

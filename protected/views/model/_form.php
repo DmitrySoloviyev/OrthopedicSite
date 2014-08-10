@@ -27,7 +27,7 @@ $this->widget('ext.fancybox.EFancyBox', [
         <div style="float: left; margin-right: 40px">
             <div class="row">
                 <?= $form->labelEx($model, 'name'); ?><br>
-                <?= $form->textField($model, 'name', ['maxlength' => 6]); ?>
+                <?= $form->textField($model, 'name', ['maxlength' => 6, 'autocomplete' => 'off']); ?>
                 <?= $form->error($model, 'name'); ?>
             </div>
 

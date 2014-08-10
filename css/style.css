@@ -1,4 +1,3 @@
-/***********************************основные элементы*/
 * {
     outline: none;
 }
@@ -29,7 +28,7 @@ header {
 }
 
 header h1 {
-    font-size: 2em; /* 24px/16px*/
+    font-size: 2em;
     font-style: oblique;
     font-weight: 600;
     text-align: center;
@@ -165,7 +164,7 @@ table.dboutput th {
     border-color: #838383;
 }
 
-table.dboutput th a{
+table.dboutput th a {
     background: #232323;
     color: #bcbcbc;
     text-decoration: none;
@@ -191,9 +190,7 @@ table.dboutput tr td {
 input:not([type="submit"]):focus {
     outline: none;
     border-radius: 4px;
-    /*border-color:#E82C0C;*/
     border-color: #666666;
-    /*   border-color:#4094b6; */
 }
 
 .employeelist {
@@ -206,15 +203,15 @@ input:not([type="submit"]):focus {
     background: #fe9223;
 }
 
-/*********************************************************конец таблица в разделе "просмотр базы"************/
+.actions_button {
+    margin: 40px 5px 0;
+}
 
-/***********************************************************кнопка удаления****************************/
 .button_delete {
     cursor: pointer;
     font-family: inherit;
     font-weight: bold;
     line-height: 1;
-    margin: 0 0 1.25em;
     position: relative;
     text-decoration: none;
     text-align: center;
@@ -225,6 +222,8 @@ input:not([type="submit"]):focus {
     border: 1px #A12222;
     color: white;
     width: 204px;
+    margin-left: 6%;
+    float: right;
 }
 
 button:hover, button:focus, .button_delete:hover, .button_delete:focus {
@@ -238,34 +237,6 @@ button:hover, button:focus, .button_delete:hover, .button_delete:focus {
 /********************************************************************************конец раздела "кнопки"***************/
 option {
     color: black;
-}
-
-/********************************************************************************картинки в ссылках меню******/
-/*****************удаление***********/
-a.delrow {
-    padding: 16px;
-    background: url('../images/delete_16px.png') no-repeat center;
-}
-
-a.delrow:hover {
-    background: url('../images/delete.png') no-repeat center;
-    padding: 16px;
-    -webkit-transition: 1s;
-    -moz-transition: 1s;
-    transition: 1s;
-}
-
-/**************редактирование*******/
-a.editrow {
-    padding: 16px;
-    background: url('../images/edit_24px.png') no-repeat center;
-}
-
-a.editrow:hover {
-    background: url('../images/edit.png') no-repeat center;
-    -webkit-transition: 1s;
-    -moz-transition: 1s;
-    transition: 1s;
 }
 
 /*********************************************************Кнопка наверх*****************************************************/
@@ -338,7 +309,6 @@ a.editrow:hover {
     border-radius: 6px;
 }
 
-/**********************************всплывающее окно информации о модели****************/
 #model_info form {
     float: right;
 }
@@ -397,29 +367,12 @@ button:hover, button:focus, .button:hover, .button:focus {
     font-size: 16px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
     margin: 0 auto;
-    width: 732px;
 }
 
 .delimiter {
     width: 12px;
     border-right: 2px groove #e2e2e2;
     margin: 4px;
-}
-
-.loading {
-    background: #eee url('../images/loading.gif') no-repeat center center;
-}
-
-.title_header {
-    text-align: center;
-    padding: 5px 0;
-    margin-bottom: 1%;
-    border-radius: 4px;
-    text-shadow: 1px 1px 1px rgba(255, 255, 255, 1.0);
-    width: 100%;
-    cursor: pointer;
-    font-size: 1.2em;
-    background: #C9C9C9 url('../images/nav_right.png') no-repeat right;
 }
 
 .sorter_link {
@@ -432,10 +385,6 @@ button:hover, button:focus, .button:hover, .button:focus {
 
 h3 + p {
     text-align: justify;
-}
-
-.expand {
-    -webkit-background: url('../images/nav_down.png') no-repeat right;
 }
 
 .newsList {

@@ -84,7 +84,7 @@ class Models extends CActiveRecord
         $criteria = new CDbCriteria;
         $criteria->compare('id', $this->id);
         $criteria->compare('name', $this->name, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('description', $this->description, false);
         $criteria->compare('is_deleted', 0);
 
         return new CActiveDataProvider($this, [

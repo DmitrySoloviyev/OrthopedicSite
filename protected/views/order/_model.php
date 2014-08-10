@@ -7,7 +7,7 @@ $this->widget('ext.fancybox.EFancyBox', [
 ]); ?>
 <div id="modelContent">
 
-    <div style="font-style: italic; font-size: 1.1em;" id="name"></div>
+    <div style="font-style: italic; font-size: 1.1em;" id="name">Выберите модель</div>
 
     <div id="picture">
         <img src=<?= Yii::app()->request->baseUrl ?>"/upload/OrthopedicGallery/ortho.jpg"

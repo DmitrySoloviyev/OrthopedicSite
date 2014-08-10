@@ -33,11 +33,10 @@ $this->widget('zii.widgets.CDetailView', [
     ],
 ]); ?>
 
-<div class="row submit">
+<div class="row submit actions_button">
     <?=
     CHtml::submitButton('Редактировать', [
         'class' => 'button',
-        'style' => 'margin-left: 6%;',
         'submit' => [
             'model/update',
             'id' => $model->id,
@@ -49,7 +48,6 @@ $this->widget('zii.widgets.CDetailView', [
     <?=
     CHtml::submitButton('Удалить', [
         'class' => 'button_delete',
-        'style' => 'margin-left: 6%;',
         'submit' => [
             'model/delete',
             'id' => $model->id,

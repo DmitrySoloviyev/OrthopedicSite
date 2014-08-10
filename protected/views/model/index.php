@@ -9,7 +9,10 @@ $this->widget('zii.widgets.grid.CGridView', [
     'itemsCssClass' => 'dboutput',
     'columns' => [
         'name',
-        'description',
+        'description' => [
+            'name' => 'description',
+            'htmlOptions' => ['width' => '500px']
+        ],
 //        'picture',
         'date_created',
         'date_modified',
@@ -18,6 +21,7 @@ $this->widget('zii.widgets.grid.CGridView', [
         */
         [
             'class' => 'CButtonColumn',
+            'header' => 'Действия',
         ],
     ],
 ]);
