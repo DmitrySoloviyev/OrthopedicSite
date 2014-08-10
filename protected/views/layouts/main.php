@@ -37,12 +37,11 @@
             <?php $this->widget('zii.widgets.CMenu', [
                 'items' => [
                     ['label' => 'Главная', 'url' => ['site/index']],
-                    ['label' => 'Новый заказ', 'url' => ['order/new']],
+                    ['label' => 'Новый заказ', 'url' => ['order/create']],
                     ['label' => 'Новая модель', 'url' => ['model/create']],
                     ['label' => 'Все заказы', 'url' => ['order/index']],
                     ['label' => 'Все модели', 'url' => ['model/index']],
-                    ['label' => 'Поиск', 'url' => ['order/search']],
-                    ['label' => 'Статистика', 'url' => ['statistic/show']],
+                    ['label' => 'Статистика', 'url' => ['statistic/index']],
                     ['label' => 'Администрирование', 'url' => ['/admin'], 'visible' => !Yii::app()->user->isGuest],
                     ['label' => 'О сайте', 'url' => ['site/about']],
                     ['label' => 'Войти', 'url' => ['user/login'], 'visible' => Yii::app()->user->isGuest],
@@ -53,12 +52,11 @@
 
         <?php $form = $this->beginWidget('CActiveForm', [
             'method' => 'GET',
-            'action' => 'index.php?r=site/view&quickSearch=',
             'id' => 'quickSearchForm',
             ]); ?>
-            <input type="text" id='quickSearchVal'
-                <?= (isset($_GET['quickSearchValue'])) ? "value='" . $_GET['quickSearchValue'] . "'" : "" ?>
-                    name="quickSearchValue" autocomplete='Off' placeholder='Поиск заказа по ключевому слову'/>
+            <input type="text" id='quickSearch'
+                <?= (isset($_GET['quickSearch'])) ? "value='" . $_GET['quickSearch'] . "'" : "" ?>
+                    name="quickSearch" autocomplete='Off' placeholder='Поиск заказа по ключевому слову'/>
         <?php $this->endWidget(); ?>
     </div>
     <!-- header -->

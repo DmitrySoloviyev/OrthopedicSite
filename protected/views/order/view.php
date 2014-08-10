@@ -1,35 +1,35 @@
 <?php
-/* @var $this ModelController */
-/* @var $model Models */
+/* @var $this OrderController */
+/* @var $order Order */
 ?>
 
-<h1>Просмотр модели <?= $model->name; ?></h1>
+<h1>Заказ № <?= $order->order_id; ?></h1>
 
 <?php
 $this->widget('ext.fancybox.EFancyBox', [
-    'target' => '#' . $model->id,
+    'target' => '#' . $order->id,
     'config' => [
         'enableEscapeButton' => true,
     ],
 ]);
 
 $this->widget('zii.widgets.CDetailView', [
-    'data' => $model,
+    'data' => $order,
     'htmlOptions' => ['class' => ''],
     'attributes' => [
-        'name',
-        'description',
+        'order_id',
+        'comment',
         'date_created',
-        'date_modified',
+        'date_modified',/*
         'picture' => [
             'name' => 'picture',
             'type' => 'raw',
-            'value' => CHtml::image(Yii::app()->baseUrl . '/upload/OrthopedicGallery/' . $model->picture, $model->name, [
+            'value' => CHtml::image(Yii::app()->baseUrl . '/upload/OrthopedicGallery/' . $order->picture, $order->name, [
                     'width' => '350px',
-                    'id' => $model->id,
-                    'href' => Yii::app()->baseUrl . '/upload/OrthopedicGallery/' . $model->picture,
+                    'id' => $order->id,
+                    'href' => Yii::app()->baseUrl . '/upload/OrthopedicGallery/' . $order->picture,
                 ]),
-        ],
+        ],*/
     ],
 ]); ?>
 
@@ -39,8 +39,8 @@ $this->widget('zii.widgets.CDetailView', [
         'class' => 'button',
         'style' => 'margin-left: 6%;',
         'submit' => [
-            'model/update',
-            'id' => $model->id,
+            'order/update',
+            'id' => $order->id,
         ],
         'params' => [
             Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
@@ -51,12 +51,12 @@ $this->widget('zii.widgets.CDetailView', [
         'class' => 'button_delete',
         'style' => 'margin-left: 6%;',
         'submit' => [
-            'model/delete',
-            'id' => $model->id,
+            'order/delete',
+            'id' => $order->id,
         ],
         'params' => [
             Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
         ],
-        'confirm' => 'Вы действительно хотите удалить эту модель?',
+        'confirm' => 'Вы действительно хотите удалить этот заказ?',
     ]);?>
 </div>

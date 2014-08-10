@@ -55,6 +55,7 @@ $this->widget('ext.yii-flash.Flash', [
     <del><li>Админка</li></del>
     <li>Фильтровать ввод, экранировать вывод</li>
     <li>TODO $this->createIndex('employees_is_deleted', 'employees', 'is_deleted');</li>
+    <li>Индексы по столбцам значений родительских таблиц</li>
     <li>Рассмотреть возможность избавиться от меню "Поиск" и реализовать его в GridView</li>
     <del><li>Php-акселлератор php-apc</li></del>
     <del><li>Удалять и редактировать заказы только от имени администратора.</li></del>

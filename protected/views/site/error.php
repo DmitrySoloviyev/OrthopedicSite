@@ -4,8 +4,8 @@
 $this->pageTitle = Yii::app()->name . ' - Error';
 ?>
 
-<h2>Error <?php echo $code; ?></h2>
+<h2>Error <?= $code; ?></h2>
 
 <div class="error">
-    <?php echo CHtml::encode($message); ?>
+    <?= CHtml::encode($message); ?>
 </div>

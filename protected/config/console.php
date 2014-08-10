@@ -2,7 +2,6 @@
 return [
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'My Console OrthoDB Application',
-    'preload' => ['log'],
     'components' => [
         'db' => [
             'connectionString' => 'mysql:host=localhost;dbname=ortho_db',
@@ -20,15 +19,15 @@ return [
             'charset' => 'utf8',
             'schemaCachingDuration' => 0,
         ],
-        'log' => [
-            'class' => 'CLogRouter',
-            'routes' => [
-                [
-                    'class' => 'CFileLogRoute',
-                    'levels' => 'info',
-                    'logFile' => 'backup.log',
-                ],
-            ],
+        'redis' => [
+            'class' => 'application.components.YiiRedis.ARedisConnection',
+            'hostname' => 'localhost',
+            'port' => 6379,
+            'database' => 1,
+            'prefix' => 'ortho.'
+        ],
+        'cache' => [
+            'class' => 'application.components.YiiRedis.ARedisCache'
         ],
     ],
     'commandMap' => [

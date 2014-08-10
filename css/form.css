@@ -1,6 +1,6 @@
 div.form fieldset {
     border: 2px groove #EEEEEE;
-    padding: 10px;
+    padding: 20px;
     margin: 0 0 10px 0;
     -moz-border-radius: 7px;
 }
@@ -107,17 +107,17 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage {
 #modelForm {
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
-    width: 41%;
-    background-color: rgba(232, 232, 232, 0.9);
-    float: left;
+    width: 430px;
+    float: right;
     text-align: center;
     padding: 2% 0;
 }
 
 #modelForm div {
-    font-size: 0.9em;
+    font-size: 14px;
     font: sans-serif;
     font-style: italic;
+    padding: 5px;
 }
 
 #leftForm {
@@ -126,11 +126,11 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage {
     float: left;
 }
 
-#pic {
+#picture {
     margin: 6% 0;
 }
 
-#pic img {
+#picture img {
     padding: 5px;
     width: 300px;
     margin: 6px;
@@ -145,24 +145,12 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage {
     min-height: 222px;
 }
 
+#picture img:hover {
+    cursor: pointer;
+}
+
 #Models_ModelDescription {
     padding: 4%;
-}
-
-.loadImgModel {
-    width: 122px
-}
-
-#navLeft {
-    width: 52px;
-    float: left;
-    margin-top: 30%;
-}
-
-#navRight {
-    width: 52px;
-    float: right;
-    margin-top: 30%;
 }
 
 #modelContent {
@@ -185,7 +173,7 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage {
     right: 0;
     top: 4px;
     padding-left: 32px;
-    background: #ededed url(/images/search.png) no-repeat 10px 50%;
+    background: #ededed url('/images/search.png') no-repeat 10px 50%;
     border: solid 1px #C4C4C4;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -197,7 +185,7 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage {
     box-shadow: inset 0 1px 4px #b5b5b5;
 }
 
-#quickSearchVal {
+#quickSearch {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;

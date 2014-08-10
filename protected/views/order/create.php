@@ -8,12 +8,7 @@
 $this->pageTitle = Yii::app()->name . ' - Новый заказ';
 Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/model.js', CClientScript::POS_END);
-$this->widget('ext.fancybox.EFancyBox', [
-    'target' => '#ddd',
-    'config' => [
-        'enableEscapeButton' => true,
-    ],
-]);
+
 $this->widget('ext.yii-flash.Flash', [
     'keys' => ['success', 'error'],
     'htmlOptions' => [
@@ -172,9 +167,9 @@ $this->widget('ext.yii-flash.Flash', [
                     </div>
                 </td>
             </tr>
-            <!--<div id="modelForm">-->
-            <!--            --><?php //$this->renderPartial('_model', ['model' => $model, 'form' => $form]); ?>
-            <!--</div>-->
+            <div id="modelForm">
+                <?php $this->renderPartial('_model', null, false, false); ?>
+            </div>
         </table>
     </fieldset>
     <?php $this->endWidget(); ?>

@@ -13,53 +13,55 @@
             'name' => 'model_id',
             'value' => '$data->model->name',
         ],
-        'size_left_id' => [
-            'name' => 'size_left_id',
+        'sizes' => [
+            'name' => 'sizes',
             'type' => 'html',
-            'value' => '$data->sizeLeft->size . "л<br>" . $data->sizeRight->size . "п"',
+            'value' => '$data->sizeLeft->size . " л<br>" . $data->sizeRight->size . " п"',
         ],
-        'urk_left_id' => [
-            'name' => 'urk_left_id',
+        'urks' => [
+            'name' => 'urks',
             'type' => 'html',
-            'value' => '$data->urkLeft->urk . "л<br>" . $data->urkRight->urk . "п"'
+            'value' => '$data->urkLeft->urk . " л<br>" . $data->urkRight->urk . " п"',
         ],
         'material_id' => [
-            'name' => 'size_left_id',
-            'value' => '$data->material->material',
+            'name' => 'material_id',
+            'value' => '$data->material->material_name',
         ],
-        'height_left_id' => [
-            'name' => 'height_left_id',
+        'heights' => [
+            'name' => 'heights',
             'type' => 'html',
-            'value' => '$data->heightLeft->height . "л<br>" . $data->heightRight->height . "п"'
+            'value' => '$data->heightLeft->height . " л<br>" . $data->heightRight->height . " п"'
         ],
-        'top_volume_left_id' => [
-            'name' => 'top_volume_left_id',
+        'top_volumes' => [
+            'name' => 'top_volumes',
             'type' => 'html',
-            'value' => '$data->topVolumeLeft->volume . "л<br>" . $data->topVolumeRight->volume . "п"'
+            'value' => '$data->topVolumeLeft->volume . " л<br>" . $data->topVolumeRight->volume . " п"'
         ],
-        'ankle_volume_left_id' => [
-            'name' => 'ankle_volume_left_id',
+        'ankle_volumes' => [
+            'name' => 'ankle_volumes',
             'type' => 'html',
             'value' => '$data->ankleVolumeLeft->volume . "л<br>" . $data->ankleVolumeRight->volume . "п"'
         ],
-        'kv_volume_left_id' => [
-            'name' => 'kv_volume_left_id',
+        'kv_volumes' => [
+            'name' => 'kv_volumes',
             'type' => 'html',
             'value' => '$data->kvVolumeLeft->volume . "л<br>" . $data->kvVolumeRight->volume . "п"'
         ],
         'customer_id' => [
             'name' => 'customer_id',
-            'type' => 'html',
             'value' => '$data->customer->fullName()'
         ],
         'employee_id' => [
             'name' => 'employee_id',
-            'type' => 'html',
             'value' => '$data->employee->fullName()'
         ],
-        'date_created',
+        'date_created' => [
+            'name' => 'date_created',
+            'value' => 'date("H:i d.m.Y", strtotime($data->date_created))'
+        ],
         [
             'class' => 'CButtonColumn',
+            'header' => 'Действия',
         ],
     ],
 ]);

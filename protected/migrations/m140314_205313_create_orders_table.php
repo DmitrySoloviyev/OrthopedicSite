@@ -26,6 +26,7 @@ class m140314_205313_create_orders_table extends CDbMigration
             'comment' => 'string not null default ""',
             'date_created' => 'datetime not null',
             'date_modified' => 'datetime not null',
+            'is_deleted' => 'boolean not null default 0'
         ], 'engine=innodb default charset=utf8');
 
         $this->addForeignKey('fk_size_left', 'orders', 'size_left_id', 'sizes', 'id');
