@@ -101,23 +101,25 @@ class OrderController extends Controller
     public function actionUpdate($id)
     {
         $order = $this->loadModel($id);
+        $customer = Customer::model()->findByPk($order->customer_id);
 
         if (isset($_POST['Order'])) {
-
+            // обновляем заказ
+            //
         }
 
         $this->render('update', [
-            'model' => $order,
+            'order' => $order,
+            'customer' => $customer,
         ]);
     }
 
 
     public function loadModel($id)
     {
-        // TODO искать по первичному ключу и где is_deleted = 0 (относится и к остальным моделям)
-        $model = Order::model()->findByPk($id);
+        $model = Order::model()->findByAttributes(['id' => $id, 'is_deleted' => 0]);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new CHttpException(404, 'Заказ не найден.');
 
         return $model;
     }

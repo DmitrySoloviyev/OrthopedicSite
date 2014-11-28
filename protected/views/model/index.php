@@ -4,6 +4,7 @@
 
 $this->widget('zii.widgets.grid.CGridView', [
     'id' => 'models-grid',
+    'template' => "{summary}\n{pager}\n{items}\n{pager}",
     'dataProvider' => $model->search(),
     'filter' => $model,
     'itemsCssClass' => 'dboutput',

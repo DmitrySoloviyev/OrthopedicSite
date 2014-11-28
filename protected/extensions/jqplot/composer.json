@@ -1,0 +1,14 @@
+{
+    "name": "jfmbrennan/yii-jqplot",
+    "description": "A Versatile and Expandable jQuery Plotting Plugin",
+    "keywords": ["jqplot","charts","yii","jquery"],
+    "type": "yii-extension",
+    "license": "MIT and GPL version 2",
+    "authors": [
+        {
+            "name": "Chris Leonello",
+            "email": "chris@jqplot.com",
+            "homepage": "http://www.jqplot.com"
+        }
+    ]
+}

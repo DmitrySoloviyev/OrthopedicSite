@@ -1,6 +1,6 @@
 <?php $this->widget('zii.widgets.grid.CGridView', [
     'id' => 'order-grid',
-    'template' => "{pager}\n{items}\n{pager}",
+    'template' => "{summary}\n{pager}\n{items}\n{pager}",
     'dataProvider' => $order->search(),
     'emptyText' => 'Нет записей',
     'ajaxUpdate' => true,

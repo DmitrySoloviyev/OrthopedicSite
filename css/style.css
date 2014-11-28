@@ -416,3 +416,10 @@ h3 + p {
     width: 70%;
     border: 1px solid #ccc;
 }
+
+.release_date {
+    float: right;
+    font-style: italic;
+    font-size: 0.8em;
+    margin: 0;
+}

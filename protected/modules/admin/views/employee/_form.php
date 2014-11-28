@@ -38,7 +38,7 @@
     ]); ?>
 
     <div class=" buttons">
-        <?= CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
+        <?= CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', ['class' => 'btn btn-primary']); ?>
     </div>
 
     <?php $this->endWidget(); ?>

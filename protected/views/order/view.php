@@ -58,9 +58,10 @@ $this->widget('zii.widgets.CDetailView', [
             'name' => 'employee_id',
             'value' => $order->employee->fullName(),
         ],
-        'comment',
         'date_created',
-        'date_modified',/*
+        'date_modified',
+        'comment',
+        /*
         'picture' => [
             'name' => 'picture',
             'type' => 'raw',

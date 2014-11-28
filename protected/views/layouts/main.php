@@ -9,9 +9,6 @@
           media="screen, projection"/>
     <![endif]-->
     <link rel='shortcut icon' href="<?= Yii::app()->request->baseUrl ?>images/shoes.png" type='image/png'>
-    <link
-        href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic&subset=latin,cyrillic-ext,greek-ext,cyrillic,latin-ext,greek'
-        rel='stylesheet' type='text/css'>
     <title><?= CHtml::encode($this->pageTitle) ?></title>
     <?php Yii::app()->clientScript
         ->registerCssFile('/css/screen.css', 'screen, projection')
@@ -20,18 +17,21 @@
         ->registerCssFile('/css/style.css')
         ->registerCssFile('/css/jquery.fancybox.css')
         ->registerScriptFile('/js/main.js', CClientScript::POS_END);
-//        Yii::app()->bootstrap->register();
+    //        Yii::app()->bootstrap->register();
     ?>
 </head>
 
 <body id="top">
 <div class="container" id="page">
     <a href="https://github.com/DmitrySoloviyev/OrthopedicSite">
-        <img width="149px" height="149px" id="forkme" src=<?= Yii::app()->request->baseUrl ?>"/images/forkme_left_red.png" alt="Fork me on GitHub"/>
+        <img width="149px" height="149px" id="forkme"
+             src=<?= Yii::app()->request->baseUrl ?>"/images/forkme_left_red.png" alt="Fork me on GitHub"/>
     </a>
+
     <div id="header">
-        <code class="version"><?= Yii::app()->params['version']?></code>
-        <div id="logo"><?= CHtml::encode(Yii::app()->name)?></div>
+        <code class="version"><?= Yii::app()->params['version'] ?></code>
+
+        <div id="logo"><?= CHtml::encode(Yii::app()->name) ?></div>
         <div id="navigation">
             <?php $this->widget('zii.widgets.CMenu', [
                 'items' => [
@@ -47,15 +47,16 @@
                     ['label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => ['user/logout'], 'visible' => !Yii::app()->user->isGuest]
                 ],
             ]); ?>
-        </div><!-- mainmenu -->
+        </div>
+        <!-- mainmenu -->
 
         <?php $form = $this->beginWidget('CActiveForm', [
             'method' => 'GET',
             'id' => 'quickSearchForm',
-            ]); ?>
-            <input type="text" id='quickSearch'
-                <?= (isset($_GET['quickSearch'])) ? "value='" . $_GET['quickSearch'] . "'" : "" ?>
-                    name="quickSearch" autocomplete='Off' placeholder='Поиск заказа по ключевому слову'/>
+        ]); ?>
+        <input type="text" id='quickSearch'
+            <?= (isset($_GET['quickSearch'])) ? "value='" . $_GET['quickSearch'] . "'" : "" ?>
+               name="quickSearch" autocomplete='Off' placeholder='Поиск заказа по ключевому слову'/>
         <?php $this->endWidget(); ?>
     </div>
     <!-- header -->
@@ -63,13 +64,16 @@
     <div id="center"><?= $content ?></div>
     <div class="clear"></div>
 
-    <div id="footer"><hr/>
+    <div id="footer">
+        <hr/>
         Copyright &copy; 2013 - <?= date('Y') ?>
         by <?= CHtml::mailto('Dmitry Soloviyev', 'dmitry.soloviyev@gmail.com') ?>.<br/>
         г. Москва. All Rights Reserved.<br/>
         <?= Yii::powered() ?>
-    </div><!-- footer -->
-</div><!-- page -->
+    </div>
+    <!-- footer -->
+</div>
+<!-- page -->
 <p id='back-top' style="z-index:2">
     <a href='#top'><img width='84' height='84' src='<?= Yii::app()->request->baseUrl ?>/images/arrow_up_84.png'/></a>
 </p>

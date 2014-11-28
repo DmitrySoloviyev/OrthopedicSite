@@ -106,7 +106,7 @@ class Order extends CActiveRecord
             'order_id' => 'Номер заказа',
             'model_id' => 'Модель',
             'size' => 'Размер',
-            'urk' => 'Урк',
+            'urk' => 'УРК',
             'material_id' => 'Материал',
             'height' => 'Высота',
             'topVolume' => 'Объем верха',
@@ -131,7 +131,7 @@ class Order extends CActiveRecord
             'kv_volume_right_id' => 'Объем КВ правый',
 
             'sizes' => 'Размер',
-            'urks' => 'Урк',
+            'urks' => 'УРК',
             'heights' => 'Высота',
             'top_volumes' => 'Объем верха',
             'ankle_volumes' => 'Объем лодыжки',
@@ -346,6 +346,88 @@ class Order extends CActiveRecord
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    /**
+     * Общая оценка производительности по дням недели
+     *
+     * @return array
+     */
+    public static function performanceByDay()
+    {
+        return Yii::app()->db->createCommand()
+            ->select([
+                'COUNT(*) AS orders_count',
+                'DAYOFMONTH(date_created) AS day_of_month',
+                'MONTHNAME(date_created) AS month_name',
+                'DATE(date_created) AS date_created',
+            ])
+            ->from('orders')
+            ->where('is_deleted = 0 AND date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()')
+            ->group('month_name, day_of_month')
+            ->order('date_created')
+            ->queryAll();
+    }
+
+    /**
+     * Оценка производительности модельеров по дням недели
+     */
+    public static function performanceByEmployee()
+    { /*
+        "SELECT
+          COUNT(DAY(o.date_created)) AS COUNT,
+          DAYOFMONTH(o.date_created) AS DAY,
+          MONTHNAME(o.date_created) AS MONTH,
+          DATE(o.date_created) AS DAYDATE,
+          o.employee_id,
+          CONCAT(e.surname, " ", LEFT(e.name, 1), ".", LEFT(e.patronymic, 1), ".") as employee
+		FROM orders o
+		JOIN employees e ON e.id = o.employee_id
+		WHERE o.is_deleted = 0 AND o.date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()
+		GROUP BY DAY, o.employee_id, MONTH ORDER BY o.employee_id, DAYDATE";
+*/
+        return Yii::app()->db->createCommand()
+            ->select([
+                'COUNT(*) AS orders_count',
+                'DAYOFMONTH(o.date_created) AS day_of_month',
+                'MONTHNAME(o.date_created) AS month_name',
+                'DATE(o.date_created) AS date_created',
+                'o.employee_id',
+                'CONCAT(e.surname, " ", LEFT(e.name, 1), ".", LEFT(e.patronymic, 1), ".") as employee',
+            ])
+            ->from('orders o')
+            ->join('employees e', 'e.id = o.employee_id')
+            ->where('o.is_deleted = 0 AND o.date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()')
+            ->group('day_of_month, o.employee_id, month_name')
+            ->order('o.employee_id, o.date_created')
+            ->queryAll();
+    }
+
+    /**
+     * Объем реализованных заказов по модельерам за последние 3 месяца
+     */
+    public static function performanceByEmployeeSummaryPie()
+    {
+        return Yii::app()->db->createCommand()
+            ->select([
+                'COUNT(*) AS orders_count',
+                'CONCAT(e.surname, " ", LEFT(e.name, 1), ".", LEFT(e.patronymic, 1), ".") as employee',
+            ])
+            ->from('orders o')
+            ->join('employees e', 'e.id = o.employee_id')
+            ->where('o.is_deleted = 0 AND o.date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()')
+            ->group('o.employee_id')
+            ->queryAll();
+    }
+
+    public static function hasOrders()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->select = 'COUNT(*)';
+        $criteria->addBetweenCondition('t.date_created', new CDbExpression('DATE_SUB(NOW(), INTERVAL 2 MONTH)'), new CDbExpression('NOW()'));
+        $criteria->compare('t.is_deleted', 1);
+
+        return self::model()->find($criteria)->count('t.is_deleted = 0');
     }
 
 }
