@@ -1,10 +1,11 @@
-/protected/runtime/*
+/protected/runtime/
+/protected/runtime/!runtime
 .directory
 /vagrant/var/
 .vagrant/
 .idea/
 /assets/
 /pma/
-/upload/*
+/upload/
 /upload/!OrthopedicDB.apk
 /upload/!.htaccess

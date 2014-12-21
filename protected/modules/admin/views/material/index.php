@@ -11,7 +11,7 @@
     'dataProvider' => $model->search(),
     'filter' => $model,
     'columns' => [
-        'material_name',
+        'title',
         [
             'class' => 'bootstrap.widgets.TbButtonColumn',
             'header' => 'Действия',

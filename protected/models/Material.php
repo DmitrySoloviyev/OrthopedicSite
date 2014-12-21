@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'materials':
  *
  * @property integer $id
- * @property string $material_name
+ * @property string $title
  * @property boolean $is_deleted
  *
  * The followings are the available model relations:
@@ -22,9 +22,9 @@ class Material extends CActiveRecord
     public function rules()
     {
         return [
-            ['material_name', 'required'],
-            ['material_name', 'unique'],
-            ['material_name', 'length', 'max' => 30],
+            ['title', 'required'],
+            ['title', 'unique'],
+            ['title', 'length', 'max' => 30],
             ['id, material', 'safe', 'on' => 'search'],
         ];
     }
@@ -39,7 +39,7 @@ class Material extends CActiveRecord
     public function attributeLabels()
     {
         return [
-            'material_name' => 'Материал',
+            'title' => 'Материал',
         ];
     }
 
@@ -53,7 +53,7 @@ class Material extends CActiveRecord
     {
         $materials = Yii::app()->redis->getClient()->get('materialsList');
         if ($materials === false) {
-            $materials = CHtml::listData(self::model()->findAll('is_deleted=0'), 'id', CHtml::encode('material_name'));
+            $materials = CHtml::listData(self::model()->findAll('is_deleted=0'), 'id', CHtml::encode('title'));
             Yii::app()->redis->getClient()->set('materialsList', CJSON::encode($materials));
         } else {
             $materials = CJSON::decode($materials);
@@ -65,7 +65,7 @@ class Material extends CActiveRecord
     public static function getMaterialShortcutList($meterialId)
     {
         $material = Yii::app()->db->createCommand()
-            ->select("material_name")
+            ->select('title')
             ->from('materials')
             ->where('id=:id', [':id' => $meterialId])
             ->queryRow();
@@ -98,7 +98,7 @@ class Material extends CActiveRecord
     {
         $criteria = new CDbCriteria;
         $criteria->compare('id', $this->id);
-        $criteria->compare('material_name', $this->material_name, true);
+        $criteria->compare('title', $this->title, true);
         $criteria->compare('is_deleted', 0);
 
         return new CActiveDataProvider($this, [

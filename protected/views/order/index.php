@@ -25,7 +25,7 @@
         ],
         'material_id' => [
             'name' => 'material_id',
-            'value' => '$data->material->material_name',
+            'value' => '$data->material->title',
         ],
         'heights' => [
             'name' => 'heights',

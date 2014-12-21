@@ -272,7 +272,7 @@ class Order extends CActiveRecord
         $criteria->compare('urkLeft.urk', $this->urks, true);
         $criteria->compare('urkRight.urk', $this->urks, true, 'OR');
 
-        $criteria->compare('material.material_name', $this->material_id, true);
+        $criteria->compare('material.title', $this->material_id, true);
 
         $criteria->compare('heightLeft.height', $this->heights, true);
         $criteria->compare('heightRight.height', $this->heights, true, 'OR');
@@ -311,8 +311,8 @@ class Order extends CActiveRecord
                 'desc' => 'urkRight.urk desc',
             ],
             'material_id' => [
-                'asc' => 'material.material_name',
-                'desc' => 'material.material_name desc',
+                'asc' => 'material.title',
+                'desc' => 'material.title desc',
             ],
             'heights' => [
                 'asc' => 'heightLeft.height',

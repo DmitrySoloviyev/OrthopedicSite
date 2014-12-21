@@ -133,7 +133,7 @@ class Report extends CFormModel
             $sheet->setCellValue("F" . $i, $value->urkRight->urk)
                 ->getStyle("F" . $i);
 
-            $sheet->setCellValue("G" . $i, $value->material->material_name)
+            $sheet->setCellValue("G" . $i, $value->material->title)
                 ->getStyle("G" . $i);
 
             $sheet->setCellValue("H" . $i, $value->heightLeft->height)

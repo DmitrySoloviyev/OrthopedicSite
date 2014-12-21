@@ -13,11 +13,11 @@
 
     <?= $form->errorSummary($model); ?>
 
-    <?= $form->labelEx($model, 'material_name'); ?>
-    <?= $form->textField($model, 'material_name', [
+    <?= $form->labelEx($model, 'title'); ?>
+    <?= $form->textField($model, 'title', [
         'size' => 30,
         'maxlength' => 30,
-        'placeholder' => $model->getAttributeLabel('material_name'),
+        'placeholder' => $model->getAttributeLabel('title'),
         'autocomplete' => 'off',
     ]); ?>
 

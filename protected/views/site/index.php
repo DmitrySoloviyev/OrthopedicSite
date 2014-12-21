@@ -63,8 +63,9 @@ $this->widget('ext.yii-flash.Flash', [
 <tr>
     <td style="vertical-align:text-top;color:grey"><i>0.5</i></td>
     <td style="color:grey;padding-bottom: 3%;">
-        Портирование на <a href="http://www.yiiframework.com/">Yii 2.0</a>. Добавлено тестирование приложения при помощи
-        фреймворка автоматического тестирования веб-приложений - <a href="http://codeception.com/">Codeception</a>.
+        Портирование на <a href="http://www.yiiframework.com/">Yii 2.x.x</a> с сохранением существующего функционала.
+        Добавлено тестирование приложения при помощи фреймворка автоматического тестирования веб-приложений -
+        <a href="http://codeception.com/">Codeception</a>.
         <p class="release_date">(xx.xx.2015)</p>
     </td>
 </tr>
@@ -75,7 +76,9 @@ $this->widget('ext.yii-flash.Flash', [
     <td style="vertical-align:text-top;color:grey"><i>0.4.1</i></td>
     <td style="color:grey">Благодаря внедрению поисковой системы полнотекстового поиска
         <a href="http://sphinxsearch.com/">Sphinx</a> поиск информации по базе данных, генерация отчета, построение
-        графиков статистики осуществляется на порядок быстрее. <p class="release_date">(xx.xx.2015)</p>
+        графиков статистики осуществляется на порядок быстрее. В раздел администрирования добавлен CRUD для справочников
+        размеров, урк, высоты, объемов верха, лодыжки и косого взъема по аналогии со справочником материалов.
+        <p class="release_date">(xx.xx.2015)</p>
     </td>
 </tr>
 -->

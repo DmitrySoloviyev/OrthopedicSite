@@ -32,7 +32,7 @@ $this->widget('zii.widgets.CDetailView', [
         ],
         [
             'name' => 'material_id',
-            'value' => $order->material->material_name,
+            'value' => $order->material->title,
         ],
         [
             'name' => 'Высота',
