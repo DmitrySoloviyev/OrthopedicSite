@@ -24,10 +24,6 @@ class StatisticController extends Controller
 
     public function actionIndex()
     {
-        if (Order::hasOrders() == 0) {
-            return 'Заказов не обнаружено.';
-        }
-
         $ordersPerDay = new OrdersPerDay('Общая оценка производительности: количество заказов по дням недели');
         $employeesByOrdersPerDay = new EmployeesByOrdersPerDay('Оценка производительности модельеров по дням недели');
         $ordersPie = new EmployeesPieByOrders('Объем реализованных заказов по модельерам за последние 3 месяца');

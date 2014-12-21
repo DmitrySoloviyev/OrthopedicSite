@@ -172,7 +172,7 @@ install php-apc
 #update-composer
 install php5-xdebug
 install apache2-utils
-install-phpunit
+#install-phpunit
 install redis-server
 install php5-redis
 

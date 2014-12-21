@@ -5,6 +5,10 @@
 
 $this->pageTitle = Yii::app()->name . ' - Статистика';
 
+if (Order::hasOrders() == 0) {
+    echo 'Заказов не обнаружено.';
+    return;
+}
 
 $this->widget('ext.EmployeesOrdersWidget.EmployeesOrders', []);
 
