@@ -48,7 +48,7 @@ $this->widget('ext.fancybox.EFancyBox', [
             </div>
         </div>
         <div>
-            <img alt="preview" id="preview" src="<?= Models::MODEL_IMAGE_PATH . 'ortho.jpg' ?>" width="350px"/>
+            <img alt="preview" id="preview" src="<?= Models::MODEL_IMAGE_PATH . ($model->isNewRecord ? 'ortho.jpg' : $model->picture) ?>" width="350px"/>
         </div>
     </fieldset>
     <?php $this->endWidget(); ?>

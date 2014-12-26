@@ -52,20 +52,13 @@ class ModelController extends Controller
 
         if (isset($_POST['Models'])) {
             $model->attributes = $_POST['Models'];
-
             $uploader = CUploadedFile::getInstance($model, 'picture');
-            $fileName = 'ortho.jpg';
-
-            if ($uploader !== null) {
-                $fileName = time() . '_' . $uploader->getName();
-                $model->picture = $fileName; // в базу пишется только имя файла, не путь!
-            } else {
-                $model->picture = $fileName;
-            }
 
             if ($model->save()) {
-                if ($uploader)
-                    $uploader->saveAs(Yii::getPathOfAlias('webroot') . Models::MODEL_IMAGE_PATH . $fileName);
+                if ($uploader) {
+                    $path = $model->savePicture($uploader->extensionName);
+                    $uploader->saveAs($path);
+                }
                 $this->redirect(['index']);
             }
         }
@@ -81,8 +74,15 @@ class ModelController extends Controller
 
         if (isset($_POST['Models'])) {
             $model->attributes = $_POST['Models'];
-            if ($model->save())
+            $uploader = CUploadedFile::getInstance($model, 'picture');
+
+            if ($model->save()) {
+                if ($uploader) {
+                    $path = $model->savePicture($uploader->extensionName);
+                    $uploader->saveAs($path);
+                }
                 $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         $this->render('update', [

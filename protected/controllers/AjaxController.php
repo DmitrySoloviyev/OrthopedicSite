@@ -19,8 +19,7 @@ class AjaxController extends Controller
     {
         $criteria = new CDbCriteria();
         $criteria->select = 'id, name';
-        $criteria->condition = 'name LIKE :name';
-        $criteria->params = [':name' => '%' . $term . '%'];
+        $criteria->compare('name', $term, true);
         $criteria->compare('is_deleted', 0);
         $models = Models::model()->findAll($criteria);
         $result = [];

@@ -1,9 +1,10 @@
 <?php
 /* @var $this ModelController */
 /* @var $model Models */
+$this->pageTitle = Yii::app()->name . ' -  Просмотр модели #' . $model->id;
 ?>
 
-<h1>Просмотр модели <?= $model->name; ?></h1>
+<h1>Модель "<?= $model->name; ?>"</h1>
 
 <?php
 $this->widget('ext.fancybox.EFancyBox', [
@@ -25,10 +26,11 @@ $this->widget('zii.widgets.CDetailView', [
             'name' => 'picture',
             'type' => 'raw',
             'value' => CHtml::image(Yii::app()->baseUrl . '/upload/OrthopedicGallery/' . $model->picture, $model->name, [
-                    'width' => '350px',
-                    'id' => $model->id,
-                    'href' => Yii::app()->baseUrl . '/upload/OrthopedicGallery/' . $model->picture,
-                ]),
+                'width' => '350px',
+                'id' => $model->id,
+                'href' => Yii::app()->baseUrl . '/upload/OrthopedicGallery/' . $model->picture,
+                'style' => 'cursor:pointer',
+            ]),
         ],
     ],
 ]); ?>
@@ -56,5 +58,5 @@ $this->widget('zii.widgets.CDetailView', [
             Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
         ],
         'confirm' => 'Вы действительно хотите удалить эту модель?',
-    ]);?>
+    ]); ?>
 </div>

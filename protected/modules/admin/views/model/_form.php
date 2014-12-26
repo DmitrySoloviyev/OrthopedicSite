@@ -23,7 +23,7 @@ $this->widget('ext.fancybox.EFancyBox', [
     <?= $form->errorSummary($model); ?>
 
     <?= $form->labelEx($model, 'name'); ?>
-    <?= $form->textField($model, 'name', ['size' => 30, 'maxlength' => 6]); ?>
+    <?= $form->textField($model, 'name', ['size' => 30, 'maxlength' => 6, 'autocomplete' => 'off']); ?>
     <?= $form->error($model, 'name'); ?>
 
     <?= $form->labelEx($model, 'description'); ?>
@@ -35,13 +35,13 @@ $this->widget('ext.fancybox.EFancyBox', [
     <?= $form->error($model, 'picture'); ?>
 
     <div><br>
-        <?= CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить',  ['class' => 'btn btn-primary']); ?>
+        <?= CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', ['class' => 'btn btn-primary']); ?>
     </div>
 
     <?php $this->endWidget(); ?>
 
     <div class="span5">
-        <img alt="preview" id="preview" src="<?=Models::MODEL_IMAGE_PATH . 'ortho.jpg'?>" width="350px"/>
+        <img alt="preview" id="preview" src="<?= Models::MODEL_IMAGE_PATH . ($model->isNewRecord ? 'ortho.jpg' : $model->picture) ?>" width="350px"/>
     </div>
 
 </div>

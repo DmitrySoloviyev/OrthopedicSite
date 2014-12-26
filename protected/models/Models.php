@@ -48,6 +48,9 @@ class Models extends CActiveRecord
 
     public function beforeSave()
     {
+        if (empty($this->picture)) {
+            $this->picture = 'ortho.jpg';
+        }
         if ($this->isNewRecord) {
             $this->date_created = new CDbExpression('NOW()');
         }
@@ -95,6 +98,25 @@ class Models extends CActiveRecord
                 ],
             ],
         ]);
+    }
+
+    /**
+     * Сохраняет изображение модели
+     * @param $extension
+     * @return string
+     */
+    public function savePicture($extension)
+    {
+        $fileName = 'model_id_' . $this->id . '.' . $extension;
+        $this->picture = $fileName; // в базу пишется только имя файла, не путь!
+        $filePath = Yii::getPathOfAlias('webroot') . self::MODEL_IMAGE_PATH . $fileName;
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+        if ($this->isNewRecord)
+            $this->save(false);
+
+        return $filePath;
     }
 
 }
