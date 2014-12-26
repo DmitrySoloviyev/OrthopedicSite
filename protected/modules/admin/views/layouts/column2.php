@@ -12,10 +12,6 @@
             ['label' => 'Новый материал', 'url' => '/admin/material/create', 'class' => 'nav nav-list'],
             ['label' => 'Все материалы', 'url' => '/admin/material/index', 'class' => 'nav nav-list'],
 
-            ['label' => 'Модели'],
-            ['label' => 'Новая модель', 'url' => '/admin/model/create', 'class' => 'nav nav-list'],
-            ['label' => 'Все модели', 'url' => '/admin/model/index', 'class' => 'nav nav-list'],
-
             ['label' => 'База данных'],
             ['label' => 'Резервирование', 'url' => '/admin/db/backup', 'class' => 'nav nav-list'],
             ['label' => 'Восстановление', 'url' => '/admin/db/restore', 'class' => 'nav nav-list'],
