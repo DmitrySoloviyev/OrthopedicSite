@@ -77,7 +77,7 @@ class OrderController extends Controller
         $order->unsetAttributes();
 /*
         if (!empty($_GET['quickSearch'])) {
-            $order->order_id = $_GET['quickSearch'];
+            $order->order_name = $_GET['quickSearch'];
             $order->model_id = $_GET['quickSearch'];
             $order->employee_id = $_GET['quickSearch'];
             $order->material_id = $_GET['quickSearch'];
@@ -104,8 +104,10 @@ class OrderController extends Controller
         $customer = Customer::model()->findByPk($order->customer_id);
 
         if (isset($_POST['Order'])) {
-            // обновляем заказ
-            //
+            $order->attributes = $_POST['Order'];
+            if ($order->save()) {
+                $this->redirect(['view', 'id' => $order->id]);
+            }
         }
 
         $this->render('update', [

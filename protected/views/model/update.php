@@ -2,4 +2,5 @@
 /* @var $this ModelController */
 /* @var $model Models */
 
-$this->renderPartial('_form', ['model'=>$model]);
+$this->pageTitle = Yii::app()->name . ' - Редактирование модели №' . $model->name;
+$this->renderPartial('_form', ['model' => $model]);

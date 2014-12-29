@@ -11,13 +11,9 @@ return [
             'class' => 'ext.minScript.controllers.ExtMinScriptController',
         ],
     ],
-//    'aliases' => [
-//        'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'),
-//    ],
     'import' => [
         'application.models.*',
         'application.components.*',
-//        'bootstrap.helpers.TbHtml',
     ],
     'modules' => [
         'admin' => [
@@ -46,9 +42,6 @@ return [
             'database' => 1,
             'prefix' => 'ortho.'
         ],
-//        'bootstrap' => [
-//            'class' => 'bootstrap.components.TbApi',
-//        ],
         'request' => [
             'enableCsrfValidation' => true,
             'enableCookieValidation' => true,

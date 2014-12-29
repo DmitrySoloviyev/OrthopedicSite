@@ -1,23 +1,32 @@
 <?php
+/* @var $model Models */
+
 $this->widget('ext.fancybox.EFancyBox', [
     'target' => '#picture_resource',
     'config' => [
         'enableEscapeButton' => true,
     ],
-]); ?>
-<div id="modelContent">
+]);
 
-    <div style="font-style: italic; font-size: 1.1em;" id="name">Выберите модель</div>
+$isModel = is_object($model);
+$picture = Models::MODEL_IMAGE_PATH . ($isModel ? $model->picture : 'ortho.jpg');
+?>
 
-    <div id="picture">
-        <img src=<?= Yii::app()->request->baseUrl ?>"/upload/OrthopedicGallery/ortho.jpg"
-             href="<?= Yii::app()->request->baseUrl ?>/upload/OrthopedicGallery/ortho.jpg" id="picture_resource"
-             alt='изображение модели'/>
+<div id="modelContent" style="text-align: left;">
+    <div style="font-style: italic; font-size: 1.1em; text-align: center;" id="name">
+        <?= $isModel ? 'Модель № ' . CHtml::link($model->name, ['model/view', 'id' => $model->id], ['target' => '_blank']) : 'Выберите модель' ?>
     </div>
 
-    <div id="description"></div>
+    <div id="picture">
+        <img src="<?= $picture ?>" href="<?= $picture ?>" id="picture_resource" alt='изображение модели'/>
+    </div>
 
-    <div id="date_created"></div>
-
-    <div id="date_modified"></div>
+    <?= Models::model()->getAttributeLabel('description') ?>:
+    <spam id="description"><?= (is_object($model) ? $model->description : ''); ?></spam>
+    <br>
+    <?= Models::model()->getAttributeLabel('date_created') ?>:
+    <spam id="date_created"><?= (is_object($model) ? $model->date_created : ''); ?></spam>
+    <br>
+    <?= Models::model()->getAttributeLabel('date_modified') ?>:
+    <spam id="date_modified"><?= $isModel ? $model->date_modified : ''; ?></spam>
 </div>

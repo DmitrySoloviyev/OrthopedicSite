@@ -1,7 +1,7 @@
 <?php
 /* @var $this ModelController */
 /* @var $model Models */
-$this->pageTitle = Yii::app()->name . ' -  Просмотр модели #' . $model->id;
+$this->pageTitle = Yii::app()->name . ' -  Просмотр модели №' . $model->name;
 ?>
 
 <h1>Модель "<?= $model->name; ?>"</h1>

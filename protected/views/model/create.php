@@ -2,4 +2,5 @@
 /* @var $this ModelController */
 /* @var $model Models */
 
-$this->renderPartial('_form', ['model'=>$model]);
+$this->pageTitle = Yii::app()->name . ' - Новая модель';
+$this->renderPartial('_form', ['model' => $model]);

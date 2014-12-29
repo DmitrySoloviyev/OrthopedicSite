@@ -2,6 +2,8 @@
 /* @var $this ModelController */
 /* @var $model Models */
 
+$this->pageTitle = Yii::app()->name . ' - Все модели';
+
 $this->widget('zii.widgets.grid.CGridView', [
     'id' => 'models-grid',
     'template' => "{summary}\n{pager}\n{items}\n{pager}",

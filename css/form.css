@@ -110,12 +110,12 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage {
     width: 430px;
     float: right;
     text-align: center;
-    padding: 2% 0;
+    padding-bottom: 2%;
 }
 
 #modelForm div {
     font-size: 14px;
-    font: sans-serif;
+    font-family: sans-serif;
     font-style: italic;
     padding: 5px;
 }

@@ -1,4 +1,7 @@
-<?php $this->widget('zii.widgets.grid.CGridView', [
+<?php
+$this->pageTitle = Yii::app()->name . ' - Все заказы';
+
+$this->widget('zii.widgets.grid.CGridView', [
     'id' => 'order-grid',
     'template' => "{summary}\n{pager}\n{items}\n{pager}",
     'dataProvider' => $order->search(),
@@ -8,7 +11,7 @@
     'summaryText' => 'Показано {start} - {end} из {count} заказов.',
     'filter' => $order,
     'columns' => [
-        'order_id',
+        'order_name',
         'model_id' => [
             'name' => 'model_id',
             'value' => '$data->model->name',
@@ -16,12 +19,12 @@
         'sizes' => [
             'name' => 'sizes',
             'type' => 'html',
-            'value' => '$data->sizeLeft->size . " л<br>" . $data->sizeRight->size . " п"',
+            'value' => '$data->size_left . " л<br>" . $data->size_right . " п"',
         ],
         'urks' => [
             'name' => 'urks',
             'type' => 'html',
-            'value' => '$data->urkLeft->urk . " л<br>" . $data->urkRight->urk . " п"',
+            'value' => '$data->urk_left . " л<br>" . $data->urk_right . " п"',
         ],
         'material_id' => [
             'name' => 'material_id',
@@ -30,22 +33,22 @@
         'heights' => [
             'name' => 'heights',
             'type' => 'html',
-            'value' => '$data->heightLeft->height . " л<br>" . $data->heightRight->height . " п"'
+            'value' => '$data->height_left . " л<br>" . $data->height_right . " п"'
         ],
         'top_volumes' => [
             'name' => 'top_volumes',
             'type' => 'html',
-            'value' => '$data->topVolumeLeft->volume . " л<br>" . $data->topVolumeRight->volume . " п"'
+            'value' => '$data->top_volume_left . " л<br>" . $data->top_volume_right . " п"'
         ],
         'ankle_volumes' => [
             'name' => 'ankle_volumes',
             'type' => 'html',
-            'value' => '$data->ankleVolumeLeft->volume . "л<br>" . $data->ankleVolumeRight->volume . "п"'
+            'value' => '$data->ankle_volume_left . "л<br>" . $data->ankle_volume_right . "п"'
         ],
         'kv_volumes' => [
             'name' => 'kv_volumes',
             'type' => 'html',
-            'value' => '$data->kvVolumeLeft->volume . "л<br>" . $data->kvVolumeRight->volume . "п"'
+            'value' => '$data->kv_volume_left . "л<br>" . $data->kv_volume_right . "п"'
         ],
         'customer_id' => [
             'name' => 'customer_id',

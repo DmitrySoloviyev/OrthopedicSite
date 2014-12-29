@@ -115,7 +115,7 @@ class Report extends CFormModel
         foreach ($data as $value) {
             static $i = 4;
             /** @var $value Order */
-            $sheet->setCellValue("A" . $i, $value->order_id)
+            $sheet->setCellValue("A" . $i, $value->order_name)
                 ->getStyle("A" . $i);
 
             $sheet->setCellValue("B" . $i, $value->model->name)

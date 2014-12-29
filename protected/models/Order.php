@@ -6,21 +6,21 @@
  * The followings are the available columns in table 'orders':
  *
  * @property integer $id
- * @property string $order_id
+ * @property string $order_name
  * @property integer $model_id
- * @property integer $size_left_id
- * @property integer $size_right_id
- * @property integer $urk_left_id
- * @property integer $urk_right_id
+ * @property integer $size_left
+ * @property integer $size_right
+ * @property integer $urk_left
+ * @property integer $urk_right
  * @property integer $material_id
- * @property integer $height_left_id
- * @property integer $height_right_id
- * @property integer $top_volume_left_id
- * @property integer $top_volume_right_id
- * @property integer $ankle_volume_left_id
- * @property integer $ankle_volume_right_id
- * @property integer $kv_volume_left_id
- * @property integer $kv_volume_right_id
+ * @property integer $height_left
+ * @property integer $height_right
+ * @property integer $top_volume_left
+ * @property integer $top_volume_right
+ * @property integer $ankle_volume_left
+ * @property integer $ankle_volume_right
+ * @property integer $kv_volume_left
+ * @property integer $kv_volume_right
  * @property integer $customer_id
  * @property integer $employee_id
  * @property string $comment
@@ -31,18 +31,6 @@
  * The followings are the available model relations:
  * @property Models $model
  * @property Employee $employee
- * @property TopVolume $topVolumeLeft
- * @property TopVolume $topVolumeRight
- * @property Height $heightLeft
- * @property Height $heightRight
- * @property AnkleVolume $ankleVolumeLeft
- * @property AnkleVolume $ankleVolumeRight
- * @property KvVolume $kvVolumeLeft
- * @property KvVolume $kvVolumeRight
- * @property Urk $urkLeft
- * @property Urk $urkRight
- * @property Size $sizeLeft
- * @property Size $sizeRight
  * @property Material $material
  * @property Customer $customer
  */
@@ -63,18 +51,17 @@ class Order extends CActiveRecord
     public function rules()
     {
         return [
-            ['order_id, sizes, urks, heights, top_volumes, ankle_volumes, kv_volumes, model_id, size_left_id, size_right_id, urk_left_id, urk_right_id, material_id, height_left_id, height_right_id, top_volume_left_id, top_volume_right_id, ankle_volume_left_id, ankle_volume_right_id, kv_volume_left_id, kv_volume_right_id, customer_id, employee_id', 'required'],
-            ['model_id, size_left_id, size_right_id, urk_left_id, urk_right_id, material_id, height_left_id, height_right_id, top_volume_left_id, top_volume_right_id, ankle_volume_left_id, ankle_volume_right_id, kv_volume_left_id, kv_volume_right_id, customer_id, employee_id', 'numerical', 'integerOnly' => true],
-            ['order_id', 'unique', 'message' => 'Заказ с таким номером уже есть в базе!'],
-            ['order_id', 'length', 'max' => 10],
+            ['order_name, model_id, size_left, size_right, urk_left, urk_right, material_id, height_left, height_right, top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right, customer_id, employee_id', 'required'],
+            ['model_id,  material_id,  customer_id, employee_id', 'numerical', 'integerOnly' => true],
+            ['size_left, size_right', 'numerical', 'integerOnly' => true, 'min' => 15, 'max' => 49],
+            ['urk_left, urk_right', 'numerical', 'integerOnly' => true, 'min' => 100, 'max' => 400],
+            ['height_left, height_right', 'numerical', 'integerOnly' => true, 'max' => 40],
+            ['top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right', 'numerical', 'integerOnly' => false, 'numberPattern' => '/^\\d\\d(?:\\.[05])?$/'],
+            ['order_name', 'unique', 'message' => 'Заказ с таким номером уже существует!'],
+            ['order_name', 'length', 'max' => 10],
             ['is_deleted', 'boolean'],
-            ['sizes', 'match', 'pattern' => '/(^(([2-4][0-9])|15|16|17|18|19)$)|(^(([2-4][0-9])|15|16|17|18|19) (([2-4][0-9])|15|16|17|18|19)$)/'],
-            ['heights', 'match', 'pattern' => '/(^(([1-3][0-9])|0|7|8|9|40)$)|(^(([1-3][0-9])|0|7|8|9|40) (([1-3][0-9])|0|7|8|9|40)$)/'],
-            ['urks', 'match', 'pattern' => '/(^([1-3]\\d\\d)|400$)|(^([1-3]\\d\\d)|400 ([1-3]\\d\\d)|400$)/'],
-            ['top_volumes, ankle_volumes', 'match', 'pattern' => '/(^(([1-4][0-9])|50)(\\.[05])?$)|(^(([1-4][0-9])|50)(\\.[05])? (([1-4][0-9])|50)(\\.[05])?$)/'],
-            ['kv_volumes', 'match', 'pattern' => '/(^(([2-6][0-9])|15|16|17|18|19|70)(\\.[05])?$)|(^(([2-6][0-9])|15|16|17|18|19|70)(\\.[05])? (([2-6][0-9])|15|16|17|18|19|70)(\\.[05])?$)/', 'on' => 'insert'],
             ['comment', 'length', 'max' => 255],
-            ['order_id, sizes, urks, heights, top_volumes, ankle_volumes, kv_volumes, model_id, size_left_id, size_right_id, urk_left_id, urk_right_id, material_id, height_left_id, height_right_id, top_volume_left_id, top_volume_right_id, ankle_volume_left_id, ankle_volume_right_id, kv_volume_left_id, kv_volume_right_id, customer_id, employee_id, comment, is_deleted', 'safe', 'on' => 'search'],
+            ['order_name, sizes, urks, heights, top_volumes, ankle_volumes, kv_volumes, model_id, size_left, size_right, urk_left, urk_right, material_id, height_left, height_right, top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right, customer_id, employee_id, comment, is_deleted', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -82,53 +69,35 @@ class Order extends CActiveRecord
     {
         return [
             'model' => [self::BELONGS_TO, 'Models', 'model_id'],
-            'topVolumeLeft' => [self::BELONGS_TO, 'TopVolume', 'top_volume_left_id'],
-            'topVolumeRight' => [self::BELONGS_TO, 'TopVolume', 'top_volume_right_id'],
-            'ankleVolumeLeft' => [self::BELONGS_TO, 'AnkleVolume', 'ankle_volume_left_id'],
-            'ankleVolumeRight' => [self::BELONGS_TO, 'AnkleVolume', 'ankle_volume_right_id'],
-            'kvVolumeLeft' => [self::BELONGS_TO, 'KvVolume', 'kv_volume_left_id'],
-            'kvVolumeRight' => [self::BELONGS_TO, 'KvVolume', 'kv_volume_right_id'],
             'customer' => [self::BELONGS_TO, 'Customer', 'customer_id'],
             'employee' => [self::BELONGS_TO, 'Employee', 'employee_id'],
-            'sizeLeft' => [self::BELONGS_TO, 'Size', 'size_left_id'],
-            'sizeRight' => [self::BELONGS_TO, 'Size', 'size_right_id'],
-            'urkLeft' => [self::BELONGS_TO, 'Urk', 'urk_left_id'],
-            'urkRight' => [self::BELONGS_TO, 'Urk', 'urk_right_id'],
             'material' => [self::BELONGS_TO, 'Material', 'material_id'],
-            'heightLeft' => [self::BELONGS_TO, 'Height', 'height_left_id'],
-            'heightRight' => [self::BELONGS_TO, 'Height', 'height_right_id'],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'order_id' => 'Номер заказа',
+            'order_name' => 'Номер заказа',
             'model_id' => 'Модель',
-            'size' => 'Размер',
-            'urk' => 'УРК',
             'material_id' => 'Материал',
-            'height' => 'Высота',
-            'topVolume' => 'Объем верха',
-            'ankleVolume' => 'Объем лодыжки',
-            'kvVolume' => 'Объем КВ',
             'employee_id' => 'Модельер',
             'customer_id' => 'Заказчик',
             'comment' => 'Комментарий',
             'date_created' => 'Дата создания',
             'date_modified' => 'Дата изменения',
-            'size_left_id' => 'Размер левый',
-            'size_right_id' => 'Размер правый',
-            'urk_left_id' => 'Урк левый',
-            'urk_right_id' => 'Урк правый',
-            'height_left_id' => 'Высота левый',
-            'height_right_id' => 'Высота правый',
-            'top_volume_left_id' => 'Объем верха левый',
-            'top_volume_right_id' => 'Объем верха правый',
-            'ankle_volume_left_id' => 'Объем лодыжки левый',
-            'ankle_volume_right_id' => 'Объем лодыжки правый',
-            'kv_volume_left_id' => 'Объем КВ левый',
-            'kv_volume_right_id' => 'Объем КВ правый',
+            'size_left' => 'Размер левый',
+            'size_right' => 'Размер правый',
+            'urk_left' => 'Урк левый',
+            'urk_right' => 'Урк правый',
+            'height_left' => 'Высота левый',
+            'height_right' => 'Высота правый',
+            'top_volume_left' => 'Объем верха левый',
+            'top_volume_right' => 'Объем верха правый',
+            'ankle_volume_left' => 'Объем лодыжки левый',
+            'ankle_volume_right' => 'Объем лодыжки правый',
+            'kv_volume_left' => 'Объем КВ левый',
+            'kv_volume_right' => 'Объем КВ правый',
 
             'sizes' => 'Размер',
             'urks' => 'УРК',
@@ -139,37 +108,6 @@ class Order extends CActiveRecord
         ];
     }
 
-    public function beforeValidate()
-    {
-        $this->preFilter($this->sizes, 'size');
-        $this->preFilter($this->urks, 'urk');
-        $this->preFilter($this->heights, 'height');
-        $this->preFilter($this->top_volumes, 'top_volume');
-        $this->preFilter($this->ankle_volumes, 'ankle_volume');
-        $this->preFilter($this->kv_volumes, 'kv_volume');
-
-
-        $this->size_left_id = $this->filter('Size', 'size', $this->size_left_id);
-        $this->size_right_id = $this->filter('Size', 'size', $this->size_right_id);
-
-        $this->urk_left_id = $this->filter('Urk', 'urk', $this->urk_left_id);
-        $this->urk_right_id = $this->filter('Urk', 'urk', $this->urk_right_id);
-
-        $this->height_left_id = $this->filter('Height', 'height', $this->height_left_id);
-        $this->height_right_id = $this->filter('Height', 'height', $this->height_right_id);
-
-        $this->top_volume_left_id = $this->filter('TopVolume', 'volume', $this->top_volume_left_id);
-        $this->top_volume_right_id = $this->filter('TopVolume', 'volume', $this->top_volume_right_id);
-
-        $this->ankle_volume_left_id = $this->filter('AnkleVolume', 'volume', $this->ankle_volume_left_id);
-        $this->ankle_volume_right_id = $this->filter('AnkleVolume', 'volume', $this->ankle_volume_right_id);
-
-        $this->kv_volume_left_id = $this->filter('KvVolume', 'volume', $this->kv_volume_left_id);
-        $this->kv_volume_right_id = $this->filter('KvVolume', 'volume', $this->kv_volume_right_id);
-
-        return parent::beforeValidate();
-    }
-
     public function beforeSave()
     {
         if ($this->isNewRecord) {
@@ -178,67 +116,6 @@ class Order extends CActiveRecord
         $this->date_modified = new CDbExpression('NOW()');
 
         return parent::beforeSave();
-    }
-
-    /**
-     * 1 input, 2 параметра
-     * разбивка введенных значений
-     *
-     * @param $value
-     * @param $attribute
-     */
-    private function preFilter($value, $attribute)
-    {
-        if (strlen($value) > $this->getMaxInputChars($attribute)) {
-            // если длина введеной строки больше 2х цифр, значит для каждой ноги введено свое значение
-            $array_value = explode(' ', $value);
-            $this->{$attribute . '_left_id'} = $array_value[0];
-            $this->{$attribute . '_right_id'} = $array_value[1];
-        } else {
-            $this->{$attribute . '_left_id'} = $this->{$attribute . '_right_id'} = $value;
-        }
-    }
-
-    private function getMaxInputChars($attribute)
-    {
-        switch ($attribute) {
-            case 'size':
-                return 2;
-                break;
-            case 'urk':
-                return 3;
-                break;
-            case 'height':
-                return 2;
-                break;
-            case 'top_volume':
-                return 4;
-                break;
-            case 'ankle_volume':
-                return 4;
-                break;
-            case 'kv_volume':
-                return 4;
-                break;
-        }
-    }
-
-    /**
-     * Нахождение id связанных данных
-     *
-     * @param $model
-     * @param $field
-     * @param $value
-     * @return null
-     */
-    private function filter($model, $field, $value)
-    {
-        $result = CActiveRecord::model($model)->findByAttributes([$field => $value]);
-        if ($result) {
-            return $result['id'];
-        }
-
-        return null;
     }
 
     public function delete()
@@ -253,38 +130,32 @@ class Order extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->with = [
-            'sizeLeft', 'sizeRight',
-            'urkLeft', 'urkRight',
-            'heightLeft', 'heightRight',
-            'topVolumeLeft', 'topVolumeRight',
-            'ankleVolumeLeft', 'ankleVolumeRight',
-            'kvVolumeLeft', 'kvVolumeRight',
             'employee',
             'material', 'model',
         ];
 
-        $criteria->compare('order_id', $this->order_id, true);
+        $criteria->compare('order_name', $this->order_name, true);
         $criteria->compare('model.name', $this->model_id, true);
 
-        $criteria->compare('sizeLeft.size', $this->sizes, true);
-        $criteria->compare('sizeRight.size', $this->sizes, true, 'OR');
+        $criteria->compare('size_left', $this->sizes, true);
+        $criteria->compare('size_right', $this->sizes, true, 'OR');
 
-        $criteria->compare('urkLeft.urk', $this->urks, true);
-        $criteria->compare('urkRight.urk', $this->urks, true, 'OR');
+        $criteria->compare('urk_left', $this->urks, true);
+        $criteria->compare('urk_right', $this->urks, true, 'OR');
 
         $criteria->compare('material.title', $this->material_id, true);
 
-        $criteria->compare('heightLeft.height', $this->heights, true);
-        $criteria->compare('heightRight.height', $this->heights, true, 'OR');
+        $criteria->compare('height_left', $this->heights, true);
+        $criteria->compare('height_right', $this->heights, true, 'OR');
 
-        $criteria->compare('topVolumeLeft.volume', $this->top_volumes, true);
-        $criteria->compare('topVolumeRight.volume', $this->top_volumes, true, 'OR');
+        $criteria->compare('top_volume_left', $this->top_volumes, true);
+        $criteria->compare('top_volume_right', $this->top_volumes, true, 'OR');
 
-        $criteria->compare('ankleVolumeLeft.value', $this->ankle_volumes, true);
-        $criteria->compare('ankleVolumeRight.value', $this->ankle_volumes, true, 'OR');
+        $criteria->compare('ankle_volume_left', $this->ankle_volumes, true);
+        $criteria->compare('ankle_volume_right', $this->ankle_volumes, true, 'OR');
 
-        $criteria->compare('kvVolumeLeft.value', $this->kv_volumes, true);
-        $criteria->compare('kvVolumeRight.value', $this->kv_volumes, true, 'OR');
+        $criteria->compare('kv_volume_left', $this->kv_volumes, true);
+        $criteria->compare('kv_volume_right', $this->kv_volumes, true, 'OR');
 
         $criteria->compare('customer.surname', $this->customer_id, true);
         $criteria->compare('customer.name', $this->customer_id, true, 'OR');
@@ -303,35 +174,34 @@ class Order extends CActiveRecord
         $sort->attributes = [
             'defaultOrder' => 't.date_created DESC',
             'sizes' => [
-                'asc' => 'sizeLeft.size',
-                'desc' => 'sizeLeft.size desc',
+                'asc' => 'size_left',
+                'desc' => 'size_left desc',
             ],
             'urks' => [
-                'asc' => 'urkLeft.urk',
-                'desc' => 'urkRight.urk desc',
+                'asc' => 'urk_left',
+                'desc' => 'urk_right desc',
             ],
             'material_id' => [
                 'asc' => 'material.title',
                 'desc' => 'material.title desc',
             ],
             'heights' => [
-                'asc' => 'heightLeft.height',
-                'desc' => 'heightLeft.height desc',
+                'asc' => 'height_left',
+                'desc' => 'height_left desc',
             ],
             'top_volumes' => [
-                'asc' => 'topVolumeLeft.volume',
-                'desc' => 'topVolumeLeft.volume desc',
+                'asc' => 'top_volume_left',
+                'desc' => 'top_volume_left desc',
             ],
             'ankle_volumes' => [
-                'asc' => 'ankleVolumeLeft.value',
-                'desc' => 'ankleVolumeLeft.value desc',
+                'asc' => 'ankle_volume_left',
+                'desc' => 'ankle_volume_left desc',
             ],
             'kv_volumes' => [
-                'asc' => 'kvVolumeLeft.value',
-                'desc' => 'kvVolumeLeft.value desc',
+                'asc' => 'kv_volume_left',
+                'desc' => 'kv_volume_left desc',
             ],
             '*', // Make all other columns sortable, too
-
         ];
 
         return new CActiveDataProvider($this, [

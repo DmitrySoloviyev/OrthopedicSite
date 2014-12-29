@@ -6,21 +6,21 @@ class m140314_205313_create_orders_table extends CDbMigration
     {
         $this->createTable('orders', [
             'id' => 'pk',
-            'order_id' => 'varchar(10) not null',
+            'order_name' => 'varchar(10) not null',
             'model_id' => 'int not null',
-            'size_left_id' => 'int not null',
-            'size_right_id' => 'int not null',
-            'urk_left_id' => 'int not null',
-            'urk_right_id' => 'int not null',
+            'size_left' => 'tinyint(2) unsigned not null',  // 15 - 49
+            'size_right' => 'tinyint(2) unsigned not null', // 15 - 49
+            'urk_left' => 'smallint(3) unsigned not null',  // 100 - 400
+            'urk_right' => 'smallint(3) unsigned not null', // 100 - 400
             'material_id' => 'int not null',
-            'height_left_id' => 'int not null',
-            'height_right_id' => 'int not null',
-            'top_volume_left_id' => 'int not null',
-            'top_volume_right_id' => 'int not null',
-            'ankle_volume_left_id' => 'int not null',
-            'ankle_volume_right_id' => 'int not null',
-            'kv_volume_left_id' => 'int not null',
-            'kv_volume_right_id' => 'int not null',
+            'height_left' => 'tinyint(2) unsigned not null',   // 0, 7 - 40
+            'height_right' => 'tinyint(2) unsigned not null',  // 0, 7 - 40
+            'top_volume_left' => 'float unsigned not null',    // 10.0 - 50.0 float(3,1) unsigned not null
+            'top_volume_right' => 'float unsigned not null',   // 10.0 - 50.0 float(3,1) unsigned not null
+            'ankle_volume_left' => 'float unsigned not null',  // 10.0 - 50.0 float(3,1) unsigned not null
+            'ankle_volume_right' => 'float unsigned not null', // 10.0 - 50.0 float(3,1) unsigned not null
+            'kv_volume_left' => 'float unsigned not null',     // 15.0 - 70.0 float(3,1) unsigned not null
+            'kv_volume_right' => 'float unsigned not null',    // 15.0 - 70.0 float(3,1) unsigned not null
             'customer_id' => 'int not null',
             'employee_id' => 'int not null',
             'comment' => 'string not null default ""',
@@ -29,28 +29,12 @@ class m140314_205313_create_orders_table extends CDbMigration
             'is_deleted' => 'boolean not null default 0'
         ], 'engine=innodb default charset=utf8');
 
-        $this->addForeignKey('fk_size_left', 'orders', 'size_left_id', 'sizes', 'id');
-        $this->addForeignKey('fk_size_right', 'orders', 'size_right_id', 'sizes', 'id');
-
-        $this->addForeignKey('fk_urk_left', 'orders', 'urk_left_id', 'urks', 'id');
-        $this->addForeignKey('fk_urk_right', 'orders', 'urk_right_id', 'urks', 'id');
-
-        $this->addForeignKey('fk_height_left', 'orders', 'height_left_id', 'heights', 'id');
-        $this->addForeignKey('fk_height_right', 'orders', 'height_right_id', 'heights', 'id');
-
-        $this->addForeignKey('fk_top_volume_left', 'orders', 'top_volume_left_id', 'top_volume', 'id');
-        $this->addForeignKey('fk_top_volume_right', 'orders', 'top_volume_right_id', 'top_volume', 'id');
-
-        $this->addForeignKey('fk_ankle_volume_left', 'orders', 'ankle_volume_left_id', 'ankle_volume', 'id');
-        $this->addForeignKey('fk_ankle_volume_right', 'orders', 'ankle_volume_right_id', 'ankle_volume', 'id');
-
-        $this->addForeignKey('fk_kv_volume_left', 'orders', 'kv_volume_left_id', 'kv_volume', 'id');
-        $this->addForeignKey('fk_kv_volume_right', 'orders', 'kv_volume_right_id', 'kv_volume', 'id');
-
         $this->addForeignKey('fk_model', 'orders', 'model_id', 'models', 'id');
         $this->addForeignKey('fk_material', 'orders', 'material_id', 'materials', 'id');
         $this->addForeignKey('fk_customer', 'orders', 'customer_id', 'customers', 'id');
         $this->addForeignKey('fk_employee', 'orders', 'employee_id', 'employees', 'id');
+
+        $this->createIndex('unique_order_name', 'orders', 'order_name', true);
     }
 
     public function safeDown()

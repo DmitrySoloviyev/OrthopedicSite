@@ -113,8 +113,7 @@ class Models extends CActiveRecord
         if (file_exists($filePath)) {
             unlink($filePath);
         }
-        if ($this->isNewRecord)
-            $this->save(false);
+        $this->save(false);
 
         return $filePath;
     }
