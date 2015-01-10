@@ -86,6 +86,8 @@ class OrderController extends Controller
         if (isset($_GET['Order']))
             $order->attributes = $_GET['Order'];
 
+        foreach($order->attributes as $k => $a) {echo $k . ' ';}
+
         $this->render('index', [
             'order' => $order
         ]);

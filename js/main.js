@@ -7,7 +7,7 @@ jQuery(function ($) {
     //перемотка вверх
     var back_top = $('#back-top');
     back_top.hide();
-    $(function () {
+    $(function ($) {
         $(window).scroll(function () {
             if ($(this).scrollTop() >= 400) {
                 back_top.slideDown();
@@ -24,15 +24,19 @@ jQuery(function ($) {
         });
     });//конец перемотка вверх
 
-    var quickSearchVal = $('#quickSearchVal');
+    var quickSearchVal = $('#quickSearch');
+    var quickSearchForm = $('#quickSearchForm');
+
     quickSearchVal.focus(function () {
-        $('#quickSearchForm').css({
+        console.log(234);
+        quickSearchForm.css({
             'background-color': '#f7f7f7',
             'border-color': 'black'
         });
     });
     quickSearchVal.focusout(function () {
-        $('#quickSearchForm').css({
+        console.log(234);
+        quickSearchForm.css({
             'border-color': '',
             'background-color': '#E4E4E4'
         });
@@ -43,4 +47,8 @@ jQuery(function ($) {
         if (event.which == 1)
             $(this).parent().addClass('active');
     });
+});
+
+$(function ($) {
+
 });

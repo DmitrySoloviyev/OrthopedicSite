@@ -9,6 +9,7 @@
  * @property string $name
  * @property string $description
  * @property string $picture
+ * @property string $comment
  * @property string $date_created
  * @property string $date_modified
  * @property boolean $is_deleted
@@ -33,9 +34,9 @@ class Models extends CActiveRecord
             ['name', 'unique'],
             ['name', 'length', 'max' => 6],
             ['is_deleted', 'boolean'],
-            ['description', 'length', 'max' => 255],
+            ['description, comment', 'length', 'max' => 255],
             ['picture', 'file', 'types' => 'jpg, jpeg, gif, png', 'allowEmpty' => true],
-            ['id, name, description, date_created, date_modified', 'safe', 'on' => 'search'],
+            ['id, name, description, comment, date_created, date_modified', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -65,6 +66,7 @@ class Models extends CActiveRecord
             'name' => 'Название модели',
             'description' => 'Описание модели',
             'picture' => 'Изображение модели',
+            'comment' => 'Комментарий',
             'date_created' => 'Дата создания',
             'date_modified' => 'Дата изменения',
         ];
@@ -88,6 +90,9 @@ class Models extends CActiveRecord
         $criteria->compare('id', $this->id);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, false);
+        $criteria->compare('comment', $this->comment, true);
+        $criteria->compare('date_created', $this->date_created, true);
+        $criteria->compare('date_modified', $this->date_modified, true);
         $criteria->compare('is_deleted', 0);
 
         return new CActiveDataProvider($this, [

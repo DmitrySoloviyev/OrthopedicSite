@@ -16,12 +16,10 @@ $this->widget('zii.widgets.grid.CGridView', [
             'name' => 'description',
             'htmlOptions' => ['width' => '500px']
         ],
+        'comment',
 //        'picture',
         'date_created',
         'date_modified',
-        /*
-        'is_deleted',
-        */
         [
             'class' => 'CButtonColumn',
             'header' => 'Действия',

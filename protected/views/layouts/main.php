@@ -45,7 +45,7 @@
         ]); ?>
         <input type="text" id='quickSearch'
             <?= (isset($_GET['quickSearch'])) ? "value='" . $_GET['quickSearch'] . "'" : "" ?>
-               name="quickSearch" autocomplete='Off' placeholder='Поиск заказа по ключевому слову'/>
+               name="quickSearch" autocomplete='Off' placeholder='Поиск по сайту'/>
         <?php $this->endWidget(); ?>
     </div>
     <!-- header -->

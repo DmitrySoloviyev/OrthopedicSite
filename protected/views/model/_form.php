@@ -43,6 +43,12 @@ $this->widget('ext.fancybox.EFancyBox', [
                 <?= $form->error($model, 'picture'); ?>
             </div>
 
+            <div class="row">
+                <?= $form->labelEx($model, 'comment'); ?><br>
+                <?= $form->textArea($model, 'comment', ['cols' => 30, 'rows' => 10, 'maxlength' => 255]); ?>
+                <?= $form->error($model, 'comment'); ?>
+            </div>
+
             <div class="buttons">
                 <?= CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', ['class'=>'button']); ?>
             </div>

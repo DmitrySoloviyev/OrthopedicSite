@@ -20,6 +20,7 @@ $this->widget('zii.widgets.CDetailView', [
     'attributes' => [
         'name',
         'description',
+        'comment',
         'date_created',
         'date_modified',
         'picture' => [
