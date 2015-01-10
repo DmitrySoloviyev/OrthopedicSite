@@ -4,10 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     <meta name="language" content="ru"/>
-    <!--[if lt IE 8]>
-    <link rel='stylesheet' type='text/css' href="<?= Yii::app()->request->baseUrl ?>/css/ie.css"
-          media="screen, projection"/>
-    <![endif]-->
     <link rel='shortcut icon' href="<?= Yii::app()->request->baseUrl ?>images/shoes.png" type='image/png'>
     <title><?= CHtml::encode($this->pageTitle) ?></title>
     <?php Yii::app()->clientScript
@@ -17,20 +13,13 @@
         ->registerCssFile('/css/style.css')
         ->registerCssFile('/css/jquery.fancybox.css')
         ->registerScriptFile('/js/main.js', CClientScript::POS_END);
-    //        Yii::app()->bootstrap->register();
     ?>
 </head>
 
 <body id="top">
 <div class="container" id="page">
-    <a href="https://github.com/DmitrySoloviyev/OrthopedicSite">
-        <img width="149px" height="149px" id="forkme"
-             src=<?= Yii::app()->request->baseUrl ?>"/images/forkme_left_red.png" alt="Fork me on GitHub"/>
-    </a>
-
+    <code class="version"><?= Yii::app()->params['version'] ?></code>
     <div id="header">
-        <code class="version"><?= Yii::app()->params['version'] ?></code>
-
         <div id="logo"><?= CHtml::encode(Yii::app()->name) ?></div>
         <div id="navigation">
             <?php $this->widget('zii.widgets.CMenu', [

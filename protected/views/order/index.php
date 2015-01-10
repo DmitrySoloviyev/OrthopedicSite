@@ -14,7 +14,8 @@ $this->widget('zii.widgets.grid.CGridView', [
         'order_name',
         'model_id' => [
             'name' => 'model_id',
-            'value' => '$data->model->name',
+            'type' => 'raw',
+            'value' => 'CHtml::link($data->model->name, ["model/view", "id" => $data->model->id], ["target" => "_blank"])',
         ],
         'sizes' => [
             'name' => 'sizes',
