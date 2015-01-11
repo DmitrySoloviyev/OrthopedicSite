@@ -167,7 +167,7 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage {
     text-align: left;
 }
 
-#quickSearchForm {
+#search-form {
     position: absolute;
     z-index: 1000;
     right: 0;
@@ -185,7 +185,7 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage {
     box-shadow: inset 0 1px 4px #b5b5b5;
 }
 
-#quickSearch {
+#search-form-input {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;

@@ -24,19 +24,19 @@ jQuery(function ($) {
         });
     });//конец перемотка вверх
 
-    var quickSearchVal = $('#quickSearch');
-    var quickSearchForm = $('#quickSearchForm');
+    var searchFormInput = $('#search-form-input'); // инпут
+    var searchForm = $('#search-form'); // форма
 
-    quickSearchVal.focus(function () {
+    searchFormInput.focus(function () {
         console.log(234);
-        quickSearchForm.css({
+        searchForm.css({
             'background-color': '#f7f7f7',
             'border-color': 'black'
         });
     });
-    quickSearchVal.focusout(function () {
+    searchFormInput.focusout(function () {
         console.log(234);
-        quickSearchForm.css({
+        searchForm.css({
             'border-color': '',
             'background-color': '#E4E4E4'
         });

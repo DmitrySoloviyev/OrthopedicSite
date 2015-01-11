@@ -18,6 +18,17 @@ class SiteController extends Controller
         $this->render('about');
     }
 
+    public function actionSearch()
+    {
+        if (isset($_GET['SearchForm'])) {
+            $searchForm = new SearchForm();
+            $searchForm->attributes = $_GET['SearchForm'];
+            $results = $searchForm->search();
+
+            $this->render('search_results', ['query' => $searchForm->query, 'results' => $results]);
+        }
+    }
+
     /**
      * This is the action to handle external exceptions.
      */

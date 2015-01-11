@@ -38,15 +38,7 @@
             ]); ?>
         </div>
         <!-- mainmenu -->
-
-        <?php $form = $this->beginWidget('CActiveForm', [
-            'method' => 'GET',
-            'id' => 'quickSearchForm',
-        ]); ?>
-        <input type="text" id='quickSearch'
-            <?= (isset($_GET['quickSearch'])) ? "value='" . $_GET['quickSearch'] . "'" : "" ?>
-               name="quickSearch" autocomplete='Off' placeholder='Поиск по сайту'/>
-        <?php $this->endWidget(); ?>
+        <?php $this->widget('ext.SearchFormWidget.SearchFormWidget'); ?>
     </div>
     <!-- header -->
 

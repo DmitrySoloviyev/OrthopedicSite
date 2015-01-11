@@ -75,18 +75,9 @@ class OrderController extends Controller
     {
         $order = new Order('search');
         $order->unsetAttributes();
-/*
-        if (!empty($_GET['quickSearch'])) {
-            $order->order_name = $_GET['quickSearch'];
-            $order->model_id = $_GET['quickSearch'];
-            $order->employee_id = $_GET['quickSearch'];
-            $order->material_id = $_GET['quickSearch'];
-        }
-*/
+
         if (isset($_GET['Order']))
             $order->attributes = $_GET['Order'];
-
-        foreach($order->attributes as $k => $a) {echo $k . ' ';}
 
         $this->render('index', [
             'order' => $order
