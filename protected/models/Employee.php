@@ -48,7 +48,7 @@ class Employee extends CActiveRecord
             'name' => 'Имя модельера',
             'patronymic' => 'Отчество модельера',
             'date_created' => 'Дата регистрации',
-            'is_deleted' => 'Уволен',
+            'is_deleted' => 'Статус',
         ];
     }
 
@@ -118,22 +118,6 @@ class Employee extends CActiveRecord
         return CHtml::encode($this->surname . ' ' . $this->name . ' ' . $this->patronymic);
     }
 
-    public static function searchEmployee($is_deleted = 0)
-    {
-        $result = self::model()->findAll([
-            'select' => 'surname, name, patronymic',
-            'condition' => 'is_deleted=:is_deleted',
-            'params' => [':is_deleted' => $is_deleted],
-        ]);
-
-        $deleted = '';
-        foreach ($result as $employee) {
-            $deleted .= '<div>' . $employee->fullName() . '</div>';
-        }
-
-        return $deleted;
-    }
-
     public function afterSave()
     {
         Yii::app()->redis->getClient()->del('employeesList');
@@ -152,7 +136,7 @@ class Employee extends CActiveRecord
     {
         $this->is_deleted = 1;
 
-        return $this->save();
+        return $this->save(false);
     }
 
     public function search()
@@ -170,10 +154,15 @@ class Employee extends CActiveRecord
             'criteria' => $criteria,
             'sort' => [
                 'defaultOrder' => [
-                    'date_created' => 'desc',
+                    'id' => 'desc',
                 ],
             ],
         ]);
+    }
+
+    public function isDeletedLabel()
+    {
+        return $this->is_deleted ? 'Уволен' : 'Работает';
     }
 
 }

@@ -6,6 +6,7 @@
     <meta name="language" content="ru"/>
     <link rel='shortcut icon' href="<?= Yii::app()->request->baseUrl ?>images/shoes.png" type='image/png'>
     <title><?= CHtml::encode($this->pageTitle) ?></title>
+    <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
     <?php Yii::app()->clientScript
         ->registerCssFile('/css/screen.css', 'screen, projection')
         ->registerCssFile('/css/main.css')
@@ -19,6 +20,7 @@
 <body id="top">
 <div class="container" id="page">
     <code class="version"><?= Yii::app()->params['version'] ?></code>
+
     <div id="header">
         <div id="logo"><?= CHtml::encode(Yii::app()->name) ?></div>
         <div id="navigation">

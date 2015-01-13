@@ -91,7 +91,7 @@ class Material extends CActiveRecord
     {
         $this->is_deleted = 1;
 
-        return $this->save();
+        return $this->save(false);
     }
 
     public function search()

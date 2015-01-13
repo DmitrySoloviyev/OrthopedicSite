@@ -7,15 +7,6 @@
  */
 
 $this->pageTitle = Yii::app()->name;
-Yii::app()->clientScript->registerCoreScript('jquery.ui');
-Yii::app()->clientScript->registerScript('t', "
-    $('#tabs').tabs({
-     	collapsible: true,
-     	hide: { effect: 'blind', duration: 400 },
-     	show: { effect: 'blind', duration: 400 },
-     	active: 3
-    });
-", CClientScript::POS_READY);
 Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::POS_END);
 $this->widget('ext.yii-flash.Flash', [
     'keys' => ['success', 'error'],
@@ -25,27 +16,9 @@ $this->widget('ext.yii-flash.Flash', [
     ],
 ]); ?>
 
-<div id='tabs'>
+<div style="padding: 4px">
     <?php $this->widget('ext.quote-widget.Quote'); ?>
-    <ul>
-        <li><a href="#tabs_2">Зарегестрированные модельеры</a></li>
-        <li><a href="#tabs_3">Удаленные модельеры</a></li>
-    </ul>
-    <div id="tabs_2">
-        <?= Employee::searchEmployee() ?>
-    </div>
-    <div id="tabs_3">
-        <?= Employee::searchEmployee(true) ?>
-    </div>
 </div>
-<br/>
-
-<ul>
-    <li>Фильтровать ввод, экранировать вывод!!!</li>
-    <li>Скрытие длинного комментария для моделей и заказов многоточием</li>
-    <li>Переписать построение графиков</li>
-    <li>Переписать построение отчета</li>
-</ul>
 
 <h4><i>Журнал разработки:</i></h4>
 <table style="line-height:1.6; padding:0 2% 1% 1%; text-align: justify;">
@@ -98,8 +71,8 @@ $this->widget('ext.yii-flash.Flash', [
 -->
 
 <tr>
-    <td style="vertical-align:text-top;color:grey"><i>0.3</i></td>
-    <td style="color:grey;padding-bottom: 3%;">Yii обновлен до версии 1.1.15. Каких-либо визуальных изменений
+    <td style="vertical-align:text-top;"><i>0.3</i></td>
+    <td style="padding-bottom: 3%;">Yii обновлен до версии 1.1.15. Каких-либо визуальных изменений
         практически нет, все изменения и доработки в основном "под капотом" сайта. Полностью переписана архитектура
         приложения. Текущая ветка имеет в основном чисто технический характер. В первую очередь
         уделено внимание безопасности сайта, его стабильности и оптимизации, с целью повышения производительности.

@@ -14,6 +14,10 @@
         'surname',
         'name',
         'patronymic',
+        'is_deleted' => [
+            'name' => 'is_deleted',
+            'value' => '$data->isDeletedLabel()',
+        ],
         'date_created',
         [
             'class' => 'bootstrap.widgets.TbButtonColumn',
