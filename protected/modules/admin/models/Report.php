@@ -51,12 +51,11 @@ class Report extends CFormModel
         $sheet = $xls->getActiveSheet();
         $sheet->setTitle('Заказы за период');
 
-
-        //Ориентация страницы и  размер листа
+        // Ориентация страницы и  размер листа
         $sheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
         $sheet->getPageSetup()->SetPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
 
-        //Поля документа
+        // Поля документа
         $sheet->getPageMargins()->setTop(1);
         $sheet->getPageMargins()->setRight(0.75);
         $sheet->getPageMargins()->setLeft(0.75);
@@ -67,9 +66,94 @@ class Report extends CFormModel
         $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14)->setItalic(true);
         $sheet->mergeCells('A1:S1');
 
-
         $sheet->getRowDimension('1')->setRowHeight(34);
-        // подготавливаем шапку таблицы
+        $this->tableHeaderStyles($sheet);
+
+        $criteria = new CDbCriteria;
+        $criteria->addBetweenCondition('t.date_created', $start, $end, 'AND');
+        $criteria->order = 't.date_created DESC';
+        $data = Order::model()->with('model', 'material')->findAll($criteria);
+
+        //  заполняем документ заказами:
+        foreach ($data as $value) {
+            static $i = 4;
+            /** @var $value Order */
+            $sheet->setCellValue('A' . $i, $value->order_name)
+                ->getStyle('A' . $i);
+
+            $sheet->setCellValue('B' . $i, $value->model->name)
+                ->getStyle('B' . $i);
+
+            $sheet->setCellValue('C' . $i, $value->size_left)
+                ->getStyle('C' . $i);
+
+            $sheet->setCellValue('D' . $i, $value->size_right)
+                ->getStyle('D' . $i);
+
+            $sheet->setCellValue('E' . $i, $value->urk_left)
+                ->getStyle('E' . $i);
+
+            $sheet->setCellValue('F' . $i, $value->urk_right)
+                ->getStyle('F' . $i);
+
+            $sheet->setCellValue('G' . $i, $value->material->title)
+                ->getStyle('G' . $i);
+
+            $sheet->setCellValue('H' . $i, $value->height_left)
+                ->getStyle('H' . $i);
+
+            $sheet->setCellValue('I' . $i, $value->height_right)
+                ->getStyle('I' . $i);
+
+            $sheet->setCellValue('J' . $i, $value->top_volume_left)
+                ->getStyle('J' . $i);
+
+            $sheet->setCellValue('K' . $i, $value->top_volume_right)
+                ->getStyle('K' . $i);
+
+            $sheet->setCellValue('L' . $i, $value->ankle_volume_left)
+                ->getStyle('L' . $i);
+
+            $sheet->setCellValue('M' . $i, $value->ankle_volume_right)
+                ->getStyle('M' . $i);
+
+            $sheet->setCellValue('N' . $i, $value->kv_volume_left)
+                ->getStyle('N' . $i);
+
+            $sheet->setCellValue('O' . $i, $value->kv_volume_right)
+                ->getStyle('O' . $i);
+
+            $sheet->setCellValue('P' . $i, $value->customer->fullName())
+                ->getStyle('P' . $i);
+
+            $sheet->setCellValue('Q' . $i, $value->employee->fullName())
+                ->getStyle('Q' . $i);
+
+            $sheet->setCellValue('R' . $i, $value->date_created)->getStyle('R' . $i);
+            $sheet->setCellValue('S' . $i, $value->comment)->getStyle('S' . $i);
+
+            $sheet->getRowDimension($i)->setRowHeight(28);
+            ++$i;
+        }
+
+
+        $file_name = 'orders_' . time() . '.xls';
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="' . $file_name . '"');
+        header('Cache-Control: no-cache, must-revalidate');
+        header('Pragma: no-cache');
+        // Выводим содержимое excel-файла
+        $objWriter = PHPExcel_IOFactory::createWriter($xls, 'Excel5');
+        $objWriter->save('php://output');
+
+    }
+
+    /**
+     * Шапка таблицы
+     * @param $sheet
+     */
+    private function tableHeaderStyles(&$sheet)
+    {
         $sheet->setCellValue('A2', 'Номер заказа')->mergeCells('A2:A3')
             ->setCellValue('B2', 'Модель')->mergeCells('B2:B3')
             ->setCellValue('C2', 'Размер')->mergeCells('C2:D2')
@@ -90,99 +174,7 @@ class Report extends CFormModel
             ->setCellValue('L3', 'Левый')->setCellValue('M3', 'Правый')
             ->setCellValue('N3', 'Левый')->setCellValue('O3', 'Правый');
 
-
-        $criteria = new CDbCriteria;
-        $criteria->addBetweenCondition('t.date_created', $start, $end, 'AND');
-        $criteria->order = 't.date_created DESC';
-        $data = Order::model()->with(
-            'model',
-            'material',
-            'sizeLeft',
-            'sizeRight',
-            'topVolumeLeft',
-            'topVolumeRight',
-            'ankleVolumeLeft',
-            'ankleVolumeRight',
-            'kvVolumeLeft',
-            'kvVolumeRight',
-            'urkLeft',
-            'urkRight',
-            'heightLeft',
-            'heightRight'
-        )->findAll($criteria);
-
-        //  заполняем документ заказами:
-        foreach ($data as $value) {
-            static $i = 4;
-            /** @var $value Order */
-            $sheet->setCellValue("A" . $i, $value->order_name)
-                ->getStyle("A" . $i);
-
-            $sheet->setCellValue("B" . $i, $value->model->name)
-                ->getStyle("B" . $i);
-
-            $sheet->setCellValue("C" . $i, $value->sizeLeft->size)
-                ->getStyle("C" . $i);
-
-            $sheet->setCellValue("D" . $i, $value->sizeRight->size)
-                ->getStyle("D" . $i);
-
-            $sheet->setCellValue("E" . $i, $value->urkLeft->urk)
-                ->getStyle("E" . $i);
-
-            $sheet->setCellValue("F" . $i, $value->urkRight->urk)
-                ->getStyle("F" . $i);
-
-            $sheet->setCellValue("G" . $i, $value->material->title)
-                ->getStyle("G" . $i);
-
-            $sheet->setCellValue("H" . $i, $value->heightLeft->height)
-                ->getStyle("H" . $i);
-
-            $sheet->setCellValue("I" . $i, $value->heightRight->height)
-                ->getStyle("I" . $i);
-
-            $sheet->setCellValue("J" . $i, $value->topVolumeLeft->volume)
-                ->getStyle("J" . $i);
-
-            $sheet->setCellValue("K" . $i, $value->topVolumeRight->volume)
-                ->getStyle("K" . $i);
-
-            $sheet->setCellValue("L" . $i, $value->ankleVolumeLeft->volume)
-                ->getStyle("L" . $i);
-
-            $sheet->setCellValue("M" . $i, $value->ankleVolumeRight->volume)
-                ->getStyle("M" . $i);
-
-            $sheet->setCellValue("N" . $i, $value->kvVolumeLeft->volume)
-                ->getStyle("N" . $i);
-
-            $sheet->setCellValue("O" . $i, $value->kvVolumeRight->volume)
-                ->getStyle("O" . $i);
-
-            $sheet->setCellValue("P" . $i, $value->customer->fullName())
-                ->getStyle("P" . $i);
-
-            $sheet->setCellValue("Q" . $i, $value->employee->fullName())
-                ->getStyle("Q" . $i);
-
-            $sheet->setCellValue("R" . $i, $value->date_created)->getStyle("R" . $i);
-            $sheet->setCellValue("S" . $i, $value->comment)->getStyle("S" . $i);
-
-            $sheet->getRowDimension($i)->setRowHeight(28);
-            ++$i;
-        }
-
-
-        $file_name = 'orders_' . time() . '.xls';
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="' . $file_name . '"');
-        header('Cache-Control: no-cache, must-revalidate');
-        header('Pragma: no-cache');
-        // Выводим содержимое excel-файла
-        $objWriter = PHPExcel_IOFactory::createWriter($xls, 'Excel5');
-        $objWriter->save('php://output');
-
+        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14)->setItalic(true);
     }
 
 }
