@@ -149,6 +149,7 @@ fieldset {
 
 /*********************************************************таблица в разделе "просмотр базы"************/
 table.dboutput {
+    table-layout: fixed;
     border: 3px solid #383838;
     font-size: 14px;
     text-align: center;
@@ -177,14 +178,30 @@ table.dboutput tr {
     border: 1px solid black;
 }
 
-table.dboutput a:hover {
-    color: #004991;
-}
-
 table.dboutput tr td {
     padding: 3px;
     height: 30px;
     border: 1px solid black;
+}
+
+.grid-view .button-column {
+    text-align: center;
+    width: 70px;
+}
+
+table.dboutputModels td:nth-child(2) {
+    width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+table.dboutputModels th:first-child {
+    width: 90px;
+}
+
+table.dboutputModels th:nth-child(3) {
+    width: 120px;
 }
 
 input:not([type="submit"]):focus {

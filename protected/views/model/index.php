@@ -9,17 +9,11 @@ $this->widget('zii.widgets.grid.CGridView', [
     'template' => "{summary}\n{pager}\n{items}\n{pager}",
     'dataProvider' => $model->search(),
     'filter' => $model,
-    'itemsCssClass' => 'dboutput',
+    'itemsCssClass' => 'dboutput dboutputModels',
     'columns' => [
         'name',
-        'description' => [
-            'name' => 'description',
-            'htmlOptions' => ['width' => '500px']
-        ],
-        'comment',
-//        'picture',
+        'description',
         'date_created',
-        'date_modified',
         [
             'class' => 'CButtonColumn',
             'header' => 'Действия',
