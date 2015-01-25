@@ -35,7 +35,7 @@ $this->widget('ext.jqplot.JqplotGraphWidget', [
                 'label' => 'Количество заказов',
                 'labelRenderer' => 'js:$.jqplot.CanvasAxisLabelRenderer',
                 'tickOptions' => ['formatString' => '%d'],
-                'tickInterval' => 2,
+                'tickInterval' => 1,
             ],
         ],
         'cursor' => [

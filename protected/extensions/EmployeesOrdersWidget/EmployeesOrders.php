@@ -32,10 +32,11 @@ class EmployeesOrders extends CWidget
                 FROM orders o
                 JOIN employees e ON o.employee_id = e.id
                 WHERE o.is_deleted = 0 AND o.date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()
-                GROUP BY employee
+                GROUP BY month_name, employee
                 with rollup';
         $result = Yii::app()->db->createCommand($sql)->queryAll();
         $result = array_reverse($result);
+        array_shift($result);
 
         foreach ($result as $res) {
             if (empty($res['employee'])) {

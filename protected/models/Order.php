@@ -169,6 +169,7 @@ class Order extends CActiveRecord
         $criteria->compare('date_created', $this->date_created, true);
         $criteria->compare('date_modified', $this->date_modified, true);
         $criteria->compare('t.is_deleted', 0);
+        $criteria->order = 't.date_created DESC';
 
         $sort = new CSort();
         $sort->attributes = [
