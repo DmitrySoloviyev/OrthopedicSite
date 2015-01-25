@@ -11,13 +11,14 @@ class OrdersPerDay extends GraphBuilder
     public function __construct($title)
     {
         $this->title = $title;
-        $this->lineBuilder = new LineBuilder();
         $this->obtainedData = Order::performanceByDay();
     }
 
     function build()
     {
-        $this->preparedData = $this->lineBuilder->buildLine($this->obtainedData);
+        $lineBuilder = new LineBuilder();
+        $this->preparedData = $lineBuilder->buildLine($this->obtainedData);
+        $this->max = $lineBuilder->getMax();
 
         return $this->preparedData;
     }

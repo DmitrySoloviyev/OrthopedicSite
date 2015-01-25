@@ -243,19 +243,20 @@ class Order extends CActiveRecord
      * Оценка производительности модельеров по дням недели
      */
     public static function performanceByEmployee()
-    { /*
-        "SELECT
-          COUNT(DAY(o.date_created)) AS COUNT,
-          DAYOFMONTH(o.date_created) AS DAY,
-          MONTHNAME(o.date_created) AS MONTH,
-          DATE(o.date_created) AS DAYDATE,
-          o.employee_id,
-          CONCAT(e.surname, " ", LEFT(e.name, 1), ".", LEFT(e.patronymic, 1), ".") as employee
-		FROM orders o
-		JOIN employees e ON e.id = o.employee_id
-		WHERE o.is_deleted = 0 AND o.date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()
-		GROUP BY DAY, o.employee_id, MONTH ORDER BY o.employee_id, DAYDATE";
-*/
+    {
+        /*
+            SELECT
+              COUNT(*) AS orders_count,
+              DAYOFMONTH(o.date_created) AS day_of_month,
+              MONTHNAME(o.date_created) AS month_name,
+              DATE(o.date_created) AS date_created,
+              o.employee_id,
+              CONCAT(e.surname, " ", LEFT(e.name, 1), ".", LEFT(e.patronymic, 1), ".") as employee
+            FROM orders o
+            JOIN employees e ON e.id = o.employee_id
+            WHERE o.is_deleted = 0 AND o.date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()
+            GROUP BY day_of_month, o.employee_id, month_name ORDER BY o.employee_id, o.date_created
+        */
         return Yii::app()->db->createCommand()
             ->select([
                 'COUNT(*) AS orders_count',
@@ -269,7 +270,7 @@ class Order extends CActiveRecord
             ->join('employees e', 'e.id = o.employee_id')
             ->where('o.is_deleted = 0 AND o.date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()')
             ->group('day_of_month, o.employee_id, month_name')
-            ->order('o.employee_id, o.date_created')
+            ->order('o.employee_id')
             ->queryAll();
     }
 

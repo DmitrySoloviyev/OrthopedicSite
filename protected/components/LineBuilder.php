@@ -8,27 +8,25 @@
  */
 class LineBuilder
 {
+    private $max = 0;
+    private $legend = [];
+
     /**
      * Выходной массив
-     *
      * @var array
      */
     private $output = [];
 
-    /**
-     * Максивальное значение оси Y
-     *
-     * @var
-     */
-    protected $max;
 
-    /**
-     * Легенда
-     *
-     * @var array
-     */
-    protected static $legend = [];
+    public function getMax()
+    {
+        return $this->max;
+    }
 
+    public function getLegend()
+    {
+        return $this->legend;
+    }
 
     /**
      * Строит линию графика c заполнением/дополнением кривой графика нулевыми точками
@@ -36,9 +34,12 @@ class LineBuilder
      *
      * @param array $input
      * @return array
+     * @internal param $max
      */
     public function buildLine(array $input)
     {
+        $maxY = [];
+
         for ($i = 0; $i < count($input); $i++) {
             $next_cell = $i + 1;
             if (isset($input[$next_cell]['date_created'])) {
@@ -47,17 +48,17 @@ class LineBuilder
                     $this->output[] = $this->insertZero($input[$next_cell]['date_created'], ' - 1 day');
                 }
                 $this->output[] = [$input[$i]['date_created'], (int)$input[$i]['orders_count']];
-                $this->setMax($input[$i]['orders_count']);
+                $maxY[] = $input[$i]['orders_count'];
             } else {
-                $this->setMax($input[$i]['orders_count']);
+                $maxY[] = $input[$i]['orders_count'];
                 $this->output[] = [$input[$i]['date_created'], (int)$input[$i]['orders_count']];
             }
         }
-        $this->generateMax();
+        $this->max = $this->generateMax(max($maxY));
+
 
         return [$this->output];
     }
-
 
     /**
      * Строит график с множеством кривых c заполнением/дополнением кривой графика нулевыми точками
@@ -65,61 +66,49 @@ class LineBuilder
      *
      * @param array $input
      * @return array
+     * @internal param $max
+     * @internal param $legend
      */
     public function buildLines(array $input)
     {
         $input = $this->separateEmployees($input);
         $preArray = [];
-//        $this->legend[] = 4;
         foreach ($input as $rows) {
-            $this->buildLegend($rows);
+            $this->makeLegend($rows);
             $preArray[] = array_shift($this->buildLine($rows));
         }
-        $this->generateMax();
+        $this->legend = $this->buildLegend();
 
         return $preArray;
     }
 
 
     /**
-     * Обычное перебор данных, не требующее никаких специфичных действий
-     *
-     * @param array $input
-     * @return array
+     * Сбор информации для легенды
+     * @param $rows
      */
-    public function buildSimple(array $input)
+    private function makeLegend($rows)
     {
-        for ($i = 0; $i < count($input); $i++) {
-            $this->output[] = [$input[$i]['employee'], (int)$input[$i]['orders_count']];
+        foreach ($rows as $row) {
+            if (!array_key_exists($row['employee_id'], $this->legend)) {
+                $this->legend[$row['employee_id']] = $row['employee'];
+            }
         }
-
-        return [$this->output];
     }
-
 
     /**
      * Конструктор легенды
-     *
-     * @param $rows
+     * @return array
      */
-    protected function buildLegend(array $rows)
+    protected function buildLegend()
     {
-        foreach ($rows as $item) {
-//            if (!array_key_exists($item['employee_id'], $this->legend)) {
-//            }
-//            $this->legend[$item['employee_id']] = $item['employee'];
-//            $this->legend[] = $item;
-            self::$legend[] =  11;
+        $output = [];
+        foreach ($this->legend as $employee) {
+            $output[] = ['label' => $employee];
         }
 
-        return [11];
+        return $output;
     }
-
-    public function getLegend()
-    {
-        return self::$legend;
-    }
-
 
     /**
      * Разделение информации по сотрудникам
@@ -137,7 +126,6 @@ class LineBuilder
         return $sortedArray;
     }
 
-
     /**
      * Если количество дней между датами больше 2-х, возвращаем true, иначе false
      *
@@ -153,27 +141,17 @@ class LineBuilder
         return ($days_missing >= 2) ? true : false;
     }
 
-
-    private function setMax($count)
+    /**
+     * Максимальное значение для столбца Y
+     * @param $max
+     * @return int
+     */
+    private function generateMax($max)
     {
-        $count = (int)$count;
-        if ($this->max < $count)
-            $this->max = $count;
-    }
+        if (($max % 2) == 1)
+            return ($max += 1);
 
-
-    public function getMax()
-    {
-        return $this->max;
-    }
-
-
-    private function generateMax()
-    {
-        if ($this->max % 2 == 1)
-            $this->max += 1;
-        else
-            $this->max += 2;
+        return ($max += 2);
     }
 
 

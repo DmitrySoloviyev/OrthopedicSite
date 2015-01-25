@@ -48,7 +48,7 @@ class TbApi extends CApplicationComponent
     public function registerCoreCss($url = null, $media = '')
     {
         if ($url === null) {
-            $fileName = YII_DEBUG ? 'bootstrap.css' : 'bootstrap.min.css';
+            $fileName = 'bootstrap.css';
             $url = $this->getAssetsUrl() . '/css/' . $fileName;
         }
         Yii::app()->clientScript->registerCssFile($url, $media);
