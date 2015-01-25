@@ -270,7 +270,7 @@ class Order extends CActiveRecord
             ->join('employees e', 'e.id = o.employee_id')
             ->where('o.is_deleted = 0 AND o.date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()')
             ->group('day_of_month, o.employee_id, month_name')
-            ->order('o.employee_id')
+            ->order('o.employee_id, o.date_created')
             ->queryAll();
     }
 
