@@ -158,6 +158,8 @@ configure-locale
 install virtualbox-guest-utils
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password 1111'
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password 1111'
+configure-mysql
+sudo service mysql restart
 install mysql-server
 install mysql-client
 install apache2
@@ -170,13 +172,12 @@ install php5-gd
 install php-apc
 #install-composer
 #update-composer
-install php5-xdebug
+#install php5-xdebug
 install apache2-utils
 #install-phpunit
 install redis-server
 install php5-redis
 
-configure-mysql
 configure-php
 configure-mod-rewrite
 
@@ -185,6 +186,7 @@ create-db-test
 load-migrations
 load-migrations-test
 
+# SHOW VARIABLES WHERE Variable_name LIKE 'character\_set\_%' OR Variable_name LIKE 'collation%';
 sudo service apache2 restart && echo -e "\napache is ready!"
 sudo service mysql restart && echo "mysql is ready!"
 

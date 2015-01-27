@@ -187,26 +187,26 @@
                 <td><?= $form->labelEx($order, 'customer_id'); ?>:</td>
                 <td colspan="2">
                     <div class="row">
-                        <?= $form->TextField($customer, 'surname', [
+                        <?= $form->TextField($customer, 'customer_surname', [
                             'size' => 27,
                             'autocomplete' => 'Off',
                             'maxlength' => '29',
                             'placeholder' => 'Фамилия']) ?>
                         <br>
-                        <?= $form->TextField($customer, 'name', [
+                        <?= $form->TextField($customer, 'customer_name', [
                             'size' => 27,
                             'autocomplete' => 'Off',
                             'maxlength' => '29',
                             'placeholder' => 'Имя']) ?>
                         <br>
-                        <?= $form->TextField($customer, 'patronymic', [
+                        <?= $form->TextField($customer, 'customer_patronymic', [
                             'size' => 27,
                             'autocomplete' => 'Off',
                             'maxlength' => '29',
                             'placeholder' => 'Отчество']) ?>
-                        <?= $form->error($customer, 'surname'); ?>
-                        <?= $form->error($customer, 'name'); ?>
-                        <?= $form->error($customer, 'patronymic'); ?>
+                        <?= $form->error($customer, 'customer_surname'); ?>
+                        <?= $form->error($customer, 'customer_name'); ?>
+                        <?= $form->error($customer, 'customer_patronymic'); ?>
                     </div>
                 </td>
             </tr>

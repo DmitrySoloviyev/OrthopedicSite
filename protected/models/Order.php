@@ -130,7 +130,7 @@ class Order extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->with = [
-            'employee',
+            'employee', 'customer',
             'material', 'model',
         ];
 
@@ -157,15 +157,15 @@ class Order extends CActiveRecord
         $criteria->compare('kv_volume_left', $this->kv_volumes, true);
         $criteria->compare('kv_volume_right', $this->kv_volumes, true, 'OR');
 
-        $criteria->compare('customer.surname', $this->customer_id, true);
-        $criteria->compare('customer.name', $this->customer_id, true, 'OR');
-        $criteria->compare('customer.patronymic', $this->customer_id, true, 'OR');
+        $criteria->compare('customer_surname', $this->customer_id, true);
+        $criteria->compare('customer_name', $this->customer_id, true, 'OR');
+        $criteria->compare('customer_patronymic', $this->customer_id, true, 'OR');
 
         $criteria->compare('employee.surname', $this->employee_id, true);
         $criteria->compare('employee.name', $this->employee_id, true, 'OR');
         $criteria->compare('employee.patronymic', $this->employee_id, true, 'OR');
 
-        $criteria->compare('comment', $this->comment, true);
+        $criteria->compare('t.comment', $this->comment, true);
         $criteria->compare('date_created', $this->date_created, true);
         $criteria->compare('date_modified', $this->date_modified, true);
         $criteria->compare('t.is_deleted', 0);
@@ -245,19 +245,6 @@ class Order extends CActiveRecord
      */
     public static function performanceByEmployee()
     {
-        /*
-            SELECT
-              COUNT(*) AS orders_count,
-              DAYOFMONTH(o.date_created) AS day_of_month,
-              MONTHNAME(o.date_created) AS month_name,
-              DATE(o.date_created) AS date_created,
-              o.employee_id,
-              CONCAT(e.surname, " ", LEFT(e.name, 1), ".", LEFT(e.patronymic, 1), ".") as employee
-            FROM orders o
-            JOIN employees e ON e.id = o.employee_id
-            WHERE o.is_deleted = 0 AND o.date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()
-            GROUP BY day_of_month, o.employee_id, month_name ORDER BY o.employee_id, o.date_created
-        */
         return Yii::app()->db->createCommand()
             ->select([
                 'COUNT(*) AS orders_count',
@@ -300,6 +287,10 @@ class Order extends CActiveRecord
         $criteria->compare('t.is_deleted', 1);
 
         return self::model()->find($criteria)->count('t.is_deleted = 0');
+    }
+
+    public function showSearchResults() {
+        echo 'Это заказы';
     }
 
 }

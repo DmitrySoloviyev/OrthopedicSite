@@ -6,9 +6,9 @@
  * The followings are the available columns in table 'customers':
  *
  * @property integer $id
- * @property string $surname
- * @property string $name
- * @property string $patronymic
+ * @property string $customer_surname
+ * @property string $customer_name
+ * @property string $customer_patronymic
  *
  * The followings are the available model relations:
  * @property Order[] $orders
@@ -23,9 +23,9 @@ class Customer extends CActiveRecord
     public function rules()
     {
         return [
-            ['surname, name, patronymic', 'required'],
-            ['surname, name, patronymic', 'length', 'max' => 30],
-            ['surname, name, patronymic', 'safe', 'on' => 'search'],
+            ['customer_surname, customer_name, customer_patronymic', 'required'],
+            ['customer_surname, customer_name, customer_patronymic', 'length', 'max' => 30],
+            ['customer_surname, customer_name, customer_patronymic', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -39,9 +39,9 @@ class Customer extends CActiveRecord
     public function attributeLabels()
     {
         return [
-            'surname' => 'Фамилия заказчика',
-            'name' => 'Имя заказчика',
-            'patronymic' => 'Отчество заказчика',
+            'customer_surname' => 'Фамилия заказчика',
+            'customer_name' => 'Имя заказчика',
+            'customer_patronymic' => 'Отчество заказчика',
         ];
     }
 
@@ -53,7 +53,7 @@ class Customer extends CActiveRecord
 
     public function fullName()
     {
-        return CHtml::encode($this->surname . ' ' . $this->name . ' ' . $this->patronymic);
+        return CHtml::encode($this->customer_surname . ' ' . $this->customer_name . ' ' . $this->customer_patronymic);
     }
 
 }

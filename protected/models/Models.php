@@ -123,4 +123,9 @@ class Models extends CActiveRecord
         return $filePath;
     }
 
+
+    public function showSearchResults() {
+        echo 'Это модели';
+    }
+
 }

@@ -7,11 +7,15 @@
  */
 ?>
 
-Результаты поиска по запросу <b><?= $query ?> </b><br><br>
+    Результаты поиска по запросу <b><?= $query ?> </b><br><br>
 
 <?php
 if ($results) {
-    echo $results;
+    print_r($results);
+    foreach ($results as $result) {
+//        $result->showSearchResults();
+        $result->getData();
+    }
 } else {
     echo 'Ничего не найдено';
 }
