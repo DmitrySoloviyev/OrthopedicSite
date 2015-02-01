@@ -137,37 +137,37 @@ class Order extends CActiveRecord
         $criteria->compare('order_name', $this->order_name, true);
         $criteria->compare('model.name', $this->model_id, true);
 
-        $criteria->compare('size_left', $this->sizes, true);
-        $criteria->compare('size_right', $this->sizes, true, 'OR');
+        $criteria->compare('size_left', $this->sizes);
+        $criteria->compare('size_right', $this->sizes);
 
-        $criteria->compare('urk_left', $this->urks, true);
-        $criteria->compare('urk_right', $this->urks, true, 'OR');
+        $criteria->compare('urk_left', $this->urks);
+        $criteria->compare('urk_right', $this->urks);
 
-        $criteria->compare('material.title', $this->material_id, true);
+        $criteria->compare('material.title', $this->material_id);
 
-        $criteria->compare('height_left', $this->heights, true);
-        $criteria->compare('height_right', $this->heights, true, 'OR');
+        $criteria->compare('height_left', $this->heights);
+        $criteria->compare('height_right', $this->heights);
 
-        $criteria->compare('top_volume_left', $this->top_volumes, true);
-        $criteria->compare('top_volume_right', $this->top_volumes, true, 'OR');
+        $criteria->compare('top_volume_left', $this->top_volumes);
+        $criteria->compare('top_volume_right', $this->top_volumes);
 
-        $criteria->compare('ankle_volume_left', $this->ankle_volumes, true);
-        $criteria->compare('ankle_volume_right', $this->ankle_volumes, true, 'OR');
+        $criteria->compare('ankle_volume_left', $this->ankle_volumes);
+        $criteria->compare('ankle_volume_right', $this->ankle_volumes);
 
-        $criteria->compare('kv_volume_left', $this->kv_volumes, true);
-        $criteria->compare('kv_volume_right', $this->kv_volumes, true, 'OR');
+        $criteria->compare('kv_volume_left', $this->kv_volumes);
+        $criteria->compare('kv_volume_right', $this->kv_volumes);
 
-        $criteria->compare('customer_surname', $this->customer_id, true);
-        $criteria->compare('customer_name', $this->customer_id, true, 'OR');
-        $criteria->compare('customer_patronymic', $this->customer_id, true, 'OR');
+        $criteria->compare('customer_surname', $this->customer_id);
+        $criteria->compare('customer_name', $this->customer_id);
+        $criteria->compare('customer_patronymic', $this->customer_id);
 
-        $criteria->compare('employee.surname', $this->employee_id, true);
-        $criteria->compare('employee.name', $this->employee_id, true, 'OR');
-        $criteria->compare('employee.patronymic', $this->employee_id, true, 'OR');
+        $criteria->compare('employee.surname', $this->employee_id);
+        $criteria->compare('employee.name', $this->employee_id);
+        $criteria->compare('employee.patronymic', $this->employee_id);
 
         $criteria->compare('t.comment', $this->comment, true);
-        $criteria->compare('date_created', $this->date_created, true);
-        $criteria->compare('date_modified', $this->date_modified, true);
+        $criteria->compare('date_created', $this->date_created);
+        $criteria->compare('date_modified', $this->date_modified);
         $criteria->compare('t.is_deleted', 0);
         $criteria->order = 't.date_created DESC';
 
@@ -289,8 +289,50 @@ class Order extends CActiveRecord
         return self::model()->find($criteria)->count('t.is_deleted = 0');
     }
 
-    public function showSearchResults() {
-        echo 'Это заказы';
+    public function showSearchResults()
+    {
+        echo 'Найденные заказы:';
+    }
+
+    public function viewDir()
+    {
+        return 'order';
+    }
+
+    public function siteSearch($query)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->with = [
+            'employee', 'customer',
+            'material', 'model',
+        ];
+        $criteria->compare('t.order_name', $query, true, 'OR');
+        $criteria->compare('t.model_id', $query, true, 'OR');
+        $criteria->compare('t.size_left', $query, true, 'OR');
+        $criteria->compare('t.size_right', $query, true, 'OR');
+        $criteria->compare('t.urk_left', $query, true, 'OR');
+        $criteria->compare('t.urk_right', $query, true, 'OR');
+        $criteria->compare('material.title', $query, true, 'OR');
+        $criteria->compare('t.height_left', $query, true, 'OR');
+        $criteria->compare('t.height_right', $query, true, 'OR');
+        $criteria->compare('t.top_volume_left', $query, true, 'OR');
+        $criteria->compare('t.top_volume_right', $query, true, 'OR');
+        $criteria->compare('t.ankle_volume_left', $query, true, 'OR');
+        $criteria->compare('t.ankle_volume_right', $query, true, 'OR');
+        $criteria->compare('t.kv_volume_left', $query, true, 'OR');
+        $criteria->compare('t.kv_volume_right', $query, true, 'OR');
+        $criteria->compare('customer_surname', $query, true, 'OR');
+        $criteria->compare('customer_name', $query, true, 'OR');
+        $criteria->compare('customer_patronymic', $query, true, 'OR');
+        $criteria->compare('employee.surname', $query, true, 'OR');
+        $criteria->compare('employee.name', $query, true, 'OR');
+        $criteria->compare('employee.patronymic', $query, true, 'OR');
+        $criteria->compare('t.comment', $query, true, 'OR');
+
+        return new CActiveDataProvider($this, [
+            'criteria' => $criteria,
+            'pagination' => false,
+        ]);
     }
 
 }

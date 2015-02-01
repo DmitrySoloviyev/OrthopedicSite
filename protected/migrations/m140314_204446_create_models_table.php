@@ -13,7 +13,7 @@ class m140314_204446_create_models_table extends CDbMigration
             'date_created' => 'datetime not null',
             'date_modified' => 'datetime not null',
             'is_deleted' => 'boolean not null default 0'
-        ], 'engine=innodb default charset=utf8');
+        ], 'engine=innodb default charset=utf8mb4');
     }
 
     public function safeDown()

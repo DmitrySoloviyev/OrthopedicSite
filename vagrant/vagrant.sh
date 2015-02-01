@@ -165,7 +165,7 @@ install mysql-client
 install apache2
 install php5-curl
 install php5
-install php-pear
+#install php-pear
 install php5-mysql
 install php5-json
 install php5-gd

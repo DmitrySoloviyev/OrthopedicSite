@@ -28,14 +28,12 @@ jQuery(function ($) {
     var searchForm = $('#search-form'); // форма
 
     searchFormInput.focus(function () {
-        console.log(234);
         searchForm.css({
             'background-color': '#f7f7f7',
             'border-color': 'black'
         });
     });
     searchFormInput.focusout(function () {
-        console.log(234);
         searchForm.css({
             'border-color': '',
             'background-color': '#E4E4E4'
@@ -47,8 +45,4 @@ jQuery(function ($) {
         if (event.which == 1)
             $(this).parent().addClass('active');
     });
-});
-
-$(function ($) {
-
 });

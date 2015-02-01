@@ -73,7 +73,7 @@ return [
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => '1111',
-            'charset' => 'utf8',
+            'charset' => 'utf8mb4',
             'schemaCachingDuration' => 2592000,
         ],
         'errorHandler' => [
@@ -116,7 +116,7 @@ return [
     ],
     'params' => [
         'adminEmail' => 'dmitry.soloviyev@gmail.com',
-        'version' => 'Версия 0.3 - dev',
+        'version' => 'Версия 0.3',
     ],
     'timeZone' => 'Europe/Moscow',
 ];

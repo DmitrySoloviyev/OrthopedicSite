@@ -108,7 +108,7 @@ $this->widget('ext.yii-flash.Flash', [
             </li>
         </ul>
         <i>Начиная с этой версии, для работы сайта требуется версия PHP не ниже 5.4.</i>
-        <p class="release_date">(xx.02.2015)</p>
+        <p class="release_date">(01.02.2015)</p>
     </td>
 </tr>
 

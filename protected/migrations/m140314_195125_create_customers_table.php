@@ -9,7 +9,7 @@ class m140314_195125_create_customers_table extends CDbMigration
             'customer_surname' => 'varchar(30) not null',
             'customer_name' => 'varchar(30) not null',
             'customer_patronymic' => 'varchar(30) not null',
-        ], 'engine=innodb default charset=utf8');
+        ], 'engine=innodb default charset=utf8mb4');
     }
 
     public function safeDown()

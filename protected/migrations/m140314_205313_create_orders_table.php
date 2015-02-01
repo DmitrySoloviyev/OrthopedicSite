@@ -27,7 +27,7 @@ class m140314_205313_create_orders_table extends CDbMigration
             'date_created' => 'datetime not null',
             'date_modified' => 'datetime not null',
             'is_deleted' => 'boolean not null default 0'
-        ], 'engine=innodb default charset=utf8');
+        ], 'engine=innodb default charset=utf8mb4');
 
         $this->addForeignKey('fk_model', 'orders', 'model_id', 'models', 'id');
         $this->addForeignKey('fk_material', 'orders', 'material_id', 'materials', 'id');

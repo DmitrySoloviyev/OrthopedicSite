@@ -24,7 +24,7 @@ return CMap::mergeArray(
                 'emulatePrepare' => true,
                 'username' => 'root',
                 'password' => '1111',
-                'charset' => 'utf8',
+                'charset' => 'utf8mb4',
                 'enableProfiling' => true,
                 'enableParamLogging' => true,
                 'schemaCachingDuration' => 0,

@@ -28,24 +28,10 @@ class SearchForm extends CFormModel
 
     public function search()
     {
-        $orderAttributes = Order::model()->attributes;
-        $modelAttributes = Models::model()->attributes;
-
-        foreach ($orderAttributes as $attr => $val) {
-            $orderAttributes[$attr] = $this->query;
-        }
-
-        foreach ($modelAttributes as $attr => $val) {
-            $modelAttributes[$attr] = $this->query;
-        }
-
         $order = new Order('search');
-        $order->setAttributes($orderAttributes);
-
         $model = new Models('search');
-        $model->setAttributes($modelAttributes);
 
-        return [$order->search(), $model->search()];
+        return [$order->siteSearch($this->query), $model->siteSearch($this->query)];
     }
 
 }

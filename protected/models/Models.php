@@ -125,7 +125,27 @@ class Models extends CActiveRecord
 
 
     public function showSearchResults() {
-        echo 'Это модели';
+        echo 'Найденные модели:';
+    }
+
+    public function viewDir()
+    {
+        return 'model';
+    }
+
+    public function siteSearch($query)
+    {
+        $criteria = new CDbCriteria;
+
+        $criteria->compare('name', $query, true, 'OR');
+        $criteria->compare('description', $query, true, 'OR');
+        $criteria->compare('picture', $query, true, 'OR');
+        $criteria->compare('t.comment', $query, true, 'OR');
+
+        return new CActiveDataProvider($this, [
+            'criteria' => $criteria,
+            'pagination' => false,
+        ]);
     }
 
 }
