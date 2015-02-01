@@ -1,7 +1,7 @@
 <?php
 $yii = dirname(__FILE__) . '/framework/yii.php';
 
-defined('YII_DEBUG') or define('YII_DEBUG', false);
+defined('YII_DEBUG') or define('YII_DEBUG', true);
 
 if (YII_DEBUG) {
     $config = dirname(__FILE__) . '/protected/config/development.php';

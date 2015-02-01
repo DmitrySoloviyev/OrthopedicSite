@@ -51,7 +51,6 @@ $this->widget('ext.yii-flash.Flash', [
 </tr>
 -->
 
-<!--
 <tr>
     <td style="vertical-align:text-top;color:grey"><i>0.4</i></td>
     <td style="color:grey;padding-bottom: 3%;">Разграничение прав доступа на основе системы доступа на основе ролей
@@ -67,7 +66,6 @@ $this->widget('ext.yii-flash.Flash', [
         <p class="release_date">(xx.12.2015)</p>
     </td>
 </tr>
--->
 
 <tr>
     <td style="vertical-align:text-top;"><i>0.3</i></td>
