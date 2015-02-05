@@ -1,18 +1,7 @@
-* {
-    outline: none;
-}
-
-html {
-    height: 100%;
-    width: 100%;
-}
-
 body {
     background: url('../images/bg_mat.png') repeat;
     height: 100%;
-    margin-top: 0;
     font: normal 100% 'Ubuntu', Helvetica, Helvetica Neue, Verdana, Cambria, Georgia, Arial, sans-serif;
-    min-width: 1016px;
 }
 
 .fix {
@@ -37,20 +26,10 @@ header h1 {
 }
 
 #center {
-    height: 100%;
-    padding: 10px;
     background: #F3F3F3;
     border-radius: 6px;
     margin-top: 15px;
     box-shadow: 0 1px 1px #000;
-}
-
-footer {
-    text-align: center;
-    width: 100%;
-    height: 65px;
-    position: absolute;
-    bottom: 0;
 }
 
 #footer {
@@ -66,18 +45,16 @@ fieldset {
     padding: 10px 15px 10px 15px;
 }
 
-/*****************************конец основные***************/
+#content {
+    padding: 1% 2%;
+}
 
-/****************подсветка слов поиска**********************/
 .highlight {
     background: #fff09e;
     border-top: 1px dashed #c16b3d;
     border-bottom: 1px dashed #c16b3d;
 }
 
-/***************подсветка слов поиска**********************/
-
-/*********************************************меню сайта*********************************************/
 #navigation {
     margin: 30px auto;
     z-index: 1;
@@ -126,9 +103,6 @@ fieldset {
     -webkit-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 1);
 }
 
-/*********************************************************************конец меню сайта*******************************/
-
-/****************************************************всплывающая подсказка************/
 #hint {
     padding: 10px;
     background: #fc0;
@@ -147,7 +121,6 @@ fieldset {
     margin: 3px
 }
 
-/*********************************************************таблица в разделе "просмотр базы"************/
 table.dboutput {
     table-layout: fixed;
     border: 3px solid #383838;
@@ -204,12 +177,6 @@ table.dboutputModels th:nth-child(3) {
     width: 120px;
 }
 
-input:not([type="submit"]):focus {
-    outline: none;
-    border-radius: 4px;
-    border-color: #666666;
-}
-
 .employeelist {
     border: 4px double #4094b6;
     width: 400px;
@@ -251,12 +218,10 @@ button:hover, button:focus, .button_delete:hover, .button_delete:focus {
     color: white;
 }
 
-/********************************************************************************конец раздела "кнопки"***************/
 option {
     color: black;
 }
 
-/*********************************************************Кнопка наверх*****************************************************/
 #back-top {
     position: fixed;
     bottom: -20px;
@@ -278,9 +243,7 @@ option {
     color: #000;
 }
 
-/* изображение со стрелкой (тег img) */
 #back-top img {
-    /* замедление */
     -webkit-transition: 1s;
     -moz-transition: 1s;
     transition: 1s;
@@ -294,7 +257,6 @@ option {
     opacity: 1;
 }
 
-/*********************аккордеон*****************/
 .accordion {
     width: 100%;
     border-radius: 6px;
@@ -439,4 +401,12 @@ h3 + p {
     font-style: italic;
     font-size: 0.8em;
     margin: 0;
+}
+
+.version {
+    position: absolute;
+    font-style: italic;
+    font-size: 12px;
+    color: black;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 1.0);
 }

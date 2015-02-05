@@ -11,9 +11,18 @@ return [
             'class' => 'ext.minScript.controllers.ExtMinScriptController',
         ],
     ],
+    'aliases' => [
+        'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'),
+        'yiiwheels' => realpath(__DIR__ . '/../extensions/yiiwheels'),
+    ],
     'import' => [
         'application.models.*',
         'application.components.*',
+        'bootstrap.helpers.*',
+        'bootstrap.behaviors.*',
+        'bootstrap.widgets.*',
+        'bootstrap.components.*',
+        'bootstrap.form.*',
     ],
     'modules' => [
         'admin' => [
@@ -35,6 +44,12 @@ return [
         ],
     ],
     'components' => [
+        'bootstrap' => [
+            'class' => 'bootstrap.components.TbApi',
+        ],
+        'yiiwheels' => [
+            'class' => 'yiiwheels.YiiWheels',
+        ],
         'redis' => [
             'class' => 'application.components.YiiRedis.ARedisConnection',
             'hostname' => 'localhost',

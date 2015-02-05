@@ -100,25 +100,21 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage {
     padding-left: 110px;
 }
 
-.formContainer {
-    margin: 0 auto;
-}
+/*#modelForm {*/
+    /*box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);*/
+    /*border-radius: 4px;*/
+    /*width: 430px;*/
+    /*float: right;*/
+    /*text-align: center;*/
+    /*padding-bottom: 2%;*/
+/*}*/
 
-#modelForm {
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    width: 430px;
-    float: right;
-    text-align: center;
-    padding-bottom: 2%;
-}
-
-#modelForm div {
-    font-size: 14px;
-    font-family: sans-serif;
-    font-style: italic;
-    padding: 5px;
-}
+/*#modelForm div {*/
+    /*font-size: 14px;*/
+    /*font-family: sans-serif;*/
+    /*font-style: italic;*/
+    /*padding: 5px;*/
+/*}*/
 
 #leftForm {
     padding-left: 20px;

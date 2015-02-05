@@ -42,7 +42,7 @@ class OrderController extends Controller
         $order = new Order();
         $customer = new Customer();
 
-        if (isset($_POST['Order'])) {
+        if (isset($_POST['Order']) && isset($_POST['Customer'])) {
             $order->attributes = $_POST['Order'];
             $customer->attributes = $_POST['Customer'];
             $transaction = Yii::app()->db->beginTransaction();

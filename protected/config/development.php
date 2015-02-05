@@ -15,6 +15,9 @@ return CMap::mergeArray(
                 'class' => 'system.gii.GiiModule',
                 'password' => '1111',
                 'ipFilters' => ['127.0.0.1', '192.168.33.1'],
+                'generatorPaths' => [
+                    'bootstrap.gii',
+                ],
             ],
         ],
         'components' => [

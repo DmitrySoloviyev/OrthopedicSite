@@ -16,7 +16,7 @@ $this->widget('ext.fancybox.EFancyBox', [
 ?>
 <div style="width: 50%; float: left;">
     <?php
-    $this->widget('zii.widgets.CDetailView', [
+    $this->widget('bootstrap.widgets.TbDetailView', [
         'data' => $order,
         'attributes' => [
             'order_name',

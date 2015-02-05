@@ -17,4 +17,10 @@ $this->widget('ext.yii-flash.Flash', [
     ],
 ]);
 
+$this->widget('bootstrap.widgets.TbBreadcrumb', [
+    'links' => [
+        'Новый заказ',
+    ],
+]);
+
 $this->renderPartial('_form', ['order' => $order, 'customer' => $customer]);

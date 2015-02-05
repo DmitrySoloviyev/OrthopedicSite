@@ -1,7 +1,13 @@
 <?php
 $this->pageTitle = Yii::app()->name . ' - Все заказы';
 
-$this->widget('zii.widgets.grid.CGridView', [
+$this->widget('bootstrap.widgets.TbBreadcrumb', [
+    'links' => [
+        'Все заказы',
+    ],
+]);
+
+$this->widget('bootstrap.widgets.TbGridView', [
     'id' => 'order-grid',
     'template' => "{summary}\n{pager}\n{items}\n{pager}",
     'dataProvider' => $order->search(),
@@ -64,7 +70,7 @@ $this->widget('zii.widgets.grid.CGridView', [
             'value' => 'date("H:i d.m.Y", strtotime($data->date_created))'
         ],
         [
-            'class' => 'CButtonColumn',
+            'class' => 'bootstrap.widgets.TbButtonColumn',
             'header' => 'Действия',
         ],
     ],

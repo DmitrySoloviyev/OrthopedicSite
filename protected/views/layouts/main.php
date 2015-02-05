@@ -5,9 +5,10 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     <meta name="language" content="ru"/>
     <title><?= CHtml::encode($this->pageTitle) ?></title>
-    <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-    <?php Yii::app()->clientScript
-        ->registerCssFile('/css/screen.css', 'screen, projection')
+    <?= Yii::app()->bootstrap->register(); ?>
+    <?php
+    Yii::app()->clientScript->registerCoreScript('jquery');
+    Yii::app()->clientScript
         ->registerCssFile('/css/main.css')
         ->registerCssFile('/css/form.css')
         ->registerCssFile('/css/style.css')
@@ -17,34 +18,48 @@
 </head>
 
 <body id="top">
-<div class="container" id="page">
+<div class="container-fluid">
     <code class="version"><?= Yii::app()->params['version'] ?></code>
 
-    <div id="header">
-        <div id="logo"><?= CHtml::encode(Yii::app()->name) ?></div>
-        <div id="navigation">
-            <?php $this->widget('zii.widgets.CMenu', [
+    <div id="logo"><?= CHtml::encode(Yii::app()->name) ?></div>
+    <?php $this->widget('bootstrap.widgets.TbNavbar', [
+        'brandLabel' => false,
+        'display' => TbHtml::NAVBAR_DISPLAY_STATICTOP,
+        'collapse' => true,
+        'fluid' => true,
+        'items' => [
+            TbHtml::navbarSearchForm(['site/search'], 'get'),
+            [
+                'class' => 'bootstrap.widgets.TbNav',
                 'items' => [
                     ['label' => 'Главная', 'url' => ['site/index']],
-                    ['label' => 'Новый заказ', 'url' => ['order/create']],
-                    ['label' => 'Новая модель', 'url' => ['model/create']],
-                    ['label' => 'Все заказы', 'url' => ['order/index']],
-                    ['label' => 'Все модели', 'url' => ['model/index']],
+                    ['label' => 'Заказы',
+                        'items' => [
+                            ['label' => 'Новый заказ', 'url' => ['order/create']],
+                            ['label' => 'Все заказы', 'url' => ['order/index']],
+                        ]
+                    ],
+                    ['label' => 'Модели',
+                        'items' => [
+                            ['label' => 'Новая модель', 'url' => ['model/create']],
+                            ['label' => 'Все модели', 'url' => ['model/index']],
+                        ]
+                    ],
                     ['label' => 'Статистика', 'url' => ['statistic/index']],
                     ['label' => 'Администрирование', 'url' => ['/admin'], 'visible' => !Yii::app()->user->isGuest],
                     ['label' => 'О сайте', 'url' => ['site/about']],
                     ['label' => 'Войти', 'url' => ['user/login'], 'visible' => Yii::app()->user->isGuest],
                     ['label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => ['user/logout'], 'visible' => !Yii::app()->user->isGuest]
-                ],
-            ]); ?>
-        </div>
-        <!-- mainmenu -->
-        <?php $this->widget('ext.SearchFormWidget.SearchFormWidget'); ?>
-    </div>
-    <!-- header -->
+                ]
+            ]
+        ]
+    ]); ?>
 
-    <div id="center"><?= $content ?></div>
-    <div class="clear"></div>
+
+    <div class="row-fluid" id="center">
+        <!--        --><?php //$this->widget('ext.SearchFormWidget.SearchFormWidget'); ?>
+        <?= $content ?>
+    </div>
 
     <div id="footer">
         <hr/>
@@ -53,9 +68,7 @@
         г. Москва. All Rights Reserved.<br/>
         <?= Yii::powered() ?>
     </div>
-    <!-- footer -->
 </div>
-<!-- page -->
 <p id='back-top' style="z-index:2">
     <a href='#top'><img width='84' height='84' src='<?= Yii::app()->request->baseUrl ?>/images/arrow_up_84.png'/></a>
 </p>
