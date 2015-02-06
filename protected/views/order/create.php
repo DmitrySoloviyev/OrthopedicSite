@@ -19,6 +19,7 @@ $this->widget('ext.yii-flash.Flash', [
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', [
     'links' => [
+        'Заказы' => ['order/index'],
         'Новый заказ',
     ],
 ]);

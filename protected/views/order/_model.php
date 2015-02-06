@@ -17,16 +17,19 @@ $picture = Models::MODEL_IMAGE_PATH . ($isModel ? $model->picture : 'ortho.jpg')
         <?= $isModel ? 'Модель № ' . CHtml::link($model->name, ['model/view', 'id' => $model->id], ['target' => '_blank']) : 'Выберите модель' ?>
     </div>
 
-    <div id="picture">
-        <img src="<?= $picture ?>" href="<?= $picture ?>" id="picture_resource" alt='изображение модели'/>
-    </div>
+<!--    <div id="picture">-->
+        <?= TbHtml::imagePolaroid($picture, 'изображение модели', [
+            'href' => $picture,
+            'id' => 'picture_resource',
+        ]); ?>
+<!--    </div>-->
 
     <?= Models::model()->getAttributeLabel('description') ?>:
-    <spam id="description"><?= (is_object($model) ? $model->description : ''); ?></spam>
+    <span id="description"><?= (is_object($model) ? $model->description : ''); ?></span>
     <br>
     <?= Models::model()->getAttributeLabel('date_created') ?>:
-    <spam id="date_created"><?= (is_object($model) ? $model->date_created : ''); ?></spam>
+    <span id="date_created"><?= (is_object($model) ? $model->date_created : ''); ?></span>
     <br>
     <?= Models::model()->getAttributeLabel('date_modified') ?>:
-    <spam id="date_modified"><?= $isModel ? $model->date_modified : ''; ?></spam>
+    <span id="date_modified"><?= $isModel ? $model->date_modified : ''; ?></span>
 </div>

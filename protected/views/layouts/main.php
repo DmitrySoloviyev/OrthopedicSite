@@ -28,7 +28,6 @@
         'collapse' => true,
         'fluid' => true,
         'items' => [
-            TbHtml::navbarSearchForm(['site/search'], 'get'),
             [
                 'class' => 'bootstrap.widgets.TbNav',
                 'items' => [
@@ -51,7 +50,8 @@
                     ['label' => 'Войти', 'url' => ['user/login'], 'visible' => Yii::app()->user->isGuest],
                     ['label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => ['user/logout'], 'visible' => !Yii::app()->user->isGuest]
                 ]
-            ]
+            ],
+            TbHtml::navbarSearchForm(['site/search'], 'get'),
         ]
     ]); ?>
 

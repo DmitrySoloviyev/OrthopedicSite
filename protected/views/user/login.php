@@ -1,45 +1,31 @@
 <?php
 /* @var $this SiteController */
 /* @var $model LoginForm */
-/* @var $form CActiveForm */
+/* @var $form TbActiveForm */
 
 $this->pageTitle = Yii::app()->name . ' - Войти';
 ?>
 
-<p>Пожалуйста, заполните следующую форму вашими учетными данными:</p>
-
 <div class="form">
-    <?php $form = $this->beginWidget('CActiveForm', [
+    <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
         'id' => 'login-form',
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
         'enableClientValidation' => true,
         'clientOptions' => [
             'validateOnSubmit' => true,
         ],
     ]); ?>
 
-    <p class="note">Поля отмеченные <span class="required">*</span> обязательны для заполнения.</p>
+    <?= TbHtml::blockAlert(TbHtml::ALERT_COLOR_INFO,
+        '<p class="note">Поля отмеченные <span class="required">*</span> обязательны для заполнения.</p>'); ?>
 
-    <div class="row">
-        <?= $form->labelEx($model, 'username'); ?><br/>
-        <?= $form->textField($model, 'username', ['class' => 'input_text']); ?>
-        <?= $form->error($model, 'username'); ?>
-    </div>
-
-    <div class="row">
-        <?= $form->labelEx($model, 'password'); ?><br/>
-        <?= $form->passwordField($model, 'password', ['class' => 'input_text']); ?>
-        <?= $form->error($model, 'password'); ?>
-    </div>
-
-    <div class="row rememberMe">
-        <?= $form->checkBox($model, 'rememberMe'); ?>
-        <?= $form->label($model, 'rememberMe'); ?>
-        <?= $form->error($model, 'rememberMe'); ?>
-    </div>
-
-    <div class="row buttons">
-        <?= CHtml::submitButton('Войти', ['class' => 'button']); ?>
-    </div>
+    <?= $form->textFieldControlGroup($model, 'username'); ?>
+    <?= $form->passwordFieldControlGroup($model, 'password'); ?>
+    <?= $form->checkBoxControlGroup($model, 'rememberMe'); ?>
+    <?= TbHtml::formActions([
+        TbHtml::submitButton('Войти', ['color' => TbHtml::BUTTON_COLOR_PRIMARY]),
+        TbHtml::resetButton('Очистить'),
+    ]); ?>
 
     <?php $this->endWidget(); ?>
-</div><!-- form -->
+</div>

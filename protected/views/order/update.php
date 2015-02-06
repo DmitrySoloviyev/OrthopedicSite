@@ -17,4 +17,11 @@ $this->widget('ext.yii-flash.Flash', [
     ],
 ]);
 
+$this->widget('bootstrap.widgets.TbBreadcrumb', [
+    'links' => [
+        'Заказы' => ['order/index'],
+        'Редактирование ' . $order->order_name => Yii::app()->createUrl('order/view', ['id' => $order->id]),
+    ],
+]);
+
 $this->renderPartial('_form', ['order' => $order, 'customer' => $customer]);

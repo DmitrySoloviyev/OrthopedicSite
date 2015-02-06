@@ -2,6 +2,13 @@
 /* @var $this OrderController */
 /* @var $order Order */
 $this->pageTitle = Yii::app()->name . ' - Заказ №' . $order->order_name;
+
+$this->widget('bootstrap.widgets.TbBreadcrumb', [
+    'links' => [
+        'Заказы' => ['order/index'],
+        'Страница заказа №' . $order->order_name,
+    ],
+]);
 ?>
 
 <h1>Заказ № <?= $order->order_name; ?></h1>

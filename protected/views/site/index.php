@@ -65,7 +65,7 @@ $this->widget('ext.yii-flash.Flash', [
         Заказы и модели добавляются от имени того пользователя, под которым был осуществлен вход в систему
         (удален пункт выбора модельера из выпадающего списка). По аналогии с заказами, у моделей появился атрибут автор
         (заполняется автоматически). Серьезно изменена и переписана визуальная основа сайта: внешний вид базируется на
-        расширении для Yii <a target="_blank" href="http://yiiwheels.2amigos.us/">YiiWheels</a>,
+        расширении <a target="_blank" href="http://yiiwheels.2amigos.us/">YiiWheels</a>,
         основанный на <a target="_blank" href="http://getbootstrap.com/">Bootstrap</a>, совместно с
         <a target="_blank" href="http://fontawesome.veliovgroup.com/">Font Awesome</a>. Используется версия
         bootstrap'a 2.3.2. Полностью адаптивный дизайн.
