@@ -61,9 +61,9 @@ $this->widget('bootstrap.widgets.TbGridView', [
             'name' => 'customer_id',
             'value' => '$data->customer->fullName()'
         ],
-        'employee_id' => [
-            'name' => 'employee_id',
-            'value' => '$data->employee->fullName()'
+        'user_id' => [
+            'name' => 'user_id',
+            'value' => '$data->user->fullName()'
         ],
         'date_created' => [
             'name' => 'date_created',

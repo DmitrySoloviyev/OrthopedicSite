@@ -6,7 +6,7 @@
  * Date: 29.09.14
  * Time: 22:20
  */
-class EmployeesOrders extends CWidget
+class UsersOrders extends CWidget
 {
     private $monthRu = [
         'January' => 'Январь',
@@ -28,18 +28,18 @@ class EmployeesOrders extends CWidget
         $sql = 'SELECT
                     COUNT(*) AS count_orders,
                     MONTHNAME(o.date_created) AS month_name,
-                    CONCAT(e.surname, " ", LEFT(e.name, 1), ".", LEFT(e.patronymic, 1), ".") as employee
+                    CONCAT(u.surname, " ", LEFT(u.name, 1), ".", LEFT(u.patronymic, 1), ".") as user
                 FROM orders o
-                JOIN employees e ON o.employee_id = e.id
+                JOIN users u ON o.user_id = u.id
                 WHERE o.is_deleted = 0 AND o.date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()
-                GROUP BY month_name, employee
+                GROUP BY month_name, user
                 with rollup';
         $result = Yii::app()->db->createCommand($sql)->queryAll();
         $result = array_reverse($result);
         array_shift($result);
 
         foreach ($result as $res) {
-            if (empty($res['employee'])) {
+            if (empty($res['user'])) {
                 Yii::app()->clientScript->registerScript('show' . $res['month_name'], "
 				$(' .for" . $res['month_name'] . "').hide();
 				$('#" . $res['month_name'] . "').click(function(){
@@ -52,7 +52,7 @@ class EmployeesOrders extends CWidget
                 echo '<div id="' . $res['month_name'] . '" style="padding:5px 20px 5px 20px; cursor:pointer;"><i>' .
                     $this->monthRu[$res['month_name']] . ': выполнено заказов ' . $res['count_orders'] . '</i></div>';
             } else {
-                echo '<div class="for' . $res['month_name'] . '" style="padding:0 40px;"><i>' . $res['employee'] .
+                echo '<div class="for' . $res['month_name'] . '" style="padding:0 40px;"><i>' . $res['user'] .
                     ': заказов ' . $res['count_orders'] . '</i></div>';
             }
         }

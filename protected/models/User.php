@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "employees".
+ * This is the model class for table "users".
  *
- * The followings are the available columns in table 'employees':
+ * The followings are the available columns in table 'users':
  *
  * @property integer $id
  * @property string $surname
@@ -15,11 +15,11 @@
  * The followings are the available model relations:
  * @property Order[] $orders
  */
-class Employee extends CActiveRecord
+class User extends CActiveRecord
 {
     public function tableName()
     {
-        return 'employees';
+        return 'users';
     }
 
     public function rules()
@@ -35,7 +35,7 @@ class Employee extends CActiveRecord
     public function relations()
     {
         return [
-            'orders' => [self::HAS_MANY, 'Order', 'employee_id'],
+            'orders' => [self::HAS_MANY, 'Order', 'user_id'],
         ];
     }
 
@@ -87,30 +87,30 @@ class Employee extends CActiveRecord
     }
 
 
-    public static function employeeList()
+    public static function userList()
     {
-        $employees = Yii::app()->redis->getClient()->get('employeesList');
-        if ($employees === false) {
-            $employees = CHtml::listData(self::model()->findAll('is_deleted = 0'), 'id', function ($employee) {
-                return $employee->fullName();
+        $users = Yii::app()->redis->getClient()->get('usersList');
+        if ($users === false) {
+            $users = CHtml::listData(self::model()->findAll('is_deleted = 0'), 'id', function ($user) {
+                return $user->fullName();
             });
-            Yii::app()->redis->getClient()->set('employeesList', CJSON::encode($employees));
+            Yii::app()->redis->getClient()->set('usersList', CJSON::encode($users));
         } else {
-            $employees = CJSON::decode($employees);
+            $users = CJSON::decode($users);
         }
 
-        return $employees;
+        return $users;
     }
 
-    public static function getEmployeeShortcutList($employee_id)
+    public static function getUserShortcutList($user_id)
     {
-        $employee = Yii::app()->db->createCommand()
-            ->select("CONCAT(id, ' ', LEFT(name, 1), '.', LEFT(patronymic, 1), '.') AS Employee")
-            ->from('employees')
-            ->where('id=:id', [':id' => $employee_id])
+        $user = Yii::app()->db->createCommand()
+            ->select("CONCAT(id, ' ', LEFT(name, 1), '.', LEFT(patronymic, 1), '.') AS User")
+            ->from('users')
+            ->where('id=:id', [':id' => $user_id])
             ->queryRow();
 
-        return $employee['Employee'];
+        return $user['User'];
     }
 
     public function fullName()
@@ -120,14 +120,14 @@ class Employee extends CActiveRecord
 
     public function afterSave()
     {
-        Yii::app()->redis->getClient()->del('employeesList');
+        Yii::app()->redis->getClient()->del('usersList');
 
         return parent::afterSave();
     }
 
     public function afterDelete()
     {
-        Yii::app()->redis->getClient()->del('employeesList');
+        Yii::app()->redis->getClient()->del('usersList');
 
         return parent::afterDelete();
     }

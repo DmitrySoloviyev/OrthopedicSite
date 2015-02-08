@@ -126,7 +126,7 @@ class Report extends CFormModel
             $sheet->setCellValue('P' . $i, $value->customer->fullName())
                 ->getStyle('P' . $i);
 
-            $sheet->setCellValue('Q' . $i, $value->employee->fullName())
+            $sheet->setCellValue('Q' . $i, $value->user->fullName())
                 ->getStyle('Q' . $i);
 
             $sheet->setCellValue('R' . $i, $value->date_created)->getStyle('R' . $i);

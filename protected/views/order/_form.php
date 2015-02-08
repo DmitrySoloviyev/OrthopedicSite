@@ -153,7 +153,7 @@
             </div>
             <div class="row-fluid">
                 <div class="span6">
-                    <?= $form->dropDownListControlGroup($order, 'employee_id', Employee::employeeList(), ['empty' => 'Ф.И.О Модельера']); ?>
+                    <?= $form->dropDownListControlGroup($order, 'user_id', User::userList(), ['empty' => 'Ф.И.О Модельера']); ?>
                 </div>
             </div>
         </div>

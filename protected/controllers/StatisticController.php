@@ -25,13 +25,13 @@ class StatisticController extends Controller
     public function actionIndex()
     {
         $ordersPerDay = new OrdersPerDay('Общая оценка производительности: количество заказов по дням недели');
-        $employeesByOrdersPerDay = new EmployeesByOrdersPerDay('Оценка производительности модельеров по дням недели');
-        $ordersPie = new EmployeesPieByOrders('Объем реализованных заказов по модельерам за последние 3 месяца');
+        $usersByOrdersPerDay = new UsersByOrdersPerDay('Оценка производительности модельеров по дням недели');
+        $ordersPie = new UsersPieByOrders('Объем реализованных заказов по модельерам за последние 3 месяца');
 
         $this->render('index', [
             'ordersPerDay' => $ordersPerDay,
             'ordersPie' => $ordersPie,
-            'employeesByOrdersPerDay' => $employeesByOrdersPerDay,
+            'usersByOrdersPerDay' => $usersByOrdersPerDay,
         ]);
     }
 

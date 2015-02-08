@@ -7,12 +7,12 @@
  * Time: 18:13
  * @property array output
  */
-class EmployeesPieByOrders extends GraphBuilder
+class UsersPieByOrders extends GraphBuilder
 {
     public function __construct($title)
     {
         $this->title = $title;
-        $this->obtainedData = Order::performanceByEmployeeSummaryPie();
+        $this->obtainedData = Order::performanceByUserSummaryPie();
     }
 
     function build()
@@ -27,7 +27,7 @@ class EmployeesPieByOrders extends GraphBuilder
         $output = [];
 
         for ($i = 0; $i < count($input); $i++) {
-            $output[] = [$input[$i]['employee'], (int)$input[$i]['orders_count']];
+            $output[] = [$input[$i]['user'], (int)$input[$i]['orders_count']];
         }
 
         return [$output];

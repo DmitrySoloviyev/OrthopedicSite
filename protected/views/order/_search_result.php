@@ -21,8 +21,8 @@
     <?= CHtml::encode($data->material->title); ?>
     <br/>
 
-    <b><?= CHtml::encode($data->getAttributeLabel('employee_id')); ?>:</b>
-    <?= CHtml::encode($data->employee->fullName()); ?>
+    <b><?= CHtml::encode($data->getAttributeLabel('user_id')); ?>:</b>
+    <?= CHtml::encode($data->user->fullName()); ?>
     <br/>
 
     <b><?= CHtml::encode($data->getAttributeLabel('customer_id')); ?>:</b>

@@ -5,8 +5,8 @@
         'htmlOptions' => ['class' => 'well mynav'],
         'items' => [
             ['label' => 'Модельеры'],
-            ['label' => 'Новый модельер', 'url' => '/admin/employee/create', 'class' => 'nav nav-list'],
-            ['label' => 'Все модельеры', 'url' => '/admin/employee/index', 'class' => 'nav nav-list'],
+            ['label' => 'Новый модельер', 'url' => '/admin/user/create', 'class' => 'nav nav-list'],
+            ['label' => 'Все модельеры', 'url' => '/admin/user/index', 'class' => 'nav nav-list'],
 
             ['label' => 'Материалы'],
             ['label' => 'Новый материал', 'url' => '/admin/material/create', 'class' => 'nav nav-list'],

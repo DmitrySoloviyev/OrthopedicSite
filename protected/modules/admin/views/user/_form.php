@@ -1,13 +1,13 @@
 <?php
-/* @var $this EmployeeController */
-/* @var $model Employee */
+/* @var $this UserController */
+/* @var $model User */
 /* @var $form CActiveForm */
 ?>
 
 <div class="form">
 
     <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
-        'id' => 'employee-form',
+        'id' => 'user-form',
         'enableAjaxValidation' => false,
     ]); ?>
 

@@ -1,12 +1,12 @@
 <?php
-/* @var $this EmployeeController */
-/* @var $model Employee */
+/* @var $this UserController */
+/* @var $model User */
 ?>
 
 <h1>Модельеры</h1>
 
 <?php $this->widget('bootstrap.widgets.TbGridView', [
-    'id' => 'employee-grid',
+    'id' => 'user-grid',
     'type' => 'striped condensed',
     'dataProvider' => $model->search(),
     'filter' => $model,

@@ -1,6 +1,6 @@
 <?php
 
-class EmployeeController extends Controller
+class UserController extends Controller
 {
     public function accessRules()
     {
@@ -20,7 +20,7 @@ class EmployeeController extends Controller
         return [
             'delete' => [
                 'class' => 'DeleteAction',
-                'modelClass' => 'Employee',
+                'modelClass' => 'User',
                 'redirectTo' => 'index',
             ],
         ];
@@ -28,10 +28,10 @@ class EmployeeController extends Controller
 
     public function actionCreate()
     {
-        $model = new Employee();
+        $model = new User();
 
-        if (isset($_POST['Employee'])) {
-            $model->attributes = $_POST['Employee'];
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
             if ($model->save())
                 $this->redirect(['index']);
         }
@@ -45,8 +45,8 @@ class EmployeeController extends Controller
     {
         $model = $this->loadModel($id);
 
-        if (isset($_POST['Employee'])) {
-            $model->attributes = $_POST['Employee'];
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
             if ($model->save())
                 $this->redirect(['index']);
         }
@@ -58,10 +58,10 @@ class EmployeeController extends Controller
 
     public function actionIndex()
     {
-        $model = new Employee('search');
+        $model = new User('search');
         $model->unsetAttributes();
-        if (isset($_GET['Employee']))
-            $model->attributes = $_GET['Employee'];
+        if (isset($_GET['User']))
+            $model->attributes = $_GET['User'];
 
         $this->render('index', [
             'model' => $model,
@@ -70,7 +70,7 @@ class EmployeeController extends Controller
 
     public function loadModel($id)
     {
-        $model = Employee::model()->findByPk($id);
+        $model = User::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
 
@@ -79,7 +79,7 @@ class EmployeeController extends Controller
 
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'employee-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

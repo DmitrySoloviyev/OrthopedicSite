@@ -1,6 +1,6 @@
 <?php
-/* @var $this EmployeeController */
-/* @var $model Employee */
+/* @var $this userController */
+/* @var $model user */
 ?>
 
 <h1>Новый модельер</h1>

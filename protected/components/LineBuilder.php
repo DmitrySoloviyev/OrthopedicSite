@@ -67,7 +67,7 @@ class LineBuilder
      */
     public function buildLines(array $input)
     {
-        $input = $this->separateEmployees($input);
+        $input = $this->separateUsers($input);
         $preArray = [];
         foreach ($input as $rows) {
             $this->makeLegend($rows);
@@ -87,8 +87,8 @@ class LineBuilder
     private function makeLegend($rows)
     {
         foreach ($rows as $row) {
-            if (!array_key_exists($row['employee_id'], $this->legend)) {
-                $this->legend[$row['employee_id']] = $row['employee'];
+            if (!array_key_exists($row['user_id'], $this->legend)) {
+                $this->legend[$row['user_id']] = $row['user'];
             }
         }
     }
@@ -100,8 +100,8 @@ class LineBuilder
     protected function buildLegend()
     {
         $output = [];
-        foreach ($this->legend as $employee) {
-            $output[] = ['label' => $employee];
+        foreach ($this->legend as $user) {
+            $output[] = ['label' => $user];
         }
 
         return $output;
@@ -113,11 +113,11 @@ class LineBuilder
      * @param array $input
      * @return array
      */
-    private function separateEmployees(array $input)
+    private function separateUsers(array $input)
     {
         $sortedArray = [];
         foreach ($input as $row) {
-            $sortedArray[$row['employee_id']][] = $row;
+            $sortedArray[$row['user_id']][] = $row;
         }
 
         return $sortedArray;

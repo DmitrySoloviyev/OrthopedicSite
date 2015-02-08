@@ -62,8 +62,8 @@ $this->widget('ext.fancybox.EFancyBox', [
                     'value' => $order->customer->fullName(),
                 ],
                 [
-                    'name' => 'employee_id',
-                    'value' => $order->employee->fullName(),
+                    'name' => 'user_id',
+                    'value' => $order->user->fullName(),
                 ],
                 'date_created',
                 'date_modified',

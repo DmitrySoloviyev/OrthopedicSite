@@ -6,12 +6,12 @@
  * Date: 21.09.14
  * Time: 23:02
  */
-class EmployeesByOrdersPerDay extends GraphBuilder
+class UsersByOrdersPerDay extends GraphBuilder
 {
     public function __construct($title)
     {
         $this->title = $title;
-        $this->obtainedData = Order::performanceByEmployee();
+        $this->obtainedData = Order::performanceByUser();
     }
 
     function build()

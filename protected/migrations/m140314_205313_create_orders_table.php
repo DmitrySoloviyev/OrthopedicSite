@@ -22,7 +22,7 @@ class m140314_205313_create_orders_table extends CDbMigration
             'kv_volume_left' => 'float unsigned not null',     // 15.0 - 70.0 float(3,1) unsigned not null
             'kv_volume_right' => 'float unsigned not null',    // 15.0 - 70.0 float(3,1) unsigned not null
             'customer_id' => 'int not null',
-            'employee_id' => 'int not null',
+            'user_id' => 'int not null',
             'comment' => 'string not null default ""',
             'date_created' => 'datetime not null',
             'date_modified' => 'datetime not null',
@@ -32,7 +32,7 @@ class m140314_205313_create_orders_table extends CDbMigration
         $this->addForeignKey('fk_model', 'orders', 'model_id', 'models', 'id');
         $this->addForeignKey('fk_material', 'orders', 'material_id', 'materials', 'id');
         $this->addForeignKey('fk_customer', 'orders', 'customer_id', 'customers', 'id');
-        $this->addForeignKey('fk_employee', 'orders', 'employee_id', 'employees', 'id');
+        $this->addForeignKey('fk_users', 'orders', 'user_id', 'users', 'id');
 
         $this->createIndex('unique_order_name', 'orders', 'order_name', true);
     }

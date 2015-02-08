@@ -79,7 +79,7 @@ class MaterialController extends Controller
 
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'employee-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'material-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

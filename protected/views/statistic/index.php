@@ -1,7 +1,7 @@
 <?php
 /** @var $ordersPerDay OrdersPerDay */
-/** @var $ordersPie EmployeesPieByOrders */
-/** @var $employeesByOrdersPerDay EmployeesByOrdersPerDay */
+/** @var $ordersPie UsersPieByOrders */
+/** @var $usersByOrdersPerDay UsersByOrdersPerDay */
 
 $this->pageTitle = Yii::app()->name . ' - Статистика';
 
@@ -10,7 +10,7 @@ if (Order::hasOrders() == 0) {
     return;
 }
 
-$this->widget('ext.EmployeesOrdersWidget.EmployeesOrders', []);
+$this->widget('ext.UsersOrdersWidget.UsersOrders', []);
 
 $this->widget('ext.jqplot.JqplotGraphWidget', [
     'data' => $ordersPerDay->build(),
@@ -67,20 +67,20 @@ $this->widget('ext.jqplot.JqplotGraphWidget', [
 
 // второй график
 $this->widget('ext.jqplot.JqplotGraphWidget', [
-    'data' => $employeesByOrdersPerDay->build(),
+    'data' => $usersByOrdersPerDay->build(),
     'options' => [
         'seriesDefaults' => [
             'rendererOptions' => [
                 'smooth' => true,
             ],
             'markerOptions' => [
-                'style' => $employeesByOrdersPerDay->getStyle(),
+                'style' => $usersByOrdersPerDay->getStyle(),
                 'size' => 8,
             ],
         ],
         'animate' => true,
         'animateReplot' => true,
-        'title' => $employeesByOrdersPerDay->getTitle(),
+        'title' => $usersByOrdersPerDay->getTitle(),
         'axesDefaults' => [
             'labelRenderer' => 'js:$.jqplot.CanvasAxisLabelRenderer',
         ],
@@ -99,7 +99,7 @@ $this->widget('ext.jqplot.JqplotGraphWidget', [
                 'tickOptions' => ['formatString' => '%#d %b'],
             ],
             'yaxis' => [
-                'max' => $employeesByOrdersPerDay->getMax(),
+                'max' => $usersByOrdersPerDay->getMax(),
                 'min' => 0,
                 'label' => 'Количество заказов',
                 'labelRenderer' => 'js:$.jqplot.CanvasAxisLabelRenderer',
@@ -118,7 +118,7 @@ $this->widget('ext.jqplot.JqplotGraphWidget', [
             'show' => true,
             'sizeAdjust' => 10,
         ],
-        'series' => $employeesByOrdersPerDay->getLegend(),
+        'series' => $usersByOrdersPerDay->getLegend(),
     ],
     'pluginScriptFile' => [
         'jqplot.dateAxisRenderer.js',
