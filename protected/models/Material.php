@@ -7,6 +7,10 @@
  *
  * @property integer $id
  * @property string $title
+ * @property string $created_by
+ * @property string $modified_by
+ * @property string $date_created
+ * @property string $date_modified
  * @property boolean $is_deleted
  *
  * The followings are the available model relations:
@@ -25,7 +29,7 @@ class Material extends CActiveRecord
             ['title', 'required'],
             ['title', 'unique'],
             ['title', 'length', 'max' => 30],
-            ['id, material', 'safe', 'on' => 'search'],
+            ['id, title, date_created, date_modified, created_by, modified_by', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -40,6 +44,10 @@ class Material extends CActiveRecord
     {
         return [
             'title' => 'Материал',
+            'date_created' => 'Дата создания',
+            'created_by' => 'Автор',
+            'modified_by' => 'Изменил',
+            'date_modified' => 'Дата изменения',
         ];
     }
 

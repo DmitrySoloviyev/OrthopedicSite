@@ -24,6 +24,7 @@ class m140314_205313_create_orders_table extends CDbMigration
             'customer_id' => 'int not null',
             'user_id' => 'int not null',
             'comment' => 'string not null default ""',
+            'modified_by' => 'int not null',
             'date_created' => 'datetime not null',
             'date_modified' => 'datetime not null',
             'is_deleted' => 'boolean not null default 0'
@@ -32,7 +33,8 @@ class m140314_205313_create_orders_table extends CDbMigration
         $this->addForeignKey('fk_model', 'orders', 'model_id', 'models', 'id');
         $this->addForeignKey('fk_material', 'orders', 'material_id', 'materials', 'id');
         $this->addForeignKey('fk_customer', 'orders', 'customer_id', 'customers', 'id');
-        $this->addForeignKey('fk_users', 'orders', 'user_id', 'users', 'id');
+        $this->addForeignKey('fk_orders_user', 'orders', 'user_id', 'users', 'id');
+        $this->addForeignKey('fk_orders_modified_by_user', 'orders', 'modified_by', 'users', 'id');
 
         $this->createIndex('unique_order_name', 'orders', 'order_name', true);
     }

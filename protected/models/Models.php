@@ -10,6 +10,8 @@
  * @property string $description
  * @property string $picture
  * @property string $comment
+ * @property string $created_by
+ * @property string $modified_by
  * @property string $date_created
  * @property string $date_modified
  * @property boolean $is_deleted
@@ -17,7 +19,6 @@
  * The followings are the available model relations:
  * @property Order[] $orders
  */
-// * @property integer $author
 class Models extends CActiveRecord
 {
     const MODEL_IMAGE_PATH = '/upload/OrthopedicGallery/';
@@ -36,7 +37,7 @@ class Models extends CActiveRecord
             ['is_deleted', 'boolean'],
             ['description, comment', 'length', 'max' => 255],
             ['picture', 'file', 'types' => 'jpg, jpeg, gif, png', 'allowEmpty' => true],
-            ['id, name, description, comment, date_created, date_modified', 'safe', 'on' => 'search'],
+            ['id, name, description, comment, date_created, date_modified, created_by, modified_by', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -68,6 +69,8 @@ class Models extends CActiveRecord
             'picture' => 'Изображение модели',
             'comment' => 'Комментарий',
             'date_created' => 'Дата создания',
+            'created_by' => 'Автор',
+            'modified_by' => 'Изменил',
             'date_modified' => 'Дата изменения',
         ];
     }
@@ -124,7 +127,8 @@ class Models extends CActiveRecord
     }
 
 
-    public function showSearchResults() {
+    public function showSearchResults()
+    {
         echo 'Найденные модели:';
     }
 

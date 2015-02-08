@@ -26,6 +26,7 @@
  * @property string $comment
  * @property string $date_created
  * @property string $date_modified
+ * @property string $modified_by
  * @property boolean $is_deleted
  *
  * The followings are the available model relations:
@@ -61,7 +62,7 @@ class Order extends CActiveRecord
             ['order_name', 'length', 'max' => 10],
             ['is_deleted', 'boolean'],
             ['comment', 'length', 'max' => 255],
-            ['order_name, sizes, urks, heights, top_volumes, ankle_volumes, kv_volumes, model_id, size_left, size_right, urk_left, urk_right, material_id, height_left, height_right, top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right, customer_id, user_id, comment, is_deleted', 'safe', 'on' => 'search'],
+            ['date_created, date_modified, order_name, sizes, urks, heights, top_volumes, ankle_volumes, kv_volumes, model_id, size_left, size_right, urk_left, urk_right, material_id, height_left, height_right, top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right, customer_id, user_id, comment, is_deleted, modified_by', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -81,11 +82,12 @@ class Order extends CActiveRecord
             'order_name' => 'Номер заказа',
             'model_id' => 'Модель',
             'material_id' => 'Материал',
-            'user_id' => 'Модельер',
+            'user_id' => 'Автор',
             'customer_id' => 'Заказчик',
             'comment' => 'Комментарий',
             'date_created' => 'Дата создания',
             'date_modified' => 'Дата изменения',
+            'modified_by' => 'Изменил',
             'size_left' => 'Размер левый',
             'size_right' => 'Размер правый',
             'urk_left' => 'Урк левый',

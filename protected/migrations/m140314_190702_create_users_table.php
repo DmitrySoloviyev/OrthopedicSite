@@ -1,9 +1,11 @@
 <?php
 
-class m140314_192702_create_users_table extends CDbMigration
+class m140314_190702_create_users_table extends CDbMigration
 {
     public function safeUp()
     {
+        $this->execute('ALTER DATABASE `ortho_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci');
+
         $this->createTable('users', [
             'id' => 'pk',
             'login' => 'string not null',
