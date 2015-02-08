@@ -12,6 +12,7 @@
         ->registerCssFile('/css/main.css')
         ->registerCssFile('/css/form.css')
         ->registerCssFile('/css/style.css')
+        ->registerCssFile('/css/bootstrap-override.css')
         ->registerCssFile('/css/jquery.fancybox.css')
         ->registerScriptFile('/js/main.js', CClientScript::POS_END);
     ?>
@@ -21,7 +22,10 @@
 <div class="container-fluid">
     <code class="version"><?= Yii::app()->params['version'] ?></code>
 
-    <div id="logo"><?= CHtml::encode(Yii::app()->name) ?></div>
+    <div id="header">
+        <div id="logo"><?= CHtml::encode(Yii::app()->name) ?></div>
+    </div>
+
     <?php $this->widget('bootstrap.widgets.TbNavbar', [
         'brandLabel' => false,
         'display' => TbHtml::NAVBAR_DISPLAY_STATICTOP,
@@ -51,7 +55,9 @@
                     ['label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => ['user/logout'], 'visible' => !Yii::app()->user->isGuest]
                 ]
             ],
-            TbHtml::navbarSearchForm(['site/search'], 'get'),
+            TbHtml::navbarSearchForm(['site/search'], 'get', [
+                'class' => 'pull-right'
+            ]),
         ]
     ]); ?>
 

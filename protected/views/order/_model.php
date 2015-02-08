@@ -14,15 +14,13 @@ $picture = Models::MODEL_IMAGE_PATH . ($isModel ? $model->picture : 'ortho.jpg')
 
 <div id="modelContent" style="text-align: left;">
     <div style="font-style: italic; font-size: 1.1em; text-align: center;" id="name">
-        <?= $isModel ? 'Модель № ' . CHtml::link($model->name, ['model/view', 'id' => $model->id], ['target' => '_blank']) : 'Выберите модель' ?>
+        <?= $isModel ? 'Модель № ' . CHtml::link($model->name, ['model/view', 'id' => $model->id], ['target' => '_blank']) : 'Модель не выбрана' ?>
     </div>
 
-<!--    <div id="picture">-->
-        <?= TbHtml::imagePolaroid($picture, 'изображение модели', [
-            'href' => $picture,
-            'id' => 'picture_resource',
-        ]); ?>
-<!--    </div>-->
+    <?= TbHtml::imagePolaroid($picture, 'изображение модели', [
+        'href' => $picture,
+        'id' => 'picture_resource',
+    ]); ?>
 
     <?= Models::model()->getAttributeLabel('description') ?>:
     <span id="description"><?= (is_object($model) ? $model->description : ''); ?></span>

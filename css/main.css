@@ -2,18 +2,6 @@
     padding: 20px 20px 20px 0;
 }
 
-#logo {
-    padding: 40px 10px 10px 10px;
-    font-size: 200%;
-    margin: 5px 5px -30px;
-    background-color: #2E2E2E;
-    color: transparent;
-    text-shadow: 0 2px 3px rgba(255, 255, 255, 0.7);
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    background-clip: text;
-}
-
 div.flash-error, div.flash-notice, div.flash-success {
     padding: .8em;
     margin-bottom: 1em;

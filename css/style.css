@@ -410,3 +410,25 @@ h3 + p {
     color: black;
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 1.0);
 }
+
+#header {
+    padding: 0;
+    font-size: 1.4em;
+    font-style: oblique;
+    text-align: center;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+#logo {
+    /*padding: 40px 10px 10px 10px;*/
+    padding: 1%;
+    font-size: 200%;
+    margin: 5px 5px -30px;
+    background-color: #202020;
+    color: transparent;
+    text-shadow: 0 2px 3px rgba(255, 255, 255, 0.7);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+}

@@ -19,16 +19,17 @@
         <div class="span7">
             <div class="row-fluid">
                 <div class="span6">
-                    <?= $form->textFieldControlGroup($order, 'order_name', ['span' => 10, 'autocomplete' => 'Off', 'maxlength' => 10]); ?>
+                    <?= $form->textFieldControlGroup($order, 'order_name', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 10]); ?>
                 </div>
                 <div class="span6">
-                    <?= $form->labelEx($order, 'material_id') ?>
-                    <?php $this->widget('yiiwheels.widgets.multiselect.WhMultiSelect', [
-                        'attribute' => 'material_id',
-                        'model' => $order,
-                        'data' => Material::materialList(),
-                        'pluginOptions' => ['empty' => 'd'],
-                    ]); ?>
+<!--                    --><?//= $form->labelEx($order, 'material_id') ?>
+<!--                    --><?php //$this->widget('yiiwheels.widgets.multiselect.WhMultiSelect', [
+//                        'attribute' => 'material_id',
+//                        'model' => $order,
+//                        'data' => Material::materialList(),
+//                        'pluginOptions' => ['empty' => 'd'],
+//                    ]); ?>
+                    <?= $form->dropDownListControlGroup($order, 'material_id', Material::materialList())?>
                 </div>
             </div>
             <!--            --><? //= $form->labelEx($order, 'model_id'); ?>

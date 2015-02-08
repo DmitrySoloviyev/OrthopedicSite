@@ -91,41 +91,6 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage {
     padding-left: 110px;
 }
 
-#picture {
-    margin: 6% 0;
-}
-
-#picture img {
-    padding: 5px;
-    width: 300px;
-    margin: 6px;
-    border: 6px inset;
-    transform: rotate(6deg) scale(1) skew(1deg) translate(10px);
-    -webkit-transform: rotate(6deg) scale(1) skew(1deg) translate(10px);
-    -moz-transform: rotate(6deg) scale(1) skew(1deg) translate(10px);
-    -o-transform: rotate(6deg) scale(1) skew(1deg) translate(10px);
-    -ms-transform: rotate(6deg) scale(1) skew(1deg) translate(10px);
-    max-width: 400px;
-    max-height: 200px;
-    min-height: 222px;
-}
-
-#picture img:hover {
-    cursor: pointer;
-}
-
-#Models_ModelDescription {
-    padding: 4%;
-}
-
-#modelContent {
-    margin: 0 48px 0 48px;
-}
-
-#pic :hover {
-    cursor: pointer;
-}
-
 .subInfo {
     font-style: italic;
     font-size: .9em;

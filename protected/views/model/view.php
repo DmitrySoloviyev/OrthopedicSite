@@ -2,44 +2,46 @@
 /* @var $this ModelController */
 /* @var $model Models */
 $this->pageTitle = Yii::app()->name . ' -  Просмотр модели №' . $model->name;
-?>
-
-<h1>Модель "<?= $model->name; ?>"</h1>
-
-<?php
+$this->widget('bootstrap.widgets.TbBreadcrumb', [
+    'links' => [
+        'Модели' => ['model/index'],
+        'Страница модели №' . $model->name,
+    ],
+]);
 $this->widget('ext.fancybox.EFancyBox', [
     'target' => '#' . $model->id,
     'config' => [
         'enableEscapeButton' => true,
     ],
 ]);
+$src = Models::MODEL_IMAGE_PATH . $model->picture;
+?>
 
-$this->widget('zii.widgets.CDetailView', [
-    'data' => $model,
-    'htmlOptions' => ['class' => ''],
-    'attributes' => [
-        'name',
-        'description',
-        'comment',
-        'date_created',
-        'date_modified',
-        'picture' => [
-            'name' => 'picture',
-            'type' => 'raw',
-            'value' => CHtml::image(Yii::app()->baseUrl . '/upload/OrthopedicGallery/' . $model->picture, $model->name, [
-                'width' => '350px',
-                'id' => $model->id,
-                'href' => Yii::app()->baseUrl . '/upload/OrthopedicGallery/' . $model->picture,
-                'style' => 'cursor:pointer',
-            ]),
-        ],
-    ],
-]); ?>
+<div class="row-fluid">
+    <div class="span7">
+        <?php $this->widget('bootstrap.widgets.TbDetailView', [
+            'data' => $model,
+            'htmlOptions' => ['class' => ''],
+            'attributes' => [
+                'name',
+                'description',
+                'comment',
+                'date_created',
+                'date_modified',
+            ],
+        ]); ?>
+    </div>
+    <div class="span5">
+        <?= TbHtml::imagePolaroid($src, 'изображение модели', [
+            'href' => $src,
+            'id' => $model->id,
+        ]); ?>
+    </div>
+</div>
 
-<div class="row submit actions_button">
-    <?=
-    CHtml::submitButton('Редактировать', [
-        'class' => 'button',
+<?= TbHtml::formActions([
+    TbHtml::submitButton('Редактировать', [
+        'color' => TbHtml::BUTTON_COLOR_PRIMARY,
         'submit' => [
             'model/update',
             'id' => $model->id,
@@ -47,10 +49,9 @@ $this->widget('zii.widgets.CDetailView', [
         'params' => [
             Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
         ],
-    ]); ?>
-    <?=
-    CHtml::submitButton('Удалить', [
-        'class' => 'button_delete',
+    ]),
+    TbHtml::submitButton('Удалить', [
+        'color' => TbHtml::BUTTON_COLOR_DANGER,
         'submit' => [
             'model/delete',
             'id' => $model->id,
@@ -59,5 +60,6 @@ $this->widget('zii.widgets.CDetailView', [
             Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
         ],
         'confirm' => 'Вы действительно хотите удалить эту модель?',
-    ]); ?>
-</div>
+        'class' => 'pull-right',
+    ]),
+]); ?>

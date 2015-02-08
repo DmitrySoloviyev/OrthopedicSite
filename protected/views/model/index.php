@@ -4,6 +4,12 @@
 
 $this->pageTitle = Yii::app()->name . ' - Все модели';
 
+$this->widget('bootstrap.widgets.TbBreadcrumb', [
+    'links' => [
+        'Все модели',
+    ],
+]);
+
 $this->widget('zii.widgets.grid.CGridView', [
     'id' => 'models-grid',
     'template' => "{summary}\n{pager}\n{items}\n{pager}",

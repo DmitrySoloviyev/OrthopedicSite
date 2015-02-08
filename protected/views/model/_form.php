@@ -1,7 +1,7 @@
 <?php
 /* @var $this ModelController */
 /* @var $model Models */
-/* @var $form CActiveForm */
+/* @var $form TbActiveForm */
 
 Yii::app()->clientScript->registerScriptFile('/js/preview.js', CClientScript::POS_END);
 $this->widget('ext.fancybox.EFancyBox', [
@@ -9,55 +9,42 @@ $this->widget('ext.fancybox.EFancyBox', [
     'config' => [
         'enableEscapeButton' => true,
     ],
-]); ?>
+]);
+$src = Models::MODEL_IMAGE_PATH . ($model->isNewRecord ? 'ortho.jpg' : $model->picture);
+?>
 
 <div class="form">
 
-    <?php $form = $this->beginWidget('CActiveForm', [
+    <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
         'id' => 'models-form',
         'enableAjaxValidation' => false,
+        'enableClientValidation' => true,
         'htmlOptions' => ['enctype' => 'multipart/form-data'],
     ]); ?>
 
-    <fieldset class="formContainer">
-        <legend style="margin-left:60px;">
-            <?= $model->isNewRecord ? 'Новая модель' : 'Редактирование модели ' . $model->name; ?>
-        </legend>
-        <?= $form->errorSummary($model); ?>
-        <div style="float: left; margin-right: 40px">
-            <div class="row">
-                <?= $form->labelEx($model, 'name'); ?><br>
-                <?= $form->textField($model, 'name', ['maxlength' => 6, 'autocomplete' => 'off']); ?>
-                <?= $form->error($model, 'name'); ?>
-            </div>
+    <div class="row-fluid">
+        <div class="span7">
+            <?= $form->errorSummary($model); ?>
 
-            <div class="row">
-                <?= $form->labelEx($model, 'description'); ?><br>
-                <?= $form->textArea($model, 'description', ['cols' => 30, 'rows' => 10, 'maxlength' => 255]); ?>
-                <?= $form->error($model, 'description'); ?>
-            </div>
-
-            <div class="row">
-                <?= $form->labelEx($model, 'picture'); ?><br>
-                <?= $form->fileField($model, 'picture'); ?>
-                <?= $form->error($model, 'picture'); ?>
-            </div>
-
-            <div class="row">
-                <?= $form->labelEx($model, 'comment'); ?><br>
-                <?= $form->textArea($model, 'comment', ['cols' => 30, 'rows' => 10, 'maxlength' => 255]); ?>
-                <?= $form->error($model, 'comment'); ?>
-            </div>
-
-            <div class="buttons">
-                <?= CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', ['class'=>'button']); ?>
-            </div>
+            <?= $form->textFieldControlGroup($model, 'name', ['span' => 10,'maxlength' => 6, 'autocomplete' => 'off']) ?>
+            <?= $form->textAreaControlGroup($model, 'description', ['span' => 10, 'cols' => 30, 'rows' => 10, 'maxlength' => 255]) ?>
+            <?= $form->textAreaControlGroup($model, 'comment', ['span' => 10, 'cols' => 30, 'rows' => 10, 'maxlength' => 255]) ?>
         </div>
-        <div>
-            <img alt="preview" id="preview" src="<?= Models::MODEL_IMAGE_PATH . ($model->isNewRecord ? 'ortho.jpg' : $model->picture) ?>" width="350px"/>
+        <div class="span5">
+            <?= TbHtml::imagePolaroid($src, 'изображение модели', [
+                'href' => $src,
+                'id' => 'preview',
+            ]); ?>
+            <?= $form->fileFieldControlGroup($model, 'picture') ?>
         </div>
-    </fieldset>
+    </div>
+    <?= TbHtml::formActions([
+        TbHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', [
+            'color' => TbHtml::BUTTON_COLOR_PRIMARY,
+        ]),
+        TbHtml::resetButton('Очистить', [
+            'color' => TbHtml::BUTTON_COLOR_DEFAULT,
+        ]),
+    ]); ?>
     <?php $this->endWidget(); ?>
-
 </div>
-
