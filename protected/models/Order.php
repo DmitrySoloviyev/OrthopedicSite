@@ -15,18 +15,18 @@
  * @property integer $material_id
  * @property integer $height_left
  * @property integer $height_right
- * @property integer $top_volume_left
- * @property integer $top_volume_right
- * @property integer $ankle_volume_left
- * @property integer $ankle_volume_right
- * @property integer $kv_volume_left
- * @property integer $kv_volume_right
+ * @property double $top_volume_left
+ * @property double $top_volume_right
+ * @property double $ankle_volume_left
+ * @property double $ankle_volume_right
+ * @property double $kv_volume_left
+ * @property double $kv_volume_right
  * @property integer $customer_id
  * @property integer $user_id
  * @property string $comment
  * @property string $date_created
  * @property string $date_modified
- * @property string $modified_by
+ * @property integer $modified_by
  * @property boolean $is_deleted
  *
  * The followings are the available model relations:
@@ -34,6 +34,7 @@
  * @property User $user
  * @property Material $material
  * @property Customer $customer
+ * @property User $modifiedBy
  */
 class Order extends CActiveRecord
 {
@@ -69,6 +70,7 @@ class Order extends CActiveRecord
     public function relations()
     {
         return [
+            'modifiedBy' => [self::BELONGS_TO, 'User', 'modified_by'],
             'model' => [self::BELONGS_TO, 'Models', 'model_id'],
             'customer' => [self::BELONGS_TO, 'Customer', 'customer_id'],
             'user' => [self::BELONGS_TO, 'User', 'user_id'],

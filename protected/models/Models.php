@@ -10,13 +10,15 @@
  * @property string $description
  * @property string $picture
  * @property string $comment
- * @property string $created_by
- * @property string $modified_by
+ * @property integer $created_by
+ * @property integer $modified_by
  * @property string $date_created
  * @property string $date_modified
  * @property boolean $is_deleted
  *
  * The followings are the available model relations:
+ * @property User $modifiedBy
+ * @property User $createdBy
  * @property Order[] $orders
  */
 class Models extends CActiveRecord
@@ -44,6 +46,8 @@ class Models extends CActiveRecord
     public function relations()
     {
         return [
+            'modifiedBy' => [self::BELONGS_TO, 'User', 'modified_by'],
+            'createdBy' => [self::BELONGS_TO, 'User', 'created_by'],
             'orders' => [self::HAS_MANY, 'Order', 'model_id'],
         ];
     }
@@ -94,6 +98,8 @@ class Models extends CActiveRecord
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, false);
         $criteria->compare('comment', $this->comment, true);
+        $criteria->compare('created_by',$this->created_by);
+        $criteria->compare('modified_by',$this->modified_by);
         $criteria->compare('date_created', $this->date_created, true);
         $criteria->compare('date_modified', $this->date_modified, true);
         $criteria->compare('is_deleted', 0);

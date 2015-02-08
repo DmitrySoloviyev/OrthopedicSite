@@ -7,8 +7,8 @@
  *
  * @property integer $id
  * @property string $title
- * @property string $created_by
- * @property string $modified_by
+ * @property integer $created_by
+ * @property integer $modified_by
  * @property string $date_created
  * @property string $date_modified
  * @property boolean $is_deleted
@@ -37,6 +37,8 @@ class Material extends CActiveRecord
     {
         return [
             'orders' => [self::HAS_MANY, 'Order', 'material_id'],
+            'modifiedBy' => [self::BELONGS_TO, 'User', 'modified_by'],
+            'createdBy' => [self::BELONGS_TO, 'User', 'created_by'],
         ];
     }
 
@@ -107,6 +109,10 @@ class Material extends CActiveRecord
         $criteria = new CDbCriteria;
         $criteria->compare('id', $this->id);
         $criteria->compare('title', $this->title, true);
+        $criteria->compare('created_by', $this->created_by);
+        $criteria->compare('modified_by', $this->modified_by);
+        $criteria->compare('date_created', $this->date_created, true);
+        $criteria->compare('date_modified', $this->date_modified, true);
         $criteria->compare('is_deleted', 0);
 
         return new CActiveDataProvider($this, [

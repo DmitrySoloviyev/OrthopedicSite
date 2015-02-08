@@ -66,12 +66,12 @@ return [
             'loginUrl' => ['user/login'],
             'class' => 'WebUser',
         ],
-//        'session' => [
-//            'sessionName' => 'phpsession',
-//            'class' => 'CCacheHttpSession',
-//            'cookieMode' => 'only',
-//            'timeout' => 60 * 60 * 4 //сессия закрывается через 4 часа
-//        ],
+        'session' => [
+            'sessionName' => 'phpsession',
+            'class' => 'CCacheHttpSession',
+            'cookieMode' => 'only',
+            'timeout' => 60 * 60 * 4 //сессия закрывается через 4 часа
+        ],
         'urlManager' => [
             'urlFormat' => 'path',
             'showScriptName' => false,

@@ -6,6 +6,8 @@
  * The followings are the available columns in table 'users':
  *
  * @property integer $id
+ * @property string $login
+ * @property string $password
  * @property string $surname
  * @property string $name
  * @property string $patronymic
@@ -35,7 +37,12 @@ class User extends CActiveRecord
     public function relations()
     {
         return [
-            'orders' => [self::HAS_MANY, 'Order', 'user_id'],
+            'materials' => [self::HAS_MANY, 'Material', 'modified_by'],
+            'materials1' => [self::HAS_MANY, 'Material', 'created_by'],
+            'models' => [self::HAS_MANY, 'Model', 'modified_by'],
+            'models1' => [self::HAS_MANY, 'Model', 'created_by'],
+            'orders' => [self::HAS_MANY, 'Order', 'modified_by'],
+            'orders1' => [self::HAS_MANY, 'Order', 'user_id'],
         ];
     }
 
@@ -44,6 +51,8 @@ class User extends CActiveRecord
     {
         return [
             'id' => 'Модельер',
+            'login' => 'login',
+            'password' => 'Пароль',
             'surname' => 'Фамилия модельера',
             'name' => 'Имя модельера',
             'patronymic' => 'Отчество модельера',
@@ -144,6 +153,8 @@ class User extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
+        $criteria->compare('login', $this->login, true);
+        $criteria->compare('password', $this->password, true);
         $criteria->compare('surname', $this->surname, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('patronymic', $this->patronymic, true);
