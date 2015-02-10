@@ -13,7 +13,7 @@ $this->widget('bootstrap.widgets.TbGridView', [
     'dataProvider' => $order->search(),
     'emptyText' => 'Нет записей',
     'ajaxUpdate' => true,
-    'itemsCssClass' => 'dboutput',
+//    'itemsCssClass' => 'dboutput',
     'summaryText' => 'Показано {start} - {end} из {count} заказов.',
     'filter' => $order,
     'columns' => [
