@@ -1,7 +1,7 @@
 <?php
 /* @var $this MaterialController */
 /* @var $model Material */
-/* @var $form CActiveForm */
+/* @var $form TbActiveForm */
 ?>
 
 <div class="form">
@@ -9,21 +9,21 @@
     <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
         'id' => 'material-form',
         'enableAjaxValidation' => false,
+        'enableClientValidation' => true,
     ]); ?>
 
     <?= $form->errorSummary($model); ?>
 
-    <?= $form->labelEx($model, 'title'); ?>
-    <?= $form->textField($model, 'title', [
-        'size' => 30,
-        'maxlength' => 30,
-        'placeholder' => $model->getAttributeLabel('title'),
-        'autocomplete' => 'off',
-    ]); ?>
+    <?= $form->textFieldControlGroup($model, 'title', ['span' => 5, 'autocomplete' => 'off', 'maxlength' => 255]); ?>
 
-    <div class="buttons">
-        <?= CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', ['class' => 'btn btn-primary']); ?>
-    </div>
+    <?= TbHtml::formActions([
+        TbHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', [
+            'color' => TbHtml::BUTTON_COLOR_PRIMARY,
+        ]),
+        TbHtml::resetButton('Очистить', [
+            'color' => TbHtml::BUTTON_COLOR_DEFAULT,
+        ]),
+    ]); ?>
 
     <?php $this->endWidget(); ?>
 

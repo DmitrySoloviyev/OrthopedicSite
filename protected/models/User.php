@@ -27,7 +27,8 @@ class User extends CActiveRecord
     public function rules()
     {
         return [
-            ['surname, name, patronymic', 'required'],
+            ['surname, name, patronymic, login, password', 'required'],
+            ['login', 'unique'],
             ['surname, name, patronymic', 'length', 'max' => 30],
             ['is_deleted', 'numerical', 'integerOnly' => true],
             ['id, surname, name, patronymic, date_created, is_deleted', 'safe', 'on' => 'search'],
@@ -51,7 +52,7 @@ class User extends CActiveRecord
     {
         return [
             'id' => 'Модельер',
-            'login' => 'login',
+            'login' => 'Login',
             'password' => 'Пароль',
             'surname' => 'Фамилия модельера',
             'name' => 'Имя модельера',
@@ -66,35 +67,16 @@ class User extends CActiveRecord
         return parent::model($className);
     }
 
-    public function beforeValidate()
-    {
-        $exists = self::model()->findByAttributes([
-            'surname' => $this->surname,
-            'name' => $this->name,
-            'patronymic' => $this->patronymic,
-        ]);
-        if ($exists)
-            $this->addError('', 'Такой модельер уже зарегистрирован в базе. Пожалуйста, укажите другое имя.');
-
-        return parent::beforeValidate();
-    }
-
     public function beforeSave()
     {
         if ($this->isNewRecord) {
             $this->date_created = new CDbExpression('NOW()');
         }
 
+        $this->password = md5($this->password);
+
         return parent::beforeSave();
     }
-
-    public function defaultScope()
-    {
-        return [
-            'order' => 'surname',
-        ];
-    }
-
 
     public static function userList()
     {

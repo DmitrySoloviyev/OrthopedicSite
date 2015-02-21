@@ -61,23 +61,23 @@
             </div>
             <div class="row-fluid">
                 <div class="span6">
-                    <?= $form->textFieldControlGroup($order, 'size_left', ['span' => 5]); ?>
+                    <?= $form->textFieldControlGroup($order, 'size_left', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 2]); ?>
                 </div>
                 <div class="span6">
-                    <?= $form->textFieldControlGroup($order, 'size_right', ['span' => 5]); ?>
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span6">
-                    <?= $form->textFieldControlGroup($order, 'urk_left', ['span' => 5]); ?>
-                </div>
-                <div class="span6">
-                    <?= $form->textFieldControlGroup($order, 'urk_right', ['span' => 5]); ?>
+                    <?= $form->textFieldControlGroup($order, 'size_right', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 2]); ?>
                 </div>
             </div>
             <div class="row-fluid">
                 <div class="span6">
-                    <?= $form->textFieldControlGroup($order, 'height_left', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => '2']); ?>
+                    <?= $form->textFieldControlGroup($order, 'urk_left', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 3]); ?>
+                </div>
+                <div class="span6">
+                    <?= $form->textFieldControlGroup($order, 'urk_right', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 3]); ?>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <?= $form->textFieldControlGroup($order, 'height_left', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 2]); ?>
                 </div>
                 <div class="span6">
                     <?= $form->textFieldControlGroup($order, 'height_right', ['span' => 5,
@@ -90,68 +90,68 @@
 
             <div class="row-fluid">
                 <div class="span6">
-                    <?= $form->textFieldControlGroup($order, 'top_volume_left', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => '4']); ?>
+                    <?= $form->textFieldControlGroup($order, 'top_volume_left', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 4]); ?>
                 </div>
                 <div class="span6">
                     <?= $form->textFieldControlGroup($order, 'top_volume_right', ['span' => 5, 'tabindex' => -1,
                         'size' => 3,
                         'autocomplete' => 'Off',
-                        'maxlength' => '4']); ?>
+                        'maxlength' => 4]); ?>
                 </div>
             </div>
 
             <div class="row-fluid">
                 <div class="span6">
-                    <?= $form->textFieldControlGroup($order, 'ankle_volume_left', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => '4']); ?>
+                    <?= $form->textFieldControlGroup($order, 'ankle_volume_left', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 4]); ?>
                 </div>
                 <div class="span6">
                     <?= $form->textFieldControlGroup($order, 'ankle_volume_right', ['span' => 5, 'tabindex' => -1,
                         'size' => 3,
                         'autocomplete' => 'Off',
-                        'maxlength' => '4']); ?>
+                        'maxlength' => 4]); ?>
                 </div>
             </div>
 
             <div class="row-fluid">
                 <div class="span6">
-                    <?= $form->textFieldControlGroup($order, 'kv_volume_left', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => '4']); ?>
+                    <?= $form->textFieldControlGroup($order, 'kv_volume_left', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 4]); ?>
                 </div>
                 <div class="span6">
                     <?= $form->textFieldControlGroup($order, 'kv_volume_right', ['span' => 5, 'tabindex' => -1,
                         'size' => 3,
                         'autocomplete' => 'Off',
-                        'maxlength' => '4']); ?>
+                        'maxlength' => 4]); ?>
                 </div>
             </div>
             <div class="row-fluid">
                 <div class="span6">
                     <?= $form->labelEx($order, 'customer_id') ?>
-                    <?= $form->telField($customer, 'customer_surname', [
+                    <?= $form->telField($customer, 'surname', [
                         'size' => 27,
                         'autocomplete' => 'Off',
-                        'maxlength' => '29',
+                        'maxlength' => 29,
                         'required' => 'required',
                         'placeholder' => 'Фамилия']) ?>
                     <br>
-                    <?= $form->TextField($customer, 'customer_name', [
+                    <?= $form->TextField($customer, 'name', [
                         'size' => 27,
                         'autocomplete' => 'Off',
-                        'maxlength' => '29',
+                        'maxlength' => 29,
                         'placeholder' => 'Имя']) ?>
                     <br>
-                    <?= $form->TextField($customer, 'customer_patronymic', [
+                    <?= $form->TextField($customer, 'patronymic', [
                         'size' => 27,
                         'autocomplete' => 'Off',
-                        'maxlength' => '29',
+                        'maxlength' => 29,
                         'placeholder' => 'Отчество']) ?>
                     <div class="control-group error">
-                        <?= $form->error($customer, 'customer_surname'); ?>
-                        <?= $form->error($customer, 'customer_name'); ?>
-                        <?= $form->error($customer, 'customer_patronymic'); ?>
+                        <?= $form->error($customer, 'surname'); ?>
+                        <?= $form->error($customer, 'name'); ?>
+                        <?= $form->error($customer, 'patronymic'); ?>
                     </div>
                 </div>
                 <div class="span6">
-                    <?= $form->textAreaControlGroup($order, 'comment', ['maxlength' => 255, 'rows' => '5', 'cols' => '27']); ?>
+                    <?= $form->textAreaControlGroup($order, 'comment', ['maxlength' => 255, 'rows' => 5, 'cols' => 27]); ?>
                 </div>
             </div>
         </div>

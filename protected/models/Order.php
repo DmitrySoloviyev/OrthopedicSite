@@ -75,6 +75,7 @@ class Order extends CActiveRecord
             'customer' => [self::BELONGS_TO, 'Customer', 'customer_id'],
             'author' => [self::BELONGS_TO, 'User', 'author_id'],
             'ordersMaterials' => [self::HAS_MANY, 'OrdersMaterials', 'order_id'],
+            'materials' => [self::HAS_MANY, 'Material', 'material_id', 'through' => 'ordersMaterials'],
         ];
     }
 
@@ -112,14 +113,13 @@ class Order extends CActiveRecord
         ];
     }
 
-    public function beforeSave()
+    public function behaviors()
     {
-        if ($this->isNewRecord) {
-            $this->date_created = new CDbExpression('NOW()');
-        }
-        $this->date_modified = new CDbExpression('NOW()');
-
-        return parent::beforeSave();
+        return [
+            'CommonBehavior' => [
+                'class' => 'CommonBehavior',
+            ],
+        ];
     }
 
     /**
@@ -196,9 +196,9 @@ class Order extends CActiveRecord
         $criteria->compare('kv_volume_left', $this->kv_volumes);
         $criteria->compare('kv_volume_right', $this->kv_volumes);
 
-        $criteria->compare('customer_surname', $this->customer_id);
-        $criteria->compare('customer_name', $this->customer_id);
-        $criteria->compare('customer_patronymic', $this->customer_id);
+        $criteria->compare('surname', $this->customer_id);
+        $criteria->compare('name', $this->customer_id);
+        $criteria->compare('patronymic', $this->customer_id);
 
         $criteria->compare('author.surname', $this->author_id);
         $criteria->compare('author.name', $this->author_id);
@@ -355,9 +355,9 @@ class Order extends CActiveRecord
         $criteria->compare('t.ankle_volume_right', $query, true, 'OR');
         $criteria->compare('t.kv_volume_left', $query, true, 'OR');
         $criteria->compare('t.kv_volume_right', $query, true, 'OR');
-        $criteria->compare('customer_surname', $query, true, 'OR');
-        $criteria->compare('customer_name', $query, true, 'OR');
-        $criteria->compare('customer_patronymic', $query, true, 'OR');
+        $criteria->compare('surname', $query, true, 'OR');
+        $criteria->compare('name', $query, true, 'OR');
+        $criteria->compare('patronymic', $query, true, 'OR');
         $criteria->compare('author.surname', $query, true, 'OR');
         $criteria->compare('author.name', $query, true, 'OR');
         $criteria->compare('author.patronymic', $query, true, 'OR');

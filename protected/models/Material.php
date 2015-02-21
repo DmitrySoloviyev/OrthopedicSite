@@ -30,7 +30,7 @@ class Material extends CActiveRecord
         return [
             ['title', 'required'],
             ['title', 'unique'],
-            ['title', 'length', 'max' => 30],
+            ['title', 'length', 'max' => 255],
             ['id, title, date_created, date_modified, author_id, modified_by', 'safe', 'on' => 'search'],
         ];
     }
@@ -52,6 +52,15 @@ class Material extends CActiveRecord
             'author_id' => 'Автор',
             'modified_by' => 'Изменил',
             'date_modified' => 'Дата изменения',
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'CommonBehavior' => [
+                'class' => 'CommonBehavior',
+            ],
         ];
     }
 

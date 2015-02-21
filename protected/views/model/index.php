@@ -10,18 +10,22 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', [
     ],
 ]);
 
-$this->widget('zii.widgets.grid.CGridView', [
+$this->widget('bootstrap.widgets.TbGridView', [
     'id' => 'models-grid',
     'template' => "{summary}\n{pager}\n{items}\n{pager}",
     'dataProvider' => $model->search(),
     'filter' => $model,
-    'itemsCssClass' => 'dboutput dboutputModels',
+//    'itemsCssClass' => 'dboutput dboutputModels',
     'columns' => [
         'name',
         'description',
+        [
+            'name' => 'author_id',
+            'value' => '$data->author->fullName()',
+        ],
         'date_created',
         [
-            'class' => 'CButtonColumn',
+            'class' => 'bootstrap.widgets.TbButtonColumn',
             'header' => 'Действия',
         ],
     ],

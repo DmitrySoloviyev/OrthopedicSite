@@ -52,7 +52,7 @@
                     ['label' => 'Администрирование', 'url' => ['/admin'], 'visible' => !Yii::app()->user->isGuest],
                     ['label' => 'О сайте', 'url' => ['site/about']],
                     ['label' => 'Войти', 'url' => ['user/login'], 'visible' => Yii::app()->user->isGuest],
-                    ['label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => ['user/logout'], 'visible' => !Yii::app()->user->isGuest]
+                    ['label' => 'Выйти (' . Yii::app()->user->fullName . ')', 'url' => ['user/logout'], 'visible' => !Yii::app()->user->isGuest]
                 ]
             ],
             TbHtml::navbarSearchForm(['site/search'], 'get', [

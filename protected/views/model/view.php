@@ -26,6 +26,14 @@ $src = Models::MODEL_IMAGE_PATH . $model->picture;
                 'name',
                 'description',
                 'comment',
+                [
+                    'name' => 'author_id',
+                    'value' => $model->author->fullName(),
+                ],
+                [
+                    'name' => 'modified_by',
+                    'value' => $model->editor->fullName(),
+                ],
                 'date_created',
                 'date_modified',
             ],

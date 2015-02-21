@@ -14,6 +14,7 @@
         'surname',
         'name',
         'patronymic',
+        'login',
         'is_deleted' => [
             'name' => 'is_deleted',
             'value' => '$data->isDeletedLabel()',

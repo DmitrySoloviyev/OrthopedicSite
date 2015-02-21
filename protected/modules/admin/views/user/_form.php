@@ -1,7 +1,7 @@
 <?php
 /* @var $this UserController */
 /* @var $model User */
-/* @var $form CActiveForm */
+/* @var $form TbActiveForm */
 ?>
 
 <div class="form">
@@ -9,37 +9,29 @@
     <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
         'id' => 'user-form',
         'enableAjaxValidation' => false,
+        'enableClientValidation' => true,
     ]); ?>
 
     <?= $form->errorSummary($model); ?>
 
-    <?= $form->labelEx($model, 'surname'); ?>
-    <?= $form->textField($model, 'surname', [
-        'size' => 30,
-        'maxlength' => 30,
-        'placeholder' => $model->getAttributeLabel('surname'),
-        'autocomplete' => 'off',
-    ]); ?>
+    <?= $form->textFieldControlGroup($model, 'login', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 255]); ?>
 
-    <?= $form->labelEx($model, 'name'); ?>
-    <?= $form->textField($model, 'name', [
-        'size' => 30,
-        'maxlength' => 30,
-        'placeholder' => $model->getAttributeLabel('name'),
-        'autocomplete' => 'off',
-    ]); ?>
+    <?= $form->passwordFieldControlGroup($model, 'password', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 255]); ?>
 
-    <?= $form->labelEx($model, 'patronymic'); ?>
-    <?= $form->textField($model, 'patronymic', [
-        'size' => 30,
-        'maxlength' => 30,
-        'placeholder' => $model->getAttributeLabel('patronymic'),
-        'autocomplete' => 'off',
-    ]); ?>
+    <?= $form->textFieldControlGroup($model, 'surname', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 255]); ?>
 
-    <div class=" buttons">
-        <?= CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', ['class' => 'btn btn-primary']); ?>
-    </div>
+    <?= $form->textFieldControlGroup($model, 'name', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 255]); ?>
+
+    <?= $form->textFieldControlGroup($model, 'patronymic', ['span' => 5, 'autocomplete' => 'Off', 'maxlength' => 255]); ?>
+
+    <?= TbHtml::formActions([
+        TbHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', [
+            'color' => TbHtml::BUTTON_COLOR_PRIMARY,
+        ]),
+        TbHtml::resetButton('Очистить', [
+            'color' => TbHtml::BUTTON_COLOR_DEFAULT,
+        ]),
+    ]); ?>
 
     <?php $this->endWidget(); ?>
 

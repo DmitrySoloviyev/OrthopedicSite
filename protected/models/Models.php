@@ -52,15 +52,20 @@ class Models extends CActiveRecord
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            'CommonBehavior' => [
+                'class' => 'CommonBehavior',
+            ],
+        ];
+    }
+
     public function beforeSave()
     {
         if (empty($this->picture)) {
             $this->picture = 'ortho.jpg';
         }
-        if ($this->isNewRecord) {
-            $this->date_created = new CDbExpression('NOW()');
-        }
-        $this->date_modified = new CDbExpression('NOW()');
 
         return parent::beforeSave();
     }

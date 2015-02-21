@@ -12,6 +12,7 @@
     'filter' => $model,
     'columns' => [
         'title',
+        'date_created',
         [
             'class' => 'bootstrap.widgets.TbButtonColumn',
             'header' => 'Действия',
