@@ -33,9 +33,10 @@ $this->widget('bootstrap.widgets.TbGridView', [
             'type' => 'html',
             'value' => '$data->urk_left . " л<br>" . $data->urk_right . " п"',
         ],
-        'material_id' => [
-            'name' => 'material_id',
-            'value' => '$data->material->title',
+        'materials_ids' => [
+            'name' => 'materials_ids',
+            'type' => 'raw',
+            'value' => '$data->materialsList()',
         ],
         'heights' => [
             'name' => 'heights',
@@ -61,9 +62,9 @@ $this->widget('bootstrap.widgets.TbGridView', [
             'name' => 'customer_id',
             'value' => '$data->customer->fullName()'
         ],
-        'user_id' => [
-            'name' => 'user_id',
-            'value' => '$data->user->fullName()'
+        'author_id' => [
+            'name' => 'author_id',
+            'value' => '$data->author->fullName()'
         ],
         'date_created' => [
             'name' => 'date_created',

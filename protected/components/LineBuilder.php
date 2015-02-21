@@ -87,8 +87,8 @@ class LineBuilder
     private function makeLegend($rows)
     {
         foreach ($rows as $row) {
-            if (!array_key_exists($row['user_id'], $this->legend)) {
-                $this->legend[$row['user_id']] = $row['user'];
+            if (!array_key_exists($row['author_id'], $this->legend)) {
+                $this->legend[$row['author_id']] = $row['user'];
             }
         }
     }
@@ -117,7 +117,7 @@ class LineBuilder
     {
         $sortedArray = [];
         foreach ($input as $row) {
-            $sortedArray[$row['user_id']][] = $row;
+            $sortedArray[$row['author_id']][] = $row;
         }
 
         return $sortedArray;

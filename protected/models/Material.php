@@ -7,13 +7,15 @@
  *
  * @property integer $id
  * @property string $title
- * @property integer $created_by
+ * @property integer $author_id
  * @property integer $modified_by
  * @property string $date_created
  * @property string $date_modified
  * @property boolean $is_deleted
  *
  * The followings are the available model relations:
+ * @property User $editor
+ * @property User $author
  * @property Order[] $orders
  */
 class Material extends CActiveRecord
@@ -29,16 +31,16 @@ class Material extends CActiveRecord
             ['title', 'required'],
             ['title', 'unique'],
             ['title', 'length', 'max' => 30],
-            ['id, title, date_created, date_modified, created_by, modified_by', 'safe', 'on' => 'search'],
+            ['id, title, date_created, date_modified, author_id, modified_by', 'safe', 'on' => 'search'],
         ];
     }
 
     public function relations()
     {
         return [
-            'orders' => [self::HAS_MANY, 'Order', 'material_id'],
-            'modifiedBy' => [self::BELONGS_TO, 'User', 'modified_by'],
-            'createdBy' => [self::BELONGS_TO, 'User', 'created_by'],
+            'ordersMaterials' => [self::HAS_MANY, 'OrdersMaterials', 'material_id'],
+            'editor' => [self::BELONGS_TO, 'User', 'modified_by'],
+            'author' => [self::BELONGS_TO, 'User', 'author_id'],
         ];
     }
 
@@ -47,7 +49,7 @@ class Material extends CActiveRecord
         return [
             'title' => 'Материал',
             'date_created' => 'Дата создания',
-            'created_by' => 'Автор',
+            'author_id' => 'Автор',
             'modified_by' => 'Изменил',
             'date_modified' => 'Дата изменения',
         ];
@@ -109,7 +111,7 @@ class Material extends CActiveRecord
         $criteria = new CDbCriteria;
         $criteria->compare('id', $this->id);
         $criteria->compare('title', $this->title, true);
-        $criteria->compare('created_by', $this->created_by);
+        $criteria->compare('author_id', $this->author_id);
         $criteria->compare('modified_by', $this->modified_by);
         $criteria->compare('date_created', $this->date_created, true);
         $criteria->compare('date_modified', $this->date_modified, true);

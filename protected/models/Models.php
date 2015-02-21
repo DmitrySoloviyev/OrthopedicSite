@@ -10,15 +10,15 @@
  * @property string $description
  * @property string $picture
  * @property string $comment
- * @property integer $created_by
+ * @property integer $author_id
  * @property integer $modified_by
  * @property string $date_created
  * @property string $date_modified
  * @property boolean $is_deleted
  *
  * The followings are the available model relations:
- * @property User $modifiedBy
- * @property User $createdBy
+ * @property User $editor
+ * @property User $author
  * @property Order[] $orders
  */
 class Models extends CActiveRecord
@@ -39,15 +39,15 @@ class Models extends CActiveRecord
             ['is_deleted', 'boolean'],
             ['description, comment', 'length', 'max' => 255],
             ['picture', 'file', 'types' => 'jpg, jpeg, gif, png', 'allowEmpty' => true],
-            ['id, name, description, comment, date_created, date_modified, created_by, modified_by', 'safe', 'on' => 'search'],
+            ['id, name, description, comment, date_created, date_modified, author_id, modified_by', 'safe', 'on' => 'search'],
         ];
     }
 
     public function relations()
     {
         return [
-            'modifiedBy' => [self::BELONGS_TO, 'User', 'modified_by'],
-            'createdBy' => [self::BELONGS_TO, 'User', 'created_by'],
+            'editor' => [self::BELONGS_TO, 'User', 'modified_by'],
+            'author' => [self::BELONGS_TO, 'User', 'author_id'],
             'orders' => [self::HAS_MANY, 'Order', 'model_id'],
         ];
     }
@@ -73,7 +73,7 @@ class Models extends CActiveRecord
             'picture' => 'Изображение модели',
             'comment' => 'Комментарий',
             'date_created' => 'Дата создания',
-            'created_by' => 'Автор',
+            'author_id' => 'Автор',
             'modified_by' => 'Изменил',
             'date_modified' => 'Дата изменения',
         ];
@@ -98,7 +98,7 @@ class Models extends CActiveRecord
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, false);
         $criteria->compare('comment', $this->comment, true);
-        $criteria->compare('created_by',$this->created_by);
+        $criteria->compare('author_id',$this->author_id);
         $criteria->compare('modified_by',$this->modified_by);
         $criteria->compare('date_created', $this->date_created, true);
         $criteria->compare('date_modified', $this->date_modified, true);

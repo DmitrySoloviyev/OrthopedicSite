@@ -38,8 +38,9 @@ $this->widget('ext.fancybox.EFancyBox', [
                     'value' => $order->urk_left . ' левый, ' . $order->urk_right . ' правый',
                 ],
                 [
-                    'name' => 'material_id',
-                    'value' => $order->material->title,
+                    'name' => 'materials_ids',
+                    'type' => 'raw',
+                    'value' => $order->materialsList(),
                 ],
                 [
                     'name' => 'heights',
@@ -62,8 +63,12 @@ $this->widget('ext.fancybox.EFancyBox', [
                     'value' => $order->customer->fullName(),
                 ],
                 [
-                    'name' => 'user_id',
-                    'value' => $order->user->fullName(),
+                    'name' => 'author_id',
+                    'value' => $order->author->fullName(),
+                ],
+                [
+                    'name' => 'modified_by',
+                    'value' => $order->editor->fullName(),
                 ],
                 'date_created',
                 'date_modified',

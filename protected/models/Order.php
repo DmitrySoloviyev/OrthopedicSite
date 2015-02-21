@@ -12,7 +12,6 @@
  * @property integer $size_right
  * @property integer $urk_left
  * @property integer $urk_right
- * @property integer $material_id
  * @property integer $height_left
  * @property integer $height_right
  * @property double $top_volume_left
@@ -22,7 +21,7 @@
  * @property double $kv_volume_left
  * @property double $kv_volume_right
  * @property integer $customer_id
- * @property integer $user_id
+ * @property integer $author_id
  * @property string $comment
  * @property string $date_created
  * @property string $date_modified
@@ -31,8 +30,8 @@
  *
  * The followings are the available model relations:
  * @property Models $model
- * @property User $user
- * @property Material $material
+ * @property User $author
+ * @property User $editor
  * @property Customer $customer
  * @property User $modifiedBy
  */
@@ -44,6 +43,7 @@ class Order extends CActiveRecord
     public $top_volumes;
     public $ankle_volumes;
     public $kv_volumes;
+    public $materials_ids;
 
     public function tableName()
     {
@@ -53,8 +53,8 @@ class Order extends CActiveRecord
     public function rules()
     {
         return [
-            ['order_name, model_id, size_left, size_right, urk_left, urk_right, material_id, height_left, height_right, top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right, customer_id, user_id', 'required'],
-            ['model_id,  material_id,  customer_id, user_id', 'numerical', 'integerOnly' => true],
+            ['order_name, model_id, materials_ids, size_left, size_right, urk_left, urk_right, height_left, height_right, top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right, customer_id', 'required'],
+            ['model_id, customer_id, author_id', 'numerical', 'integerOnly' => true],
             ['size_left, size_right', 'numerical', 'integerOnly' => true, 'min' => 15, 'max' => 49],
             ['urk_left, urk_right', 'numerical', 'integerOnly' => true, 'min' => 100, 'max' => 400],
             ['height_left, height_right', 'numerical', 'integerOnly' => true, 'max' => 40],
@@ -63,18 +63,18 @@ class Order extends CActiveRecord
             ['order_name', 'length', 'max' => 10],
             ['is_deleted', 'boolean'],
             ['comment', 'length', 'max' => 255],
-            ['date_created, date_modified, order_name, sizes, urks, heights, top_volumes, ankle_volumes, kv_volumes, model_id, size_left, size_right, urk_left, urk_right, material_id, height_left, height_right, top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right, customer_id, user_id, comment, is_deleted, modified_by', 'safe', 'on' => 'search'],
+            ['date_created, date_modified, order_name, sizes, urks, heights, top_volumes, ankle_volumes, kv_volumes, model_id, size_left, size_right, urk_left, urk_right, height_left, height_right, top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right, customer_id, author_id, comment, is_deleted, modified_by', 'safe', 'on' => 'search'],
         ];
     }
 
     public function relations()
     {
         return [
-            'modifiedBy' => [self::BELONGS_TO, 'User', 'modified_by'],
+            'editor' => [self::BELONGS_TO, 'User', 'modified_by'],
             'model' => [self::BELONGS_TO, 'Models', 'model_id'],
             'customer' => [self::BELONGS_TO, 'Customer', 'customer_id'],
-            'user' => [self::BELONGS_TO, 'User', 'user_id'],
-            'material' => [self::BELONGS_TO, 'Material', 'material_id'],
+            'author' => [self::BELONGS_TO, 'User', 'author_id'],
+            'ordersMaterials' => [self::HAS_MANY, 'OrdersMaterials', 'order_id'],
         ];
     }
 
@@ -83,8 +83,8 @@ class Order extends CActiveRecord
         return [
             'order_name' => 'Номер заказа',
             'model_id' => 'Модель',
-            'material_id' => 'Материал',
-            'user_id' => 'Автор',
+            'materials_ids' => 'Материал',
+            'author_id' => 'Автор',
             'customer_id' => 'Заказчик',
             'comment' => 'Комментарий',
             'date_created' => 'Дата создания',
@@ -122,6 +122,25 @@ class Order extends CActiveRecord
         return parent::beforeSave();
     }
 
+    /**
+     * Сохранение многое ко многим
+     */
+    protected function afterSave()
+    {
+        OrdersMaterials::model()->deleteAll('order_id=' . $this->id);
+
+        foreach ($this->materials_ids as $material_id) {
+            $ordersMaterials = new OrdersMaterials();
+            $ordersMaterials->order_id = $this->id;
+            $ordersMaterials->material_id = $material_id;
+            if (!$ordersMaterials->save(false)) {
+                $this->addError('materials_ids', 'Ошибка при сохранении материалов в заказе');
+            }
+        }
+
+        parent::afterSave();
+    }
+
     public function delete()
     {
         $this->is_deleted = 1;
@@ -129,13 +148,31 @@ class Order extends CActiveRecord
         return $this->save(false);
     }
 
+    /**
+     * Поиск связанных материалов с заказом
+     * @return string
+     */
+    public function materialsList()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->select = 'title';
+        $criteria->addInCondition('id', $this->materials_ids);
+        $materials = Material::model()->findAll($criteria);
+
+        $list = '';
+        foreach ($materials as $material) {
+            $list .= $material->title . '<br>';
+        }
+
+        return $list;
+    }
+
     public function search()
     {
         $criteria = new CDbCriteria;
 
         $criteria->with = [
-            'user', 'customer',
-            'material', 'model',
+            'author', 'customer', 'model',
         ];
 
         $criteria->compare('order_name', $this->order_name, true);
@@ -146,8 +183,6 @@ class Order extends CActiveRecord
 
         $criteria->compare('urk_left', $this->urks);
         $criteria->compare('urk_right', $this->urks);
-
-        $criteria->compare('material.title', $this->material_id);
 
         $criteria->compare('height_left', $this->heights);
         $criteria->compare('height_right', $this->heights);
@@ -165,9 +200,9 @@ class Order extends CActiveRecord
         $criteria->compare('customer_name', $this->customer_id);
         $criteria->compare('customer_patronymic', $this->customer_id);
 
-        $criteria->compare('user.surname', $this->user_id);
-        $criteria->compare('user.name', $this->user_id);
-        $criteria->compare('user.patronymic', $this->user_id);
+        $criteria->compare('author.surname', $this->author_id);
+        $criteria->compare('author.name', $this->author_id);
+        $criteria->compare('author.patronymic', $this->author_id);
 
         $criteria->compare('t.comment', $this->comment, true);
         $criteria->compare('date_created', $this->date_created);
@@ -185,10 +220,6 @@ class Order extends CActiveRecord
             'urks' => [
                 'asc' => 'urk_left',
                 'desc' => 'urk_right desc',
-            ],
-            'material_id' => [
-                'asc' => 'material.title',
-                'desc' => 'material.title desc',
             ],
             'heights' => [
                 'asc' => 'height_left',
@@ -255,14 +286,14 @@ class Order extends CActiveRecord
                 'DAYOFMONTH(o.date_created) AS day_of_month',
                 'MONTHNAME(o.date_created) AS month_name',
                 'DATE(o.date_created) AS date_created',
-                'o.user_id',
+                'o.author_id',
                 'CONCAT(u.surname, " ", LEFT(u.name, 1), ".", LEFT(u.patronymic, 1), ".") as user',
             ])
             ->from('orders o')
-            ->join('users u', 'u.id = o.user_id')
+            ->join('users u', 'u.id = o.author_id')
             ->where('o.is_deleted = 0 AND o.date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()')
-            ->group('day_of_month, o.user_id, month_name')
-            ->order('o.user_id, o.date_created')
+            ->group('day_of_month, o.author_id, month_name')
+            ->order('o.author_id, o.date_created')
             ->queryAll();
     }
 
@@ -277,9 +308,9 @@ class Order extends CActiveRecord
                 'CONCAT(u.surname, " ", LEFT(u.name, 1), ".", LEFT(u.patronymic, 1), ".") as user',
             ])
             ->from('orders o')
-            ->join('users u', 'u.id = o.user_id')
+            ->join('users u', 'u.id = o.author_id')
             ->where('o.is_deleted = 0 AND o.date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()')
-            ->group('o.user_id')
+            ->group('o.author_id')
             ->queryAll();
     }
 
@@ -307,7 +338,7 @@ class Order extends CActiveRecord
     {
         $criteria = new CDbCriteria;
         $criteria->with = [
-            'user', 'customer',
+            'author', 'customer',
             'material', 'model',
         ];
         $criteria->compare('t.order_name', $query, true, 'OR');
@@ -316,7 +347,6 @@ class Order extends CActiveRecord
         $criteria->compare('t.size_right', $query, true, 'OR');
         $criteria->compare('t.urk_left', $query, true, 'OR');
         $criteria->compare('t.urk_right', $query, true, 'OR');
-        $criteria->compare('material.title', $query, true, 'OR');
         $criteria->compare('t.height_left', $query, true, 'OR');
         $criteria->compare('t.height_right', $query, true, 'OR');
         $criteria->compare('t.top_volume_left', $query, true, 'OR');
@@ -328,9 +358,9 @@ class Order extends CActiveRecord
         $criteria->compare('customer_surname', $query, true, 'OR');
         $criteria->compare('customer_name', $query, true, 'OR');
         $criteria->compare('customer_patronymic', $query, true, 'OR');
-        $criteria->compare('user.surname', $query, true, 'OR');
-        $criteria->compare('user.name', $query, true, 'OR');
-        $criteria->compare('user.patronymic', $query, true, 'OR');
+        $criteria->compare('author.surname', $query, true, 'OR');
+        $criteria->compare('author.name', $query, true, 'OR');
+        $criteria->compare('author.patronymic', $query, true, 'OR');
         $criteria->compare('t.comment', $query, true, 'OR');
 
         return new CActiveDataProvider($this, [

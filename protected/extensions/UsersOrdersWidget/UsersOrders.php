@@ -30,7 +30,7 @@ class UsersOrders extends CWidget
                     MONTHNAME(o.date_created) AS month_name,
                     CONCAT(u.surname, " ", LEFT(u.name, 1), ".", LEFT(u.patronymic, 1), ".") as user
                 FROM orders o
-                JOIN users u ON o.user_id = u.id
+                JOIN users u ON o.author_id = u.id
                 WHERE o.is_deleted = 0 AND o.date_created BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW()
                 GROUP BY month_name, user
                 with rollup';
