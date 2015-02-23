@@ -52,18 +52,17 @@
                     ['label' => 'Администрирование', 'url' => ['/admin'], 'visible' => !Yii::app()->user->isGuest],
                     ['label' => 'О сайте', 'url' => ['site/about']],
                     ['label' => 'Войти', 'url' => ['user/login'], 'visible' => Yii::app()->user->isGuest],
-                    ['label' => 'Выйти (' . Yii::app()->user->fullName . ')', 'url' => ['user/logout'], 'visible' => !Yii::app()->user->isGuest]
+                    ['label' => 'Выйти (' . Yii::app()->user->fioWithInitials . ')', 'url' => ['user/logout'], 'visible' => !Yii::app()->user->isGuest]
                 ]
             ],
-            TbHtml::navbarSearchForm(['site/search'], 'get', [
-                'class' => 'pull-right'
+            TbHtml::navbarSearchForm(['site/search'], 'post', [
+                'class' => 'pull-right',
             ]),
         ]
     ]); ?>
 
 
     <div class="row-fluid" id="center">
-        <!--        --><?php //$this->widget('ext.SearchFormWidget.SearchFormWidget'); ?>
         <?= $content ?>
     </div>
 

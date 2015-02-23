@@ -25,7 +25,7 @@
             ", CClientScript::POS_END);
             $result->model->showSearchResults();
             echo '<br>';
-            $this->widget('zii.widgets.CListView', [
+            $this->widget('bootstrap.widgets.TbListView', [
                 'dataProvider' => $result,
                 'itemView' => '/' . $result->model->viewDir() . '/_search_result',
                 'summaryText' => false,

@@ -39,6 +39,7 @@ class Models extends CActiveRecord
             ['is_deleted', 'boolean'],
             ['description, comment', 'length', 'max' => 255],
             ['picture', 'file', 'types' => 'jpg, jpeg, gif, png', 'allowEmpty' => true],
+            ['picture', 'default', 'value' => 'ortho.jpg'],
             ['id, name, description, comment, date_created, date_modified, author_id, modified_by', 'safe', 'on' => 'search'],
         ];
     }
@@ -59,15 +60,6 @@ class Models extends CActiveRecord
                 'class' => 'CommonBehavior',
             ],
         ];
-    }
-
-    public function beforeSave()
-    {
-        if (empty($this->picture)) {
-            $this->picture = 'ortho.jpg';
-        }
-
-        return parent::beforeSave();
     }
 
     public function attributeLabels()
@@ -99,15 +91,16 @@ class Models extends CActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
+        $criteria->with = ['author'];
         $criteria->compare('id', $this->id);
         $criteria->compare('name', $this->name, true);
-        $criteria->compare('description', $this->description, false);
+        $criteria->compare('description', $this->description, true);
         $criteria->compare('comment', $this->comment, true);
-        $criteria->compare('author_id',$this->author_id);
-        $criteria->compare('modified_by',$this->modified_by);
-        $criteria->compare('date_created', $this->date_created, true);
-        $criteria->compare('date_modified', $this->date_modified, true);
-        $criteria->compare('is_deleted', 0);
+        $criteria->compare('author.surname', $this->author_id, true, 'OR');
+        $criteria->compare('author.name', $this->author_id, true, 'OR');
+        $criteria->compare('author.patronymic', $this->author_id, true, 'OR');
+        $criteria->compare('date_created', $this->date_created);
+        $criteria->compare('t.is_deleted', 0);
 
         return new CActiveDataProvider($this, [
             'criteria' => $criteria,
@@ -115,6 +108,9 @@ class Models extends CActiveRecord
                 'defaultOrder' => [
                     'date_created' => 'desc',
                 ],
+            ],
+            'pagination' => [
+                'pageSize' => 20,
             ],
         ]);
     }
@@ -152,10 +148,15 @@ class Models extends CActiveRecord
     {
         $criteria = new CDbCriteria;
 
+        $criteria->with = ['author'];
+
         $criteria->compare('name', $query, true, 'OR');
         $criteria->compare('description', $query, true, 'OR');
-        $criteria->compare('picture', $query, true, 'OR');
         $criteria->compare('t.comment', $query, true, 'OR');
+        $criteria->compare('author.surname', $this->author_id, true, 'OR');
+        $criteria->compare('author.name', $this->author_id, true, 'OR');
+        $criteria->compare('author.patronymic', $this->author_id, true, 'OR');
+        $criteria->compare('t.is_deleted', 0);
 
         return new CActiveDataProvider($this, [
             'criteria' => $criteria,

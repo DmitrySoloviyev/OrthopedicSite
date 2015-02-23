@@ -121,60 +121,9 @@ fieldset {
     margin: 3px
 }
 
-table.dboutput {
-    table-layout: fixed;
-    border: 3px solid #383838;
-    font-size: 14px;
-    text-align: center;
-    width: 100%;
-    margin: auto;
-    background: rgba(255, 255, 255, 0.6);
-    border-collapse: collapse;
-}
-
-table.dboutput th {
-    background: #232323;
-    color: #bcbcbc;
-    border-color: #838383;
-}
-
-table.dboutput th a {
-    background: #232323;
-    color: #bcbcbc;
-    text-decoration: none;
-    border-color: #838383;
-}
-
-table.dboutput tr {
-    height: 40px;
-    padding: 2px;
-    border: 1px solid black;
-}
-
-table.dboutput tr td {
-    padding: 3px;
-    height: 30px;
-    border: 1px solid black;
-}
-
 .grid-view .button-column {
     text-align: center;
     width: 70px;
-}
-
-table.dboutputModels td:nth-child(2) {
-    width: 300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-table.dboutputModels th:first-child {
-    width: 90px;
-}
-
-table.dboutputModels th:nth-child(3) {
-    width: 120px;
 }
 
 .employeelist {

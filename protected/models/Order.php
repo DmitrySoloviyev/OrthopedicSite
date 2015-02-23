@@ -200,13 +200,10 @@ class Order extends CActiveRecord
         $criteria->compare('name', $this->customer_id);
         $criteria->compare('patronymic', $this->customer_id);
 
-        $criteria->compare('author.surname', $this->author_id);
-        $criteria->compare('author.name', $this->author_id);
-        $criteria->compare('author.patronymic', $this->author_id);
+        $criteria->compare('author.surname', $this->author_id, true, 'OR');
+        $criteria->compare('author.name', $this->author_id, true, 'OR');
+        $criteria->compare('author.patronymic', $this->author_id, true, 'OR');
 
-        $criteria->compare('t.comment', $this->comment, true);
-        $criteria->compare('date_created', $this->date_created);
-        $criteria->compare('date_modified', $this->date_modified);
         $criteria->compare('t.is_deleted', 0);
         $criteria->order = 't.date_created DESC';
 
@@ -338,8 +335,7 @@ class Order extends CActiveRecord
     {
         $criteria = new CDbCriteria;
         $criteria->with = [
-            'author', 'customer',
-            'material', 'model',
+            'author', 'customer', 'model',
         ];
         $criteria->compare('t.order_name', $query, true, 'OR');
         $criteria->compare('t.model_id', $query, true, 'OR');
@@ -355,9 +351,9 @@ class Order extends CActiveRecord
         $criteria->compare('t.ankle_volume_right', $query, true, 'OR');
         $criteria->compare('t.kv_volume_left', $query, true, 'OR');
         $criteria->compare('t.kv_volume_right', $query, true, 'OR');
-        $criteria->compare('surname', $query, true, 'OR');
-        $criteria->compare('name', $query, true, 'OR');
-        $criteria->compare('patronymic', $query, true, 'OR');
+        $criteria->compare('customer.surname', $query, true, 'OR');
+        $criteria->compare('customer.name', $query, true, 'OR');
+        $criteria->compare('customer.patronymic', $query, true, 'OR');
         $criteria->compare('author.surname', $query, true, 'OR');
         $criteria->compare('author.name', $query, true, 'OR');
         $criteria->compare('author.patronymic', $query, true, 'OR');

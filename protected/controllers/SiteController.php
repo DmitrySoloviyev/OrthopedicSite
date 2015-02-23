@@ -20,9 +20,9 @@ class SiteController extends Controller
 
     public function actionSearch()
     {
-        if (isset($_GET['SearchForm'])) {
+        if (isset($_POST['search'])) {
             $searchForm = new SearchForm();
-            $searchForm->attributes = $_GET['SearchForm'];
+            $searchForm->query = $_POST['search'];
             $results = $searchForm->search();
 
             $this->render('search_results', ['query' => $searchForm->query, 'results' => $results]);

@@ -12,10 +12,18 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', [
 
 $this->widget('bootstrap.widgets.TbGridView', [
     'id' => 'models-grid',
+    'type' => TbHtml::GRID_TYPE_STRIPED,
     'template' => "{summary}\n{pager}\n{items}\n{pager}",
     'dataProvider' => $model->search(),
+    'pager' => [
+        'class' => 'bootstrap.widgets.TbPager',
+        'maxButtonCount' => 12,
+        'pageSize' => 20,
+        'htmlOptions' => [
+            'align' => TbHtml::PAGINATION_ALIGN_CENTER
+        ],
+    ],
     'filter' => $model,
-//    'itemsCssClass' => 'dboutput dboutputModels',
     'columns' => [
         'name',
         'description',
@@ -23,7 +31,11 @@ $this->widget('bootstrap.widgets.TbGridView', [
             'name' => 'author_id',
             'value' => '$data->author->fullName()',
         ],
-        'date_created',
+        'date_created' => [
+            'name' => 'date_created',
+            'value' => 'date("H:i d.m.Y", strtotime($data->date_created))',
+            'filter' => false,
+        ],
         [
             'class' => 'bootstrap.widgets.TbButtonColumn',
             'header' => 'Действия',

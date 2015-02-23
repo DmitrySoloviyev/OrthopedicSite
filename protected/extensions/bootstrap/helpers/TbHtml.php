@@ -2377,7 +2377,7 @@ EOD;
     {
         self::addCssClass('form-search', $htmlOptions);
         $inputOptions = TbArray::popValue('inputOptions', $htmlOptions, array());
-        $inputOptions = TbArray::merge(array('type' => 'text', 'placeholder' => 'Search'), $inputOptions);
+        $inputOptions = TbArray::merge(array('type' => 'text', 'placeholder' => 'Поиск'), $inputOptions);
         $name = TbArray::popValue('name', $inputOptions, 'search');
         $value = TbArray::popValue('value', $inputOptions, '');
         $output = self::beginFormTb(self::FORM_LAYOUT_SEARCH, $action, $method, $htmlOptions);

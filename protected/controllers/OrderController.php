@@ -14,7 +14,7 @@ class OrderController extends Controller
         return [
             ['allow',
                 'actions' => ['create', 'index', 'view'],
-                'users' => ['*'],
+                'users' => ['@'],
             ],
             ['allow',
                 'actions' => ['delete', 'update'],

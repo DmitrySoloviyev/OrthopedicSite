@@ -101,9 +101,6 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'session' => [
-            'class' => 'CCacheHttpSession',
-        ],
         'cache' => [
             'class' => 'application.components.YiiRedis.ARedisCache'
         ],

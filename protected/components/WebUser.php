@@ -54,6 +54,15 @@ class WebUser extends CWebUser
             return false;
     }
 
+    public function getFioWithInitials()
+    {
+        $user = $this->loadUser(Yii::app()->user->id);
+        if ($user !== null)
+            return $user->surname . ' ' . $user->name[0] . '. ' . $user->patronymic[0] . '.';
+        else
+            return false;
+    }
+
     function getEmail()
     {
         $user = $this->loadUser(Yii::app()->user->id);
