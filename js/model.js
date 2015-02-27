@@ -9,7 +9,6 @@ function getModelInfoById(id) {
         var picture_resource = $('#picture_resource');
         var description = $('#description');
         var date_created = $('#date_created');
-        var date_modified = $('#date_modified');
 
         var json_data = $.parseJSON(data);
 
@@ -17,8 +16,7 @@ function getModelInfoById(id) {
         picture_resource.attr('href', '/upload/OrthopedicGallery/' + json_data.picture);
         picture_resource.attr('src', '/upload/OrthopedicGallery/' + json_data.picture);
         description.html(json_data.description);
-        date_created.html(json_data.date_created);
-        date_modified.html(json_data.date_modified);
+        date_created.html("Дата создания: " + json_data.date_created);
     });
 }
 

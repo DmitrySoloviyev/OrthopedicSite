@@ -8,6 +8,11 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', [
         'Страница модели №' . $model->name,
     ],
 ]);
+
+$this->widget('ext.yii-flash.Flash', [
+    'keys' => ['success', 'error'],
+]);
+
 $this->widget('ext.fancybox.EFancyBox', [
     'target' => '#' . $model->id,
     'config' => [

@@ -5,16 +5,8 @@
  * Date: 05.08.14
  * Time: 0:34
  */
-
 $this->pageTitle = Yii::app()->name;
-Yii::app()->clientScript->registerScriptFile('/js/hideFlash.js', CClientScript::POS_END);
-$this->widget('ext.yii-flash.Flash', [
-    'keys' => ['success', 'error'],
-    'htmlOptions' => [
-        'success' => ['class' => 'flash-success'],
-        'error' => ['class' => 'flash-error'],
-    ],
-]); ?>
+?>
 
 <div style="padding: 4px">
     <?php $this->widget('ext.quote-widget.Quote'); ?>
@@ -26,8 +18,8 @@ $this->widget('ext.yii-flash.Flash', [
 
 <!--
 <tr>
-    <td style="vertical-align:text-top;font-size: 1.4em;color:grey"><i><b>1.0.0</b></i></td>
-    <td style="color:grey;padding-bottom: 3%;">
+    <td style="vertical-align:text-top;font-size: 1.4em;"><i><b>1.0.0</b></i></td>
+    <td style="padding-bottom: 3%;">
         Портирование на <a href="http://www.yiiframework.com/">Yii 2.x.x</a> с полным сохранением существующего функционала.
         Новая база данных - <a href="http://www.postgresql.org/"> PostgreSQL</a>! Тестирование приложения при помощи
         фреймворка автоматического тестирования веб-приложений - <a href="http://codeception.com/">Codeception</a>.
@@ -42,9 +34,19 @@ $this->widget('ext.yii-flash.Flash', [
 
 <!--
 <tr>
+    <td style="vertical-align:text-top;"><i>0.4.2</i></td>
+    <td>
+        Добавлена новая тема: Material Design и переключатель, позволяющий динамически изменять тему оформления.
+        На главной странице отображается виджет какусель с изображениями последних добавленных моделей.
+        <p class="release_date">(xx.xx.2015)</p>
+    </td>
+</tr>
+-->
+
+<!--
+<tr>
     <td style="vertical-align:text-top;color:grey"><i>0.4.1</i></td>
-    <td style="color:grey">Yii обновлен до версии 1.1.16. Проведено эталонное тестирование и профилирование.
-    Нагрузка эмулировалась при помощи
+    <td>Проведено эталонное тестирование и профилирование. Нагрузка эмулировалась при помощи
     <a href="http://httpd.apache.org/docs/2.2/programs/ab.html">Apache Benchmark tool (ab)</a>. Расстановка индексов
     в БД. В раздел статистики добавлены 3 графика, аналогичные существующим, но по моделям. Ресайз загружаемых
     изображений моделей. На странице со всеми моделями теперь отображаются их уменьшенные изображения.
@@ -52,7 +54,8 @@ $this->widget('ext.yii-flash.Flash', [
     (Role Based Access Control - RBAC). По умолчанию доступны 3 роли: администратор, модельер и гость.
     Редактировать и удалять можно только свои заказы и модели. Администратору, как и положено - любые. Кроме того,
     администратор имеет возможность назначать роли пользователям. Кэширование сессии пользователя.
-    Покрытие приложения логами. <p class="release_date">(xx.xx.2015)</p>
+    Покрытие приложения логами. Если при создании нового заказа, модель не находится, выводится сообщение с предложением
+    ее создать. <p class="release_date">(xx.xx.2015)</p>
     </td>
 </tr>
 -->
@@ -60,14 +63,14 @@ $this->widget('ext.yii-flash.Flash', [
 <tr>
     <td style="vertical-align:text-top;"><i>0.4</i></td>
     <td style="padding-bottom: 3%;">Yii обновлен до версии 1.1.16. Возможен множественный выбор материалов в заказе.
-        Для использования сайта теперь необходимо обязательно авторизоваться. Использован компонент WebUser.
-        Заказы и модели добавляются от имени того пользователя, под которым был осуществлен вход в систему
-        (удален пункт выбора модельера из выпадающего списка). По аналогии с заказами, у моделей появился атрибут автор
-        (заполняется автоматически). Серьезно изменена и переписана визуальная основа сайта: внешний вид базируется на
-        расширении <a target="_blank" href="http://yiiwheels.2amigos.us/">YiiWheels</a>,
-        основанный на <a target="_blank" href="http://getbootstrap.com/">Bootstrap</a>, совместно с
-        <a target="_blank" href="http://fontawesome.veliovgroup.com/">Font Awesome</a>. Используется версия
-        bootstrap'a 2.3.2. Полностью адаптивный дизайн.
+        Для использования сайта теперь необходимо обязательно авторизоваться - ввести логин и пароль (выдается
+        администратором). Использован компонент WebUser. Заказы и модели добавляются от имени того пользователя, под
+        которым был осуществлен вход в систему (удален пункт выбора модельера из выпадающего списка). По аналогии с
+        заказами, у моделей появился атрибут автор (заполняется автоматически). Серьезно изменена и переписана
+        визуальная основа сайта: внешний вид базируется на расширении
+        <a target="_blank" href="http://yiiwheels.2amigos.us/">YiiWheels</a>, основанный на
+        <a target="_blank" href="http://getbootstrap.com/">Bootstrap</a>. Используется версия bootstrap'a 2.3.2.
+        Полностью адаптивный дизайн. А также множество других более мелких улучшений и доработок.
         <p class="release_date">(xx.03.2015)</p>
     </td>
 </tr>

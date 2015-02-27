@@ -11,4 +11,8 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', [
     ],
 ]);
 
+$this->widget('ext.yii-flash.Flash', [
+    'keys' => ['success', 'error'],
+]);
+
 $this->renderPartial('_form', ['model' => $model]);

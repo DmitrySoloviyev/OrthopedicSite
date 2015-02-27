@@ -34,7 +34,7 @@ class LoginForm extends CFormModel
     {
         return [
             'rememberMe' => 'Запомнить меня',
-            'username' => 'Пользователь',
+            'username' => 'Логин',
             'password' => 'Пароль',
         ];
     }
@@ -69,4 +69,5 @@ class LoginForm extends CFormModel
         } else
             return false;
     }
+
 }

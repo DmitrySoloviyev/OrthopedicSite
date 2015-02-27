@@ -99,7 +99,10 @@ class OrderController extends Controller
         if (isset($_POST['Order'])) {
             $order->attributes = $_POST['Order'];
             if ($order->save()) {
+                Yii::app()->user->setFlash('success', 'Изменения успешно сохранены!');
                 $this->redirect(['view', 'id' => $order->id]);
+            } else {
+                Yii::app()->user->setFlash('error', 'Заказ не обновлен!');
             }
         }
 

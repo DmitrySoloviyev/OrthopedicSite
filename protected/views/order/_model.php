@@ -12,22 +12,20 @@ $isModel = is_object($model);
 $picture = Models::MODEL_IMAGE_PATH . ($isModel ? $model->picture : 'ortho.jpg');
 ?>
 
-<div id="modelContent" style="text-align: left;">
-    <div style="font-style: italic; font-size: 1.1em; text-align: center;" id="name">
-        <?= $isModel ? 'Модель № ' . CHtml::link($model->name, ['model/view', 'id' => $model->id], ['target' => '_blank']) : 'Модель не выбрана' ?>
-    </div>
+<div style="font-style: italic; font-size: 1.1em; text-align: center;" id="name" class="span12">
+    <?= $isModel ? 'Модель № ' . CHtml::link($model->name, ['model/view', 'id' => $model->id], ['target' => '_blank']) : 'Модель не выбрана' ?>
+</div>
 
+<div class="span12">
     <?= TbHtml::imagePolaroid($picture, 'изображение модели', [
         'href' => $picture,
         'id' => 'picture_resource',
     ]); ?>
+</div>
 
-    <?= Models::model()->getAttributeLabel('description') ?>:
-    <span id="description"><?= (is_object($model) ? $model->description : ''); ?></span>
-    <br>
-    <?= Models::model()->getAttributeLabel('date_created') ?>:
-    <span id="date_created"><?= (is_object($model) ? $model->date_created : ''); ?></span>
-    <br>
-    <?= Models::model()->getAttributeLabel('date_modified') ?>:
-    <span id="date_modified"><?= $isModel ? $model->date_modified : ''; ?></span>
+<div class="span12 well">
+    <p id="description"><?= is_object($model) ? $model->description : ''; ?></p>
+    <p id="date_created">
+        <?= is_object($model) ? Models::model()->getAttributeLabel('date_created') . ' : ' . $model->date_created : ''; ?>
+    </p>
 </div>

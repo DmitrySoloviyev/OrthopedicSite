@@ -10,6 +10,10 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', [
     ],
 ]);
 
+$this->widget('ext.yii-flash.Flash', [
+    'keys' => ['success', 'error'],
+]);
+
 $this->widget('ext.fancybox.EFancyBox', [
     'target' => '#' . $order->id,
     'config' => [
@@ -17,10 +21,9 @@ $this->widget('ext.fancybox.EFancyBox', [
     ],
 ]); ?>
 
-<h1>Заказ № <?= $order->order_name; ?></h1>
-
 <div class="row-fluid">
     <div class="span6">
+        <h1>Заказ № <?= $order->order_name; ?></h1>
         <?php $this->widget('bootstrap.widgets.TbDetailView', [
             'data' => $order,
             'attributes' => [

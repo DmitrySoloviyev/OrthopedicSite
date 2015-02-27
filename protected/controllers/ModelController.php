@@ -59,7 +59,10 @@ class ModelController extends Controller
                     $path = $model->savePicture($uploader->extensionName);
                     $uploader->saveAs($path);
                 }
-                $this->redirect(['index']);
+                Yii::app()->user->setFlash('success', 'Новая модель успешно добавлена!');
+                $this->redirect(['create']);
+            } else {
+                Yii::app()->user->setFlash('error', 'Ошибка при добавлении модели!', $model->getErrors());
             }
         }
 
@@ -81,7 +84,10 @@ class ModelController extends Controller
                     $path = $model->savePicture($uploader->extensionName);
                     $uploader->saveAs($path);
                 }
+                Yii::app()->user->setFlash('success', 'Изменения успешно сохранены!');
                 $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                Yii::app()->user->setFlash('error', 'Модель не обновлена!', $model->getErrors());
             }
         }
 
