@@ -93,7 +93,7 @@ class Models extends CActiveRecord
         $criteria = new CDbCriteria;
         $criteria->with = ['author'];
         $criteria->compare('id', $this->id);
-        $criteria->compare('name', $this->name, true);
+        $criteria->compare('t.name', $this->name, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('comment', $this->comment, true);
         $criteria->compare('author.surname', $this->author_id, true, 'OR');
@@ -150,7 +150,7 @@ class Models extends CActiveRecord
 
         $criteria->with = ['author'];
 
-        $criteria->compare('name', $query, true, 'OR');
+        $criteria->compare('t.name', $query, true, 'OR');
         $criteria->compare('description', $query, true, 'OR');
         $criteria->compare('t.comment', $query, true, 'OR');
         $criteria->compare('author.surname', $this->author_id, true, 'OR');

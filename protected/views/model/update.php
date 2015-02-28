@@ -7,7 +7,8 @@ $this->pageTitle = Yii::app()->name . ' - Редактирование моде�
 $this->widget('bootstrap.widgets.TbBreadcrumb', [
     'links' => [
         'Модели' => ['model/index'],
-        'Редактирование ' . $model->name => Yii::app()->createUrl('model/view', ['id' => $model->id]),
+        $model->name => Yii::app()->createUrl('model/view', ['id' => $model->id]),
+        'Редактирование',
     ],
 ]);
 

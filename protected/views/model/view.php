@@ -5,7 +5,7 @@ $this->pageTitle = Yii::app()->name . ' -  Просмотр модели №' . 
 $this->widget('bootstrap.widgets.TbBreadcrumb', [
     'links' => [
         'Модели' => ['model/index'],
-        'Страница модели №' . $model->name,
+        $model->name,
     ],
 ]);
 
@@ -63,16 +63,32 @@ $src = Models::MODEL_IMAGE_PATH . $model->picture;
             Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
         ],
     ]),
+
     TbHtml::submitButton('Удалить', [
         'color' => TbHtml::BUTTON_COLOR_DANGER,
-        'submit' => [
-            'model/delete',
-            'id' => $model->id,
-        ],
-        'params' => [
-            Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-        ],
-        'confirm' => 'Вы действительно хотите удалить эту модель?',
+        'data-toggle' => 'modal',
+        'data-target' => '#modalDelete',
         'class' => 'pull-right',
     ]),
-]); ?>
+]);
+
+
+$this->widget('bootstrap.widgets.TbModal', [
+    'id' => 'modalDelete',
+    'header' => 'Подтверждение действий',
+    'content' => '<p>Вы действительно хотите удалить эту модель?</p>',
+    'footer' => [
+        TbHtml::submitButton('Да', [
+            'data-dismiss' => 'modal', 'color' => TbHtml::BUTTON_COLOR_DANGER,
+            'submit' => [
+                'model/delete',
+                'id' => $model->id,
+            ],
+            'params' => [
+                Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+            ],
+            'class' => 'pull-left',
+        ]),
+        TbHtml::button('Отмена', ['data-dismiss' => 'modal']),
+    ],
+]);

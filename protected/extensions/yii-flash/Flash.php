@@ -47,8 +47,10 @@ class Flash extends CWidget
             echo TbHtml::alert($this->type, $markup);
         }
 
-        Yii::app()->clientScript->registerScript(__CLASS__ . '#' . $id,
-            strtr($this->js, ['{id}' => $id]), CClientScript::POS_END);
+        if ($this->js) {
+            Yii::app()->clientScript->registerScript(__CLASS__ . '#' . $id,
+                strtr($this->js, ['{id}' => $id]), CClientScript::POS_END);
+        }
     }
 
 }

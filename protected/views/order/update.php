@@ -11,7 +11,8 @@ Yii::app()->clientScript->registerScriptFile('/js/model.js', CClientScript::POS_
 $this->widget('bootstrap.widgets.TbBreadcrumb', [
     'links' => [
         'Заказы' => ['order/index'],
-        'Редактирование ' . $order->order_name => Yii::app()->createUrl('order/view', ['id' => $order->id]),
+        $order->order_name . ' ' => Yii::app()->createUrl('order/view', ['id' => $order->id]),
+        'Редактирование',
     ],
 ]);
 

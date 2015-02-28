@@ -37,6 +37,7 @@ class DbController extends Controller
                 $result = Yii::app()->db->createCommand(file_get_contents($model->dump->getTempName()))->execute();
                 if ($result == 0) {
                     Yii::app()->user->setFlash('success', "База данных успешно восстановлена из резервной копии!");
+                    Yii::app()->cache->flush();
                 } else {
                     Yii::app()->user->setFlash('error', "Ошибка восстановления базы данных.");
                 }

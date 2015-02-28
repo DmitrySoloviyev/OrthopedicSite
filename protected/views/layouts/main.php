@@ -35,24 +35,24 @@
             [
                 'class' => 'bootstrap.widgets.TbNav',
                 'items' => [
-                    ['label' => 'Главная', 'url' => ['site/index']],
+                    ['label' => 'Главная', 'url' => ['/site/index']],
                     ['label' => 'Заказы',
                         'items' => [
-                            ['label' => 'Новый заказ', 'url' => ['order/create']],
-                            ['label' => 'Все заказы', 'url' => ['order/index']],
+                            ['label' => 'Новый заказ', 'url' => ['/order/create']],
+                            ['label' => 'Все заказы', 'url' => ['/order/index']],
                         ]
                     ],
                     ['label' => 'Модели',
                         'items' => [
-                            ['label' => 'Новая модель', 'url' => ['model/create']],
-                            ['label' => 'Все модели', 'url' => ['model/index']],
+                            ['label' => 'Новая модель', 'url' => ['/model/create']],
+                            ['label' => 'Все модели', 'url' => ['/model/index']],
                         ]
                     ],
-                    ['label' => 'Статистика', 'url' => ['statistic/index']],
+                    ['label' => 'Статистика', 'url' => ['/statistic/index']],
                     ['label' => 'Администрирование', 'url' => ['/admin'], 'visible' => !Yii::app()->user->isGuest],
-                    ['label' => 'О сайте', 'url' => ['site/about']],
-                    ['label' => 'Войти', 'url' => ['user/login'], 'visible' => Yii::app()->user->isGuest],
-                    ['label' => 'Выйти (' . Yii::app()->user->fioWithInitials . ')', 'url' => ['user/logout'], 'visible' => !Yii::app()->user->isGuest]
+                    ['label' => 'О сайте', 'url' => ['/site/about']],
+                    ['label' => 'Войти', 'url' => ['/user/login'], 'visible' => Yii::app()->user->isGuest],
+                    ['label' => 'Выйти (' . Yii::app()->user->fioWithInitials . ')', 'url' => ['/user/logout'], 'visible' => !Yii::app()->user->isGuest]
                 ]
             ],
             TbHtml::navbarSearchForm(['site/search'], 'post', [

@@ -82,6 +82,7 @@ $this->widget('bootstrap.widgets.TbGridView', [
         [
             'class' => 'bootstrap.widgets.TbButtonColumn',
             'header' => 'Действия',
+            'template' => '{view} &nbsp; {update} &nbsp; {delete}',
         ],
     ],
 ]);

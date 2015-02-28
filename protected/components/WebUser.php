@@ -58,7 +58,7 @@ class WebUser extends CWebUser
     {
         $user = $this->loadUser(Yii::app()->user->id);
         if ($user !== null)
-            return $user->surname . ' ' . $user->name[0] . '. ' . $user->patronymic[0] . '.';
+            return $user->surname . ' ' . substr($user->name, 0, 2) . '. ' . substr($user->patronymic, 0, 2) . '.';
         else
             return false;
     }
