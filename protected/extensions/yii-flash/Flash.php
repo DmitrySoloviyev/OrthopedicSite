@@ -14,7 +14,7 @@ class Flash extends CWidget
 
     public $htmlOptions = [];
 
-    public $js = "$('.alert').animate({opacity: 1.0}, 3000).slideUp('medium');";
+    public $js = "$('.flash-alert').animate({opacity: 1.0}, 3000).slideUp('medium');";
     /**
      * @property string message type ()
      */
@@ -44,7 +44,9 @@ class Flash extends CWidget
         }
 
         if ($markup !== '') {
+            echo CHtml::openTag('div', ['class' => 'flash-alert']);
             echo TbHtml::alert($this->type, $markup);
+            echo CHtml::closeTag('div');
         }
 
         if ($this->js) {

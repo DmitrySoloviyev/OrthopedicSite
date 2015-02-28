@@ -68,9 +68,10 @@ $this->pageTitle = Yii::app()->name;
         которым был осуществлен вход в систему (удален пункт выбора модельера из выпадающего списка). По аналогии с
         заказами, у моделей появился атрибут автор (заполняется автоматически). Серьезно изменена и переписана
         визуальная основа сайта: внешний вид базируется на расширении
-        <a target="_blank" href="http://yiiwheels.2amigos.us/">YiiWheels</a>, основанный на
-        <a target="_blank" href="http://getbootstrap.com/">Bootstrap</a>. Используется версия bootstrap'a 2.3.2.
-        Полностью адаптивный дизайн. А также множество других более мелких улучшений и доработок.
+        <a target="_blank" href="http://www.getyiistrap.com/">Yiistrap (Twitter Bootstrap for Yii)</a>, основанный на
+        <a target="_blank" href="http://getbootstrap.com/">Bootstrap</a> с применением виджетов
+        <a target="_blank" href="http://yiiwheels.2amigos.us/">YiiWheels</a>. Используется версия bootstrap'a 2.3.2.
+        Полностью адаптивный и улучшенный дизайн. А также множество других более мелких улучшений и доработок.
         <p class="release_date">(xx.03.2015)</p>
     </td>
 </tr>
