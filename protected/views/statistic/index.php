@@ -1,8 +1,4 @@
 <?php
-/** @var $ordersPerDay OrdersPerDay */
-/** @var $ordersPie UsersPieByOrders */
-/** @var $usersByOrdersPerDay UsersByOrdersPerDay */
-
 $this->pageTitle = Yii::app()->name . ' - Статистика';
 
 if (Order::hasOrders() == 0) {
@@ -12,149 +8,45 @@ if (Order::hasOrders() == 0) {
 
 $this->widget('ext.UsersOrdersWidget.UsersOrders', []);
 
-$this->widget('ext.jqplot.JqplotGraphWidget', [
-    'data' => $ordersPerDay->build(),
-    'options' => [
-        'seriesDefaults' => [
-            'rendererOptions' => [
-                'smooth' => true,
-            ]
-        ],
-        'animate' => true,
-        'animateReplot' => true,
-        'title' => $ordersPerDay->getTitle(),
-        'axes' => [
-            'xaxis' => [
-                'label' => 'Дни недели',
-                'renderer' => 'js:$.jqplot.DateAxisRenderer',
-                'tickOptions' => ['formatString' => '%#d %b'],
-            ],
-            'yaxis' => [
-                'max' => $ordersPerDay->getMax(),
-                'min' => 0,
-                'label' => 'Количество заказов',
-                'labelRenderer' => 'js:$.jqplot.CanvasAxisLabelRenderer',
-                'tickOptions' => ['formatString' => '%d'],
-                'tickInterval' => 1,
-            ],
-        ],
-        'cursor' => [
-            'renderer' => 'js:$.jqplot.Cursor',
-            'show' => true,
-            'zoom' => true,
-            'showTooltip' => false,
-        ],
-        'highlighter' => [
-            'renderer' => 'js:$.jqplot.highlighter',
-            'show' => true,
-            'sizeAdjust' => 10,
-        ],
-        'series' => [
-            ['color' => '#509968',],
-            ['showMarker' => true,]
-        ],
-    ],
-    'pluginScriptFile' => [
-        'jqplot.dateAxisRenderer.js',
-        'jqplot.categoryAxisRenderer.js',
-        'jqplot.canvasAxisLabelRenderer.js',
-        'jqplot.cursor.js',
-        'jqplot.highlighter.js',
-        'jqplot.canvasTextRenderer.js',
-    ],
-]);
+Yii::app()->clientScript->registerScript('loadStatistic', "
+    $(window).load(function () {
+        $.ajax({
+            url: '".$this->createUrl('statistic/ordersPerDay')."',
+            success: function (data) {
+                $('#orders_per_day').html(data);
+            }
+        });
 
+        $.ajax({
+            url: '".$this->createUrl('statistic/usersByOrdersPerDay')."',
+            success: function (data) {
+                $('#users_by_orders_per_day').html(data);
+            }
+        });
 
-// второй график
-$this->widget('ext.jqplot.JqplotGraphWidget', [
-    'data' => $usersByOrdersPerDay->build(),
-    'options' => [
-        'seriesDefaults' => [
-            'rendererOptions' => [
-                'smooth' => true,
-            ],
-            'markerOptions' => [
-                'style' => $usersByOrdersPerDay->getStyle(),
-                'size' => 8,
-            ],
-        ],
-        'animate' => true,
-        'animateReplot' => true,
-        'title' => $usersByOrdersPerDay->getTitle(),
-        'axesDefaults' => [
-            'labelRenderer' => 'js:$.jqplot.CanvasAxisLabelRenderer',
-        ],
-        'legend' => [
-            'show' => true,
-            'location' => 'nw',
-            'renderer' => 'js:$.jqplot.EnhancedLegendRenderer',
-            'rendererOptions' => [
-                'numberRows' => 2,
-            ],
-        ],
-        'axes' => [
-            'xaxis' => [
-                'label' => 'Дни недели',
-                'renderer' => 'js:$.jqplot.DateAxisRenderer',
-                'tickOptions' => ['formatString' => '%#d %b'],
-            ],
-            'yaxis' => [
-                'max' => $usersByOrdersPerDay->getMax(),
-                'min' => 0,
-                'label' => 'Количество заказов',
-                'labelRenderer' => 'js:$.jqplot.CanvasAxisLabelRenderer',
-                'tickOptions' => ['formatString' => '%d'],
-                'tickInterval' => 1,
-            ],
-        ],
-        'cursor' => [
-            'renderer' => 'js:$.jqplot.Cursor',
-            'show' => true,
-            'zoom' => true,
-            'showTooltip' => false,
-        ],
-        'highlighter' => [
-            'renderer' => 'js:$.jqplot.highlighter',
-            'show' => true,
-            'sizeAdjust' => 10,
-        ],
-        'series' => $usersByOrdersPerDay->getLegend(),
-    ],
-    'pluginScriptFile' => [
-        'jqplot.dateAxisRenderer.js',
-        'jqplot.categoryAxisRenderer.js',
-        'jqplot.canvasAxisLabelRenderer.js',
-        'jqplot.cursor.js',
-        'jqplot.highlighter.js',
-        'jqplot.canvasTextRenderer.js',
-        'jqplot.enhancedLegendRenderer.min.js',
-    ],
-]);
+        $.ajax({
+            url: '".$this->createUrl('statistic/ordersPie')."',
+            success: function (data) {
+                $('#orders_pie').html(data);
+            }
+        });
+    });
+", CClientScript::POS_END);
+?>
+<style>
+    .progress {
+        margin-bottom: 0;
+    }
+</style>
 
+<div id="orders_per_day">
+    <?= TbHtml::well('Общая оценка производительности: количество заказов по дням недели' . TbHtml::animatedProgressBar(100)); ?>
+</div>
 
-// третий график
-$this->widget('ext.jqplot.JqplotGraphWidget', [
-    'data' => $ordersPie->build(),
-    'options' => [
-        'seriesDefaults' => [
-            'renderer' => 'js:$.jqplot.PieRenderer',
-            'rendererOptions' => [
-                'smooth' => true,
-                'showDataLabels' => true,
-                'sliceMargin' => 4,
-                'padding' => 2
-            ]
-        ],
-        'legend' => [
-            'show' => 'true',
-            'location' => 'ne',
-            'rendererOptions' => [
-                'numberRows' => 2,
-            ],
-        ],
-        'title' => $ordersPie->getTitle(),
-    ],
-    'pluginScriptFile' => [
-        'jqplot.pieRenderer.js',
-    ],
-]);
+<div id="users_by_orders_per_day">
+    <?= TbHtml::well('Оценка производительности модельеров по дням недели' . TbHtml::animatedProgressBar(100)); ?>
+</div>
+
+<div id="orders_pie">
+    <?= TbHtml::well('Объем реализованных заказов по модельерам за последние 3 месяца' . TbHtml::animatedProgressBar(100)); ?>
+</div>
