@@ -15,19 +15,21 @@
     ]); ?>
     <fieldset>
         <legend class='legend'>Отчет за период</legend>
-            <?php $this->widget('zii.widgets.jui.CJuiDatePicker', [
-                'model' => $report,
-                'attribute' => 'dateStart',
-            ]);?>
-            &nbsp;&mdash;&nbsp;
-            <?php $this->widget('zii.widgets.jui.CJuiDatePicker', [
-                'model' => $report,
-                'attribute' => 'dateEnd',
-            ]);?>
+        <?php $this->widget('yiiwheels.widgets.datepicker.WhDatePicker', [
+            'model' => $report,
+            'attribute' => 'dateStart',
+        ]); ?>
+        &mdash;
+        <?php $this->widget('yiiwheels.widgets.datepicker.WhDatePicker', [
+            'model' => $report,
+            'attribute' => 'dateEnd',
+        ]); ?>
 
-        <div class="submit">
-            <?= CHtml::submitButton('Сохранить в Excel', ['class' => 'btn btn-primary']); ?>
-        </div>
+        <?= TbHtml::formActions([
+            TbHtml::submitButton('Сохранить в Excel', [
+                'color' => TbHtml::BUTTON_COLOR_INFO,
+            ]),
+        ]); ?>
     </fieldset>
     <?php $this->endWidget(); ?>
 </div>

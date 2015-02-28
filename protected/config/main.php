@@ -123,6 +123,17 @@ return [
                         'changeYear' => true,
                     ],
                 ],
+                'WhDatePicker' => [
+                    'htmlOptions' => [
+                        'required' => 'required',
+                        'placeholder' => 'дд.мм.гггг',
+                        'autocomplete' => 'Off',
+                    ],
+                    'pluginOptions' => [
+                        'format' => 'mm.dd.yyyy',
+                        'language' => 'ru',
+                    ],
+                ],
                 'CActiveForm' => [
                     'enableClientValidation' => true,
                     'clientOptions' => ['validateOnSubmit' => true],

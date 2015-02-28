@@ -7,7 +7,7 @@
 
 <?php $this->widget('bootstrap.widgets.TbGridView', [
     'id' => 'material-grid',
-    'type' => 'striped condensed',
+    'type' => TbHtml::GRID_TYPE_STRIPED,
     'dataProvider' => $model->search(),
     'filter' => $model,
     'columns' => [
