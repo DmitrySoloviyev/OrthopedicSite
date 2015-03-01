@@ -27,3 +27,7 @@
 .grid-view .table tr.selected td {
     background: #bbbbbb;
 }
+
+.breadcrumb {
+    background-color: #E8E8E8;
+}

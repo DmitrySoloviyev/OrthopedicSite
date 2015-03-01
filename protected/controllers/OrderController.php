@@ -118,7 +118,6 @@ class OrderController extends Controller
         $model = Order::model()->findByAttributes(['id' => $id, 'is_deleted' => 0]);
         if ($model === null)
             throw new CHttpException(404, 'Заказ не найден.');
-        $model->materials_ids = CHtml::listData(OrdersMaterials::model()->findAll('order_id=' . $model->id), 'material_id', 'material_id');
 
         return $model;
     }

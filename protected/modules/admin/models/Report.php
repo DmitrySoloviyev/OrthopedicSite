@@ -72,7 +72,7 @@ class Report extends CFormModel
         $criteria = new CDbCriteria;
         $criteria->addBetweenCondition('t.date_created', $start, $end, 'AND');
         $criteria->order = 't.date_created DESC';
-        $data = Order::model()->with('model', 'material')->findAll($criteria);
+        $data = Order::model()->with('author', 'customer', 'model', 'materials')->findAll($criteria);
 
         //  заполняем документ заказами:
         foreach ($data as $value) {
@@ -96,7 +96,7 @@ class Report extends CFormModel
             $sheet->setCellValue('F' . $i, $value->urk_right)
                 ->getStyle('F' . $i);
 
-            $sheet->setCellValue('G' . $i, $value->material->title)
+            $sheet->setCellValue('G' . $i, $value->materialsList("\r\n"))
                 ->getStyle('G' . $i);
 
             $sheet->setCellValue('H' . $i, $value->height_left)
@@ -126,7 +126,7 @@ class Report extends CFormModel
             $sheet->setCellValue('P' . $i, $value->customer->fullName())
                 ->getStyle('P' . $i);
 
-            $sheet->setCellValue('Q' . $i, $value->user->fullName())
+            $sheet->setCellValue('Q' . $i, $value->author->fullName())
                 ->getStyle('Q' . $i);
 
             $sheet->setCellValue('R' . $i, $value->date_created)->getStyle('R' . $i);

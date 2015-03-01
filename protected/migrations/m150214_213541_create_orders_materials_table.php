@@ -7,7 +7,7 @@ class m150214_213541_create_orders_materials_table extends CDbMigration
         $this->createTable('orders_materials', [
             'order_id' => 'int',
             'material_id' => 'int not null',
-        ]);
+        ], 'engine=innodb default charset=utf8mb4');
 
         $this->addForeignKey('fk_orders_materials_order_id', 'orders_materials', 'order_id', 'orders', 'id');
         $this->addForeignKey('fk_orders_materials_material_id', 'orders_materials', 'material_id', 'materials', 'id');

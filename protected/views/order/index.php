@@ -41,8 +41,8 @@ $this->widget('bootstrap.widgets.TbGridView', [
             'type' => 'html',
             'value' => '$data->urk_left . " л<br>" . $data->urk_right . " п"',
         ],
-        'materials_ids' => [
-            'name' => 'materials_ids',
+        [
+            'name' => 'hasMaterials',
             'type' => 'raw',
             'value' => '$data->materialsList()',
         ],

@@ -9,7 +9,7 @@
  */
 ?>
 
-<div class="form" style="float:left; width:50%;">
+<div class="form">
     <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
         'htmlOptions' => ['style' => 'margin:10px'],
     ]); ?>

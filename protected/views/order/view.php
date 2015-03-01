@@ -41,7 +41,7 @@ $this->widget('ext.fancybox.EFancyBox', [
                         'value' => $order->urk_left . ' левый, ' . $order->urk_right . ' правый',
                     ],
                     [
-                        'name' => 'materials_ids',
+                        'name' => 'materials',
                         'type' => 'raw',
                         'value' => $order->materialsList(),
                     ],

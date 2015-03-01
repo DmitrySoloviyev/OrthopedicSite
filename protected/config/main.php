@@ -130,7 +130,6 @@ return [
                         'autocomplete' => 'Off',
                     ],
                     'pluginOptions' => [
-                        'format' => 'mm.dd.yyyy',
                         'language' => 'ru',
                     ],
                 ],

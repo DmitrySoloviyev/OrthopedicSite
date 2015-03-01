@@ -3,7 +3,7 @@ protected/runtime/
 vagrant/var/
 .vagrant/
 .idea/
-assets/
+/assets/
 pma/
 upload/
 upload/!OrthopedicDB.apk

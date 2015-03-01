@@ -49,13 +49,21 @@
                     <?= $form->error($order, 'model_id'); ?>
                 </div>
             </div>
-            <div class="row-fluid">
+            <div class="row-fluid" style="padding-bottom: 25px;">
                 <div class="span12">
-                    <?= $form->labelEx($order, 'materials_ids') ?>
+                    <?= $form->labelEx($order, 'materials') ?>
                     <?php $this->widget('yiiwheels.widgets.multiselect.WhMultiSelect', [
                         'model' => $order,
-                        'attribute' => 'materials_ids',
+                        'attribute' => 'materials',
                         'data' => Material::materialList(),
+                        'pluginOptions' => [
+                            'nonSelectedText' => 'Выберите материал(ы)',
+                            'enableFiltering' => true,
+                            'enableCaseInsensitiveFiltering' => true,
+                            'filterPlaceholder' => 'Поиск материала',
+                            'nSelectedText' => 'выбрано',
+                            'maxHeight' => 400,
+                        ],
                     ]); ?>
                 </div>
             </div>
