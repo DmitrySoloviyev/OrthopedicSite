@@ -129,7 +129,7 @@ class Report extends CFormModel
             $sheet->setCellValue('Q' . $i, $value->author->fullName())
                 ->getStyle('Q' . $i);
 
-            $sheet->setCellValue('R' . $i, $value->date_created)->getStyle('R' . $i);
+            $sheet->setCellValue('R' . $i, $value->hiddmmyyyy($value->date_created))->getStyle('R' . $i);
             $sheet->setCellValue('S' . $i, $value->comment)->getStyle('S' . $i);
 
             $sheet->getRowDimension($i)->setRowHeight(28);

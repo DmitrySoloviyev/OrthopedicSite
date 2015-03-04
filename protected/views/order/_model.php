@@ -20,6 +20,7 @@ $picture = Models::MODEL_IMAGE_PATH . ($isModel ? $model->picture : 'ortho.jpg')
     <?= TbHtml::imagePolaroid($picture, 'изображение модели', [
         'href' => $picture,
         'id' => 'picture_resource',
+        'style' => 'cursor:pointer',
     ]); ?>
 </div>
 

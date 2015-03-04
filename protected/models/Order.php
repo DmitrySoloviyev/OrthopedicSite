@@ -121,6 +121,9 @@ class Order extends CActiveRecord
             'CommonBehavior' => [
                 'class' => 'CommonBehavior',
             ],
+            'DateTimeFormatBehavior' => [
+                'class' => 'DateTimeFormatBehavior',
+            ],
         ];
     }
 

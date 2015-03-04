@@ -18,6 +18,7 @@ return [
     'import' => [
         'application.models.*',
         'application.components.*',
+        'application.components.behaviors.*',
         'bootstrap.helpers.*',
         'bootstrap.behaviors.*',
         'bootstrap.widgets.*',
@@ -49,6 +50,9 @@ return [
         ],
         'yiiwheels' => [
             'class' => 'yiiwheels.YiiWheels',
+        ],
+        'format' => [
+            'class' => 'yiiwheels.widgets.timeago.WhTimeAgoFormatter',
         ],
         'redis' => [
             'class' => 'application.components.YiiRedis.ARedisConnection',

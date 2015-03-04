@@ -33,7 +33,7 @@ $this->widget('bootstrap.widgets.TbGridView', [
         ],
         'date_created' => [
             'name' => 'date_created',
-            'value' => 'date("H:i d.m.Y", strtotime($data->date_created))',
+            'value' => '$data->hiddmmyyyy($data->date_created)',
             'filter' => false,
         ],
         [

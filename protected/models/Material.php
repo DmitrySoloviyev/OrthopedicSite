@@ -61,6 +61,9 @@ class Material extends CActiveRecord
             'CommonBehavior' => [
                 'class' => 'CommonBehavior',
             ],
+            'DateTimeFormatBehavior' => [
+                'class' => 'DateTimeFormatBehavior',
+            ],
         ];
     }
 

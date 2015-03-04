@@ -12,7 +12,11 @@
     'filter' => $model,
     'columns' => [
         'title',
-        'date_created',
+        'date_created' => [
+            'name' => 'date_created',
+            'value' => '$data->hiddmmyyyy($data->date_created)',
+            'filter' => false,
+        ],
         [
             'class' => 'bootstrap.widgets.TbButtonColumn',
             'header' => 'Действия',

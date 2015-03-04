@@ -39,8 +39,20 @@ $src = Models::MODEL_IMAGE_PATH . $model->picture;
                     'name' => 'modified_by',
                     'value' => $model->editor->fullName(),
                 ],
-                'date_created',
-                'date_modified',
+                [
+                    'name' => 'date_created',
+                    'type' => 'raw',
+                    'value' => $this->widget('ext.timeago.TimeAgo', [
+                        'date' => $model->date_created,
+                    ]),
+                ],
+                [
+                    'name' => 'date_modified',
+                    'type' => 'raw',
+                    'value' => $this->widget('ext.timeago.TimeAgo', [
+                        'date' => $model->date_modified,
+                    ]),
+                ],
             ],
         ]); ?>
     </div>

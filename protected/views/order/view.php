@@ -73,8 +73,20 @@ $this->widget('ext.fancybox.EFancyBox', [
                         'name' => 'modified_by',
                         'value' => $order->editor->fullName(),
                     ],
-                    'date_created',
-                    'date_modified',
+                    [
+                        'name' => 'date_created',
+                        'type' => 'raw',
+                        'value' => $this->widget('ext.timeago.TimeAgo', [
+                            'date' => $order->date_created,
+                        ]),
+                    ],
+                    [
+                        'name' => 'date_modified',
+                        'type' => 'raw',
+                        'value' => $this->widget('ext.timeago.TimeAgo', [
+                            'date' => $order->date_modified,
+                        ]),
+                    ],
                     'comment',
                 ],
             ]);

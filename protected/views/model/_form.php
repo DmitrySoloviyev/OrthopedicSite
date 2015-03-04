@@ -34,6 +34,7 @@ $src = Models::MODEL_IMAGE_PATH . ($model->isNewRecord ? 'ortho.jpg' : $model->p
             <?= TbHtml::imagePolaroid($src, 'изображение модели', [
                 'href' => $src,
                 'id' => 'preview',
+                'style' => 'cursor:pointer',
             ]); ?>
             <?= $form->fileFieldControlGroup($model, 'picture') ?>
         </div>
