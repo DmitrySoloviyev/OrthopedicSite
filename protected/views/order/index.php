@@ -34,12 +34,12 @@ $this->widget('bootstrap.widgets.TbGridView', [
         'sizes' => [
             'name' => 'sizes',
             'type' => 'html',
-            'value' => '$data->size_left . " л<br>" . $data->size_right . " п"',
+            'value' => '$data->sizesValues("<br>", "л", "п")',
         ],
         'urks' => [
             'name' => 'urks',
             'type' => 'html',
-            'value' => '$data->urk_left . " л<br>" . $data->urk_right . " п"',
+            'value' => '$data->urksValues("<br>", "л", "п")',
         ],
         [
             'name' => 'hasMaterials',
@@ -49,22 +49,22 @@ $this->widget('bootstrap.widgets.TbGridView', [
         'heights' => [
             'name' => 'heights',
             'type' => 'html',
-            'value' => '$data->height_left . " л<br>" . $data->height_right . " п"'
+            'value' => '$data->heightsValues("<br>", "л", "п")',
         ],
         'top_volumes' => [
             'name' => 'top_volumes',
             'type' => 'html',
-            'value' => '$data->top_volume_left . " л<br>" . $data->top_volume_right . " п"'
+            'value' => '$data->topVolumesValues("<br>", "л", "п")'
         ],
         'ankle_volumes' => [
             'name' => 'ankle_volumes',
             'type' => 'html',
-            'value' => '$data->ankle_volume_left . "л<br>" . $data->ankle_volume_right . "п"'
+            'value' => '$data->ankleVolumesValues("<br>", "л", "п")'
         ],
         'kv_volumes' => [
             'name' => 'kv_volumes',
             'type' => 'html',
-            'value' => '$data->kv_volume_left . "л<br>" . $data->kv_volume_right . "п"'
+            'value' => '$data->kvVolumesValues("<br>", "л", "п")'
         ],
         'customer_id' => [
             'name' => 'customer_id',

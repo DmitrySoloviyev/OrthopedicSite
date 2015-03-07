@@ -34,11 +34,11 @@ $this->widget('ext.fancybox.EFancyBox', [
                     ],
                     [
                         'name' => 'sizes',
-                        'value' => $order->size_left . ' левый, ' . $order->size_right . ' правый',
+                        'value' => $order->sizesValues(),
                     ],
                     [
                         'name' => 'urks',
-                        'value' => $order->urk_left . ' левый, ' . $order->urk_right . ' правый',
+                        'value' => $order->urksValues(),
                     ],
                     [
                         'name' => 'materials',
@@ -47,19 +47,19 @@ $this->widget('ext.fancybox.EFancyBox', [
                     ],
                     [
                         'name' => 'heights',
-                        'value' => $order->height_left . ' левый, ' . $order->height_right . ' правый',
+                        'value' => $order->heightsValues(),
                     ],
                     [
                         'name' => 'top_volumes',
-                        'value' => $order->top_volume_left . ' левый, ' . $order->top_volume_right . ' правый',
+                        'value' => $order->topVolumesValues(),
                     ],
                     [
                         'name' => 'ankle_volumes',
-                        'value' => $order->ankle_volume_left . ' левый, ' . $order->ankle_volume_right . ' правый',
+                        'value' => $order->ankleVolumesValues(),
                     ],
                     [
                         'name' => 'kv_volumes',
-                        'value' => $order->kv_volume_left . ' левый, ' . $order->kv_volume_right . ' правый',
+                        'value' => $order->kvVolumesValues(),
                     ],
                     [
                         'name' => 'customer_id',

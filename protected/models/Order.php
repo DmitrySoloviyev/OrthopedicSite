@@ -58,6 +58,7 @@ class Order extends CActiveRecord
             ['size_left, size_right', 'numerical', 'integerOnly' => true, 'min' => 15, 'max' => 49],
             ['urk_left, urk_right', 'numerical', 'integerOnly' => true, 'min' => 100, 'max' => 400],
             ['height_left, height_right', 'numerical', 'integerOnly' => true, 'max' => 40],
+            ['height_left, height_right', 'default', 'value' => 0, 'setOnEmpty' => true],
             ['top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right', 'numerical', 'integerOnly' => false, 'numberPattern' => '/^\\d\\d(?:\\.[05])?$/'],
             ['order_name', 'unique', 'message' => 'Заказ с таким номером уже существует!'],
             ['order_name', 'length', 'max' => 10],
@@ -369,6 +370,36 @@ class Order extends CActiveRecord
             'criteria' => $criteria,
             'pagination' => false,
         ]);
+    }
+
+    public function sizesValues($delimiter = ',', $nameLeft = 'левый', $nameRight = 'правый')
+    {
+        return $this->size_left . ' ' . $nameLeft . $delimiter . ' ' . $this->size_right . ' ' . $nameRight;
+    }
+
+    public function urksValues($delimiter = ',', $nameLeft = 'левый', $nameRight = 'правый')
+    {
+        return $this->urk_left . ' ' . $nameLeft . $delimiter . ' ' . $this->urk_right . ' ' . $nameRight;
+    }
+
+    public function heightsValues($delimiter = ',', $nameLeft = 'левый', $nameRight = 'правый')
+    {
+        return $this->height_left . ' ' . $nameLeft . $delimiter . ' ' . $this->height_right . ' ' . $nameRight;
+    }
+
+    public function topVolumesValues($delimiter = ',', $nameLeft = 'левый', $nameRight = 'правый')
+    {
+        return $this->top_volume_left . ' ' . $nameLeft . $delimiter . ' ' . $this->top_volume_right . ' ' . $nameRight;
+    }
+
+    public function ankleVolumesValues($delimiter = ',', $nameLeft = 'левый', $nameRight = 'правый')
+    {
+        return $this->ankle_volume_left . ' ' . $nameLeft . $delimiter . ' ' . $this->ankle_volume_right . ' ' . $nameRight;
+    }
+
+    public function kvVolumesValues($delimiter = ',', $nameLeft = 'левый', $nameRight = 'правый')
+    {
+        return $this->kv_volume_left . ' ' . $nameLeft . $delimiter . ' ' . $this->kv_volume_right . ' ' . $nameRight;
     }
 
 }
