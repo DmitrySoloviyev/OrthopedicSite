@@ -402,4 +402,11 @@ class Order extends CActiveRecord
         return $this->kv_volume_left . ' ' . $nameLeft . $delimiter . ' ' . $this->kv_volume_right . ' ' . $nameRight;
     }
 
+    protected function afterFind()
+    {
+        parent::afterFind();
+        $this->comment = CHtml::encode($this->comment);
+    }
+
+
 }

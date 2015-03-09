@@ -78,21 +78,6 @@ class User extends CActiveRecord
         return parent::beforeSave();
     }
 
-    public static function userList()
-    {
-        $users = Yii::app()->redis->getClient()->get('usersList');
-        if ($users === false) {
-            $users = CHtml::listData(self::model()->findAll('is_deleted = 0'), 'id', function ($user) {
-                return $user->fullName();
-            });
-            Yii::app()->redis->getClient()->set('usersList', CJSON::encode($users));
-        } else {
-            $users = CJSON::decode($users);
-        }
-
-        return $users;
-    }
-
     public static function getUserShortcutList($user_id)
     {
         $user = Yii::app()->db->createCommand()
@@ -107,20 +92,6 @@ class User extends CActiveRecord
     public function fullName()
     {
         return CHtml::encode($this->surname . ' ' . $this->name . ' ' . $this->patronymic);
-    }
-
-    public function afterSave()
-    {
-        Yii::app()->redis->getClient()->del('usersList');
-
-        return parent::afterSave();
-    }
-
-    public function afterDelete()
-    {
-        Yii::app()->redis->getClient()->del('usersList');
-
-        return parent::afterDelete();
     }
 
     public function delete()

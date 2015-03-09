@@ -167,4 +167,11 @@ class Models extends CActiveRecord
         ]);
     }
 
+    protected function afterFind()
+    {
+        parent::afterFind();
+        $this->comment = CHtml::encode($this->comment);
+        $this->description = CHtml::encode($this->description);
+    }
+
 }

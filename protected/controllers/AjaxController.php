@@ -32,7 +32,6 @@ class AjaxController extends Controller
 
     public function actionGetModelInfoById($id)
     {
-        // TODO экранировать вывод!!!
         echo CJSON::encode(Models::model()->findByPk($_GET['id']));
     }
 
