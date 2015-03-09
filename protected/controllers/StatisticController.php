@@ -1,4 +1,5 @@
 <?php
+Yii::import('ext.ortho-graphs.*');
 
 class StatisticController extends Controller
 {
