@@ -15,7 +15,7 @@ class Quote extends CWidget
         $assetsDir = dirname(__FILE__) . '/assets';
         Yii::app()->clientScript->registerCssFile(Yii::app()->assetManager->publish($assetsDir . '/quote.css'));
 
-        $quotes = file($assetsDir . '/quotes.txt');
+        $quotes = include_once($assetsDir . '/quotes.php');
         if ($quotes) {
             $cnt = count($quotes);
             $this->text = $quotes[rand(0, --$cnt)];

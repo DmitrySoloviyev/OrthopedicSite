@@ -31,3 +31,7 @@
 .breadcrumb {
     background-color: #E8E8E8;
 }
+
+hr {
+    border-style: inset;
+}
