@@ -18,11 +18,17 @@
         <?php $this->widget('yiiwheels.widgets.datepicker.WhDatePicker', [
             'model' => $report,
             'attribute' => 'dateStart',
+            'htmlOptions' => [
+                'prepend' => TbHtml::icon(TbHtml::ICON_CALENDAR),
+            ],
         ]); ?>
         &mdash;
         <?php $this->widget('yiiwheels.widgets.datepicker.WhDatePicker', [
             'model' => $report,
             'attribute' => 'dateEnd',
+            'htmlOptions' => [
+                'prepend' => TbHtml::icon(TbHtml::ICON_CALENDAR),
+            ],
         ]); ?>
 
         <?= TbHtml::formActions([

@@ -43,7 +43,7 @@ class Order extends CActiveRecord
     public $top_volumes;
     public $ankle_volumes;
     public $kv_volumes;
-    public $hasMaterials;
+    public $ordersMaterials;
 
     public function tableName()
     {
@@ -53,7 +53,7 @@ class Order extends CActiveRecord
     public function rules()
     {
         return [
-            ['order_name, model_id, materials, size_left, size_right, urk_left, urk_right, height_left, height_right, top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right, customer_id', 'required'],
+            ['order_name, model_id, ordersHasMaterials, size_left, size_right, urk_left, urk_right, height_left, height_right, top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right, customer_id', 'required'],
             ['model_id, customer_id, author_id', 'numerical', 'integerOnly' => true],
             ['size_left, size_right', 'numerical', 'integerOnly' => true, 'min' => 15, 'max' => 49],
             ['urk_left, urk_right', 'numerical', 'integerOnly' => true, 'min' => 100, 'max' => 400],
@@ -64,7 +64,7 @@ class Order extends CActiveRecord
             ['order_name', 'length', 'max' => 10],
             ['is_deleted', 'boolean'],
             ['comment', 'length', 'max' => 255],
-            ['date_created, date_modified, order_name, hasMaterials, sizes, urks, heights, top_volumes, ankle_volumes, kv_volumes, model_id, size_left, size_right, urk_left, urk_right, height_left, height_right, top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right, customer_id, author_id, comment, is_deleted, modified_by', 'safe', 'on' => 'search'],
+            ['date_created, date_modified, order_name, ordersMaterials, sizes, urks, heights, top_volumes, ankle_volumes, kv_volumes, model_id, size_left, size_right, urk_left, urk_right, height_left, height_right, top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right, customer_id, author_id, comment, is_deleted, modified_by', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -75,9 +75,7 @@ class Order extends CActiveRecord
             'model' => [self::BELONGS_TO, 'Models', 'model_id'],
             'customer' => [self::BELONGS_TO, 'Customer', 'customer_id'],
             'author' => [self::BELONGS_TO, 'User', 'author_id'],
-//            'ordersMaterials' => [self::HAS_MANY, 'OrdersMaterials', 'order_id'],
-//            'materials' => [self::HAS_MANY, 'Material', 'material_id', 'through' => 'ordersMaterials'],
-            'materials' => [self::MANY_MANY, 'Material', 'orders_materials(order_id,material_id)'],
+            'ordersHasMaterials' => [self::MANY_MANY, 'Material', 'orders_materials(order_id,material_id)'],
         ];
     }
 
@@ -86,8 +84,7 @@ class Order extends CActiveRecord
         return [
             'order_name' => 'Номер заказа',
             'model_id' => 'Модель',
-            'materials' => 'Материал',
-            'hasMaterials' => 'Материал',
+            'ordersMaterials' => 'Материал',
             'author_id' => 'Автор',
             'customer_id' => 'Заказчик',
             'comment' => 'Комментарий',
@@ -133,18 +130,13 @@ class Order extends CActiveRecord
      */
     protected function afterSave()
     {
-        // TODO придумать что-нибудь получше этого!!!
-        $materials = is_object($this->materials[0]) ? CHtml::listData($this->materials, 'id', 'id') : $this->materials;
-
-        foreach ($materials as $material_id) {
-            $relation = OrdersMaterials::model()->findByPk(['order_id' => $this->id, 'material_id' => $material_id]);
-
-            if ($relation) continue;
-
+        $orderMaterials = is_object($this->ordersHasMaterials[0]) ? CHtml::listData($this->ordersHasMaterials, 'id', 'id') : $this->ordersHasMaterials;
+        OrdersMaterials::model()->deleteAll('order_id=' . $this->id);
+        foreach ((array)$orderMaterials as $material_id) {
             $ordersMaterials = new OrdersMaterials();
             $ordersMaterials->order_id = $this->id;
             $ordersMaterials->material_id = $material_id;
-            if (!$ordersMaterials->save(false)) {
+            if (!$ordersMaterials->save()) {
                 $this->addError('materials', 'Ошибка при сохранении материалов в заказе');
             }
         }
@@ -167,7 +159,7 @@ class Order extends CActiveRecord
     public function materialsList($separator = '<br>')
     {
         $list = '';
-        foreach ($this->materials as $material) {
+        foreach ($this->ordersHasMaterials as $material) {
             $list .= $material->title . $separator;
         }
 
@@ -179,7 +171,7 @@ class Order extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->with = [
-            'author', 'customer', 'model', 'materials'
+            'author', 'customer', 'model', 'ordersHasMaterials'
         ];
 
         $criteria->compare('order_name', $this->order_name, true);

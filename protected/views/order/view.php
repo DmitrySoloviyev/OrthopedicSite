@@ -41,7 +41,7 @@ $this->widget('ext.fancybox.EFancyBox', [
                         'value' => $order->urksValues(),
                     ],
                     [
-                        'name' => 'materials',
+                        'name' => 'ordersMaterials',
                         'type' => 'raw',
                         'value' => $order->materialsList(),
                     ],

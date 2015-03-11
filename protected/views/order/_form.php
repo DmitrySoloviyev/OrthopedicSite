@@ -51,10 +51,10 @@
             </div>
             <div class="row-fluid" style="padding-bottom: 25px;">
                 <div class="span12">
-                    <?= $form->labelEx($order, 'materials') ?>
+                    <?= $form->labelEx($order, 'ordersMaterials') ?>
                     <?php $this->widget('yiiwheels.widgets.multiselect.WhMultiSelect', [
                         'model' => $order,
-                        'attribute' => 'materials',
+                        'attribute' => 'ordersHasMaterials',
                         'data' => Material::materialList(),
                         'pluginOptions' => [
                             'nonSelectedText' => 'Выберите материал(ы)',
