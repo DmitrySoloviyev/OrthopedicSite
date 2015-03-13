@@ -85,6 +85,7 @@ class Order extends CActiveRecord
             'order_name' => 'Номер заказа',
             'model_id' => 'Модель',
             'ordersMaterials' => 'Материал',
+            'ordersHasMaterials' => 'Материал',
             'author_id' => 'Автор',
             'customer_id' => 'Заказчик',
             'comment' => 'Комментарий',

@@ -51,7 +51,7 @@
             </div>
             <div class="row-fluid" style="padding-bottom: 25px;">
                 <div class="span12">
-                    <?= $form->labelEx($order, 'ordersMaterials') ?>
+                    <?= $form->labelEx($order, 'ordersHasMaterials') ?>
                     <?php $this->widget('yiiwheels.widgets.multiselect.WhMultiSelect', [
                         'model' => $order,
                         'attribute' => 'ordersHasMaterials',
