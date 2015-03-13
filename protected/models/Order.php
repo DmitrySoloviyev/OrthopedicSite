@@ -167,6 +167,18 @@ class Order extends CActiveRecord
         return $list;
     }
 
+    function has_next($array) {
+        if (is_array($array)) {
+            if (next($array) === false) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
     public function search()
     {
         $criteria = new CDbCriteria;
@@ -206,24 +218,15 @@ class Order extends CActiveRecord
 
         // фильтр заказов по материалу
         if (isset($this->ordersMaterials)) {
-            $materialCriteria = new CDbCriteria();
-            $materialCriteria->compare('title', $this->ordersMaterials, true);
-            $possibleMaterials = Material::model()->findAll($materialCriteria);
-
-            $ordersMaterialsCriteria = new CDbCriteria();
-            $ordersMaterialsCriteria->addInCondition('material_id', CHtml::listData($possibleMaterials, 'id', 'id'));
-            $ordersMaterials = OrdersMaterials::model()->findAll($ordersMaterialsCriteria);
-
+            $ordersMaterials = $this->findByMaterial($this->ordersMaterials);
             $criteria->addInCondition('t.id', CHtml::listData($ordersMaterials, 'order_id', 'order_id'));
         }
 
-
         $criteria->compare('t.is_deleted', 0);
-        $criteria->order = 't.date_created DESC';
 
         $sort = new CSort();
+        $sort->defaultOrder = 't.date_created DESC';
         $sort->attributes = [
-            'defaultOrder' => 't.date_created DESC',
             'sizes' => [
                 'asc' => 'size_left',
                 'desc' => 'size_left desc',
@@ -248,7 +251,7 @@ class Order extends CActiveRecord
                 'asc' => 'kv_volume_left',
                 'desc' => 'kv_volume_left desc',
             ],
-            '*', // Make all other columns sortable, too
+            '*',
         ];
 
         return new CActiveDataProvider($this, [
@@ -345,6 +348,24 @@ class Order extends CActiveRecord
         return 'order';
     }
 
+    /**
+     * Поиск заказов по материалу
+     * @param string $materialTitle
+     * @return array|CActiveRecord|CActiveRecord[]|mixed|null
+     */
+    private function findByMaterial($materialTitle = '')
+    {
+        $materialCriteria = new CDbCriteria();
+        $materialCriteria->compare('title', $materialTitle, true);
+        $possibleMaterials = Material::model()->findAll($materialCriteria);
+
+        $ordersMaterialsCriteria = new CDbCriteria();
+        $ordersMaterialsCriteria->addInCondition('material_id', CHtml::listData($possibleMaterials, 'id', 'id'));
+        $ordersMaterials = OrdersMaterials::model()->findAll($ordersMaterialsCriteria);
+
+        return $ordersMaterials;
+    }
+
     public function siteSearch($query)
     {
         $criteria = new CDbCriteria;
@@ -372,6 +393,9 @@ class Order extends CActiveRecord
         $criteria->compare('author.name', $query, true, 'OR');
         $criteria->compare('author.patronymic', $query, true, 'OR');
         $criteria->compare('t.comment', $query, true, 'OR');
+
+        $ordersMaterials = $this->findByMaterial($query);
+        $criteria->addInCondition('t.id', CHtml::listData($ordersMaterials, 'order_id', 'order_id'), 'OR');
 
         return new CActiveDataProvider($this, [
             'criteria' => $criteria,
@@ -414,6 +438,5 @@ class Order extends CActiveRecord
         parent::afterFind();
         $this->comment = CHtml::encode($this->comment);
     }
-
 
 }

@@ -17,9 +17,9 @@
     <?= CHtml::link(CHtml::encode($data->model->name), ['model/view', 'id' => $data->model_id]); ?>
     <br/>
 
-<!--    <b>--><?//= CHtml::encode($data->getAttributeLabel('material_id')); ?><!--:</b>-->
-<!--    --><?//= CHtml::encode($data->material->title); ?>
-<!--    <br/>-->
+    <b><?= CHtml::encode($data->getAttributeLabel('ordersMaterials')); ?>:</b>
+    <?= CHtml::encode($data->materialsList(', ')); ?>
+    <br/>
 
     <b><?= CHtml::encode($data->getAttributeLabel('author_id')); ?>:</b>
     <?= CHtml::encode($data->author->fullName()); ?>
