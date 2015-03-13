@@ -204,6 +204,20 @@ class Order extends CActiveRecord
         $criteria->compare('author.name', $this->author_id, true, 'OR');
         $criteria->compare('author.patronymic', $this->author_id, true, 'OR');
 
+        // фильтр заказов по материалу
+        if (isset($this->ordersMaterials)) {
+            $materialCriteria = new CDbCriteria();
+            $materialCriteria->compare('title', $this->ordersMaterials, true);
+            $possibleMaterials = Material::model()->findAll($materialCriteria);
+
+            $ordersMaterialsCriteria = new CDbCriteria();
+            $ordersMaterialsCriteria->addInCondition('material_id', CHtml::listData($possibleMaterials, 'id', 'id'));
+            $ordersMaterials = OrdersMaterials::model()->findAll($ordersMaterialsCriteria);
+
+            $criteria->addInCondition('t.id', CHtml::listData($ordersMaterials, 'order_id', 'order_id'));
+        }
+
+
         $criteria->compare('t.is_deleted', 0);
         $criteria->order = 't.date_created DESC';
 
