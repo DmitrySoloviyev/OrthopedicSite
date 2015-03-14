@@ -63,6 +63,7 @@ class Order extends CActiveRecord
             ['order_name', 'unique', 'message' => 'Заказ с таким номером уже существует!'],
             ['order_name', 'length', 'max' => 10],
             ['is_deleted', 'boolean'],
+            ['comment', 'safe'],
             ['date_created, date_modified, order_name, ordersMaterials, sizes, urks, heights, top_volumes, ankle_volumes, kv_volumes, model_id, size_left, size_right, urk_left, urk_right, height_left, height_right, top_volume_left, top_volume_right, ankle_volume_left, ankle_volume_right, kv_volume_left, kv_volume_right, customer_id, author_id, comment, is_deleted, modified_by', 'safe', 'on' => 'search'],
         ];
     }
@@ -339,7 +340,7 @@ class Order extends CActiveRecord
 
     public function showSearchResults()
     {
-        echo 'Найденные заказы:';
+        return 'Найденные заказы:';
     }
 
     public function viewDir()

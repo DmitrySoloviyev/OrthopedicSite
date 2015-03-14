@@ -37,6 +37,7 @@ class Models extends CActiveRecord
             ['name', 'unique'],
             ['name', 'length', 'max' => 6],
             ['is_deleted', 'boolean'],
+            ['description, comment', 'safe'],
             ['picture', 'file', 'types' => 'jpg, jpeg, gif, png', 'allowEmpty' => true],
             ['picture', 'default', 'value' => 'ortho.jpg'],
             ['id, name, description, comment, date_created, date_modified, author_id, modified_by', 'safe', 'on' => 'search'],
@@ -138,7 +139,7 @@ class Models extends CActiveRecord
 
     public function showSearchResults()
     {
-        echo 'Найденные модели:';
+        return 'Найденные модели:';
     }
 
     public function viewDir()

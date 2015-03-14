@@ -27,8 +27,8 @@ $src = Models::MODEL_IMAGE_PATH . ($model->isNewRecord ? 'ortho.jpg' : $model->p
             <?= $form->errorSummary($model); ?>
 
             <?= $form->textFieldControlGroup($model, 'name', ['span' => 10, 'maxlength' => 6, 'autocomplete' => 'off']) ?>
-            <?= $form->textAreaControlGroup($model, 'description', ['span' => 10, 'cols' => 30, 'rows' => 10, 'maxlength' => 255]) ?>
-            <?= $form->textAreaControlGroup($model, 'comment', ['span' => 10, 'cols' => 30, 'rows' => 10, 'maxlength' => 255]) ?>
+            <?= $form->textAreaControlGroup($model, 'description', ['span' => 10, 'cols' => 30, 'rows' => 10]) ?>
+            <?= $form->textAreaControlGroup($model, 'comment', ['span' => 10, 'cols' => 30, 'rows' => 10]) ?>
         </div>
         <div class="span5">
             <?= TbHtml::imagePolaroid($src, 'изображение модели', [

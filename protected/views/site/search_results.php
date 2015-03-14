@@ -23,7 +23,7 @@
                     );
                 }
             ", CClientScript::POS_END);
-            $result->model->showSearchResults();
+            echo '<b style="color: #DB4928;font-size: 18px;">' . $result->model->showSearchResults() . '</b>';
             echo '<br>';
             $this->widget('bootstrap.widgets.TbListView', [
                 'dataProvider' => $result,

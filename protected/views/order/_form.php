@@ -158,8 +158,10 @@
                         <?= $form->error($customer, 'patronymic'); ?>
                     </div>
                 </div>
-                <div class="span6">
-                    <?= $form->textAreaControlGroup($order, 'comment', ['maxlength' => 255, 'rows' => 5, 'cols' => 27]); ?>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <?= $form->textAreaControlGroup($order, 'comment', ['rows' => 15, 'style' => 'width:100%']); ?>
                 </div>
             </div>
         </div>
