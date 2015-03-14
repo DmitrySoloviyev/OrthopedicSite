@@ -183,7 +183,11 @@ div.search-form
 
 .portlet-content li
 {
-	padding: 2px 0 4px 0;
+	padding: 2px 0 4px 0px;
+}
+
+div.form
+{
 }
 
 div.form input,

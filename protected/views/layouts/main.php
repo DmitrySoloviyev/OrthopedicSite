@@ -13,7 +13,6 @@
         ->registerCssFile('/css/form.css')
         ->registerCssFile('/css/style.css')
         ->registerCssFile('/css/bootstrap-override.css')
-        ->registerCssFile('/css/jquery.fancybox.css')
         ->registerScriptFile('/js/main.js', CClientScript::POS_END);
     ?>
 </head>
