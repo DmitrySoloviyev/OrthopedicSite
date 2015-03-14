@@ -104,3 +104,23 @@ $this->widget('bootstrap.widgets.TbModal', [
         TbHtml::button('Отмена', ['data-dismiss' => 'modal']),
     ],
 ]);
+?>
+<hr>
+
+<b class="label_title">Используется в заказах:</b>
+<br><br>
+
+<?php foreach ($model->orders as $key => $order) : ?>
+    <div class="span3">
+        <?= TbHtml::tooltip(
+            $order->order_name,
+            ['order/view', 'id' => $order->id],
+            $this->renderPartial('/order/_short_info', ['order' => $order], true),
+            [
+                'placement' => TbHtml::TOOLTIP_PLACEMENT_RIGHT,
+                'target' => '_blank',
+                'html' => true,
+            ]);
+        ?>
+    </div>
+<?php endforeach; ?>

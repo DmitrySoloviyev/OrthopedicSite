@@ -263,3 +263,8 @@ h3 + p {
     -moz-background-clip: text;
     background-clip: text;
 }
+
+.label_title {
+    color: #DB4928;
+    font-size: 18px;
+}
