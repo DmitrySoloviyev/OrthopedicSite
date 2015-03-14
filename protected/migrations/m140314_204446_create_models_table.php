@@ -7,9 +7,9 @@ class m140314_204446_create_models_table extends CDbMigration
         $this->createTable('models', [
             'id' => 'pk',
             'name' => 'string not null',
-            'description' => 'string not null',
+            'description' => 'text not null',
             'picture' => 'string not null default "ortho.jpg"',
-            'comment' => 'string not null default ""',
+            'comment' => 'text not null default ""',
             'author_id' => 'int not null',
             'modified_by' => 'int not null',
             'date_created' => 'datetime not null',

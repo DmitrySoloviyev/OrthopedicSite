@@ -2,10 +2,7 @@
 /**
  * ExtMinScriptController class file.
  *
- * @author Tobias Giacometti
- * @link http://bitbucket.org/limi7less/minscript/
- * @copyright Copyright &copy; 2011-2013 Tobias Giacometti
- * @license http://bitbucket.org/limi7less/minscript/wiki/License
+ * @link http://www.yiiframework.com/extension/minscript/
  * @package ext.minScript.controllers
  * @since 1.0
  */
@@ -14,7 +11,6 @@
  * ExtMinScriptController serves files from minScript groups in a minified, combined and compressed state.
  * A far future "Expires" header ensures that the client browser caches the files optimally.
  *
- * @author Tobias Giacometti
  * @package ext.minScript.controllers
  * @since 1.0
  */
@@ -111,7 +107,6 @@ require_once (dirname(dirname(__FILE__)) . '/vendors/minify/min/lib/Minify/Sourc
 /**
  * ExtMinScriptSource extends Minify_Source to offer custom source handling for minScript.
  *
- * @author Tobias Giacometti
  * @package ext.minScript.controllers
  * @since 2.1
  */
@@ -136,7 +131,6 @@ class ExtMinScriptSource extends Minify_Source {
 /**
  * ExtYiiMinCache gives Minify the ability to access Yii's cache application components for caching.
  *
- * @author Tobias Giacometti
  * @package ext.minScript.controllers
  * @since 2.1
  */

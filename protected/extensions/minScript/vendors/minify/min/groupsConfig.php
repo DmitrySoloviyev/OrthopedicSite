@@ -2,10 +2,7 @@
 /**
  * minScript groups config file for Minify.
  *
- * @author Tobias Giacometti
- * @link http://bitbucket.org/limi7less/minscript/
- * @copyright Copyright &copy; 2011-2013 Tobias Giacometti
- * @license http://bitbucket.org/limi7less/minscript/wiki/License
+ * @link http://www.yiiframework.com/extension/minscript/
  * @package ext.minScript.vendors.minify.min
  * @since 1.0
  */

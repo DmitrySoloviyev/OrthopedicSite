@@ -2,10 +2,7 @@
 /**
  * ExtMinScript class file.
  *
- * @author Tobias Giacometti
- * @link http://bitbucket.org/limi7less/minscript/
- * @copyright Copyright &copy; 2011-2013 Tobias Giacometti
- * @license http://bitbucket.org/limi7less/minscript/wiki/License
+ * @link http://www.yiiframework.com/extension/minscript/
  */
 
 /**
@@ -20,7 +17,6 @@
  *
  * @property CCache $minScriptCache The cache application component instance used by minScript.
  *
- * @author Tobias Giacometti
  * @package ext.minScript.components
  * @since 1.0
  */

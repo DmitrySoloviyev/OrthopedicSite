@@ -11,21 +11,21 @@ $this->widget('ext.UsersOrdersWidget.UsersOrders', []);
 Yii::app()->clientScript->registerScript('loadStatistic', "
     $(window).load(function () {
         $.ajax({
-            url: '".$this->createUrl('statistic/ordersPerDay')."',
+            url: '" . $this->createUrl('statistic/ordersPerDay') . "',
             success: function (data) {
                 $('#orders_per_day').html(data);
             }
         });
 
         $.ajax({
-            url: '".$this->createUrl('statistic/usersByOrdersPerDay')."',
+            url: '" . $this->createUrl('statistic/usersByOrdersPerDay') . "',
             success: function (data) {
                 $('#users_by_orders_per_day').html(data);
             }
         });
 
         $.ajax({
-            url: '".$this->createUrl('statistic/ordersPie')."',
+            url: '" . $this->createUrl('statistic/ordersPie') . "',
             success: function (data) {
                 $('#orders_pie').html(data);
             }

@@ -37,7 +37,6 @@ class Models extends CActiveRecord
             ['name', 'unique'],
             ['name', 'length', 'max' => 6],
             ['is_deleted', 'boolean'],
-            ['description, comment', 'length', 'max' => 255],
             ['picture', 'file', 'types' => 'jpg, jpeg, gif, png', 'allowEmpty' => true],
             ['picture', 'default', 'value' => 'ortho.jpg'],
             ['id, name, description, comment, date_created, date_modified, author_id, modified_by', 'safe', 'on' => 'search'],
