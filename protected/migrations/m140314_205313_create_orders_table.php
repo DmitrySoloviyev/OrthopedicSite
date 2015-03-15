@@ -20,7 +20,7 @@ class m140314_205313_create_orders_table extends CDbMigration
             'ankle_volume_right' => 'float unsigned not null', // 10.0 - 50.0 float(3,1) unsigned not null
             'kv_volume_left' => 'float unsigned not null',     // 15.0 - 70.0 float(3,1) unsigned not null
             'kv_volume_right' => 'float unsigned not null',    // 15.0 - 70.0 float(3,1) unsigned not null
-            'comment' => 'text not null default ""',
+            'comment' => 'text not null',
             'customer_id' => 'int not null',
             'author_id' => 'int not null',
             'modified_by' => 'int not null',

@@ -126,6 +126,15 @@ class Order extends CActiveRecord
         ];
     }
 
+    protected function beforeSave()
+    {
+        /** @var  $purifier CHtmlPurifier */
+        $purifier = new CHtmlPurifier();
+        $this->comment = $purifier->purify($this->comment);
+
+        return parent::beforeSave();
+    }
+
     /**
      * Сохранение многое ко многим
      */
@@ -167,7 +176,8 @@ class Order extends CActiveRecord
         return $list;
     }
 
-    function has_next($array) {
+    function has_next($array)
+    {
         if (is_array($array)) {
             if (next($array) === false) {
                 return false;
@@ -431,12 +441,6 @@ class Order extends CActiveRecord
     public function kvVolumesValues($delimiter = ',', $nameLeft = 'левый', $nameRight = 'правый')
     {
         return $this->kv_volume_left . ' ' . $nameLeft . $delimiter . ' ' . $this->kv_volume_right . ' ' . $nameRight;
-    }
-
-    protected function afterFind()
-    {
-        parent::afterFind();
-        $this->comment = CHtml::encode($this->comment);
     }
 
 }

@@ -27,8 +27,23 @@ $src = Models::MODEL_IMAGE_PATH . ($model->isNewRecord ? 'ortho.jpg' : $model->p
             <?= $form->errorSummary($model); ?>
 
             <?= $form->textFieldControlGroup($model, 'name', ['span' => 10, 'maxlength' => 6, 'autocomplete' => 'off']) ?>
-            <?= $form->textAreaControlGroup($model, 'description', ['span' => 10, 'cols' => 30, 'rows' => 10]) ?>
-            <?= $form->textAreaControlGroup($model, 'comment', ['span' => 10, 'cols' => 30, 'rows' => 10]) ?>
+            <?= $form->labelEx($model, 'description') ?>
+            <?php $this->widget('yiiwheels.widgets.redactor.WhRedactor', [
+                'model' => $model,
+                'attribute' => 'description',
+                'pluginOptions' => [
+                    'lang' => Yii::app()->language,
+                ],
+            ]); ?>
+            <br>
+            <?= $form->labelEx($model, 'comment') ?>
+            <?php $this->widget('yiiwheels.widgets.redactor.WhRedactor', [
+                'model' => $model,
+                'attribute' => 'comment',
+                'pluginOptions' => [
+                    'lang' => Yii::app()->language,
+                ],
+            ]); ?>
         </div>
         <div class="span5">
             <?= TbHtml::imagePolaroid($src, 'изображение модели', [

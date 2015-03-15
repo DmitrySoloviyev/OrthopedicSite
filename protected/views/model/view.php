@@ -29,8 +29,16 @@ $src = Models::MODEL_IMAGE_PATH . $model->picture;
             'htmlOptions' => ['class' => ''],
             'attributes' => [
                 'name',
-                'description',
-                'comment',
+                [
+                    'name' => 'description',
+                    'type' => 'html',
+                    'value' => $model->description,
+                ],
+                [
+                    'name' => 'comment',
+                    'type' => 'html',
+                    'value' => $model->comment,
+                ],
                 [
                     'name' => 'author_id',
                     'value' => $model->author->fullName(),

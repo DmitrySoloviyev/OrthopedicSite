@@ -26,7 +26,11 @@ $this->widget('bootstrap.widgets.TbGridView', [
     'filter' => $model,
     'columns' => [
         'name',
-        'description',
+        [
+            'name' => 'description',
+            'type' => 'html',
+            'value' => '$data->description',
+        ],
         [
             'name' => 'author_id',
             'value' => '$data->author->fullName()',

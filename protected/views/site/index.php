@@ -80,8 +80,8 @@ $this->pageTitle = Yii::app()->name;
             <a target="_blank" href="http://www.getyiistrap.com/">Yiistrap (Twitter Bootstrap for Yii)</a>, основанный
             на
             <a target="_blank" href="http://getbootstrap.com/">Bootstrap</a>
-            (<a href="http://getbootstrap.com/2.3.2/">v2.3.2</a>) с применением множества различных виджетов
-            <a target="_blank" href="http://yiiwheels.2amigos.us/">YiiWheels</a>.
+            (<a target="_blank" href="http://getbootstrap.com/2.3.2/">v2.3.2</a>) с применением множества различных
+            виджетов <a target="_blank" href="http://yiiwheels.2amigos.us/">YiiWheels</a>.
             Полностью адаптивный и улучшенный дизайн. А также множество других более мелких улучшений, доработок и
             исправлений.
             <p class="release_date">(xx.03.2015)</p>

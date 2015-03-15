@@ -87,7 +87,11 @@ $this->widget('ext.fancybox.EFancyBox', [
                             'date' => $order->date_modified,
                         ]),
                     ],
-                    'comment',
+                    [
+                        'name' => 'comment',
+                        'type' => 'html',
+                        'value' => $order->comment,
+                    ],
                 ],
             ]);
             ?>

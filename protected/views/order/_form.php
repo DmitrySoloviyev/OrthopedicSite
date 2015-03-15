@@ -161,7 +161,14 @@
             </div>
             <div class="row-fluid">
                 <div class="span12">
-                    <?= $form->textAreaControlGroup($order, 'comment', ['rows' => 15, 'style' => 'width:100%']); ?>
+                    <?= $form->labelEx($order, 'comment') ?>
+                    <?php $this->widget('yiiwheels.widgets.redactor.WhRedactor', [
+                        'model' => $order,
+                        'attribute' => 'comment',
+                        'pluginOptions' => [
+                            'lang' => Yii::app()->language,
+                        ],
+                    ]); ?>
                 </div>
             </div>
         </div>

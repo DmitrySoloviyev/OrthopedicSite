@@ -91,6 +91,16 @@ class Models extends CActiveRecord
         return $this->save();
     }
 
+    protected function beforeSave()
+    {
+        /** @var  $purifier CHtmlPurifier */
+        $purifier = new CHtmlPurifier();
+        $this->description = $purifier->purify($this->description);
+        $this->comment = $purifier->purify($this->comment);
+
+        return parent::beforeSave();
+    }
+
     public function search()
     {
         $criteria = new CDbCriteria;
@@ -165,13 +175,6 @@ class Models extends CActiveRecord
             'criteria' => $criteria,
             'pagination' => false,
         ]);
-    }
-
-    protected function afterFind()
-    {
-        parent::afterFind();
-        $this->comment = CHtml::encode($this->comment);
-        $this->description = CHtml::encode($this->description);
     }
 
 }

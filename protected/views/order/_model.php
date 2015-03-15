@@ -25,7 +25,7 @@ $picture = Models::MODEL_IMAGE_PATH . ($isModel ? $model->picture : 'ortho.jpg')
 </div>
 
 <div class="span12 well">
-    <p id="description"><?= is_object($model) ? $model->description : ''; ?></p>
+    <p id="description" style="text-align: justify"><?= is_object($model) ? $model->description : ''; ?></p>
     <p id="date_created">
         <?= is_object($model) ? Models::model()->getAttributeLabel('date_created') . ' : ' . $model->date_created : ''; ?>
     </p>
