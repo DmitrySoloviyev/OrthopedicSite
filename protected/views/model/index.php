@@ -30,6 +30,7 @@ $this->widget('bootstrap.widgets.TbGridView', [
             'name' => 'description',
             'type' => 'html',
             'value' => '$data->description',
+            'htmlOptions' => ['width' => '60%'],
         ],
         [
             'name' => 'author_id',
@@ -43,7 +44,7 @@ $this->widget('bootstrap.widgets.TbGridView', [
         [
             'class' => 'bootstrap.widgets.TbButtonColumn',
             'header' => 'Действия',
-            'template'=>'{view} &nbsp; {update} &nbsp; {delete}',
+            'template' => '{view} &nbsp; {update} &nbsp; {delete}',
         ],
     ],
 ]);

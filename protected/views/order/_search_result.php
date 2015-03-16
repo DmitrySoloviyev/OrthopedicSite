@@ -22,15 +22,15 @@
     <br/>
 
     <b><?= CHtml::encode($data->getAttributeLabel('author_id')); ?>:</b>
-    <?= CHtml::encode($data->author->fullName()); ?>
+    <?= $data->author->fullName(); ?>
     <br/>
 
     <b><?= CHtml::encode($data->getAttributeLabel('customer_id')); ?>:</b>
-    <?= CHtml::encode($data->customer->fullName()); ?>
+    <?= $data->customer->fullName(); ?>
     <br/>
 
-    <b><?= CHtml::encode($data->getAttributeLabel('comment')); ?>:</b>
-    <?= CHtml::encode($data->comment); ?>
+    <b><?= $data->getAttributeLabel('comment'); ?>:</b>
+    <?= $data->comment; ?>
     <br/>
 
 </div>

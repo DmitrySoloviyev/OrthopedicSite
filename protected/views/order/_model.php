@@ -16,7 +16,7 @@ $picture = Models::MODEL_IMAGE_PATH . ($isModel ? $model->picture : 'ortho.jpg')
     <?= $isModel ? 'Модель № ' . CHtml::link($model->name, ['model/view', 'id' => $model->id], ['target' => '_blank']) : 'Модель не выбрана' ?>
 </div>
 
-<div class="span12">
+<div >
     <?= TbHtml::imagePolaroid($picture, 'изображение модели', [
         'href' => $picture,
         'id' => 'picture_resource',

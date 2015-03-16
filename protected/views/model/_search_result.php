@@ -14,11 +14,11 @@
     <br/>
 
     <b><?= CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
-    <?= CHtml::encode($data->description); ?>
+    <?= $data->description; ?>
     <br/>
 
     <b><?= CHtml::encode($data->getAttributeLabel('comment')); ?>:</b>
-    <?= CHtml::encode($data->comment); ?>
+    <?= $data->comment; ?>
     <br/>
 
 </div>

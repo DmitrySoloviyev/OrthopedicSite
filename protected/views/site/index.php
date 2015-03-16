@@ -19,7 +19,7 @@ $this->pageTitle = Yii::app()->name;
     <!--
     <tr>
         <td style="vertical-align:text-top;font-size: 1.4em;"><i><b>1.0.0</b></i></td>
-        <td style="padding-bottom: 4%;">
+        <td style="padding-bottom: 4%;">Технологический прорыв!
             Портирование на <a href="http://www.yiiframework.com/">Yii 2.x.x</a> с полным сохранением существующего функционала.
             Новая база данных - <a href="http://www.postgresql.org/"> PostgreSQL</a>! Тестирование приложения при помощи
             фреймворка автоматического тестирования веб-приложений - <a href="http://codeception.com/">Codeception</a>.
@@ -82,9 +82,9 @@ $this->pageTitle = Yii::app()->name;
             <a target="_blank" href="http://getbootstrap.com/">Bootstrap</a>
             (<a target="_blank" href="http://getbootstrap.com/2.3.2/">v2.3.2</a>) с применением множества различных
             виджетов <a target="_blank" href="http://yiiwheels.2amigos.us/">YiiWheels</a>.
-            Полностью адаптивный и улучшенный дизайн. А также множество других более мелких улучшений, доработок и
+            Адаптивный и улучшенный дизайн. А также множество других более мелких улучшений, доработок и
             исправлений.
-            <p class="release_date">(xx.03.2015)</p>
+            <p class="release_date">(16.03.2015)</p>
         </td>
     </tr>
 
