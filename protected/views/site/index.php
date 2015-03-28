@@ -13,13 +13,19 @@ $this->pageTitle = Yii::app()->name;
 </div>
 
 <h4><i>Журнал разработки:</i></h4>
-<table style="line-height:1.6; padding:0 2% 1% 1%; text-align: justify;">
-    <!-- <tr><td style="vertical-align:text-top"><i>Version</i></td><td>Text</td></tr> -->
+<div style="line-height:1.6; text-align: justify;">
+    <!--
+        <div class="row-fluid">
+            <div class="span1" style="vertical-align:text-top"><i>Version</i></div>
+            <div class="span11">Text</div>
+        </div>
+    -->
 
     <!--
-    <tr>
-        <td style="vertical-align:text-top;font-size: 1.4em;"><i><b>1.0.0</b></i></td>
-        <td style="padding-bottom: 5%;">Технологический прорыв!
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top;font-size: 1.4em;"><i><b>1.0.0</b></i></div>
+        <div class="span11" style="padding-bottom: 5%;">
+            Технологический прорыв!
             Портирование на <a href="http://www.yiiframework.com/">Yii 2.x.x</a> с полным сохранением существующего функционала.
             Новая база данных - <a href="http://www.postgresql.org/"> PostgreSQL</a>! Тестирование приложения при помощи
             фреймворка автоматического тестирования веб-приложений - <a href="http://codeception.com/">Codeception</a>.
@@ -27,24 +33,24 @@ $this->pageTitle = Yii::app()->name;
             Благодаря чему, поиск информации по базе данных, генерация отчета, построение графиков статистики
             осуществляется на порядок быстрее.
             <p class="release_date">(xx.xx.2015)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
     -->
 
     <!--
-    <tr>
-        <td style="vertical-align:text-top;"><i>0.4.2</i></td>
-        <td style="padding-bottom: 1%;">
+    <div class="row-fluid">
+        <div style="vertical-align:text-top;"><i>0.4.2</i></div>
+        <div style="padding-bottom: 1%;">
             Добавлена новая тема: Material Design и переключатель, позволяющий динамически изменять тему оформления.
             На главной странице отображается виджет какусель с изображениями последних добавленных моделей.
             <p class="release_date">(xx.xx.2015)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
     -->
 
-    <tr>
-        <td style="vertical-align:text-top;"><i>0.4.1</i></td>
-        <td style="padding-bottom: 1%;">
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top;"><i>0.4.1</i></div>
+        <div class="span11" style="padding-bottom: 1%;">
             <i>Продожена работа по оптимизации производительности</i>: проведено эталонное тестирование
             и профилирование с целью верной расстановки индексов в БД. Нагрузка эмулировалась при помощи
             <a href="http://httpd.apache.org/docs/2.2/programs/ab.html">Apache Benchmark tool (ab)</a>.<br>
@@ -58,12 +64,13 @@ $this->pageTitle = Yii::app()->name;
             Если при создании нового заказа, модель не находится, выводится сообщение с предложением ее создать.
             Повышена безопасность сайта.
             <p class="release_date">(xx.xx.2015)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top;"><i>0.4</i></td>
-        <td style="padding-bottom: 5%;">Yii обновлен до версии
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top;"><i>0.4</i></div>
+        <div class="span11" style="padding-bottom: 5%;">
+            Yii обновлен до версии
             <a href="http://www.yiiframework.com/news/83/yii-1-1-16-is-released/" target="_blank">1.1.16</a>.
             Продолжена работа над улучшением архитектуры. Возможен множественный выбор материалов в заказе.
             Для использования сайта теперь необходимо обязательно авторизоваться: ввести логин и пароль (выдаются
@@ -83,12 +90,13 @@ $this->pageTitle = Yii::app()->name;
             Адаптивный и улучшенный дизайн. А также множество других более мелких улучшений, доработок и
             исправлений.
             <p class="release_date">(16.03.2015)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top;"><i>0.3</i></td>
-        <td style="padding-bottom: 5%;">Yii обновлен до версии
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top;"><i>0.3</i></div>
+        <div class="span11" style="padding-bottom: 5%;">
+            Yii обновлен до версии
             <a href="http://www.yiiframework.com/news/78/yii-1-1-15-is-released-security-fix/"
                target="_blank">1.1.15</a>.
             Каких-либо визуальных изменений
@@ -134,22 +142,24 @@ $this->pageTitle = Yii::app()->name;
             <i>Начиная с этой версии, для работы сайта требуется версия PHP не ниже 5.4.</i>
 
             <p class="release_date">(01.02.2015)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top;"><i>0.2.4</i></td>
-        <td style="padding-bottom: 1%;">Небольшая переработка структуры БД: добавлена возможность
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top;"><i>0.2.4</i></div>
+        <div class="span11" style="padding-bottom: 1%;">
+            Небольшая переработка структуры БД: добавлена возможность
             заносить свои материалы (в разделе администрирования). Вывод в разделе статистики информации о количестве
             реализованных заказов по месяцам по каждому модельеру. Для того чтобы увидеть эту информацию, необходимо
             кликнуть на название того месяца, подробности которого, вас интересуют. Небольшой багфикс.
             <p class="release_date">(18.02.2014)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top;"><i>0.2.3</i></td>
-        <td style="padding-bottom: 1%;">Корректирующий релиз.
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top;"><i>0.2.3</i></div>
+        <div class="span11" style="padding-bottom: 1%;">
+            Корректирующий релиз.
             Исправлена ошибка отображения графиков в разделе статистики при отсутствии записей в базе. Корректное
             отображение графиков, в тех случаях, когда в какой-либо день не было сделано никаких заказов. После создания
             нового заказа очищаются все поля формы. Более плавная анимация появления и исчезновения сообщений об
@@ -161,12 +171,13 @@ $this->pageTitle = Yii::app()->name;
             видоизменена страница с заказами, несколько переработана выдача поисковых результатов, ссылки сортировки
             заказов (добавлены новые) перемещены в заголовок таблицы, а также множество других мелких доработок.
             <p class="release_date">(09.01.2014)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.2.2</i></td>
-        <td style="padding-bottom: 1%;">Добавлена возможность сохранять заказы
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.2.2</i></div>
+        <div class="span11" style="padding-bottom: 1%;">
+            Добавлена возможность сохранять заказы
             в Excel за выбранный промежуток времени (реализована с помощью
             <a target="_blank" href="http://phpexcel.codeplex.com/">PHPExcel</a>)
             и графический раздел статистики (реальзован с помощью <a href="http://www.jqplot.com/">jqPlot</a>).
@@ -180,31 +191,33 @@ $this->pageTitle = Yii::app()->name;
             расширенный поиск. Полный <u><i>редизайн</i></u> сайта. Быстрый поиск вынесен из страницы всех заказов и
             теперь доступен на любой странице сайта. Небольшой багфикс.
             <p class="release_date">(17.11.2013)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.2.1</i></td>
-        <td style="padding-bottom: 1%;">Добавлены рандомные цитаты и быстрый поиск на страницу просмотра всех
-            заказов. Восстановлена подсветка слов поиска в поисковых результатах. Добавлена динамическая сортировка
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.2.1</i></div>
+        <div class="span11" style="padding-bottom: 1%;">
+            Добавлены рандомные цитаты и быстрый поиск на страницу просмотра
+            всех заказов. Восстановлена подсветка слов поиска в поисковых результатах. Добавлена динамическая сортировка
             заказов в результатах поиска и при просмотре всех заказов. Введено изображение по умолчанию для моделей,
             поиск заказов по комментарию, а также множество других исправлений, изменений и улучшений, делающие данную
             сборку весьма стабильной.
             <p class="release_date">(03.11.2013)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr class="infoMessage">
-        <td style="vertical-align:text-top; padding: 1% 0;"><i><b>Сообщение:</b></i></td>
-        <td style="padding: 1% 0;"><b> Состоялся <u>релиз</u> приложения для Android по работе с базой данных -
+    <div class="infoMessage">
+        <div style="vertical-align:text-top; padding: 1% 0;"><i><b>Сообщение:</b></i></div>
+        <div style="padding: 1% 0;"><b> Состоялся <u>релиз</u> приложения для Android по работе с базой данных -
                 <a href="<?= Yii::app()->request->baseUrl; ?>/upload/OrthopedicDB.apk"><i>OrthopedicDB</i></a>
                 (текущая версия 1.0).</b>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top;"><i>0.2</i></td>
-        <td style="padding-bottom: 5%;">Вновь проведена серьезная переработка сайта - сайт переписан под
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top;"><i>0.2</i></div>
+        <div class="span11" style="padding-bottom: 5%;">
+            Вновь проведена серьезная переработка сайта - сайт переписан под
             <a href="http://www.yiiframework.com/">Yii</a>, что делает его модульным и легко расширяемым.
             Изменено хранение информации о модели в БД:
             вынесено хранение изображения модели из БД (размер изображения больше не важен, изображения хранятся в папке
@@ -217,27 +230,28 @@ $this->pageTitle = Yii::app()->name;
             стал перетаскиваемым и многое другое. Множество различных изменений и улучшений, в общей сложности
             переработан весь сайт с верху донизу. Have fun!
             <p class="release_date">(23.09.2013)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr class="infoMessage">
-        <td style="vertical-align:text-top; padding: 1% 0;"><i><b>Сообщение:</b></i></td>
-        <td style="padding: 1% 0;"><b> Доступна бета-версия приложения для Android по работе с базой данных -
+    <div class="infoMessage">
+        <div style="vertical-align:text-top; padding: 1% 0;"><i><b>Сообщение:</b></i></div>
+        <div style="padding: 1% 0;"><b> Доступна бета-версия приложения для Android по работе с базой данных -
                 <a href="<?= Yii::app()->request->baseUrl; ?>/upload/OrthopedicDB.apk"><i>OrthopedicDB</i></a>
                 (текущая версия 0.9.1).</b>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.6.1</i></td>
-        <td>Добавлен плагин jQuery FancyBox. Доработано автозаполнение для графы "Модель". Upstream Changes.
-            <p class="release_date">(02.04.2013)</p>
-        </td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.6.1</i></div>
+        <div class="span11">Добавлен плагин jQuery FancyBox. Доработано автозаполнение для графы "Модель".
+            Upstream Changes. <p class="release_date">(02.04.2013)</p>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.6</i></td>
-        <td>Фундаментальные переработка в структуре Базы Данных и, как
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.6</i></div>
+        <div class="span11">
+            Фундаментальные переработка в структуре Базы Данных и, как
             следствие, всего сайта. Добавлены отдельные таблицы: "Высота" со значениями от 7 до 40 и значением 0
             (указывает на отсутствие значения),"КВ" со значениями от 15 до 70, "Объем Лодыжки" от 10 до 50,
             "Объем верха" от 10 до 50 и таблица для Моделей. Изменено значение номера заказа, теперь принимает значения
@@ -253,177 +267,197 @@ $this->pageTitle = Yii::app()->name;
             поиска этого сделать нельзя). Добавлен циклический просмотр моделей. Исправлен баг, возникающий при удалении
             заказа из таблицы с номером, отличным от цифр, а так же другие мелкие исправления и наработки.
             <p class="release_date">(31.03.2013)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.5.8</i></td>
-        <td>Усовершенствован поиск, стал более гибким (принимает
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.5.8</i></div>
+        <div class="span11">
+            Усовершенствован поиск, стал более гибким (принимает
             по несколько значений, в том числе интервалы значений). В таблицу добавлен столбец "длина УРК". Добавлена
             возможность в любое время производить оптимизацию базы данных. Некоторые существенные исправления, в том
             числе исправлено удаление всех заказов из таблицы при удалении сотрудника, сделавшего их. Коррекция внешнего
             вида, доработана подсветка слов при поиске. Добавлен .htaccess для настройки сервера.
             <p class="release_date">(20.03.2013)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.5.7</i></td>
-        <td>Подсветка ключевых слов по которым осуществлен поиск. Добавлена
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.5.7</i></div>
+        <div class="span11">
+            Подсветка ключевых слов по которым осуществлен поиск. Добавлена
             и отлажена верификация заполения формы при редактировании записей. Немного модифицирован интерфейс для боле
             комфортной работы. Множество мелких, а так же серьезных исправлений и доработок, переработана в той или иной
             степени почти каждая составляющая сайта.
             <p class="release_date">(13.03.2013)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.5.6</i></td>
-        <td> Проверка заполнения форм до отправки. Исправлено автозаполнение
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.5.6</i></div>
+        <div class="span11">
+            Проверка заполнения форм до отправки. Исправлено автозаполнение
             комментариев, внесено множество некоторых исправлений. Добавлена поддержка возможностей JavaScript с
             применением библиотеки <a href="http://jquery.com/">jQuery</a>!
             <p class="release_date">(04.03.2013)</p>
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.5.5</i></td>
-        <td> Добавлены различные виды меха в графу "материал". Добавлена возможность редактировать номер заказа.
-        </td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.5.5</i></div>
+        <div class="span11">
+            Добавлены различные виды меха в графу "материал". Добавлена возможность редактировать номер заказа.
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.5.4</i></td>
-        <td>Поддержка работы сайта под сервером в ОС Windows: исправлены
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.5.4</i></div>
+        <div class="span11">Поддержка работы сайта под сервером в ОС Windows: исправлены
             недочеты, свойственные при работе под этой ОС. Исправлены некоторые ошибки прошлых версий.
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td><i>0.1.5.3</i></td>
-        <td>Исправлены недочеты поиска. Поиск стал более гибким и точным.</td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1"><i>0.1.5.3</i></div>
+        <div class="span11">Исправлены недочеты поиска. Поиск стал более гибким и точным.</div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.5.2</i></td>
-        <td>Убраны всплывающие подсказки при регистрации, увеличено
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.5.2</i></div>
+        <div class="span11">
+            Убраны всплывающие подсказки при регистрации, увеличено
             количество символов в форме ФИО, убраны обязательные поля при поиске. Добавлено автозаполнение в поле
             "модель". Исправлены некоторые недочеты, подправлен внешний вид.
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td><i>0.1.5.1</i></td>
-        <td>Поддержка UTF-8. Исправлены недочеты при добавлении нового и удалении старого сотрудника.</td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1"><i>0.1.5.1</i></div>
+        <div class="span11">
+            Поддержка UTF-8. Исправлены недочеты при добавлении нового и удалении старого сотрудника.
+        </div>
+    </div>
 
-    <tr>
-        <td><i>0.1.5</i></td>
-        <td>Добавлен раздел с HOWTO для сотрудников, корректировка вывода ошибок в лог и на экран.</td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1"><i>0.1.5</i></div>
+        <div class="span11">
+            Добавлен раздел с HOWTO для сотрудников, корректировка вывода ошибок в лог и на экран.
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.4.9</i></td>
-        <td>Добавлена сортировка по количеству строк при просмотре БД. Немного
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.4.9</i></div>
+        <div class="span11">
+            Добавлена сортировка по количеству строк при просмотре БД. Немного
             поправлено восстановление из резервной копии. Реализована функция "Сохранить как". Удалено "загрузка таблицы
             из файла" т.к в ней нет необходимости. Повышена безопасность.
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.4.8</i></td>
-        <td>Переделан и доработан режим сохранения таблицы (одной таблицы) в
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.4.8</i></div>
+        <div class="span11">
+            Переделан и доработан режим сохранения таблицы (одной таблицы) в
             файл (STABLE). Добавлена возможность сохранения ВСЕЙ Базы Данных (резервное копирование), а так же
             возможность восстановления базы из резервной копии. Доступна кнопка удаления всех заказов.
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.4.7</i></td>
-        <td>Исправлена ошибка при сохранении таблицы в файл, если тот уже
-            существует. Исправлены мелкие недочеты и ошибки.
-        </td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.4.7</i></div>
+        <div class="span11">
+            Исправлена ошибка при сохранении таблицы в файл, если тот уже существует.
+            Исправлены мелкие недочеты и ошибки.
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.4.6</i></td>
-        <td>Исправлена ошибка дробных чисел в базе. Исправлен и оптимизирован
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.4.6</i></div>
+        <div class="span11">
+            Исправлена ошибка дробных чисел в базе. Исправлен и оптимизирован
             поиск по базе данных. Небольшой багфикс, сокращено количество строк кода.
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.4.5</i></td>
-        <td>Исправлена ошибка зацикливания, приводящая к невозможности
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.4.5</i></div>
+        <div class="span11">
+            Исправлена ошибка зацикливания, приводящая к невозможности
             пользоваться БД. Предусмотрено автоматическое создание таблиц БД при самом первом посещении сотрудника.
             Доступна возможность удалить сотрудника из базы.
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.4.4</i></td>
-        <td>Исправлены ошибки при редактировании (STABLE) и удалении записей,
-            а так же ошибки связанные с ФИО заказчиков и сотрудников. Немного пофиксил дизайн.
-        </td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.4.4</i></div>
+        <div class="span11">
+            Исправлены ошибки при редактировании (STABLE) и удалении записей, а так же ошибки связанные с
+            ФИО заказчиков и сотрудников. Немного пофиксил дизайн.
+        </div>
+    </div>
 
-    <tr>
-        <td><i>0.1.4.3</i></td>
-        <td>Добавлена упрощенная форма регистрации сотрудников.</td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1"><i>0.1.4.3</i></div>
+        <div class="span11">Добавлена упрощенная форма регистрации сотрудников.</div>
+    </div>
 
-    <tr>
-        <td><i>0.1.4.2</i></td>
-        <td>Повышена производительность БД за счет оптимизации запросов. Исправлены некоторые недочеты и
-            ошибки.
-        </td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1"><i>0.1.4.2</i></div>
+        <div class="span11">
+            Повышена производительность БД за счет оптимизации запросов. Исправлены некоторые недочеты и ошибки.
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.4.1</i></td>
-        <td>Глобальное изменение сайта. Полностью переработанная и обновленная
-            БД. Добавлена поддержка транзакций в запросах. Увеличение производительности базы за счет переработки.
-        </td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.4.1</i></div>
+        <div class="span11">
+            Глобальное изменение сайта. Полностью переработанная и обновленная БД.
+            Добавлена поддержка транзакций в запросах. Увеличение производительности базы за счет переработки.
+        </div>
+    </div>
 
-    <tr>
-        <td><i>0.1.3.1</i></td>
-        <td>Добавлена возможность редактирования записей в БД (alfa)</td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1"><i>0.1.3.1</i></div>
+        <div class="span11">Добавлена возможность редактирования записей в БД (alfa)</div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1.3</i></td>
-        <td>Добавлен лог ошибок. Возможность сохранения записей из БД в файл
-            (alfa). Активирована кнопки печати. Подправлены стили и логика сайта.
-        </td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1.3</i></div>
+        <div class="span11">Добавлен лог ошибок. Возможность сохранения записей из БД в файл (alfa).
+            Активирована кнопки печати. Подправлены стили и логика сайта.
+        </div>
+    </div>
 
-    <tr>
-        <td><i>0.1.2</i></td>
-        <td>Обширный багфикс.</td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1"><i>0.1.2</i></div>
+        <div class="span11">Обширный багфикс.</div>
+    </div>
 
-    <tr>
-        <td><i>0.1.1</i></td>
-        <td>Общая оптимизация за счет сокращения строк кода, исправления множества недочетов и ошибок.</td>
-    </tr>
+    <div class="row-fluid">
+        <div class="span1"><i>0.1.1</i></div>
+        <div class="span11">
+            Общая оптимизация за счет сокращения строк кода, исправления множества недочетов и ошибок.
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.1</i></td>
-        <td>Первый, почти стабильный релиз с минимум возможностей.
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.1</i></div>
+        <div class="span11">
+            Первый, почти стабильный релиз с минимум возможностей.
             (практически все полностью переделано в версии 0.1.4.1)
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td style="vertical-align:text-top"><i>0.0.9</i></td>
-        <td>Технические наработки закончены. Сайт менялся часто и переписывался.
+    <div class="row-fluid">
+        <div class="span1" style="vertical-align:text-top"><i>0.0.9</i></div>
+        <div class="span11">
+            Технические наработки закончены. Сайт менялся часто и переписывался.
             Введен базовый временный стиль страницы. Переделаны пункты меню и навигации. Добавлены иконки and etc.
-        </td>
-    </tr>
+        </div>
+    </div>
 
-    <tr>
-        <td><i>0.0.8</i></td>
-        <td>Введена нумерация версий.</td>
-    </tr>
-</table>
+    <div class="row-fluid">
+        <div class="span1"><i>0.0.8</i></div>
+        <div class="span11">Введена нумерация версий.</div>
+    </div>
+</div>
