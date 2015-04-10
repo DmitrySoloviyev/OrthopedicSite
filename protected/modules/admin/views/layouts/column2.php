@@ -15,6 +15,7 @@
             ['label' => 'База данных'],
             ['label' => 'Резервирование', 'url' => '/admin/db/backup', 'class' => 'nav nav-list'],
             ['label' => 'Восстановление', 'url' => '/admin/db/restore', 'class' => 'nav nav-list'],
+            ['label' => 'Производительность', 'url' => '/admin/db/optimize', 'class' => 'nav nav-list'],
             TbHtml::menuDivider(),
             ['label' => 'Отчеты'],
             ['label' => 'Все заказы', 'url' => '/admin/report/index', 'class' => 'nav nav-list'],

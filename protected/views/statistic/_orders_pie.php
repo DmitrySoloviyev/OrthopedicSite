@@ -22,7 +22,7 @@ $this->widget('ext.jqplot.JqplotGraphWidget', [
             ]
         ],
         'legend' => [
-            'show' => 'true',
+            'show' => true,
             'location' => 'ne',
             'rendererOptions' => [
                 'numberRows' => 2,

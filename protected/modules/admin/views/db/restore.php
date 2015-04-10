@@ -34,9 +34,6 @@ echo TbHtml::alert(TbHtml::ALERT_COLOR_WARNING, 'Загрузите получе
             'color' => TbHtml::BUTTON_COLOR_WARNING,
             'name' => 'restoreBtn',
         ]),
-        TbHtml::resetButton('Очистить', [
-            'color' => TbHtml::BUTTON_COLOR_DEFAULT,
-        ]),
     ]); ?>
 
     <?php $this->endWidget(); ?>

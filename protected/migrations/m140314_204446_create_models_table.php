@@ -19,6 +19,9 @@ class m140314_204446_create_models_table extends CDbMigration
 
         $this->addForeignKey('fk_models_author_id_user', 'models', 'author_id', 'users', 'id');
         $this->addForeignKey('fk_models_modified_by_user', 'models', 'modified_by', 'users', 'id');
+
+        $this->createIndex('index_models_date_created', 'models', 'date_created');
+        $this->createIndex('index_models_is_deleted', 'models', 'is_deleted');
     }
 
     public function safeDown()

@@ -30,7 +30,7 @@ return CMap::mergeArray(
                 'charset' => 'utf8mb4',
                 'enableProfiling' => true,
                 'enableParamLogging' => true,
-                'schemaCachingDuration' => 0,
+                'schemaCachingDuration' => 3600,
             ],
             'log' => [
                 'class' => 'CLogRouter',

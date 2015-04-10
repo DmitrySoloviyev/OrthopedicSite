@@ -42,7 +42,7 @@
                             'autocomplete' => 'Off',
                             'maxlength' => '6',
                             'size' => 27,
-                            'span' => 5
+                            'class' => 'span5',
                         ],
                     ]); ?>
                     <?= $form->hiddenField($order, 'model_id'); ?>

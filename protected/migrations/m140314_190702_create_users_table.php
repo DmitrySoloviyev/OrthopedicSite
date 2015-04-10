@@ -16,6 +16,7 @@ class m140314_190702_create_users_table extends CDbMigration
             'date_created' => 'datetime not null',
             'is_deleted' => 'boolean not null default 0',
         ], 'engine=innodb default charset=utf8mb4');
+        $this->createIndex('index_users_is_deleted', 'users', 'is_deleted');
 
         $this->insert('users', [
             'login' => 'admin',

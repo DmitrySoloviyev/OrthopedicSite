@@ -17,6 +17,10 @@ class m140314_191914_create_materials_table extends CDbMigration
         $this->addForeignKey('fk_materials_author_id_user', 'materials', 'author_id', 'users', 'id');
         $this->addForeignKey('fk_materials_modified_by_user', 'materials', 'modified_by', 'users', 'id');
 
+        $this->createIndex('index_materials_title', 'materials', 'title');
+        $this->createIndex('index_materials_date_created', 'materials', 'date_created');
+        $this->createIndex('index_materials_is_deleted', 'materials', 'is_deleted');
+
         $this->insertMultiple('materials', [
             ['title' => 'К/П', 'author_id' => 1, 'modified_by' => 1, 'date_created' => new CDbExpression('NOW()'), 'date_modified' => new CDbExpression('NOW()')],
             ['title' => 'Траспира', 'author_id' => 1, 'modified_by' => 1, 'date_created' => new CDbExpression('NOW()'), 'date_modified' => new CDbExpression('NOW()')],

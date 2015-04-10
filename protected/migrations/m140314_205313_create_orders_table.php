@@ -35,6 +35,8 @@ class m140314_205313_create_orders_table extends CDbMigration
         $this->addForeignKey('fk_orders_modified_by_user', 'orders', 'modified_by', 'users', 'id');
 
         $this->createIndex('unique_order_name', 'orders', 'order_name', true);
+        $this->createIndex('index_orders_date_created', 'orders', 'date_created');
+        $this->createIndex('index_orders_is_deleted', 'orders', 'is_deleted');
     }
 
     public function safeDown()
