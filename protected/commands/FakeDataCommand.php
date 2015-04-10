@@ -29,7 +29,6 @@ class FakeDataCommand extends CConsoleCommand
         }
         echo "OK\r\n";
 
-        gc_collect_cycles();
         sleep(2);
 
         echo "Материалы... ";
@@ -51,13 +50,13 @@ class FakeDataCommand extends CConsoleCommand
         echo "Модели... ";
         for ($i = 0; $i <= 200000; $i++) {
             $command->insert('models', [
-                'name' => 'Модель ' . $i,
+                'name' => 'M' . $i,
                 'description' => $this->randString(rand(400, 600)),
                 'comment' => $this->randString(rand(400, 600)),
                 'author_id' => rand(1, 100),
                 'modified_by' => rand(1, 100),
-                'date_created' => new CDbExpression('timestamp(NOW()) - INTERVAL FLOOR( RAND( ) * 566) DAY'),
-                'date_modified' => new CDbExpression('timestamp(NOW()) - INTERVAL FLOOR( RAND( ) * 566) DAY'),
+                'date_created' => new CDbExpression('timestamp(NOW()) - INTERVAL FLOOR( RAND( ) * 965) DAY'),
+                'date_modified' => new CDbExpression('timestamp(NOW()) - INTERVAL FLOOR( RAND( ) * 965) DAY'),
                 'is_deleted' => rand(0, 1),
             ]);
         }
@@ -82,7 +81,7 @@ class FakeDataCommand extends CConsoleCommand
         echo "Заказы... ";
         for ($i = 0; $i <= 500000; $i++) {
             $command->insert('orders', [
-                'order_name' => '№ ' . $i,
+                'order_name' => 'Z' . $i,
                 'model_id' => rand(1, 200000),
                 'size_left' => rand(15, 49),
                 'size_right' => rand(15, 49),
@@ -100,8 +99,8 @@ class FakeDataCommand extends CConsoleCommand
                 'customer_id' => rand(1, 500000),
                 'author_id' => rand(1, 100),
                 'modified_by' => rand(1, 100),
-                'date_created' => new CDbExpression('timestamp(NOW()) - INTERVAL FLOOR( RAND( ) * 865) DAY'),
-                'date_modified' => new CDbExpression('timestamp(NOW()) - INTERVAL FLOOR( RAND( ) * 865) DAY'),
+                'date_created' => new CDbExpression('timestamp(NOW()) - INTERVAL FLOOR( RAND( ) * 965) DAY'),
+                'date_modified' => new CDbExpression('timestamp(NOW()) - INTERVAL FLOOR( RAND( ) * 965) DAY'),
                 'is_deleted' => rand(0, 1),
             ]);
             $command->insert('orders_materials', [
@@ -125,12 +124,13 @@ class FakeDataCommand extends CConsoleCommand
     {
         $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         $size = strlen($chars);
-        $str = '';
+        $str = '<p>';
         for ($i = 0; $i < $length; $i++) {
             $str .= $chars[rand(0, $size - 1)];
             if ($i % 6 == 0)
                 $str .= ' ';
         }
+        $str .= '</p>';
 
         return $str;
     }
