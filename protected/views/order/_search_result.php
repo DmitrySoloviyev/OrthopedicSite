@@ -8,7 +8,6 @@
 ?>
 
 <div class="view">
-
     <b><?= CHtml::encode($data->getAttributeLabel('order_name')); ?>:</b>
     <?= CHtml::link(CHtml::encode($data->order_name), ['order/view', 'id' => $data->id]); ?>
     <br/>
@@ -33,5 +32,7 @@
     <?= $data->comment; ?>
     <br/>
 
+    <b><?= CHtml::encode($data->getAttributeLabel('date_created')); ?>:</b>
+    <?= $data->hiddmmyyyy($data->date_created) ?>
+    <br/>
 </div>
-<hr>

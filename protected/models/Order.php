@@ -383,7 +383,6 @@ class Order extends CActiveRecord
             'author', 'customer', 'model',
         ];
         $criteria->compare('t.order_name', $query, true, 'OR');
-        $criteria->compare('t.model_id', $query, true, 'OR');
         $criteria->compare('t.size_left', $query, true, 'OR');
         $criteria->compare('t.size_right', $query, true, 'OR');
         $criteria->compare('t.urk_left', $query, true, 'OR');
@@ -406,6 +405,8 @@ class Order extends CActiveRecord
 
         $ordersMaterials = $this->findByMaterial($query);
         $criteria->addInCondition('t.id', CHtml::listData($ordersMaterials, 'order_id', 'order_id'), 'OR');
+        $criteria->order = 't.date_created desc';
+        $criteria->limit = 1000;
 
         return new CActiveDataProvider($this, [
             'criteria' => $criteria,

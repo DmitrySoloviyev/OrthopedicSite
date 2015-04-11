@@ -44,13 +44,14 @@ div.form .rememberMe label {
 
 div.view {
     padding: 20px;
-    margin: 20px 0;
-    line-height:1.6;
+    margin: 10px 0;
+    line-height: 1.6;
     text-align: justify;
 }
 
 div.view p {
     margin: 0;
+    display: inline;
 }
 
 div.breadcrumbs {

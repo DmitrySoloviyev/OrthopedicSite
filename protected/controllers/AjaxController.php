@@ -21,6 +21,8 @@ class AjaxController extends Controller
         $criteria->select = 'id, name';
         $criteria->compare('name', $term, true);
         $criteria->compare('is_deleted', 0);
+        $criteria->order = 'date_created desc';
+        $criteria->limit = 30;
         $models = Models::model()->findAll($criteria);
         $result = [];
         foreach ($models as $model) {

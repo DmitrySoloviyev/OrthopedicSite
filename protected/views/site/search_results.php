@@ -15,21 +15,19 @@
                 var query = $('#query').text();
                 var searchResults = $('#searchResults');
                 var text = searchResults.html();
-                var regexp = new RegExp(query, 'gim');
+                var regexp = new RegExp('('+query+')(?!.*\">)', 'gim');
 
                 if (query != '') {
                     searchResults.html(
-                        text.replace(regexp, '<span class=\"highlight\">$&</span>')
+                        text.replace(regexp, '<span class=\"highlight\">$1</span>')
                     );
                 }
             ", CClientScript::POS_END);
             echo '<b class="label_title">' . $result->model->showSearchResults() . '</b>';
-            echo '<br>';
             $this->widget('bootstrap.widgets.TbListView', [
                 'dataProvider' => $result,
                 'itemView' => '/' . $result->model->viewDir() . '/_search_result',
-                'summaryText' => false,
-                'emptyText' => false,
+                'emptyText' => '<span style="padding-left: 20px">Ничего не найдено :(</span>',
                 'template' => '{items}',
             ]);
         }

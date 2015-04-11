@@ -8,6 +8,30 @@
  */
 class SiteController extends Controller
 {
+    public function filters()
+    {
+        return [
+            'accessControl',
+        ];
+    }
+
+    public function accessRules()
+    {
+        return [
+            ['allow',
+                'actions' => ['search'],
+                'users' => ['@'],
+            ],
+            ['allow',
+                'actions' => ['index', 'about', 'error'],
+                'users' => ['*'],
+            ],
+            ['deny',
+                'users' => ['*'],
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
         $this->render('index');
@@ -20,13 +44,16 @@ class SiteController extends Controller
 
     public function actionSearch()
     {
-        if (isset($_POST['search'])) {
-            $searchForm = new SearchForm();
-            $searchForm->query = $_POST['search'];
-            $results = $searchForm->search();
+        $searchQuery = Yii::app()->request->getParam('search', false);
+        $results = [];
 
-            $this->render('search_results', ['query' => $searchForm->query, 'results' => $results]);
+        if ($searchQuery) {
+            $searchForm = new SearchForm();
+            $searchForm->query = $searchQuery;
+            $results = $searchForm->search();
         }
+
+        $this->render('search_results', ['query' => $searchQuery, 'results' => $results]);
     }
 
     /**

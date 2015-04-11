@@ -54,7 +54,7 @@
                     ['label' => 'Выйти (' . Yii::app()->user->login . ')', 'url' => ['/user/logout'], 'visible' => !Yii::app()->user->isGuest]
                 ]
             ],
-            TbHtml::navbarSearchForm(['site/search'], 'post', [
+            TbHtml::navbarSearchForm(['site/search'], 'get', [
                 'class' => 'pull-right',
                 'autocomplete' => 'off',
             ]),

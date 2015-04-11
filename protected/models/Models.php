@@ -170,6 +170,8 @@ class Models extends CActiveRecord
         $criteria->compare('author.name', $this->author_id, true, 'OR');
         $criteria->compare('author.patronymic', $this->author_id, true, 'OR');
         $criteria->compare('t.is_deleted', 0);
+        $criteria->order = 't.date_created desc';
+        $criteria->limit = 1000;
 
         return new CActiveDataProvider($this, [
             'criteria' => $criteria,
