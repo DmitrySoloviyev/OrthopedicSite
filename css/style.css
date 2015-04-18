@@ -268,3 +268,13 @@ h3 + p {
     color: #DB4928;
     font-size: 18px;
 }
+
+.news {
+    display: none;
+}
+
+#showOldNews {
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+}

@@ -6,7 +6,14 @@
  * Time: 0:34
  */
 $this->pageTitle = Yii::app()->name;
-?>
+Yii::app()->clientScript->registerScript('showOldNews', "
+$('#showOldNews').click(function() {
+    $('.news').fadeIn();
+    $(this).fadeOut();
+
+    return false;
+});
+", CClientScript::POS_END); ?>
 
 <div style="padding: 4px">
     <?php $this->widget('ext.quote-widget.Quote'); ?>
@@ -15,14 +22,14 @@ $this->pageTitle = Yii::app()->name;
 <h4><i>Журнал разработки:</i></h4>
 <div style="line-height:1.6; text-align: justify;">
     <!--
-        <div class="row-fluid">
+        <div class="row-fluid news">
             <div class="span1" style="vertical-align:text-top"><i>Version</i></div>
             <div class="span11">Text</div>
         </div>
     -->
 
     <!--
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top;font-size: 1.4em;"><i><b>1.0.0</b></i></div>
         <div class="span11" style="padding-bottom: 5%;">
             Технологический прорыв!
@@ -38,7 +45,7 @@ $this->pageTitle = Yii::app()->name;
     -->
 
     <!--
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div style="vertical-align:text-top;"><i>0.4.2</i></div>
         <div style="padding-bottom: 1%;">
             Добавлена новая тема: Material Design и переключатель, позволяющий динамически изменять тему оформления.
@@ -67,8 +74,8 @@ $this->pageTitle = Yii::app()->name;
             <p class="release_date">(xx.06.2015)</p>
         </div>
     </div>
-
-    <div class="row-fluid">
+<a id="showOldNews" href="#">Показать предыдущие записи</a>
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top;"><i>0.4</i></div>
         <div class="span11" style="padding-bottom: 5%;">
             Yii обновлен до версии
@@ -94,7 +101,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top;"><i>0.3</i></div>
         <div class="span11" style="padding-bottom: 5%;">
             Yii обновлен до версии
@@ -146,7 +153,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top;"><i>0.2.4</i></div>
         <div class="span11" style="padding-bottom: 1%;">
             Небольшая переработка структуры БД: добавлена возможность
@@ -157,7 +164,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top;"><i>0.2.3</i></div>
         <div class="span11" style="padding-bottom: 1%;">
             Корректирующий релиз.
@@ -175,7 +182,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.2.2</i></div>
         <div class="span11" style="padding-bottom: 1%;">
             Добавлена возможность сохранять заказы
@@ -195,7 +202,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.2.1</i></div>
         <div class="span11" style="padding-bottom: 1%;">
             Добавлены рандомные цитаты и быстрый поиск на страницу просмотра
@@ -207,7 +214,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="infoMessage row-fluid">
+    <div class="infoMessage row-fluid news">
         <div class="span1" style="vertical-align:text-top; padding: 1% 0;"><i><b>Сообщение:</b></i></div>
         <div class="span11" style="padding: 1% 0;"><b> Состоялся <u>релиз</u> приложения для Android по работе с базой данных -
                 <a href="<?= Yii::app()->request->baseUrl; ?>/upload/OrthopedicDB.apk"><i>OrthopedicDB</i></a>
@@ -215,7 +222,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top;"><i>0.2</i></div>
         <div class="span11" style="padding-bottom: 5%;">
             Вновь проведена серьезная переработка сайта - сайт переписан под
@@ -234,7 +241,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="infoMessage row-fluid">
+    <div class="infoMessage row-fluid news">
         <div class="span1" style="vertical-align:text-top; padding: 1% 0;"><i><b>Сообщение:</b></i></div>
         <div class="span11" style="padding: 1% 0;"><b> Доступна бета-версия приложения для Android по работе с базой данных -
                 <a href="<?= Yii::app()->request->baseUrl; ?>/upload/OrthopedicDB.apk"><i>OrthopedicDB</i></a>
@@ -242,14 +249,14 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.6.1</i></div>
         <div class="span11">Добавлен плагин jQuery FancyBox. Доработано автозаполнение для графы "Модель".
             Upstream Changes. <p class="release_date">(02.04.2013)</p>
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.6</i></div>
         <div class="span11">
             Фундаментальные переработка в структуре Базы Данных и, как
@@ -271,7 +278,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.5.8</i></div>
         <div class="span11">
             Усовершенствован поиск, стал более гибким (принимает
@@ -283,7 +290,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.5.7</i></div>
         <div class="span11">
             Подсветка ключевых слов по которым осуществлен поиск. Добавлена
@@ -294,7 +301,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.5.6</i></div>
         <div class="span11">
             Проверка заполнения форм до отправки. Исправлено автозаполнение
@@ -304,26 +311,26 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.5.5</i></div>
         <div class="span11">
             Добавлены различные виды меха в графу "материал". Добавлена возможность редактировать номер заказа.
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.5.4</i></div>
         <div class="span11">Поддержка работы сайта под сервером в ОС Windows: исправлены
             недочеты, свойственные при работе под этой ОС. Исправлены некоторые ошибки прошлых версий.
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1"><i>0.1.5.3</i></div>
         <div class="span11">Исправлены недочеты поиска. Поиск стал более гибким и точным.</div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.5.2</i></div>
         <div class="span11">
             Убраны всплывающие подсказки при регистрации, увеличено
@@ -332,21 +339,21 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1"><i>0.1.5.1</i></div>
         <div class="span11">
             Поддержка UTF-8. Исправлены недочеты при добавлении нового и удалении старого сотрудника.
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1"><i>0.1.5</i></div>
         <div class="span11">
             Добавлен раздел с HOWTO для сотрудников, корректировка вывода ошибок в лог и на экран.
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.4.9</i></div>
         <div class="span11">
             Добавлена сортировка по количеству строк при просмотре БД. Немного
@@ -355,7 +362,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.4.8</i></div>
         <div class="span11">
             Переделан и доработан режим сохранения таблицы (одной таблицы) в
@@ -364,7 +371,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.4.7</i></div>
         <div class="span11">
             Исправлена ошибка при сохранении таблицы в файл, если тот уже существует.
@@ -372,7 +379,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.4.6</i></div>
         <div class="span11">
             Исправлена ошибка дробных чисел в базе. Исправлен и оптимизирован
@@ -380,7 +387,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.4.5</i></div>
         <div class="span11">
             Исправлена ошибка зацикливания, приводящая к невозможности
@@ -389,7 +396,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.4.4</i></div>
         <div class="span11">
             Исправлены ошибки при редактировании (STABLE) и удалении записей, а так же ошибки связанные с
@@ -397,19 +404,19 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1"><i>0.1.4.3</i></div>
         <div class="span11">Добавлена упрощенная форма регистрации сотрудников.</div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1"><i>0.1.4.2</i></div>
         <div class="span11">
             Повышена производительность БД за счет оптимизации запросов. Исправлены некоторые недочеты и ошибки.
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.4.1</i></div>
         <div class="span11">
             Глобальное изменение сайта. Полностью переработанная и обновленная БД.
@@ -417,31 +424,31 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1"><i>0.1.3.1</i></div>
         <div class="span11">Добавлена возможность редактирования записей в БД (alfa)</div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1.3</i></div>
         <div class="span11">Добавлен лог ошибок. Возможность сохранения записей из БД в файл (alfa).
             Активирована кнопки печати. Подправлены стили и логика сайта.
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1"><i>0.1.2</i></div>
         <div class="span11">Обширный багфикс.</div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1"><i>0.1.1</i></div>
         <div class="span11">
             Общая оптимизация за счет сокращения строк кода, исправления множества недочетов и ошибок.
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.1</i></div>
         <div class="span11">
             Первый, почти стабильный релиз с минимум возможностей.
@@ -449,7 +456,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1" style="vertical-align:text-top"><i>0.0.9</i></div>
         <div class="span11">
             Технические наработки закончены. Сайт менялся часто и переписывался.
@@ -457,7 +464,7 @@ $this->pageTitle = Yii::app()->name;
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid news">
         <div class="span1"><i>0.0.8</i></div>
         <div class="span11">Введена нумерация версий.</div>
     </div>
