@@ -176,19 +176,6 @@ class Order extends CActiveRecord
         return $list;
     }
 
-    function has_next($array)
-    {
-        if (is_array($array)) {
-            if (next($array) === false) {
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
-
     public function search()
     {
         $criteria = new CDbCriteria;
@@ -442,6 +429,54 @@ class Order extends CActiveRecord
     public function kvVolumesValues($delimiter = ',', $nameLeft = 'левый', $nameRight = 'правый')
     {
         return $this->kv_volume_left . ' ' . $nameLeft . $delimiter . ' ' . $this->kv_volume_right . ' ' . $nameRight;
+    }
+
+    /**
+     * Выгрузка для отчета
+     * @param $from
+     * @param $to
+     * @return mixed
+     */
+    public static function report($from, $to)
+    {
+        $sql = '
+            select
+                o.id as "order_id",
+                o.order_name as "№ Заказа",
+                m.id as "model_id",
+                m.name as "Модель",
+                (
+                  select GROUP_CONCAT(mat.title SEPARATOR ", ")
+                  from materials mat
+                  join orders_materials om on om.material_id=mat.id
+                  where om.order_id=o.id
+                ) as "Материал",
+                o.size_left as "Размер левый",
+                o.size_right as "Размер правый",
+                o.urk_left as "Урк левый",
+                o.urk_right as "Урк правый",
+                o.height_left as "Высота левая",
+                o.height_right as "Высота правая",
+                o.top_volume_left as "Объем верха левый",
+                o.top_volume_right as "Объем верха правый",
+                o.ankle_volume_left as "Объем лодыжки левый",
+                o.ankle_volume_right as "Объем лодыжки правый",
+                o.kv_volume_left as "Объем КВ левый",
+                o.kv_volume_right as "Объем КВ правый",
+                CONCAT_WS(" ", u.surname, u.name, u.patronymic) as "Автор",
+                CONCAT_WS(" ", c.surname, c.name, c.patronymic) as "Заказчик",
+                o.comment as "Комментарий",
+                o.date_created as "Дата создания",
+                o.is_deleted as "Удалено"
+            from orders o
+            join users u on u.id = o.author_id
+            join customers c on c.id = o.customer_id
+            join models m on m.id = o.model_id
+            where o.date_created BETWEEN "' . $from . '" AND "' . $to . '"
+            order by o.date_created desc
+        ';
+
+        return Yii::app()->db->createCommand($sql)->queryAll();
     }
 
 }

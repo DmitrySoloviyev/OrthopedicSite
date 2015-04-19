@@ -135,6 +135,7 @@ return [
                     ],
                     'pluginOptions' => [
                         'language' => 'ru',
+                        'format' => 'yyyy-mm-dd'
                     ],
                 ],
                 'CActiveForm' => [

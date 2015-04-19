@@ -14,6 +14,11 @@ class Report extends CFormModel
     public $dateStart;
     public $dateEnd;
 
+    private $objPHPExcel;
+    private $worksheet;
+    private $row_it;
+    private $cell_it;
+
     public function rules()
     {
         return [
@@ -29,152 +34,181 @@ class Report extends CFormModel
         ];
     }
 
-
-    public function generateMain()
+    public function behaviors()
     {
-        $start = $this->dateStart;
-        $end = $this->dateEnd;
-
-        $starts = $start; // формат даты для вывода в шапке таблицы
-        $ends = $end; // формат даты для вывода в шапке таблицы
-
-        $start .= ' 00:00:00';
-        $end .= ' 23:59:59';
-        $start = date('Y-m-d H-i-s', strtotime($start));
-        $end = date('Y-m-d H-i-s', strtotime($end));
-
-        $xls = XPHPExcel::createPHPExcel();
-        // Устанавливаем индекс активного листа
-        // необходима таблица, шириной 19 ячеек, 6 их них объединены
-        $xls->setActiveSheetIndex(0);
-        // Получаем активный лист и подписываем
-        $sheet = $xls->getActiveSheet();
-        $sheet->setTitle('Заказы за период');
-
-        // Ориентация страницы и  размер листа
-        $sheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-        $sheet->getPageSetup()->SetPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
-
-        // Поля документа
-        $sheet->getPageMargins()->setTop(1);
-        $sheet->getPageMargins()->setRight(0.75);
-        $sheet->getPageMargins()->setLeft(0.75);
-        $sheet->getPageMargins()->setBottom(1);
-
-        $sheet->setCellValue("A1", 'Таблица заказов Санкт-Петербургской фабрики ортопедической обуви за период с ' . $starts . ' по ' . $ends . '.');
-        $sheet->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14)->setItalic(true);
-        $sheet->mergeCells('A1:S1');
-
-        $sheet->getRowDimension('1')->setRowHeight(34);
-        $this->tableHeaderStyles($sheet);
-
-        $criteria = new CDbCriteria;
-        $criteria->addBetweenCondition('t.date_created', $start, $end, 'AND');
-        $criteria->order = 't.date_created DESC';
-        $data = Order::model()->with('author', 'customer', 'model', 'ordersHasMaterials')->findAll($criteria);
-
-        //  заполняем документ заказами:
-        foreach ($data as $value) {
-            static $i = 4;
-            /** @var $value Order */
-            $sheet->setCellValue('A' . $i, $value->order_name)
-                ->getStyle('A' . $i);
-
-            $sheet->setCellValue('B' . $i, $value->model->name)
-                ->getStyle('B' . $i);
-
-            $sheet->setCellValue('C' . $i, $value->size_left)
-                ->getStyle('C' . $i);
-
-            $sheet->setCellValue('D' . $i, $value->size_right)
-                ->getStyle('D' . $i);
-
-            $sheet->setCellValue('E' . $i, $value->urk_left)
-                ->getStyle('E' . $i);
-
-            $sheet->setCellValue('F' . $i, $value->urk_right)
-                ->getStyle('F' . $i);
-
-            $sheet->setCellValue('G' . $i, $value->materialsList("\r\n"))
-                ->getStyle('G' . $i);
-
-            $sheet->setCellValue('H' . $i, $value->height_left)
-                ->getStyle('H' . $i);
-
-            $sheet->setCellValue('I' . $i, $value->height_right)
-                ->getStyle('I' . $i);
-
-            $sheet->setCellValue('J' . $i, $value->top_volume_left)
-                ->getStyle('J' . $i);
-
-            $sheet->setCellValue('K' . $i, $value->top_volume_right)
-                ->getStyle('K' . $i);
-
-            $sheet->setCellValue('L' . $i, $value->ankle_volume_left)
-                ->getStyle('L' . $i);
-
-            $sheet->setCellValue('M' . $i, $value->ankle_volume_right)
-                ->getStyle('M' . $i);
-
-            $sheet->setCellValue('N' . $i, $value->kv_volume_left)
-                ->getStyle('N' . $i);
-
-            $sheet->setCellValue('O' . $i, $value->kv_volume_right)
-                ->getStyle('O' . $i);
-
-            $sheet->setCellValue('P' . $i, $value->customer->fullName())
-                ->getStyle('P' . $i);
-
-            $sheet->setCellValue('Q' . $i, $value->author->fullName())
-                ->getStyle('Q' . $i);
-
-            $sheet->setCellValue('R' . $i, $value->hiddmmyyyy($value->date_created))->getStyle('R' . $i);
-            $sheet->setCellValue('S' . $i, strip_tags($value->comment))->getStyle('S' . $i);
-
-            $sheet->getRowDimension($i)->setRowHeight(28);
-            ++$i;
-        }
-
-
-        $file_name = 'orders_' . time() . '.xls';
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="' . $file_name . '"');
-        header('Cache-Control: no-cache, must-revalidate');
-        header('Pragma: no-cache');
-        // Выводим содержимое excel-файла
-        $objWriter = PHPExcel_IOFactory::createWriter($xls, 'Excel5');
-        $objWriter->save('php://output');
-
+        return [
+            'DateTimeFormatBehavior' => [
+                'class' => 'DateTimeFormatBehavior',
+            ],
+        ];
     }
 
-    /**
-     * Шапка таблицы
-     * @param $sheet
-     */
-    private function tableHeaderStyles(&$sheet)
+    private function dateFormat()
     {
-        $sheet->setCellValue('A2', 'Номер заказа')->mergeCells('A2:A3')
-            ->setCellValue('B2', 'Модель')->mergeCells('B2:B3')
-            ->setCellValue('C2', 'Размер')->mergeCells('C2:D2')
-            ->setCellValue('E2', 'Длина УРК')->mergeCells('E2:F2')
-            ->setCellValue('G2', 'Материал')->mergeCells('G2:G3')
-            ->setCellValue('H2', 'Высота')->mergeCells('H2:I2')
-            ->setCellValue('J2', 'Объем верха')->mergeCells('J2:K2')
-            ->setCellValue('L2', 'Объем лодыжки')->mergeCells('L2:M2')
-            ->setCellValue('N2', 'Объем КВ')->mergeCells('N2:O2')
-            ->setCellValue('P2', 'Заказчик')->mergeCells('P2:P3')
-            ->setCellValue('Q2', 'Модельер')->mergeCells('Q2:Q3')
-            ->setCellValue('R2', 'Дата заказа')->mergeCells('R2:R3')
-            ->setCellValue('S2', 'Комментарий')->mergeCells('S2:S3')
-            ->setCellValue('C3', 'Левый')->setCellValue('D3', 'Правый')
-            ->setCellValue('E3', 'Левый')->setCellValue('F3', 'Правый')
-            ->setCellValue('H3', 'Левый')->setCellValue('I3', 'Правый')
-            ->setCellValue('J3', 'Левый')->setCellValue('K3', 'Правый')
-            ->setCellValue('L3', 'Левый')->setCellValue('M3', 'Правый')
-            ->setCellValue('N3', 'Левый')->setCellValue('O3', 'Правый');
+        $this->dateStart = $this->dateStart . ' 00:00:00';
+        $this->dateEnd = $this->dateEnd . ' 23:59:59';
+    }
 
-        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14)->setItalic(true);
+    public function generateByOrders()
+    {
+        $this->dateFormat();
+        $data = Order::report($this->dateStart, $this->dateEnd);
+
+        $headers = array_keys($data[0]);
+
+        unset($headers[array_search('order_id', $headers)]);
+        unset($headers[array_search('model_id', $headers)]);
+
+        $this->initPHPExcel($headers,
+            'Заказы',
+            'Таблица заказов за период с ' . self::hiddmmyyyy($this->dateStart) . ' по ' . self::hiddmmyyyy($this->dateEnd));
+
+        foreach ($data as $row) {
+            $this->cell_it = $this->row_it->current()->getCellIterator();
+
+            $order_id = 0;
+            $model_id = 0;
+            foreach ($row as $key => $val) {
+                if ($key == 'order_id') {
+                    $order_id = $val;
+                    continue;
+                }
+                if ($key == 'model_id') {
+                    $model_id = $val;
+                    continue;
+                }
+                if ($key == '№ Заказа') {
+                    $this->cell_it->current()->getHyperlink()->setUrl(Yii::app()->createAbsoluteUrl('/order/view', ['id'=>$order_id]));
+                }
+                if ($key == 'Модель') {
+                    $this->cell_it->current()->getHyperlink()->setUrl(Yii::app()->createAbsoluteUrl('/model/view', ['id'=>$model_id]));
+                }
+
+                if ($key == 'Дата создания')
+                    $val = self::hiddmmyyyy($val);
+                if ($key == 'Удалено')
+                    $val = $val ? 'Да' : 'Нет';
+
+                $this->cell_it->current()->setValue($val);
+                $this->cell_it->next();
+            }
+
+            $this->row_it->next();
+        }
+
+        $this->download('orders_' . date('dmyhis', time()));
+    }
+
+    public function generateByModels()
+    {
+        $this->dateFormat();
+        $data = Models::report($this->dateStart, $this->dateEnd);
+        $this->initPHPExcel(array_keys($data[0]),
+            'Модели',
+            'Таблица моделей за период с ' . self::hiddmmyyyy($this->dateStart) . ' по ' . self::hiddmmyyyy($this->dateEnd));
+
+        foreach ($data as $row) {
+            $this->cell_it = $this->row_it->current()->getCellIterator();
+
+            foreach ($row as $key => $val) {
+                if ($key == 'Дата создания')
+                    $val = self::hiddmmyyyy($val);
+                if ($key == 'Удалено')
+                    $val = $val ? 'Да' : 'Нет';
+                $this->cell_it->current()->setValue($val);
+                $this->cell_it->next();
+            }
+
+            $this->row_it->next();
+        }
+
+        $this->download('models_' . date('dmyhis', time()));
+    }
+
+
+    public function initPHPExcel($headers, $worksheetTitle, $reportTitle)
+    {
+        $this->objPHPExcel = XPHPExcel::createPHPExcel();
+        $this->worksheet = $this->objPHPExcel->getActiveSheet();
+        $this->worksheet->setTitle($worksheetTitle);
+
+        $this->row_it = $this->worksheet->getRowIterator();
+        $row_index = $this->row_it->current()->getRowIndex();
+
+        $this->row_it->next();
+        $this->row_it->next();
+        $this->cell_it = $this->row_it->current()->getCellIterator();
+
+        $styleArray = [
+            'borders' => [
+                'outline' => [
+                    'style' => PHPExcel_Style_Border::BORDER_THIN
+                ]
+            ],
+            'alignment' => [
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+            ],
+            'font' => [
+                'bold' => true
+            ],
+            'fill' => [
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => [
+                    'argb' => 'EBF1DE',
+                ]
+            ]
+        ];
+
+        foreach ($headers as $header) {
+            $this->cell_it->current()->setValue($header);
+            $coordianate = $this->cell_it->current()->getCoordinate();
+            $this->worksheet->getStyle($coordianate)->applyFromArray($styleArray);
+            $this->worksheet->getStyle($coordianate)->getAlignment()->setWrapText(true);
+            $this->worksheet->getColumnDimension($this->cell_it->current()->getColumn())->setAutoSize(true);
+            $this->cell_it->next();
+        }
+
+        $max_col = $this->worksheet->getHighestColumn();
+
+        $merge_cells = "A1:" . $max_col . $row_index;
+        $this->worksheet->mergeCells("A1:" . $max_col . $row_index);
+        $this->worksheet->setCellValue('A1', $reportTitle);
+        $this->worksheet->getStyle("A1")->getFont()->setBold(true);
+
+        $style = [
+            'alignment' => [
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+            ]
+        ];
+
+        $this->worksheet->getStyle($merge_cells)->applyFromArray($style);
+        $this->row_it->next();
+    }
+
+    private function download($filename)
+    {
+        $styleArray = [
+            'borders' => [
+                'allborders' => [
+                    'style' => PHPExcel_Style_Border::BORDER_THIN
+                ]
+            ],
+            'alignment' => [
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+            ]
+        ];
+
+        $this->worksheet->getStyle('A1:' . $this->worksheet->getHighestColumn() . $this->worksheet->getHighestRow())->applyFromArray($styleArray);
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-transfer-encoding: binary');
+        header('Content-Disposition: attachment;filename=' . $filename . '.xls');
+        header('Cache-Control: no-cache, must-revalidate');
+        header('Pragma: no-cache');
+        $objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');
     }
 
 }

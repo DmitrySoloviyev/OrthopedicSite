@@ -179,4 +179,28 @@ class Models extends CActiveRecord
         ]);
     }
 
+    /**
+     * Выгрузка для отчета
+     * @param $from
+     * @param $to
+     * @return mixed
+     */
+    public static function report($from, $to)
+    {
+        return Yii::app()->db->createCommand()
+            ->select([
+                'm.name as Модель',
+                'm.description as Описание',
+                'm.comment as Комментарий',
+                'CONCAT_WS(" ", u.surname, u.name, u.patronymic) as Автор',
+                'm.date_created as Дата создания',
+                'm.is_deleted as Удалено',
+            ])
+            ->from(self::tableName() . ' m')
+            ->join('users u', 'u.id = m.author_id')
+            ->where('m.date_created BETWEEN "' . $from . '" AND "' . $to . '"')
+            ->order('m.date_created desc')
+            ->queryAll();
+    }
+
 }

@@ -8,16 +8,28 @@
  */
 class ReportController extends Controller
 {
-    public function actionIndex()
+    public function actionOrders()
     {
         $report = new Report();
 
         if (isset($_POST['Report'])) {
             $report->attributes = $_POST['Report'];
-            $report->generateMain();
+            $report->generateByOrders();
         }
 
-        $this->render('index', ['report' => $report]);
+        $this->render('orders', ['report' => $report]);
+    }
+
+    public function actionModels()
+    {
+        $report = new Report();
+
+        if (isset($_POST['Report'])) {
+            $report->attributes = $_POST['Report'];
+            $report->generateByModels();
+        }
+
+        $this->render('models', ['report' => $report]);
     }
 
 }

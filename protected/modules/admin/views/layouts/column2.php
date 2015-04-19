@@ -18,7 +18,8 @@
             ['label' => 'Производительность', 'url' => '/admin/db/optimize', 'class' => 'nav nav-list'],
             TbHtml::menuDivider(),
             ['label' => 'Отчеты'],
-            ['label' => 'Все заказы', 'url' => '/admin/report/index', 'class' => 'nav nav-list'],
+            ['label' => 'По заказам', 'url' => '/admin/report/orders', 'class' => 'nav nav-list'],
+            ['label' => 'По моделям', 'url' => '/admin/report/models', 'class' => 'nav nav-list'],
         ]
     ]);?>
 </div>
