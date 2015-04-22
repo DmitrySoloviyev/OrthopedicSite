@@ -189,6 +189,7 @@ class Models extends CActiveRecord
     {
         return Yii::app()->db->createCommand()
             ->select([
+                'm.id as model_id',
                 'm.name as Модель',
                 'm.description as Описание',
                 'm.comment as Комментарий',

@@ -59,8 +59,7 @@ class Report extends CFormModel
         unset($headers[array_search('order_id', $headers)]);
         unset($headers[array_search('model_id', $headers)]);
 
-        $this->initPHPExcel($headers,
-            'Заказы',
+        $this->initPHPExcel($headers, 'Заказы',
             'Таблица заказов за период с ' . self::hiddmmyyyy($this->dateStart) . ' по ' . self::hiddmmyyyy($this->dateEnd));
 
         foreach ($data as $row) {
@@ -78,10 +77,10 @@ class Report extends CFormModel
                     continue;
                 }
                 if ($key == '№ Заказа') {
-                    $this->cell_it->current()->getHyperlink()->setUrl(Yii::app()->createAbsoluteUrl('/order/view', ['id'=>$order_id]));
+                    $this->cell_it->current()->getHyperlink()->setUrl(Yii::app()->createAbsoluteUrl('/order/view', ['id' => $order_id]));
                 }
                 if ($key == 'Модель') {
-                    $this->cell_it->current()->getHyperlink()->setUrl(Yii::app()->createAbsoluteUrl('/model/view', ['id'=>$model_id]));
+                    $this->cell_it->current()->getHyperlink()->setUrl(Yii::app()->createAbsoluteUrl('/model/view', ['id' => $model_id]));
                 }
 
                 if ($key == 'Дата создания')
@@ -103,14 +102,24 @@ class Report extends CFormModel
     {
         $this->dateFormat();
         $data = Models::report($this->dateStart, $this->dateEnd);
-        $this->initPHPExcel(array_keys($data[0]),
-            'Модели',
+        $headers = array_keys($data[0]);
+        unset($headers[array_search('model_id', $headers)]);
+
+        $this->initPHPExcel($headers, 'Модели',
             'Таблица моделей за период с ' . self::hiddmmyyyy($this->dateStart) . ' по ' . self::hiddmmyyyy($this->dateEnd));
 
         foreach ($data as $row) {
             $this->cell_it = $this->row_it->current()->getCellIterator();
 
+            $model_id = 0;
             foreach ($row as $key => $val) {
+                if ($key == 'model_id') {
+                    $model_id = $val;
+                    continue;
+                }
+                if ($key == 'Модель') {
+                    $this->cell_it->current()->getHyperlink()->setUrl(Yii::app()->createAbsoluteUrl('/model/view', ['id' => $model_id]));
+                }
                 if ($key == 'Дата создания')
                     $val = self::hiddmmyyyy($val);
                 if ($key == 'Удалено')

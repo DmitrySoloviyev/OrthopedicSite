@@ -110,7 +110,7 @@ class ModelController extends Controller
 
     public function loadModel($id)
     {
-        $model = Models::model()->findByPk($id);
+        $model = Models::model()->findByAttributes(['id' => $id, 'is_deleted' => 0]);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
 

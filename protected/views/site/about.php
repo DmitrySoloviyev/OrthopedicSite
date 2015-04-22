@@ -1,34 +1,14 @@
 <?php
 /* @var $this SiteController */
 $this->pageTitle = Yii::app()->name . ' - О сайте';
-Yii::app()->clientScript->registerScript('about', "
-  $(document).ready(function(){
-    var query = window.location.hash.substring(1);
-    $('.accordion h3').eq(query).addClass('active');
-    $('.accordion p').eq(query).show();
-    $('.accordion h3').click(function(){
-      $(this).next('p').slideToggle('medium').siblings('p:visible').slideUp('medium');
-      $(this).toggleClass('active');
-      $(this).siblings('h3').removeClass('active');
-    });
-  });
-", CClientScript::POS_READY);
 ?>
 
-<div class="accordion">
+<div>
     <h3>Общая информация</h3>
     <p>
         Прежче чем приступать к работе и дабавлять новые заказы, убедитесь, что зарегистрированы все сотрудники, которые
         будут непосредственно работать с базой данных. В противном случае они не смогут войти в систему создать
         какой-либо новый заказ или модель.
-    </p>
-
-    <h3>Удаление сотрудника</h3>
-    <p>
-        Удалять сотрудников может только администратор через админку. При удалении, данные о сотруднике удаляются
-        не полность, дабы иметь возможность его восстановить, а также иметь доступ к заказам,
-        сделанные под его именем. Удаленный сотрудник не может войти в систему. Восстановить удаленного сотрудника
-        можно только если есть непосредстверрный доступ к серверу БД.
     </p>
 
     <h3>Корректный ввод данных - залог верного ответа</h3>
