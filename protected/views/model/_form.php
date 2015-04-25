@@ -26,7 +26,12 @@ $src = Models::MODEL_IMAGE_PATH . ($model->isNewRecord ? 'ortho.jpg' : $model->p
         <div class="span7">
             <?= $form->errorSummary($model); ?>
 
-            <?= $form->textFieldControlGroup($model, 'name', ['span' => 10, 'maxlength' => 6, 'autocomplete' => 'off']) ?>
+            <?= $form->textFieldControlGroup($model, 'name', [
+                'span' => 10,
+                'maxlength' => 6,
+                'autocomplete' => 'off',
+                'value' => Yii::app()->request->getParam('name', '')
+            ]) ?>
             <?= $form->labelEx($model, 'description') ?>
             <?php $this->widget('yiiwheels.widgets.redactor.WhRedactor', [
                 'model' => $model,

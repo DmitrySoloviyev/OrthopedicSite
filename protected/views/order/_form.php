@@ -14,6 +14,7 @@
     ]); ?>
 
     <?= $form->errorSummary($order); ?>
+    <?= TbHtml::alert(TbHtml::ALERT_COLOR_INFO, '', ['id' => 'createNewModel', 'style' => 'display:none']); ?>
 
     <div class="row-fluid">
         <div class="span7">
@@ -32,11 +33,21 @@
                             'showAnim' => 'fold',
                             'minLength' => '2',
                             'select' => 'js:function(event,ui) {
-                                                this.value = ui.item.value;
-                                                $("#Order_model_id").val(ui.item.id);
-                                                getModelInfoById(ui.item.id);
-                                                return false;
-                                            }',
+                                this.value = ui.item.value;
+                                $("#Order_model_id").val(ui.item.id);
+                                getModelInfoById(ui.item.id);
+                                return false;
+                            }',
+                            'response' => 'js:function(event,ui) {
+                                if (ui.content.length === 0) {
+                                    console.log("Создать новую модель?");
+                                    var searchedModel = $(this).val();
+                                    var url = "/model/create?name=" + searchedModel;
+                                    $("#createNewModel").html("<a target=\'_blank\' href=\'" + url + "\'>Указаная модель " + searchedModel + " не найдена. Создать ее прямо сейчас?</a>").fadeIn();
+                                } else {
+                                    $("#createNewModel").fadeOut();
+                                }
+                            }',
                         ],
                         'htmlOptions' => [
                             'autocomplete' => 'Off',

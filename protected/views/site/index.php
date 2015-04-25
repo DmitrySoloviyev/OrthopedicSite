@@ -23,55 +23,60 @@ $('#showOldNews').click(function() {
 <div style="line-height:1.6; text-align: justify;">
     <!--
         <div class="row-fluid news">
-            <div class="span1" style="vertical-align:text-top"><i>Version</i></div>
+            <div class="span1"><i>Version</i></div>
             <div class="span11">Text</div>
         </div>
     -->
 
     <!--
     <div class="row-fluid news">
-        <div class="span1" style="vertical-align:text-top;font-size: 1.4em;"><i><b>1.0.0</b></i></div>
+        <div class="span1" style="font-size: 1.4em;"><i><b>1.0.0</b></i></div>
         <div class="span11" style="padding-bottom: 5%;">
             Технологический прорыв!
-            Портирование на <a href="http://www.yiiframework.com/">Yii 2.x.x</a> с полным сохранением существующего функционала.
-            Новая база данных - <a href="http://www.postgresql.org/"> PostgreSQL</a>! Тестирование приложения при помощи
-            фреймворка автоматического тестирования веб-приложений - <a href="http://codeception.com/">Codeception</a>.
-            Используется поисковая система полнотекстового поиска <a href="http://sphinxsearch.com/">Sphinx</a>.
-            Благодаря чему, поиск информации по базе данных, генерация отчета, построение графиков статистики
-            осуществляется на порядок быстрее.
-            <p class="release_date">(xx.xx.2015)</p>
+            Портирование на <a target="_blank" href="http://www.yiiframework.com/">Yii 2 (2.1.x)</a> с полным сохранением
+            существующего функционала. Новая база данных -
+            <a target="_blank" href="http://www.postgresql.org/"> PostgreSQL</a>!
+            Тестирование приложения при помощи фреймворка автоматического тестирования веб-приложений -
+            <a href="http://codeception.com/">Codeception</a>!
+            Обновленный внешний вид: <a target="_blank" href="http://getbootstrap.com/">Bootstrap 3.x</a>!
+            Используется поисковая система полнотекстового поиска
+            <a target="_blank" href="http://sphinxsearch.com/">Sphinx</a>!
+            Теперь поиск информации по базе данных, генерация отчета, построение графиков статистики
+            осуществляется на несколько порядоков быстрее.
+            <p class="release_date">(31.01.2016)</p>
         </div>
     </div>
     -->
 
     <!--
     <div class="row-fluid news">
-        <div style="vertical-align:text-top;"><i>0.4.2</i></div>
-        <div style="padding-bottom: 1%;">
-            Добавлена новая тема: Material Design и переключатель, позволяющий динамически изменять тему оформления.
+        <div class="span1" ><i>0.5</i></div>
+        <div class="span11" style="padding-bottom: 5%;">
+            Добавлена новая тема: <a target="_blank" href="http://materializecss.com/">Material Design</a>.
+            Старая тема сохранена, используйте переключатель для динамической смены темы оформления.
             На главной странице отображается виджет какусель с изображениями последних добавленных моделей.
-            <p class="release_date">(xx.xx.2015)</p>
+            Переписаны графики: используется библиотека
+            <a target="_blank" href="http://www.highcharts.com/">highcharts</a>, удален jqplot.
+            В раздел статистики добавлены 3 новых графика, аналогичные существующим, но по моделям.
+            Разграничение прав доступа к разделам сайта на основе системы доступа на
+            основе ролей: Role Based Access Control (RBAC). По умолчанию доступны 3 роли: администратор, модельер и
+            гость. Редактировать и удалять можно только свои заказы и модели. Администратору, как и положено - любые.
+            Администратор имеет возможность назначать роли пользователям. Приложение покрыто логами, которые
+            отображаются в админке. Скрытие всех разделов сайта для гостей: обязательная авторизация на новой странице.
+            <p class="release_date">(xx.08.2015)</p>
         </div>
     </div>
     -->
 
     <div class="row-fluid">
-        <div class="span1" style="vertical-align:text-top;"><i>0.4.1</i></div>
+        <div class="span1"><i>0.4.1</i></div>
         <div class="span11" style="padding-bottom: 1%;">
-            <i>Продожена работа по оптимизации производительности</i>: проведено эталонное тестирование
-            и профилирование. Загрузка базы данных при тестировании: модельеров 101 человек, моделей 200 000,
-            материалов 1005, заказчиков 500 000 и 500 000 заказов.<br>
-            <i>Продолжена работа по повышению безопасности</i>: Разграничение прав доступа на основе системы доступа на
-            основе ролей (Role Based Access Control - RBAC). По умолчанию доступны 3 роли: администратор, модельер и
-            гость. Редактировать и удалять можно только свои заказы и модели. Администратору, как и положено - любые.
-            Кроме того, администратор имеет возможность назначать роли пользователям.<br>
-            <i>Остальное:</i> Переписаны графики: используется библиотека
-            <a target="_blank" href="http://www.highcharts.com/">highcharts</a>, удален jqplot.
-            В раздел статистики добавлены 3 графика, аналогичные существующим, но по моделям.
+            Проведено эталонное тестирование и профилирование. Загрузка базы данных при тестировании:
+            модельеров 101 человек, моделей 200 000, материалов 1005, заказчиков 500 000 и 500 000 заказов.
             В админку добавлен раздел с выводом отчета по моделям, переписано простроение отчетов. В отчеты,
             для удобства, добавлены ссылки в ячейки с заказами и моделями. Кэширование сессии пользователя.
-            Покрытие приложения логами. Все логи отображаются в админке. Если при создании нового заказа, модель не
-            находится, выводится сообщение с предложением ее создать. Повышена безопасность сайта.
+            Если при создании нового заказа, модель не находится, выводится сообщение с предложением ее создать.
+            Дополнительные фильтры "показать/скрыть мои заказы/модели". Исправлены некоторые ошибки.
             <p class="release_date">(xx.06.2015)</p>
         </div>
     </div>
@@ -79,7 +84,7 @@ $('#showOldNews').click(function() {
     <a id="showOldNews" href="#">Показать предыдущие записи</a>
 
     <div class="row-fluid news">
-        <div class="span1" style="vertical-align:text-top;"><i>0.4</i></div>
+        <div class="span1" ><i>0.4</i></div>
         <div class="span11" style="padding-bottom: 5%;">
             Yii обновлен до версии
             <a href="http://www.yiiframework.com/news/83/yii-1-1-16-is-released/" target="_blank">1.1.16</a>.
@@ -105,7 +110,7 @@ $('#showOldNews').click(function() {
     </div>
 
     <div class="row-fluid news">
-        <div class="span1" style="vertical-align:text-top;"><i>0.3</i></div>
+        <div class="span1" ><i>0.3</i></div>
         <div class="span11" style="padding-bottom: 5%;">
             Yii обновлен до версии
             <a href="http://www.yiiframework.com/news/78/yii-1-1-15-is-released-security-fix/"
@@ -157,7 +162,7 @@ $('#showOldNews').click(function() {
     </div>
 
     <div class="row-fluid news">
-        <div class="span1" style="vertical-align:text-top;"><i>0.2.4</i></div>
+        <div class="span1" ><i>0.2.4</i></div>
         <div class="span11" style="padding-bottom: 1%;">
             Небольшая переработка структуры БД: добавлена возможность
             заносить свои материалы (в разделе администрирования). Вывод в разделе статистики информации о количестве
@@ -168,7 +173,7 @@ $('#showOldNews').click(function() {
     </div>
 
     <div class="row-fluid news">
-        <div class="span1" style="vertical-align:text-top;"><i>0.2.3</i></div>
+        <div class="span1" ><i>0.2.3</i></div>
         <div class="span11" style="padding-bottom: 1%;">
             Корректирующий релиз.
             Исправлена ошибка отображения графиков в разделе статистики при отсутствии записей в базе. Корректное
@@ -226,7 +231,7 @@ $('#showOldNews').click(function() {
     </div>
 
     <div class="row-fluid news">
-        <div class="span1" style="vertical-align:text-top;"><i>0.2</i></div>
+        <div class="span1" ><i>0.2</i></div>
         <div class="span11" style="padding-bottom: 5%;">
             Вновь проведена серьезная переработка сайта - сайт переписан под
             <a href="http://www.yiiframework.com/">Yii</a>, что делает его модульным и легко расширяемым.

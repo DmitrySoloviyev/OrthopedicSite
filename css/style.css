@@ -252,7 +252,6 @@ h3 + p {
 }
 
 #logo {
-    /*padding: 40px 10px 10px 10px;*/
     padding: 1%;
     font-size: 200%;
     margin: 5px 5px -30px;
@@ -262,6 +261,13 @@ h3 + p {
     -webkit-background-clip: text;
     -moz-background-clip: text;
     background-clip: text;
+}
+
+@-moz-document url-prefix() {
+    #logo {
+        color: #000020;
+        background: -moz-linear-gradient(transparent, transparent);
+    }
 }
 
 .label_title {
