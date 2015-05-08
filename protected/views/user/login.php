@@ -2,9 +2,21 @@
 /* @var $this SiteController */
 /* @var $model LoginForm */
 /* @var $form TbActiveForm */
-
 $this->pageTitle = Yii::app()->name . ' - Войти';
 ?>
+
+<!--[if IE]>
+<div class="col-md-12">
+    <h1 class="alert alert-danger">ВНИМАНИЕ! Вы используете браузер Internet Explorer!</h1>
+    <h4 class="alert alert-danger" style="text-align: justify">
+        Данная система построена на передовых, современных технологиях и не поддерживает Internet Explorer.
+        Настоятельно рекомендуем Вам выбрать к использованию любой другой браузер последней версии.
+        Браузер Internet Explorer не может предоставить все возможности, которые могут предоставить современные
+        браузеры, а скорость его работы в несколько раз ниже! Internet Explorer не способен корректно отображать
+        большинство современных сайтов.
+    </h4>
+</div>
+<![endif]-->
 
 <div class="form">
     <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', [
