@@ -49,7 +49,7 @@ class Models extends CActiveRecord
         return [
             'editor' => [self::BELONGS_TO, 'User', 'modified_by'],
             'author' => [self::BELONGS_TO, 'User', 'author_id'],
-            'orders' => [self::HAS_MANY, 'Order', 'model_id', 'order' => 'date_created DESC', 'condition' => 'is_deleted=0'],
+            'orders' => [self::HAS_MANY, 'Order', 'model_id', 'order' => 'id DESC', 'condition' => 'is_deleted=0', 'limit' => 10],
         ];
     }
 

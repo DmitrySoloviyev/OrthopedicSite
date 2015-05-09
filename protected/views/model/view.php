@@ -1,6 +1,7 @@
 <?php
 /* @var $this ModelController */
 /* @var $model Models */
+/* @var $orders Order */
 $this->pageTitle = Yii::app()->name . ' -  Просмотр модели №' . $model->name;
 $this->widget('bootstrap.widgets.TbBreadcrumb', [
     'links' => [
@@ -23,7 +24,7 @@ $this->widget('ext.yii-flash.Flash', [
         ],
         [
             'label' => 'Используется в заказах',
-            'content' => $this->renderPartial('view/_orders', ['model' => $model], true),
+            'content' => $this->renderPartial('view/_orders', ['model_id' => $model->id, 'orders' => $orders], true),
         ],
     ],
 ]); ?>

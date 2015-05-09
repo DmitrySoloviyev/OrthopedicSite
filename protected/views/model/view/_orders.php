@@ -5,11 +5,27 @@
  * Date: 18.04.15
  * Time: 18:48
  */
+Yii::app()->clientScript->registerScript('scrollOrders', "
+    var loading = false;
+    $(window).scroll(function () {
+        if ((($(window).scrollTop() + $(window).height()) + 250) >= $(document).height()) {
+            if (loading == false) {
+                loading = true;
+                var last_order_id = $('#tab_2').children('div:last').attr('id');
+                $.get('/model/feedOrders?model_id=". $model_id . "&start_order_id=' + last_order_id, function (loaded) {
+                    $('#tab_2').append(loaded);
+                    loading = false;
+                });
+            }
+        }
+    });
+", CClientScript::POS_END);
 ?>
 
-<?php foreach ($model->orders as $key => $order) : ?>
-    <div class="span6" style="margin: 1em 0.2em; padding: 1em; border: 1px solid rgb(216, 216, 216);   box-shadow: 1px 1px 6px #868686;">
+<?php foreach ($orders as $key => $order) : ?>
+    <div id="<?= $order->id?>" class="span6" style="margin: 1em 0.2em; padding: 1em; border: 1px solid rgb(216, 216, 216); box-shadow: 1px 1px 6px #868686;">
         <?php $this->widget('bootstrap.widgets.TbDetailView', [
+            'id' => 'modelOrders',
             'data' => $order,
             'htmlOptions' => ['class' => ''],
             'attributes' => [

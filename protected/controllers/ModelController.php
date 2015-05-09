@@ -15,7 +15,7 @@ class ModelController extends Controller
     {
         return [
             ['allow',
-                'actions' => ['create', 'index', 'view'],
+                'actions' => ['create', 'index', 'view', 'feedOrders'],
                 'users' => ['@'],
             ],
             ['allow',
@@ -41,9 +41,25 @@ class ModelController extends Controller
 
     public function actionView($id)
     {
+        $model = $this->loadModel($id);
         $this->render('view', [
-            'model' => $this->loadModel($id),
+            'model' => $model,
+            'orders' => $model->orders,
         ]);
+    }
+
+    public function actionFeedOrders($model_id, $start_order_id)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('model_id=' . $model_id);
+        $criteria->addCondition('is_deleted=0');
+        $criteria->addCondition('id < ' . $start_order_id);
+        $criteria->limit = 10;
+        $criteria->order = 'id desc';
+
+        $orders = Order::model()->findAll($criteria);
+
+        echo $this->renderPartial('view/_orders', ['model_id' => $model_id, 'orders' => $orders], true);
     }
 
     public function actionCreate()
