@@ -55,8 +55,8 @@ $this->widget('yiiwheels.widgets.gallery.WhCarousel', [
     </div>
     -->
 
-    <!--
-    <div class="row-fluid news">
+
+    <div class="row-fluid">
         <div class="span1" ><i>0.5</i></div>
         <div class="span11" style="padding-bottom: 5%;">
             Добавлена новая тема: Material Design, с использованием библиотеки
@@ -74,9 +74,10 @@ $this->widget('yiiwheels.widgets.gallery.WhCarousel', [
             <p class="release_date">(xx.08.2015)</p>
         </div>
     </div>
-    -->
 
-    <div class="row-fluid">
+    <a id="showOldNews" href="#">Показать предыдущие записи</a>
+
+    <div class="row-fluid news">
         <div class="span1"><i>0.4.1</i></div>
         <div class="span11" style="padding-bottom: 1%;">
             Проведено эталонное тестирование и профилирование. Загрузка базы данных при тестировании:
@@ -90,8 +91,6 @@ $this->widget('yiiwheels.widgets.gallery.WhCarousel', [
             <p class="release_date">(11.05.2015)</p>
         </div>
     </div>
-
-    <a id="showOldNews" href="#">Показать предыдущие записи</a>
 
     <div class="row-fluid news">
         <div class="span1"><i>0.4</i></div>

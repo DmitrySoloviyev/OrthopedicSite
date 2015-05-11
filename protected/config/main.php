@@ -150,7 +150,7 @@ return [
     ],
     'params' => [
         'adminEmail' => 'dmitry.soloviyev@gmail.com',
-        'version' => 'Версия 0.4.1',
+        'version' => 'Версия 0.5-dev',
     ],
     'timeZone' => 'Europe/Moscow',
 ];
