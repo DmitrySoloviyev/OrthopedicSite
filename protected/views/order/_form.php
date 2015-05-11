@@ -40,10 +40,9 @@
                             }',
                             'response' => 'js:function(event,ui) {
                                 if (ui.content.length === 0) {
-                                    console.log("Создать новую модель?");
                                     var searchedModel = $(this).val();
                                     var url = "/model/create?name=" + searchedModel;
-                                    $("#createNewModel").html("<a target=\'_blank\' href=\'" + url + "\'>Указаная модель " + searchedModel + " не найдена. Создать ее прямо сейчас?</a>").fadeIn();
+                                    $("#createNewModel").html("<a target=\'_blank\' href=\'" + url + "\'>Указаная модель " + searchedModel + " не найдена. Создать ее сейчас?</a>").fadeIn();
                                 } else {
                                     $("#createNewModel").fadeOut();
                                 }

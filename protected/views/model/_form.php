@@ -30,7 +30,7 @@ $src = Models::MODEL_IMAGE_PATH . ($model->isNewRecord ? 'ortho.jpg' : $model->p
                 'span' => 10,
                 'maxlength' => 6,
                 'autocomplete' => 'off',
-                'value' => Yii::app()->request->getParam('name', '')
+                'value' => Yii::app()->request->getParam('name', $model->name)
             ]) ?>
             <?= $form->labelEx($model, 'description') ?>
             <?php $this->widget('yiiwheels.widgets.redactor.WhRedactor', [

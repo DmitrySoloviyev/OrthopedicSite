@@ -19,6 +19,13 @@ $('#showOldNews').click(function() {
     <?php $this->widget('ext.quote-widget.Quote'); ?>
 </div>
 
+<?php
+list($controller) = Yii::app()->createController('model');
+$this->widget('yiiwheels.widgets.gallery.WhCarousel', [
+    'items' => $controller->actionFeedImages(),
+]);
+?>
+
 <h4><i>Журнал разработки:</i></h4>
 <div style="line-height:1.6; text-align: justify;">
     <!--
@@ -55,7 +62,6 @@ $('#showOldNews').click(function() {
             Добавлена новая тема: Material Design, с использованием библиотеки
             <a target="_blank" href="http://materializecss.com/">materialize</a>.
             Старая тема также сохранена, используйте переключатель для динамической смены темы оформления.
-            На главной странице отображается виджет какусель с изображениями последних добавленных моделей.
             Переписаны графики: используется библиотека
             <a target="_blank" href="http://www.highcharts.com/">highcharts</a>, удален jqplot.
             В раздел статистики добавлены 3 новых графика, аналогичные существующим, но по моделям.
@@ -75,19 +81,20 @@ $('#showOldNews').click(function() {
         <div class="span11" style="padding-bottom: 1%;">
             Проведено эталонное тестирование и профилирование. Загрузка базы данных при тестировании:
             модельеров 101 человек, моделей 200 000, материалов 1005, заказчиков 500 000 и 500 000 заказов.
-            В админку добавлен раздел с выводом отчета по моделям, переписано простроение отчетов. В отчеты,
-            для удобства, добавлены ссылки в ячейки с заказами и моделями. Кэширование сессии пользователя.
-            Если при создании нового заказа, модель не находится, выводится сообщение с предложением ее создать.
-            Страница просмотра модели поделена на вкладки с основной информацией и с заказами, в которых она
-            используется. Исправлены некоторые ошибки.
-            <p class="release_date">(10.05.2015)</p>
+            В админку возвращен раздел оптимизации базы данных и добавлен раздел с выводом отчета по моделям.
+            Переписано простроение отчетов. Для удобства, в отчеты добавлены ссылки в ячейки с заказами и моделями.
+            Кэширование сессии пользователя. Если при создании нового заказа, модель не находится, выводится сообщение
+            с предложением ее создать. Страница просмотра модели поделена на вкладки с основной информацией и с
+            заказами, в которых она используется. На главной странице отображается виджет какусель с изображениями
+            последних добавленных моделей.
+            <p class="release_date">(11.05.2015)</p>
         </div>
     </div>
 
     <a id="showOldNews" href="#">Показать предыдущие записи</a>
 
     <div class="row-fluid news">
-        <div class="span1" ><i>0.4</i></div>
+        <div class="span1"><i>0.4</i></div>
         <div class="span11" style="padding-bottom: 5%;">
             Yii обновлен до версии
             <a href="http://www.yiiframework.com/news/83/yii-1-1-16-is-released/" target="_blank">1.1.16</a>.
@@ -113,7 +120,7 @@ $('#showOldNews').click(function() {
     </div>
 
     <div class="row-fluid news">
-        <div class="span1" ><i>0.3</i></div>
+        <div class="span1"><i>0.3</i></div>
         <div class="span11" style="padding-bottom: 5%;">
             Yii обновлен до версии
             <a href="http://www.yiiframework.com/news/78/yii-1-1-15-is-released-security-fix/"
@@ -165,7 +172,7 @@ $('#showOldNews').click(function() {
     </div>
 
     <div class="row-fluid news">
-        <div class="span1" ><i>0.2.4</i></div>
+        <div class="span1"><i>0.2.4</i></div>
         <div class="span11" style="padding-bottom: 1%;">
             Небольшая переработка структуры БД: добавлена возможность
             заносить свои материалы (в разделе администрирования). Вывод в разделе статистики информации о количестве
@@ -176,7 +183,7 @@ $('#showOldNews').click(function() {
     </div>
 
     <div class="row-fluid news">
-        <div class="span1" ><i>0.2.3</i></div>
+        <div class="span1"><i>0.2.3</i></div>
         <div class="span11" style="padding-bottom: 1%;">
             Корректирующий релиз.
             Исправлена ошибка отображения графиков в разделе статистики при отсутствии записей в базе. Корректное
@@ -227,14 +234,15 @@ $('#showOldNews').click(function() {
 
     <div class="infoMessage row-fluid news">
         <div class="span1" style="vertical-align:text-top; padding: 1% 0;"><i><b>Сообщение:</b></i></div>
-        <div class="span11" style="padding: 1% 0;"><b> Состоялся <u>релиз</u> приложения для Android по работе с базой данных -
+        <div class="span11" style="padding: 1% 0;"><b> Состоялся <u>релиз</u> приложения для Android по работе с базой
+                данных -
                 <a href="<?= Yii::app()->request->baseUrl; ?>/upload/OrthopedicDB.apk"><i>OrthopedicDB</i></a>
                 (текущая версия 1.0).</b>
         </div>
     </div>
 
     <div class="row-fluid news">
-        <div class="span1" ><i>0.2</i></div>
+        <div class="span1"><i>0.2</i></div>
         <div class="span11" style="padding-bottom: 5%;">
             Вновь проведена серьезная переработка сайта - сайт переписан под
             <a href="http://www.yiiframework.com/">Yii</a>, что делает его модульным и легко расширяемым.
@@ -254,7 +262,8 @@ $('#showOldNews').click(function() {
 
     <div class="infoMessage row-fluid news">
         <div class="span1" style="vertical-align:text-top; padding: 1% 0;"><i><b>Сообщение:</b></i></div>
-        <div class="span11" style="padding: 1% 0;"><b> Доступна бета-версия приложения для Android по работе с базой данных -
+        <div class="span11" style="padding: 1% 0;"><b> Доступна бета-версия приложения для Android по работе с базой
+                данных -
                 <a href="<?= Yii::app()->request->baseUrl; ?>/upload/OrthopedicDB.apk"><i>OrthopedicDB</i></a>
                 (текущая версия 0.9.1).</b>
         </div>

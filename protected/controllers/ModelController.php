@@ -15,7 +15,7 @@ class ModelController extends Controller
     {
         return [
             ['allow',
-                'actions' => ['create', 'index', 'view', 'feedOrders'],
+                'actions' => ['create', 'index', 'view', 'feedOrders', 'feedImages'],
                 'users' => ['@'],
             ],
             ['allow',
@@ -60,6 +60,38 @@ class ModelController extends Controller
         $orders = Order::model()->findAll($criteria);
 
         echo $this->renderPartial('view/_orders', ['model_id' => $model_id, 'orders' => $orders], true);
+    }
+
+    public function actionFeedImages()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('picture!="ortho.jpg"');
+        $criteria->addCondition('is_deleted=0');
+        $criteria->order = 'id desc';
+        $criteria->limit = 10;
+
+        $models = Models::model()->findAll($criteria);
+        $items = [];
+        if ($models) {
+            foreach ($models as $model) {
+                /** @var Models $model */
+                $items[] = [
+                    'url' => Models::MODEL_IMAGE_PATH . $model->picture,
+                    'src' => Models::MODEL_IMAGE_PATH . $model->picture,
+                    'options' => [
+                        'title' => $model->name . ': ' . substr(strip_tags($model->description), 0, 100),
+                    ],
+                ];
+            }
+        } else {
+            $items[] = [
+                'url' => '/upload/OrthopedicGallery/ortho.jpg',
+                'src' => '/upload/OrthopedicGallery/ortho.jpg',
+                'options' => ['title' => 'Новых изображений моделей не найдено']
+            ];
+        }
+
+        return $items;
     }
 
     public function actionCreate()
