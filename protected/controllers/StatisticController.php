@@ -3,26 +3,6 @@ Yii::import('ext.ortho-graphs.*');
 
 class StatisticController extends Controller
 {
-    public function filters()
-    {
-        return [
-            'accessControl',
-        ];
-    }
-
-    public function accessRules()
-    {
-        return [
-            ['allow',
-                'actions' => ['index', 'ordersPerDay', 'usersByOrdersPerDay', 'ordersPie'],
-                'users' => ['@'],
-            ],
-            ['deny',
-                'users' => ['*'],
-            ],
-        ];
-    }
-
     public function actionIndex()
     {
         $this->render('index');

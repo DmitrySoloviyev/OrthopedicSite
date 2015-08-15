@@ -2,32 +2,6 @@
 
 class ModelController extends Controller
 {
-    public $layout = '//layouts/column1';
-
-    public function filters()
-    {
-        return [
-            'accessControl',
-        ];
-    }
-
-    public function accessRules()
-    {
-        return [
-            ['allow',
-                'actions' => ['create', 'index', 'view', 'feedOrders', 'feedImages'],
-                'users' => ['@'],
-            ],
-            ['allow',
-                'actions' => ['delete', 'update'],
-                'users' => ['admin'],
-            ],
-            ['deny',
-                'users' => ['*'],
-            ],
-        ];
-    }
-
     public function actions()
     {
         return [

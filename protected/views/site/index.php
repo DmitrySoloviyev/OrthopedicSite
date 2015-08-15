@@ -40,16 +40,16 @@ $this->widget('yiiwheels.widgets.gallery.WhCarousel', [
         <div class="span1" style="font-size: 1.4em;"><i><b>1.0.0</b></i></div>
         <div class="span11" style="padding-bottom: 5%;">
             Технологический прорыв!
-            Портирование на <a target="_blank" href="http://www.yiiframework.com/">Yii 2 (2.1.x)</a> с полным сохранением
-            существующего функционала. Новая база данных -
+            Портирование на <a target="_blank" href="http://www.yiiframework.com/">Yii 2 (текущая версия 2.1.x)</a>
+            с полным сохранением существующего функционала. Новая база данных -
             <a target="_blank" href="http://www.postgresql.org/"> PostgreSQL</a>!
             Тестирование приложения при помощи фреймворка автоматического тестирования веб-приложений -
             <a href="http://codeception.com/">Codeception</a>!
             Обновленный внешний вид: <a target="_blank" href="http://getbootstrap.com/">Bootstrap 3.x</a>!
             Используется поисковая система полнотекстового поиска
-            <a target="_blank" href="http://sphinxsearch.com/">Sphinx</a>!
-            Теперь поиск информации по базе данных, генерация отчета, построение графиков статистики
-            осуществляется на несколько порядоков быстрее.
+            <a target="_blank" href="http://sphinxsearch.com/">Sphinx</a>: теперь поиск информации по базе данных,
+            генерация отчета, построение графиков статистики осуществляется на несколько порядоков быстрее.
+            Поддержка PHP7!
             <p class="release_date">(31.01.2016)</p>
         </div>
     </div>
@@ -57,13 +57,11 @@ $this->widget('yiiwheels.widgets.gallery.WhCarousel', [
 
 
     <div class="row-fluid">
-        <div class="span1" ><i>0.5</i></div>
-        <div class="span11" style="padding-bottom: 5%;">
+        <div class="span1" ><i>0.4.2</i></div>
+        <div class="span11" style="padding-bottom: 1%;">
             Добавлена новая тема: Material Design, с использованием библиотеки
             <a target="_blank" href="http://materializecss.com/">materialize</a>.
             Старая тема также сохранена, используйте переключатель для динамической смены темы оформления.
-            Переписаны графики: используется библиотека
-            <a target="_blank" href="http://www.highcharts.com/">highcharts</a>, удален jqplot.
             В раздел статистики добавлены 3 новых графика, аналогичные существующим, но по моделям.
             Разграничение прав доступа к разделам сайта на основе системы доступа на
             основе ролей: Role Based Access Control (RBAC). По умолчанию доступны 3 роли: администратор, модельер и
@@ -71,7 +69,7 @@ $this->widget('yiiwheels.widgets.gallery.WhCarousel', [
             Администратор имеет возможность назначать роли пользователям. Приложение покрыто логами, которые
             отображаются в админке. Скрытие всех разделов сайта для гостей: обязательная авторизация на новой странице.
             Исправлены некоторые ошибки.
-            <p class="release_date">(xx.08.2015)</p>
+            <p class="release_date">(xx.10.2015)</p>
         </div>
     </div>
 

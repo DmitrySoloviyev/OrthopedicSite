@@ -2,30 +2,6 @@
 
 class OrderController extends Controller
 {
-    public function filters()
-    {
-        return [
-            'accessControl',
-        ];
-    }
-
-    public function accessRules()
-    {
-        return [
-            ['allow',
-                'actions' => ['create', 'index', 'view'],
-                'users' => ['@'],
-            ],
-            ['allow',
-                'actions' => ['delete', 'update'],
-                'users' => ['admin'],
-            ],
-            ['deny',
-                'users' => ['*'],
-            ],
-        ];
-    }
-
     public function actions()
     {
         return [

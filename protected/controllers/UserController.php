@@ -4,6 +4,7 @@ class UserController extends Controller
 {
     public function actionLogin()
     {
+        $this->layout = '/layouts/login';
         $model = new LoginForm();
 
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
